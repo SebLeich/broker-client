@@ -1,0 +1,8 @@
+.list-view .entry {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+.list-view .entry:nth-child(odd) {
+    background-color: rgba(0,0,0,.1);
+}

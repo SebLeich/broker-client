@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "desc": "Suche nach einem Service, der File Locking unterstützt",
+        "source": [ 0 ],
+        "target": 1
+    },
+    {
+        "id": 2,
+        "desc": "Suche nach einem Service, der ein Datenbankmanagementsystem beinhaltet",
+        "source": [ 0 ],
+        "target": 1
+    },
+    {
+        "id": 3,
+        "desc": "Suche nach einem Service, der sich replizieren lässt.",
+        "source": [ 1 ],
+        "target": 2
+    },
+    {
+        "id": 4,
+        "desc": "Suche nach einem Service, der Rollenberechtigungen bereithält.",
+        "source": [ 1 ],
+        "target": 2
+    }
+]

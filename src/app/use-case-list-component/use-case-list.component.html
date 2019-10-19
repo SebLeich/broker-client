@@ -1,0 +1,7 @@
+<div class="list-view">
+    <div *ngFor="let case of useCases | async">
+        <div *ngIf="case.source.includes(state)" class="entry" (click)="setCase(case);">
+            {{ case.desc }}
+        </div>
+    </div>
+</div>

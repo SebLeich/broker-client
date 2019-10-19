@@ -1,0 +1,19 @@
+{
+    "states": [
+        {
+            "id": 0,
+            "isStartState": true,
+            "isEndState": false
+        },
+        {
+            "id": 1,
+            "isStartState": false,
+            "isEndState": false
+        },
+        {
+            "id": 2,
+            "isStartState": false,
+            "isEndState": true
+        }
+    ]
+}

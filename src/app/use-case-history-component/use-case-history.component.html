@@ -1,0 +1,13 @@
+<div class="history-view">
+    <div class="head">Verlauf</div>
+    <div *ngFor="let case of useCases | async">
+        <div *ngIf="ucHistory.includes(case.id)" class="entry" (click)="setCase(case);">
+            <div>
+                <i class="material-icons icon">history</i>
+            </div>
+            <div>
+                {{ case.desc }}
+            </div>
+        </div>
+    </div>
+</div>
