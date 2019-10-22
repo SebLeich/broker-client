@@ -6,12 +6,11 @@ import * as globals from "../../globals";
   templateUrl: "./root.component.html",
   styleUrls: ["./root.component.css"]
 })
-
 export class RootComponent implements OnInit {
 
   state: number = globals.rootStates.STARTPAGE;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     
