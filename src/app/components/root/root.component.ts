@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import * as myGlobals from "../../globals";
 
 @Component({
@@ -6,13 +6,10 @@ import * as myGlobals from "../../globals";
   templateUrl: "./root.component.html",
   styleUrls: ["./root.component.css"]
 })
-
 export class RootComponent implements OnInit {
   state: number = myGlobals.rootStates.STARTPAGE;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 }
