@@ -6,7 +6,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./root.component.css"]
 })
 export class RootComponent implements OnInit {
+  state: number = rootStates.STARTPAGE;
+
   constructor() {}
 
   ngOnInit() {}
 }
+
+var rootStates = {
+  STARTPAGE: 0
+};
