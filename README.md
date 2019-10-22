@@ -1,5 +1,10 @@
 # BrokerAngular
 
+## Install dependencies for development (only first time)
+
+1. npm install
+2. npm install --save tslib
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
 
 ## Development server
