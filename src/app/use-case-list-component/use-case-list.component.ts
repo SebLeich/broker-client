@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable, Input } from "@angular/core";
+import { Component, OnInit, Injectable, Input, Output, EventEmitter } from "@angular/core";
 import { UseCaseService } from "../services/use-case-service"
 
 @Component({
@@ -12,9 +12,12 @@ export class UseCaseListComponent implements OnInit {
 
   title = "Verfügbare Entscheidungen im Status";
   useCases;
+
   @Input() state;
   @Input() stateHistory;
   @Input() ucHistory;
+
+  @Output() editedEmitter = new EventEmitter<number>();
 
   constructor(
     private service: UseCaseService
@@ -22,15 +25,18 @@ export class UseCaseListComponent implements OnInit {
 
   }
 
+  log(){
+    console.log(this);
+  }
+
   ngOnInit() {
     this.useCases = this.service.getUseCases();
   }
 
   setCase(c){
-    console.log(c, this.stateHistory, this.ucHistory);
     this.stateHistory.push(this.state);
     this.ucHistory.push(c.id);
     this.state = c.target;
-    console.log(this.stateHistory, this.ucHistory);
+    this.editedEmitter.emit(this.state);
   }
 }

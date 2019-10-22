@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable, Input } from "@angular/core";
+import { Component, OnInit, Output, Injectable, Input, EventEmitter } from "@angular/core";
 import { UseCaseService } from "../services/use-case-service";
 
 @Component({
@@ -11,9 +11,11 @@ import { UseCaseService } from "../services/use-case-service";
 export class UseCaseHistoryComponent implements OnInit {
 
   useCases;
-  @Input() state;
-  @Input() stateHistory;
-  @Input() ucHistory;
+  @Input() state: number;
+  @Input() stateHistory: number[];
+  @Input() ucHistory: number[];
+
+  @Output() editedEmitter = new EventEmitter<number>();
 
   constructor(
     private service: UseCaseService
@@ -27,8 +29,8 @@ export class UseCaseHistoryComponent implements OnInit {
   }
 
   setCase(c){
-    var sH = [];
-    var uH = [];
+    var sH : number[];
+    var uH : number[];
     var i = this.ucHistory.indexOf(c.id);
     if(i > -1){
       var lastState = 0;

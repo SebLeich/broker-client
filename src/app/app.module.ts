@@ -3,16 +3,22 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app-component/app.component';
 import { UseCaseListComponent } from "./use-case-list-component/use-case-list.component";
 import { UseCaseHistoryComponent } from "./use-case-history-component/use-case-history.component";
 import { UseCaseService } from './services/use-case-service';
+import { RootComponent } from './components/root/root.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { StartpageComponent } from './components/startpage/startpage.component';
+import { UseCaseSelectionComponent } from './components/use-case-selection/use-case-selection.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
     UseCaseListComponent,
-    UseCaseHistoryComponent
+    UseCaseHistoryComponent,
+    RootComponent,
+    NavbarComponent,
+    StartpageComponent,
+    UseCaseSelectionComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +28,6 @@ import { UseCaseService } from './services/use-case-service';
   providers: [
     UseCaseService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [RootComponent]
 })
 export class AppModule { }
