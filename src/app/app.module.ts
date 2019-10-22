@@ -10,6 +10,7 @@ import { RootComponent } from './components/root/root.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { StartpageComponent } from './components/startpage/startpage.component';
 import { UseCaseSelectionComponent } from './components/use-case-selection/use-case-selection.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UseCaseSelectionComponent } from './components/use-case-selection/use-c
     RootComponent,
     NavbarComponent,
     StartpageComponent,
-    UseCaseSelectionComponent
+    UseCaseSelectionComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
