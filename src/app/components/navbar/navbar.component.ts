@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import * as globals from "../../globals";
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  globals = globals;
+
+  @Output() stateEmitter = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit() {
+
   }
 
+  setState(state: number){
+    this.stateEmitter.emit(state);
+  }
 }
