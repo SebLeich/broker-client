@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as myGlobals from "../../globals";
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,11 @@ import { Component, OnInit } from '@angular/core';
 
 export class RootComponent implements OnInit {
 
-  state: number = rootStates.STARTPAGE;
+  state: number = myGlobals.rootStates.STARTPAGE;
 
   constructor() { }
 
   ngOnInit() {
     
   }
-
-}
-
-var rootStates = {
-  STARTPAGE: 0
 }
