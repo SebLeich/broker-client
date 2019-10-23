@@ -1,2 +1,13 @@
 <app-navbar (stateEmitter)="setState($event)"></app-navbar>
-<app-startpage></app-startpage>
+<app-startpage
+  *ngIf="state == 0"
+  (stateEmitter)="setState($event)"
+></app-startpage>
+<app-project-description
+  *ngIf="state == 2"
+  (stateEmitter)="setState($event)"
+  (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"
+></app-project-description>
+<app-register *ngIf="state == 3"></app-register>
+<app-use-case-selection *ngIf="state == 1"></app-use-case-selection>
+<p>{{ project.projectTitle }}</p>

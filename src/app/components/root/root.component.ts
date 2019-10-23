@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
+import { Project } from "../../Project";
 
 @Component({
   selector: "app-root",
@@ -7,16 +8,17 @@ import * as globals from "../../globals";
   styleUrls: ["./root.component.css"]
 })
 export class RootComponent implements OnInit {
-
   state: number = globals.rootStates.STARTPAGE;
+  project: Project;
 
-  constructor() {}
-
-  ngOnInit() {
-    
+  constructor() {
+    this.project = new Project();
+    this.project.projectTitle = "This is a Test Title";
   }
 
-  setState(state: number){
+  ngOnInit() {}
+
+  setState(state: number) {
     this.state = state;
   }
 }
