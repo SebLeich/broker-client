@@ -1,0 +1,15 @@
+<div>
+  <input
+    [(ngModel)]="projectTitle"
+    placeholder="Geben Sie ihrem Projekt einen Titel"
+    style="text"
+  />
+</div>
+<div>
+  <input
+    [(ngModel)]="projectDescription"
+    placeholder="Beschreiben Sie ihr Projekt"
+    style="text"
+  />
+</div>
+<button (click)="setState(globals.rootStates.USECASESELECTION)">OK</button>
