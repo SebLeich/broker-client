@@ -8,7 +8,10 @@ import * as globals from "../../globals";
 })
 export class ProjectDescriptionComponent implements OnInit {
   @Output() public stateEmitter = new EventEmitter();
+<<<<<<< HEAD
   @Output() public titleAndDescriptionEmitter = new EventEmitter();
+=======
+>>>>>>> a469643425e4a3959580141c9dfa84d42b4196e2
 
   globals = globals;
 
