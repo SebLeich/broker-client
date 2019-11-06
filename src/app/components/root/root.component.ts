@@ -9,6 +9,7 @@ import { Project } from "../../Project";
 })
 export class RootComponent implements OnInit {
   state: number = globals.rootStates.STARTPAGE;
+  loginState: number = globals.loginStates.CLOSED;
   project: Project;
 
   constructor() {
@@ -21,4 +22,9 @@ export class RootComponent implements OnInit {
   setState(state: number) {
     this.state = state;
   }
+  /*
+  setLoginState(state: number) {
+    this.loginState = state;
+  }
+  */
 }

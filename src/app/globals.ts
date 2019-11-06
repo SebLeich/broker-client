@@ -7,3 +7,10 @@ export const rootStates = {
   PROJECTDESCRIPTION: 2,
   REGISTER: 3
 };
+
+export const loginStates = {
+  CLOSED: 0,
+  REGISTER: 1,
+  LOGIN: 2,
+  FORGOTPASSWORD: 3
+};

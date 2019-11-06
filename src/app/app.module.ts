@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { MatDialogModule } from "@angular/material";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { UseCaseListComponent } from "./use-case-list-component/use-case-list.component";
@@ -25,8 +26,15 @@ import { ProjectDescriptionComponent } from "./components/project-description/pr
     RegisterComponent,
     ProjectDescriptionComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MatDialogModule
+  ],
   providers: [UseCaseService],
-  bootstrap: [RootComponent]
+  bootstrap: [RootComponent],
+  entryComponents: [RegisterComponent]
 })
 export class AppModule {}
