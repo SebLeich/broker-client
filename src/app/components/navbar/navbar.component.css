@@ -1,68 +1,23 @@
-.navbar {
-    width: 100%;
-    background-color: rgba(0, 0, 0, .8);
-    -webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.75);
-    user-select: none;
-    display: flex;
-}
-
-.navbar .label {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, .1);
-    color: rgb(255, 255, 255);
+.example-icon {
+    padding: 0 14px;
     cursor: pointer;
 }
 
-.navbar .label:hover {
-    background-color: rgba(255, 255, 255, .2);
+.example-icon:hover, .small:hover {
+    color: rgba(255, 255, 255, .7);
 }
 
-.navbar .label .icon {
-    padding: 8px;
-    font-size: 29px;
-    vertical-align: top;
-    background-color: #46556cc7;
-    color: white;
+.label {
+    margin-right: 20px;
 }
 
-.navbar .label .text {
-    font-size: 17px;
-    padding: 12px 20px 12px 15px;
-    display: inline-block;
-}
-
-.navbar .item {
-    padding: 14px 15px;
-    color: white;
+.small {
+    padding: 0px 10px;
+    font-weight: normal;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all .2s;
-    font-size: 14px;
 }
 
-.navbar .item:hover {
-    background-color: rgba(255, 255, 255);
-    color: black;
-}
-.navbar .login-item {
-    color: white;
-    z-index: 100;
-    position: absolute;
-    right: 0px;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, .1);
-}
-.navbar .login-item:hover {
-    background-color: rgba(255, 255, 255, .2);
-}
-.navbar .login-item .text {
-    padding: 13px 20px 12px 20px;
-    display: inline-block;
-}
-.navbar .login-item .icon {
-    padding: 10px;
-    vertical-align: top;
-    font-size: 25px;
-    background-color: #7daa6a;
+.example-spacer {
+    flex: 1 1 auto;
 }

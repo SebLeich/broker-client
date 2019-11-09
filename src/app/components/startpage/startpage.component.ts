@@ -22,7 +22,7 @@ export class StartpageComponent implements OnInit {
   }
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "600px";
     dialogConfig.height = "500px";

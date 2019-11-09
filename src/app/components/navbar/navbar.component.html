@@ -1,13 +1,8 @@
-<div class="navbar">
-    <div class="label" (click)="setState(globals.rootStates.STARTPAGE)">
-        <i class="material-icons icon">router</i>
-        <div class="text">Cloud Broker</div>
-    </div>
-    <div class="item" (click)="setState(globals.rootStates.USECASESELECTION)">
-        Service suchen
-    </div>
-    <div class="right-aligned login-item">
-        <div class="text">Login</div>
-        <i class="material-icons icon">person</i>
-    </div>
-</div>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span class="label">Cloud Broker</span>
+        <span class="small" (click)="searchService()">Service suchen</span>
+        <span class="example-spacer"></span>
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">person</mat-icon>
+    </mat-toolbar-row>
+</mat-toolbar>

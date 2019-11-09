@@ -8,6 +8,10 @@ export const rootStates = {
   REGISTER: 3
 };
 
+export const components = {
+  REGISTERCOMPONENT: 0
+}
+
 export const loginStates = {
   CLOSED: 0,
   REGISTER: 1,

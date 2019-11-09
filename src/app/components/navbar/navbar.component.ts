@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import * as globals from "../../globals";
 
 @Component({
@@ -12,13 +12,17 @@ export class NavbarComponent implements OnInit {
 
   @Output() stateEmitter = new EventEmitter<number>();
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(){
 
   }
 
-  setState(state: number){
-    this.stateEmitter.emit(state);
+  ngOnInit(){
+    
+  }
+  /**
+   * the method starts the search for an use-case view
+   */
+  searchService(){
+  
   }
 }
