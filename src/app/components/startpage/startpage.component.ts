@@ -22,7 +22,7 @@ export class StartpageComponent implements OnInit {
     this.stateEmitter.emit(state);
   }
   openRegisterDialog() {
-    this.dialogEmitter.emit(globals.components.RegisterComponent);
+    this.dialogEmitter.emit(globals.components.REGISTERCOMPONENT);
   }
   openDialog() {
     const dialogConfig = new MatDialogConfig();

@@ -32,7 +32,7 @@ export class RootComponent implements OnInit {
     let dialogComponent;
 
     switch (dialogComponentName) {
-      case globals.components.RegisterComponent:
+      case globals.components.REGISTERCOMPONENT:
         dialogComponent = RegisterComponent;
         break;
       default:
