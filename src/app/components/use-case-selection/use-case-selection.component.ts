@@ -10,6 +10,7 @@ export class UseCaseSelectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

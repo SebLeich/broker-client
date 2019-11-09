@@ -20,12 +20,6 @@ export class NavbarComponent implements OnInit {
     
   }
   /**
-   * the method starts the search for an use-case view
-   */
-  searchService(){
-  
-  }
-  /**
    * the method sets the applications state
    */
   setState(state: number){
