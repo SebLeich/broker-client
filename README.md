@@ -4,7 +4,8 @@
 
 ### New Component with angular console
 
-ng g component {name} // be careful with naming! name without component! e.g. class UseCase -> use-case (not use-case-component)
+ng g component {name}
+be careful while naming! name without component! e.g. class UseCase -> use-case (not use-case-component)
 
 ### Start live compiling
 
