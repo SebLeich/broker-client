@@ -25,4 +25,10 @@ export class NavbarComponent implements OnInit {
   searchService(){
   
   }
+  /**
+   * the method sets the applications state
+   */
+  setState(state: number){
+    this.stateEmitter.emit(state);
+  }
 }

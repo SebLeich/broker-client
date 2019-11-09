@@ -3,12 +3,13 @@
     cursor: pointer;
 }
 
-.example-icon:hover, .small:hover {
+.example-icon:hover, .small:hover, .label:hover {
     color: rgba(255, 255, 255, .7);
 }
 
 .label {
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .small {

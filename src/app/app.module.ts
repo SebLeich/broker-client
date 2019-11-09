@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
-import { MatDialogModule, MatIconModule, MatToolbarModule } from "@angular/material";
+import { MatDialogModule, MatIconModule, MatToolbarModule, MatCardModule, MatDividerModule } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -37,7 +37,9 @@ import { ProjectDescriptionComponent } from "./components/project-description/pr
     MatDialogModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatDividerModule
   ],
   providers: [UseCaseService],
   bootstrap: [RootComponent],
