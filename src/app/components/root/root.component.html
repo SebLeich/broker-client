@@ -9,6 +9,7 @@
 <app-startpage
   *ngIf="state == 0"
   (stateEmitter)="setState($event)"
+  (dialogEmitter)="openDialog($event)"
 ></app-startpage>
 <app-project-description
   *ngIf="state == 2"
