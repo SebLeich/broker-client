@@ -4,6 +4,8 @@
 
 1. npm install
 2. npm install --save tslib
+3. ng add @angular/material
+        -> choose Yes for Gesture and Yes for Animations
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
 
