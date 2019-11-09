@@ -1,5 +1,11 @@
 # BrokerAngular
 
+## General angular tasks
+
+### New Component with angular console
+
+ng g component <name>
+
 ## Install dependencies for development (only first time)
 
 1. npm install
