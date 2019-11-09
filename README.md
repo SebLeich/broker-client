@@ -4,7 +4,11 @@
 
 ### New Component with angular console
 
-ng g component <name>
+ng g component {name}
+
+### Start live compiling
+
+ng serve
 
 ## Install dependencies for development (only first time)
 
