@@ -2,7 +2,9 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { UseCaseListComponent } from "./use-case-list-component/use-case-list.component";
@@ -31,10 +33,12 @@ import { ProjectDescriptionComponent } from "./components/project-description/pr
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatDialogModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [UseCaseService],
   bootstrap: [RootComponent],
   entryComponents: [RegisterComponent]
 })
-export class AppModule {}
+export class AppModule { }

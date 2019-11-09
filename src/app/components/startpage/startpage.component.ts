@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import * as globals from "../../globals";
-import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 
 @Component({
@@ -13,7 +13,7 @@ export class StartpageComponent implements OnInit {
 
   globals = globals;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit() {}
 
@@ -22,16 +22,16 @@ export class StartpageComponent implements OnInit {
   }
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-
+    dialogConfig.width = "600px";
+    dialogConfig.height = "500px";
     dialogConfig.data = {
       id: 1,
       title: "Angular For Beginners"
     };
 
-    this.dialog.open(RegisterComponent, dialogConfig);
+    
 
     const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
 
