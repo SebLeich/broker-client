@@ -3,6 +3,9 @@ import * as globals from "../../globals";
 import { Project } from "../../Project";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
+import { UseCase } from "../../classes/use-case";
+import { UseCaseService } from "../../services/use-case-service";
+import { UseCaseComponent } from "../../use-case/use-case.component";
 
 @Component({
   selector: "app-root",
@@ -10,24 +13,41 @@ import { RegisterComponent } from "../register/register.component";
   styleUrls: ["./root.component.css"]
 })
 export class RootComponent implements OnInit {
+  globals = globals;
   state: number = globals.rootStates.STARTPAGE;
   loginState: number = globals.loginStates.CLOSED;
   project: Project;
-  globals = globals;
+  useCases: UseCase[] = [];
 
-  constructor(private dialog: MatDialog) {
+  constructor(
+    private dialog: MatDialog,
+    private useCaseService: UseCaseService
+  ) {
     this.project = new Project();
     this.project.projectTitle = "This is a Test Title";
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.useCaseService.getUseCases().subscribe((o: Object) => this.setUseCases(o));
+  }
+  /**
+   * the method creates the use cases from the given array
+   */
+  setUseCases(o: Object){
+    var array = [];
+    for(var index in o){
+      array.push(new UseCase(UseCaseComponent, o[index]));
+    }
+    this.useCases = array;
+    console.log(this.useCases.length);
+  }
 
   setState(state: number) {
     this.state = state;
   }
 
   openDialog(dialogComponentName: number) {
-    console.log(dialogComponentName);
+
     let dialogComponent;
 
     switch (dialogComponentName) {

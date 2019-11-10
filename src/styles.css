@@ -12,6 +12,10 @@ body {
   font-family: "Verdana";
 }
 
+.spacer {
+  flex: 1 1 auto;
+}
+
 .use-case-history {
   width: 30vw;
   display: inline-block;
