@@ -1,1 +1,47 @@
-<h1>Hallo Welt</h1>
+<form [formGroup]="form">
+  <mat-form-field class="input-container">
+    <input
+      matInput
+      placeholder="User name"
+      formControlName="username"
+      required
+    />
+    <mat-error *ngIf="form.hasError('required', 'username')">
+      Please enter a username (min 6 characters)
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input-container">
+    <input
+      matInput
+      type="password"
+      placeholder="New password"
+      formControlName="password"
+      required
+    />
+    <mat-error *ngIf="form.hasError('required', 'password')">
+      Please enter your new password
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input-container">
+    <input
+      matInput
+      type="password"
+      placeholder="Confirm password"
+      formControlName="confirmPassword"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error *ngIf="form.hasError('notSame')">
+      Passwords do not match
+    </mat-error>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    (click)="close()"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Registrieren
+  </button>
+</form>
