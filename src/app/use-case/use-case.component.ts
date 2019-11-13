@@ -1,5 +1,6 @@
 import { Component, AfterViewInit} from '@angular/core';
 import { UseCase } from '../classes/use-case';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-use-case',
@@ -8,14 +9,21 @@ import { UseCase } from '../classes/use-case';
 })
 export class UseCaseComponent implements AfterViewInit {
 
-  public o: UseCase;
+  public o: any;
 
   constructor() {
     
   }
 
+  private readonly _stateHandle = new Subject<any>();
+
+  setState: Observable<any> = this._stateHandle.asObservable();
+
   ngAfterViewInit() {
 
   }
 
+  select(){
+    this._stateHandle.next(this);
+  }
 }

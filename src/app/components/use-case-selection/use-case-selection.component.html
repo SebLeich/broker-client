@@ -3,7 +3,8 @@
         Welche Aussage trifft am meisten zu?
     </mat-card-title>
     <mat-card-subtitle>
-        Wählen Sie eine der folgenden Aktionen
+        Wählen Sie eine der folgenden Aussagen oder entscheiden Sie sich dafür, ihre letzten Aussagen zu wiederholen.
+        <button *ngIf="stateHistory.length > 0" (click)=undo()>Zurück</button>
     </mat-card-subtitle>
     <mat-card-content>
         <ng-template appUseCase></ng-template>
