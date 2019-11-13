@@ -7,7 +7,7 @@ import * as globals from "../../globals";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  @Output() public dialogEmitter = new EventEmitter();
   globals = globals;
 
   @Output() stateEmitter = new EventEmitter<number>();
@@ -18,6 +18,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(){
     
+  }
+  openLoginDialog(){
+    this.dialogEmitter.emit(globals.components.LOGINCOMPONENT);
   }
   /**
    * the method starts the search for an use-case view

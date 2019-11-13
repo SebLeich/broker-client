@@ -1,4 +1,5 @@
-<app-navbar (stateEmitter)="setState($event)"></app-navbar>
+<app-navbar (stateEmitter)="setState($event)"  (dialogEmitter)="openDialog($event)">
+</app-navbar>
 <!--
 <app-startpage
   *ngIf="state == 0"

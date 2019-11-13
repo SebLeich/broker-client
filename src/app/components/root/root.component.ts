@@ -3,6 +3,7 @@ import * as globals from "../../globals";
 import { Project } from "../../Project";
 import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
+import { LoginComponent } from "src/app/login/login.component";
 
 @Component({
   selector: "app-root",
@@ -33,6 +34,9 @@ export class RootComponent implements OnInit {
     switch (dialogComponentName) {
       case globals.components.REGISTERCOMPONENT:
         dialogComponent = RegisterComponent;
+        break;
+      case globals.components.LOGINCOMPONENT:
+        dialogComponent = LoginComponent;
         break;
       default:
         throw "unknown component error";

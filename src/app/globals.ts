@@ -9,8 +9,9 @@ export const rootStates = {
 };
 
 export const components = {
-  REGISTERCOMPONENT: 0
-}
+  REGISTERCOMPONENT: 0,
+  LOGINCOMPONENT: 1
+};
 
 export const loginStates = {
   CLOSED: 0,

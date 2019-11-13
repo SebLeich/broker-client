@@ -23,6 +23,7 @@ import { StartpageComponent } from "./components/startpage/startpage.component";
 import { UseCaseSelectionComponent } from "./components/use-case-selection/use-case-selection.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { ProjectDescriptionComponent } from "./components/project-description/project-description.component";
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ProjectDescriptionComponent } from "./components/project-description/pr
     StartpageComponent,
     UseCaseSelectionComponent,
     RegisterComponent,
-    ProjectDescriptionComponent
+    ProjectDescriptionComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,6 @@ import { ProjectDescriptionComponent } from "./components/project-description/pr
   ],
   providers: [UseCaseService],
   bootstrap: [RootComponent],
-  entryComponents: [RegisterComponent]
+  entryComponents: [RegisterComponent, LoginComponent]
 })
 export class AppModule {}

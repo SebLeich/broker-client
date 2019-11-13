@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  public username = "hugo";
+  public username: string;
   private password: string;
   private passwordRepeat: string;
 
