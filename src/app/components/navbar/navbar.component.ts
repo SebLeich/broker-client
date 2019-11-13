@@ -23,9 +23,9 @@ export class NavbarComponent implements OnInit {
     this.dialogEmitter.emit(globals.components.LOGINCOMPONENT);
   }
   /**
-   * the method starts the search for an use-case view
+   * the method sets the applications state
    */
-  searchService(){
-  
+  setState(state: number){
+    this.stateEmitter.emit(state);
   }
 }

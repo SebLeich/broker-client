@@ -3,14 +3,9 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
-import {
-  MatDialogModule,
-  MatIconModule,
-  MatToolbarModule,
-  MatFormFieldModule,
+import { MatDialogModule, MatIconModule, MatToolbarModule, MatCardModule, MatDividerModule, MatFormFieldModule,
   MatInputModule,
-  MatButtonModule
-} from "@angular/material";
+  MatButtonModule } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -23,6 +18,8 @@ import { StartpageComponent } from "./components/startpage/startpage.component";
 import { UseCaseSelectionComponent } from "./components/use-case-selection/use-case-selection.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { ProjectDescriptionComponent } from "./components/project-description/project-description.component";
+import { UseCaseComponent } from './use-case/use-case.component';
+import { UseCaseDirective } from './use-case.directive';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
@@ -35,6 +32,8 @@ import { LoginComponent } from './login/login.component';
     UseCaseSelectionComponent,
     RegisterComponent,
     ProjectDescriptionComponent,
+    UseCaseComponent,
+    UseCaseDirective,
     LoginComponent
   ],
   imports: [
@@ -47,12 +46,18 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     MatIconModule,
     MatToolbarModule,
+    MatCardModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule
   ],
   providers: [UseCaseService],
   bootstrap: [RootComponent],
-  entryComponents: [RegisterComponent, LoginComponent]
+  entryComponents: [
+    RegisterComponent,
+    UseCaseComponent,
+    LoginComponent
+  ]
 })
 export class AppModule {}

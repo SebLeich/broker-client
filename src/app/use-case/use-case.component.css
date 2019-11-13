@@ -1,0 +1,16 @@
+.entry {
+    margin: 5px 20px;
+    cursor: pointer;
+}
+
+.entry:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+.entry .content {
+    display: flex;
+}
+
+.entry .content .text {
+    padding-top: 4px;
+}

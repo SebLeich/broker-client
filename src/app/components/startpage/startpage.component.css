@@ -1,0 +1,39 @@
+* {
+    user-select: none;
+}
+
+.main-content {
+    margin: 10px;
+}
+
+.super-headline {
+    font-size: 2rem;
+}
+
+.sub-headline {
+    font-weight: normal;
+}
+
+.sub-card-parent {
+    padding: 50px;
+}
+
+.sub-card {
+    margin: 20px 10px;
+    cursor: pointer;
+}
+
+.sub-card:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.sub-card .icon {
+    font-size: 1.8rem;
+    vertical-align: sub;
+    color: #6f6f6f;
+    margin-right: 5px;
+}
+
+.sub-card .content {
+    padding-left: calc(2rem + 5px);
+}

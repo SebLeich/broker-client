@@ -1,14 +1,8 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span class="label">Cloud Broker</span>
-    <span class="small" (click)="searchService()">Service suchen</span>
-    <span class="example-spacer"></span>
-    <mat-icon
-      class="example-icon"
-      aria-hidden="false"
-      aria-label="Example delete icon"
-      (click)="openLoginDialog()"
-      >person</mat-icon
-    >
-  </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span class="label" (click)="setState(0)">Cloud Broker</span>
+        <span class="small" (click)="setState(1)">Service suchen</span>
+        <span class="spacer"></span>
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon" (click)="openLoginDialog()">person</mat-icon>
+    </mat-toolbar-row>
 </mat-toolbar>

@@ -25,10 +25,6 @@ export class UseCaseListComponent implements OnInit {
 
   }
 
-  log(){
-    console.log(this);
-  }
-
   ngOnInit() {
     this.useCases = this.service.getUseCases();
   }

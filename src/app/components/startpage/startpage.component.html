@@ -1,7 +1,28 @@
-<h1 class="alert alert-warning">Willkommen beim Cloud Broker</h1>
-<button (click)="openRegisterDialog()">
-  Registrieren
-</button>
-<button (click)="setState(globals.rootStates.PROJECTDESCRIPTION)">
-  Neues Projekt anlgen
-</button>
+<mat-card class="main-content">
+  <mat-card-title class="super-headline">
+    Willkommen beim Cloud Broker
+  </mat-card-title>
+  <mat-card-subtitle>
+    Wählen Sie eine der folgenden Aktionen
+  </mat-card-subtitle>
+  <mat-card-content class="sub-card-parent">
+    <mat-card class="sub-card" (click)="openRegisterDialog()">
+      <mat-card-title class="sub-headline">
+        <mat-icon class="icon">account_circle</mat-icon>
+        Registrieren
+      </mat-card-title>
+      <mat-card-subtitle class="content">
+        Legen Sie sich einen neuen Account für den Cloud Broker an
+      </mat-card-subtitle>
+    </mat-card>
+    <mat-card class="sub-card" (click)="setState(2)">
+      <mat-card-title class="sub-headline">
+        <mat-icon class="icon">add</mat-icon>
+        Neues Projekt anlegen
+      </mat-card-title>
+      <mat-card-subtitle class="content">
+        Legen Sie ein neues Projekt an um suchen Sie nach geeigneten Lösungen
+      </mat-card-subtitle>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
