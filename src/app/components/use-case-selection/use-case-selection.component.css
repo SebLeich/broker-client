@@ -13,3 +13,36 @@
 .timeline-container .timeline-graph {
     width: 40px;
 }
+
+.history-element {
+    margin: 10px 20px;
+    display: flex;
+    border-radius: 5px;
+}
+
+.history-element .time {
+    color: white;
+    padding: 10px;
+}
+
+.history-element .desc {
+    padding: 10px;
+    flex: 1;
+}
+
+.entry {
+    margin: 5px 20px;
+    cursor: pointer;
+}
+
+.entry:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+.entry .content {
+    display: flex;
+}
+
+.entry .content .text {
+    padding-top: 4px;
+}

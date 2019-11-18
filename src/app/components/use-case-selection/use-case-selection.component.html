@@ -2,18 +2,48 @@
     <mat-card-title class="super-headline">
         Welche Aussage trifft am meisten zu?
     </mat-card-title>
-    <mat-card-subtitle>
-        Wählen Sie eine der folgenden Aussagen oder entscheiden Sie sich dafür, ihre letzten Aussagen zu wiederholen.
-        <button *ngIf="stateHistory.length > 0" (click)=undo()>Zurück</button>
+    <mat-card-subtitle style="display: flex;">
+        <span>Wählen Sie eine der folgenden Aussagen oder entscheiden Sie sich dafür, ihre letzten Aussagen zu
+            wiederholen.</span>
+        <span class="spacer"></span>
+        <button mat-stroked-button color="primary" *ngIf="stateHistory.length > 0" (click)=undo()>
+            Zurück
+        </button>
     </mat-card-subtitle>
     <div>
-        <app-timeline class="timeline-graph" [useCases]=useCases [useCaseHistory]=useCaseHistory></app-timeline>
-        <div style="height: 100%; width: calc(100% - 40px); display: inline-block;">
+        <div style="height: 100%; width: 100%; display: inline-block;">
+            <div *ngIf="currentUseCases.length > 0; else searchSection || async">
+                <mat-card-content *ngFor="let u of currentUseCases">
+                    {{log(u)}}
+                    <mat-card class="entry" (click)=setUseCase(u.data.id)>
+                        <mat-card-content class="content">
+                            <span class="text">{{ u.data.desc }}</span>
+                            <span class="spacer"></span>
+                            <mat-icon>chevron_right</mat-icon>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-card-content>
+            </div>
+            <ng-template #searchSection>
+                <div style="text-align: center;">
+                    <button mat-raised-button color="primary" (click)=sendSearch()>
+                        Service suchen
+                    </button>
+                </div>
+            </ng-template>
+            <div style="display: block; text-align: center;">
+                <mat-icon *ngIf="useCaseHistory.length > 0" style="font-size: 2rem; margin: 20px; color: grey;">
+                    more_vert
+                </mat-icon>
+            </div>
             <mat-card-content>
-                <ng-template appUseCaseHistory></ng-template>
-            </mat-card-content>
-            <mat-card-content>
-                <ng-template appUseCase></ng-template>
+                <div *ngFor="let h of useCaseHistory || async">
+                    {{log(h)}}
+                    <div class="history-element primary-border">
+                        <div class="time primary-bg">{{ h.time | date:"HH:mm:ss" }}</div>
+                        <div class="desc">{{ h.object.data.desc }}</div>
+                    </div>
+                </div>
             </mat-card-content>
         </div>
     </div>
