@@ -17,5 +17,4 @@ export class UseCaseService {
     getUseCases() {
         return this.http.get("../assets/usecases.json");
     }
-    
 }

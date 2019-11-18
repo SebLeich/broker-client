@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
-import { Project } from "../../Project";
-import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material";
+import { Project } from "../../classes/Project";
+import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
 import { UseCaseService } from "../../services/use-case-service";
 import { UseCaseComponent } from "../../use-case/use-case.component";
-import { LoginComponent } from "src/app/login/login.component";
+import { LoginComponent } from "src/app/components/login/login.component";
 
 @Component({
   selector: "app-root",

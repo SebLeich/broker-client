@@ -6,7 +6,15 @@
         Wählen Sie eine der folgenden Aussagen oder entscheiden Sie sich dafür, ihre letzten Aussagen zu wiederholen.
         <button *ngIf="stateHistory.length > 0" (click)=undo()>Zurück</button>
     </mat-card-subtitle>
-    <mat-card-content>
-        <ng-template appUseCase></ng-template>
-    </mat-card-content>
+    <div>
+        <app-timeline class="timeline-graph" [useCases]=useCases [useCaseHistory]=useCaseHistory></app-timeline>
+        <div style="height: 100%; width: calc(100% - 40px); display: inline-block;">
+            <mat-card-content>
+                <ng-template appUseCaseHistory></ng-template>
+            </mat-card-content>
+            <mat-card-content>
+                <ng-template appUseCase></ng-template>
+            </mat-card-content>
+        </div>
+    </div>
 </mat-card>

@@ -1,5 +1,4 @@
 import { Component, AfterViewInit} from '@angular/core';
-import { UseCase } from '../classes/use-case';
 import { Observable, Subject } from 'rxjs';
 
 @Component({

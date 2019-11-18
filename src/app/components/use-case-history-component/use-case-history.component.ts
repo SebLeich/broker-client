@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Injectable, Input, EventEmitter } from "@angular/core";
-import { UseCaseService } from "../services/use-case-service";
+import { UseCaseService } from "../../services/use-case-service";
 
 @Component({
   selector: "use-case-history",
