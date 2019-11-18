@@ -4,7 +4,7 @@
 
 ### New Component with angular console
 
-ng g component {name}
+ng g {PATH}/component {name} --> use 'components/' as path in the current project
 
 be careful while naming! name without component! e.g. class UseCase -> use-case (not use-case-component)
 
