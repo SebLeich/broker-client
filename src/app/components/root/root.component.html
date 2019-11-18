@@ -3,4 +3,6 @@
 </app-startpage>
 <app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
-<app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)"></app-use-case-selection>
+<app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)">
+</app-use-case-selection>
+<app-detailview *ngIf="state == 4" [services]=services></app-detailview>

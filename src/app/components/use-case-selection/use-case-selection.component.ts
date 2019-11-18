@@ -50,12 +50,6 @@ export class UseCaseSelectionComponent implements AfterViewInit {
     return this._uc.filter(x => x.data.source.includes(this.state));
   }
   /**
-   * the method can be used to log values in the console
-   */
-  log(val){
-    console.log(val);
-  }
-  /**
    * the method is called after the component is initialized
    */
   ngAfterViewInit() {

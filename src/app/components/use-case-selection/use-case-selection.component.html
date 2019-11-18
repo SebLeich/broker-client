@@ -14,7 +14,6 @@
         <div style="height: 100%; width: 100%; display: inline-block;">
             <div *ngIf="currentUseCases.length > 0; else searchSection || async">
                 <mat-card-content *ngFor="let u of currentUseCases">
-                    {{log(u)}}
                     <mat-card class="entry" (click)=setUseCase(u.data.id)>
                         <mat-card-content class="content">
                             <span class="text">{{ u.data.desc }}</span>

@@ -1,1 +1,44 @@
-<p>detailview works!</p>
+<mat-card *ngIf="_ser.length > 0; else noService">
+    <mat-card-title class="super-headline">
+        <div *ngIf="_ser.length == 1; else multipleSuggestions">
+            <span>
+                Wir haben eine Empfehlung für Sie
+            </span>
+        </div>
+        <ng-template #multipleSuggestions>
+            <span>
+                Wir haben {{ _ser.length }} Empfehlungen für Sie
+            </span>
+            <span class="spacer"></span>
+            <button mat-stroked-button color="primary" (click)=next()>
+                Nächste
+            </button>
+        </ng-template>
+    </mat-card-title>
+    <form class="example-form">
+        <mat-form-field class="width">
+            <input matInput class="headline primary-color" placeholder="Bezeichnung" name="data.serviceName"
+                [(ngModel)]="currentService.data.serviceName">
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Titel" name="data.serviceTitle" [(ngModel)]="currentService.data.serviceTitle">
+        </mat-form-field>
+        <mat-form-field class="width">
+            <textarea matInput class="subtitle" placeholder="Beschreibung" name="data.serviceDescription"
+                [(ngModel)]="currentService.data.serviceDescription"></textarea>
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Verfügbarkeit" name="data.servcieAvailability" [(ngModel)]="currentService.data.servcieAvailability">
+        </mat-form-field>
+    </form>
+</mat-card>
+<ng-template #noService>
+    <mat-card>
+        <mat-card-title>
+            Keine Empfehlungen
+        </mat-card-title>
+        <mat-card-subtitle>
+            Wir haben leider keine Empfehlungen für Sie gefunden.
+        </mat-card-subtitle>
+    </mat-card>
+</ng-template>

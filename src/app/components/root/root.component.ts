@@ -18,8 +18,8 @@ export class RootComponent implements OnInit {
   state: number = globals.rootStates.STARTPAGE;
   loginState: number = globals.loginStates.CLOSED;
   project: Project;
-  useCases: UseCase[];
-  services: Service[];
+  useCases: UseCase[] = [];
+  services: Service[] = [];
 
   constructor(
     private dialog: MatDialog,
