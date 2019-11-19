@@ -13,15 +13,21 @@ export class UseCaseService {
 
     }
     /**
-     * the method sends the search request to the server
-     */
-    sendSearch(input: UseCaseHistoryEntry[]){
-        return this.http.get<BlockStorageService[]>(globals.serverLocation + "/" +  BlockStorageService.location);
-    }
-    /**
      * the method returns all use-cases from the configuration file
      */
     getUseCases() {
         return this.http.get("../assets/usecases.json");
+    }
+    /**
+     * the method persists a service
+     */
+    persistService(input: Service){
+        return this.http.put<Service>(globals.serverLocation + "/" + input.location, input);
+    }
+    /**
+     * the method sends the search request to the server
+     */
+    sendSearch(input: UseCaseHistoryEntry[]){
+        return this.http.get<BlockStorageService[]>(globals.serverLocation + "/" +  BlockStorageService.location);
     }
 }

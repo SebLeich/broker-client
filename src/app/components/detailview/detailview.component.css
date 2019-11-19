@@ -16,3 +16,6 @@
 .subtitle {
     font-size: 1rem;
 }
+.option-row {
+    display: block;
+}

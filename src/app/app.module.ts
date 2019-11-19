@@ -12,6 +12,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -51,7 +52,8 @@ import { DetailviewComponent } from './components/detailview/detailview.componen
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   providers: [UseCaseService],
   bootstrap: [RootComponent],

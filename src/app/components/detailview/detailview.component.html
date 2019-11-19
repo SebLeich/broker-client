@@ -1,4 +1,4 @@
-<mat-card *ngIf="serviceCount > 0; else noService">
+<mat-card *ngIf="serviceCount > 0; else noService" (dblclick)=log(currentService)>
     <mat-card-title class="super-headline">
         <div *ngIf="serviceCount == 1; else multipleSuggestions">
             <span>
@@ -14,8 +14,26 @@
                 Nächste
             </button>
         </ng-template>
+        <span class="spacer"></span>
+        <div class="option-row">
+            <div *ngIf="state == 0">
+                <div *ngIf="editMode; else disableReadOnly">
+                    <button mat-stroked-button color="primary" (click)=toggleReadOnly()>Bearbeitung
+                        deaktivieren</button>
+                    <button mat-icon-button class="btn-success" (click)=saveChanges()>
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </div>
+                <ng-template #disableReadOnly>
+                    <button mat-stroked-button color="primary" (click)=toggleReadOnly()>Bearbeitung aktivieren</button>
+                </ng-template>
+            </div>
+            <div *ngIf="state == 1" style="position: absolute; right: 20px;">
+                <mat-spinner diameter="50" color="primary"></mat-spinner>
+            </div>
+        </div>
     </mat-card-title>
-    <form class="example-form">
+    <form class="form" *ngIf="editMode; else readOnly">
         <mat-form-field class="width">
             <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
                 [(ngModel)]="currentService.serviceName">
@@ -28,9 +46,42 @@
                 [(ngModel)]="currentService.serviceDescription"></textarea>
         </mat-form-field>
         <mat-form-field class="width">
-            <input matInput placeholder="Verfügbarkeit" name="servcieAvailability" [(ngModel)]="currentService.servcieAvailability">
+            <input matInput placeholder="Verfügbarkeit" name="servcieAvailability"
+                [(ngModel)]="currentService.servcieAvailability">
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
+                [(ngModel)]="currentService.cloudServiceCategoryId">
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId">
         </mat-form-field>
     </form>
+    <ng-template #readOnly class="example-form">
+        <mat-form-field class="width">
+            <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
+                [(ngModel)]="currentService.serviceName" disabled />
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Titel" name="serviceTitle" [(ngModel)]="currentService.serviceTitle"
+                disabled />
+        </mat-form-field>
+        <mat-form-field class="width">
+            <textarea matInput class="subtitle" placeholder="Beschreibung" name="serviceDescription"
+                [(ngModel)]="currentService.serviceDescription" disabled></textarea>
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Verfügbarkeit" name="servcieAvailability"
+                [(ngModel)]="currentService.servcieAvailability" disabled />
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
+                [(ngModel)]="currentService.cloudServiceCategoryId" disabled>
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId" disabled>
+        </mat-form-field>
+    </ng-template>
 </mat-card>
 <ng-template #noService>
     <mat-card>

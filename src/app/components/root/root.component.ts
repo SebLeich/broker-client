@@ -38,7 +38,9 @@ export class RootComponent implements OnInit {
     // s = ausgwählte Anwendungsfälle - bislang noch keine Suche möglich ... TODO
     this.useCaseService.sendSearch([]).subscribe((result) => {
       this.setState(globals.rootStates.SERVICEDETAILVIEW);
-      this.services = result;
+      var o = [];
+      for(var index in result) o.push(new BlockStorageService(result[index]));
+      this.services = o;
     });
   }
   /**
