@@ -18,13 +18,31 @@ export class DetailviewComponent implements OnInit {
     this._ser = services;
   }
 
-  constructor() { }
+  constructor() {
+
+  }
 
   /**
    * the method returns the current service
    */
-  get currentService(){
+  get currentService() : Service {
     return this._ser[this._currentInd];
+  }
+  /**
+   * the method increases the current service pointer
+   */
+  next(){
+    if(this.serviceCount - 1 > this._currentInd){
+      this._currentInd++;
+    } else {
+      this._currentInd = 0;
+    }
+  }
+  /**
+   * the method returns the current number of services
+   */
+  get serviceCount(){
+    return this._ser.length;
   }
 
   ngOnInit() {

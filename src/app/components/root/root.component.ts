@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
 import { Project } from "../../classes/project";
-import { Service } from "../../classes/service";
+import { Service, BlockStorageService } from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
@@ -38,9 +38,7 @@ export class RootComponent implements OnInit {
     // s = ausgwählte Anwendungsfälle - bislang noch keine Suche möglich ... TODO
     this.useCaseService.sendSearch([]).subscribe((result) => {
       this.setState(globals.rootStates.SERVICEDETAILVIEW);
-      for(var index in result){
-        this.services.push(new Service(result[index]));
-      }
+      this.services = result;
     });
   }
   /**
