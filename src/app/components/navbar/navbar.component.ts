@@ -1,26 +1,53 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import * as globals from "../../globals";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+/**
+ * the class contains the navigation bar component
+ */
 export class NavbarComponent implements OnInit {
+  /**
+   * the attribute stores whether the user is logged in or not
+   */
+  @Input() isLoggedIn;
+  /**
+   * the method emits the login dialog invoke
+   */
   @Output() public dialogEmitter = new EventEmitter();
-  globals = globals;
-
+  /**
+   * the method returns the window state
+   */
   @Output() stateEmitter = new EventEmitter<number>();
-
+  /**
+   * the method triggers the logout event
+   */
+  @Output() logoutEmitter = new EventEmitter();
+  /**
+   * the constructor creates a new instance of a navigation bar
+   */
   constructor(){
 
   }
-
+  /**
+   * the method logs the current user out
+   */
+  logout(){
+    this.logoutEmitter.emit();
+  }
+  /**
+   * the method is called on component initalization
+   */
   ngOnInit(){
     
   }
+  /**
+   * the method invokes the login dialog
+   */
   openLoginDialog(){
-    this.dialogEmitter.emit(globals.components.LOGINCOMPONENT);
+    this.dialogEmitter.emit();
   }
   /**
    * the method sets the applications state

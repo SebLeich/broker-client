@@ -27,12 +27,13 @@ export const loginStates = {
 /**
  * the enumeration contains all detailview states
  */
-export const detailViewStates = {
+export const viewStates = {
   DEFAULT: 0,
-  CURRENTLYPERSISTING: 1,
-  PERSISTREADY: 2
+  WAITING: 1,
+  READY: 2
 };
 /**
  * the backend's server location
  */
-export const serverLocation = "http://217.160.64.83:81";
+//export const serverLocation = "http://217.160.64.83:81"; // LIVE VERSION
+export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING

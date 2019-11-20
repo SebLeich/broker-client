@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Service } from "../../classes/service";
-import { UseCaseService } from "../../services/use-case-service";
+import { BackEndService } from "../../services/backend-service";
 import * as globals from "../../globals";
 
 @Component({
@@ -13,28 +13,27 @@ export class DetailviewComponent implements OnInit {
   private _ser: Service[] = [];
   private _currentInd = 0;
   public editMode : boolean = false;
-  private _state : number = globals.detailViewStates.DEFAULT;
+  private _state : number = globals.viewStates.DEFAULT;
 
+  /**
+   * the attribute contains whether the user is logged in or not
+   */
+  @Input() isLoggedIn;
   /**
    * the input value sets the internal use case list
    */
   @Input() set services(services: Service[]) {
     this._ser = services;
   }
-
-  constructor(private useCaseService: UseCaseService) { }
-
+  /**
+   * the constructor creates a new instance of a detail view
+   */
+  constructor(private backEndService: BackEndService) { }
   /**
    * the method returns the current service
    */
   get currentService() : Service {
     return this._ser[this._currentInd];
-  }
-  /**
-   * the method logs the given element to the console
-   */
-  log(object){
-    console.log(object);
   }
   /**
    * the method increases the current service pointer
@@ -50,10 +49,9 @@ export class DetailviewComponent implements OnInit {
    * the method persists current changes
    */
   saveChanges(){
-    this.state = globals.detailViewStates.CURRENTLYPERSISTING;
-    this.useCaseService.persistService(this.currentService).subscribe((result) => {
-      this.state = globals.detailViewStates.PERSISTREADY;
-      console.log(result);
+    this.state = globals.viewStates.WAITING;
+    this.backEndService.persistService(this.currentService).subscribe((result) => {
+      this.state = globals.viewStates.READY;
     });
   }
   /**
@@ -67,11 +65,11 @@ export class DetailviewComponent implements OnInit {
    */
   set state(state: number){
     switch(state){
-      case globals.detailViewStates.CURRENTLYPERSISTING:
+      case globals.viewStates.WAITING:
         this._state = state;
         break;
-      case globals.detailViewStates.PERSISTREADY:
-        this._state = globals.detailViewStates.DEFAULT;
+      case globals.viewStates.READY:
+        this._state = globals.viewStates.DEFAULT;
         this.editMode = false;
         break;
     }

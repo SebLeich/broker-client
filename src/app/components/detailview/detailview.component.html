@@ -15,11 +15,12 @@
             </button>
         </ng-template>
         <span class="spacer"></span>
-        <div class="option-row">
+        <div *ngIf="isLoggedIn" class="option-row">
             <div *ngIf="state == 0">
                 <div *ngIf="editMode; else disableReadOnly">
                     <button mat-stroked-button color="primary" (click)=toggleReadOnly()>Bearbeitung
-                        deaktivieren</button>
+                        deaktivieren
+                    </button>
                     <button mat-icon-button class="btn-success" (click)=saveChanges()>
                         <mat-icon>save</mat-icon>
                     </button>
@@ -33,7 +34,7 @@
             </div>
         </div>
     </mat-card-title>
-    <form class="form" *ngIf="editMode; else readOnly">
+    <form class="form" *ngIf="editMode && isLoggedIn; else readOnly">
         <mat-form-field class="width">
             <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
                 [(ngModel)]="currentService.serviceName">

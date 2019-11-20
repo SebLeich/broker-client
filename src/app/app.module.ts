@@ -15,9 +15,8 @@ import {
   MatProgressSpinnerModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { AppRoutingModule } from "./app-routing.module";
-import { UseCaseService } from "./services/use-case-service";
+import { BackEndService } from "./services/backend-service";
 import { RootComponent } from "./components/root/root.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { StartpageComponent } from "./components/startpage/startpage.component";
@@ -55,11 +54,12 @@ import { DetailviewComponent } from './components/detailview/detailview.componen
     MatButtonModule,
     MatProgressSpinnerModule
   ],
-  providers: [UseCaseService],
+  providers: [BackEndService],
   bootstrap: [RootComponent],
   entryComponents: [
     RegisterComponent,
     LoginComponent
   ]
 })
+
 export class AppModule {}

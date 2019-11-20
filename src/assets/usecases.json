@@ -1,26 +1,104 @@
 [
     {
         "id": 1,
-        "desc": "Suche nach einem Service, der File Locking unterstützt",
+        "desc": "Ich möchte Dokumente speichern und ausliefern",
         "source": [ 0 ],
         "target": 1
     },
     {
         "id": 2,
-        "desc": "Suche nach einem Service, der ein Datenbankmanagementsystem beinhaltet",
+        "desc": "Ich möchte mit anderen Nutzern gemeinsam an Dokumenten arbeiten.",
         "source": [ 0 ],
         "target": 1
     },
     {
         "id": 3,
-        "desc": "Suche nach einem Service, der sich replizieren lässt.",
-        "source": [ 1 ],
-        "target": 2
+        "desc": "Ich möchte Daten auf einem Server speichern.",
+        "source": [ 0 ],
+        "target": 4
     },
     {
         "id": 4,
-        "desc": "Suche nach einem Service, der Rollenberechtigungen bereithält.",
-        "source": [ 1 ],
-        "target": 2
+        "desc": "Ich möchte Dokumente sichern und wiederherstellen können.",
+        "source": [ 0 ],
+        "target": 4
+    },
+    {
+        "id": 5,
+        "desc": "Ich möchte Daten für eine Applikation bereitstellen.",
+        "source": [ 0 ],
+        "target": 5
+    },
+    {
+        "id": 6,
+        "desc": "Ich möchte Daten in einer Datenbank bereitstellen.",
+        "source": [ 0 ],
+        "target": 3
+    },
+    {
+        "id": 7,
+        "desc": "Ich möchte Dokumente speichern können.",
+        "source": [ 1, 4, 5 ],
+        "target": 6
+    },
+    {
+        "id": 8,
+        "desc": "Ich möchte Medien streamen können.",
+        "source": [ 1, 4, 5 ],
+        "target": 6
+    },
+    {
+        "id": 9,
+        "desc": "Ich möchte statische Dokumente ausliefern (Dokumente, Bilder).",
+        "source": [ 1, 4, 5 ],
+        "target": 6
+    },
+    {
+        "id": 10,
+        "desc": "Ich möchte Backup und Archivierungsfunktionen haben.",
+        "source": [ 1, 4, 5 ],
+        "target": 6
+    },
+    {
+        "id": 11,
+        "desc": "Ich möchte Dokumente bearbeiten und teilen.",
+        "source": [ 1, 4, 5 ],
+        "target": 7
+    },
+    {
+        "id": 12,
+        "desc": "Ich möchte meinen Arbeitsplatz mit der Cloud synchronisieren.",
+        "source": [ 1, 4, 5 ],
+        "target": 7
+    },
+    {
+        "id": 13,
+        "desc": "Ich brauche Volumes für virtuelle Server.",
+        "source": [ 2, 4, 5 ],
+        "target": 8
+    },
+    {
+        "id": 14,
+        "desc": "Ich möchte Container haben und Microservices betreiben.",
+        "source": [ 1, 4, 5 ],
+        "target": 9
+    },
+    {
+        "id": 15,
+        "desc": "Ich brauche einen Service um Applikationen damit bereitzustellen (z.B. ERP oder CRM Systeme).",
+        "source": [ 1, 4, 5 ],
+        "target": 9
+    },
+    {
+        "id": 16,
+        "desc": "Ich möchte SQL Datenbanken betreiben.",
+        "source": [ 3, 5 ],
+        "target": 10
+    },
+    {
+        "id": 17,
+        "desc": "Ich möchte Datenbanken nutzen, welche kein SQL nutzen.",
+        "source": [ 3, 5 ],
+        "target": 11
     }
 ]

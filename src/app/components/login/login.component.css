@@ -1,0 +1,11 @@
+.headline {
+    font-size: 2rem;
+}
+.sub-title {
+    color: grey;
+    padding: 10px 0px 10px 2px;
+}
+.width {
+    display: block;
+    min-width: 300px;
+}

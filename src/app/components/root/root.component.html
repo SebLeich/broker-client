@@ -1,8 +1,9 @@
-<app-navbar (stateEmitter)="setState($event)" (dialogEmitter)="openDialog($event)"></app-navbar>
+<app-navbar [isLoggedIn]="isLoggedIn" (dialogEmitter)="openLoginDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
+</app-navbar>
 <app-startpage *ngIf="state == 0" (stateEmitter)="setState($event)" (dialogEmitter)="openDialog($event)">
 </app-startpage>
 <app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
 <app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)">
 </app-use-case-selection>
-<app-detailview *ngIf="state == 4" [services]=services></app-detailview>
+<app-detailview [isLoggedIn]="isLoggedIn" *ngIf="state == 4" [services]=services></app-detailview>
