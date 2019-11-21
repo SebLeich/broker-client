@@ -21,7 +21,7 @@ export class BackEndService {
      * the method returns all use-cases from the configuration file
      */
     getUseCases() {
-        return this.http.get("../assets/usecases.json");
+        return this.http.get("./assets/usecases.json");
     }
     /**
      * the method logs an user in
@@ -37,7 +37,10 @@ export class BackEndService {
      * the method persists a service
      */
     persistService(input: Service) {
-        return this.http.put<Service>(globals.serverLocation + "/" + input.location, input);
+        var config = {
+            headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
+        };
+        return this.http.put<Service>(globals.serverLocation + "/" + input.location, input, config);
     }
     /**
      * the method regiters a new User
@@ -50,5 +53,17 @@ export class BackEndService {
      */
     sendSearch(input: UseCaseHistoryEntry[]) {
         return this.http.get<BlockStorageService[]>(globals.serverLocation + "/" + BlockStorageService.location);
+    }
+    /**
+     * the method returns the current access token
+     */
+    get token() {
+        return localStorage.getItem("access_token");
+    }
+    /**
+     * the method returns the current access token
+     */
+    set token(token: string) {
+        localStorage.setItem("access_token", token);
     }
 }

@@ -102,13 +102,13 @@ export class RootComponent implements OnInit {
    * the method returns the current access token
    */
   get token(){
-    return localStorage.getItem("access_token");
+    return this.service.token;
   }
   /**
    * the method returns the current access token
    */
   set token(token: string){
-    localStorage.setItem("access_token", token);
+    this.service.token = token;
   }
   /**
    * the method opens the login dialog
