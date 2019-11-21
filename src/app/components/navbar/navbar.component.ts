@@ -14,6 +14,10 @@ export class NavbarComponent implements OnInit {
    */
   @Input() isLoggedIn;
   /**
+   * the attribute stores whether the user is logged in or not
+   */
+  @Input() username;
+  /**
    * the method emits the login dialog invoke
    */
   @Output() public dialogEmitter = new EventEmitter();

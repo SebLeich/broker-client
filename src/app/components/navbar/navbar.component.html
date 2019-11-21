@@ -1,15 +1,16 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <span class="label" (click)="setState(0)">
-            <mat-icon class="icon">cloud</mat-icon>
+            <mat-icon class="icon" matTooltip="Zur Startseite">cloud</mat-icon>
         </span>
         <span class="small" (click)="setState(1)">Service suchen</span>
         <span class="spacer"></span>
         <div *ngIf="isLoggedIn; else login">
-            <mat-icon (click)="logout()" class="element logout">power_settings_new</mat-icon>
+            <span class="small" id="current-username" style="vertical-align: text-bottom;">{{username}}</span>
+            <mat-icon (click)="logout()" class="element logout" matTooltip="Abmelden">power_settings_new</mat-icon>
         </div>
         <ng-template #login>
-            <mat-icon (click)="openLoginDialog()" class="element login">person</mat-icon>
+            <mat-icon (click)="openLoginDialog()" class="element login" matTooltip="Anmelden">person</mat-icon>
         </ng-template >
     </mat-toolbar-row>
 </mat-toolbar>

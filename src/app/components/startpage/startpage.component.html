@@ -6,6 +6,15 @@
     Wählen Sie eine der folgenden Aktionen
   </mat-card-subtitle>
   <mat-card-content class="sub-card-parent">
+    <mat-card *ngIf="!isLoggedIn" class="sub-card" (click)="openLoginDialog()">
+      <mat-card-title class="sub-headline">
+        <mat-icon class="icon primary-color">input</mat-icon>
+        Anmelden
+      </mat-card-title>
+      <mat-card-subtitle class="content">
+        Melden Sie sich mit einem bestehenden Account an
+      </mat-card-subtitle>
+    </mat-card>
     <mat-card class="sub-card" (click)="openRegisterDialog()">
       <mat-card-title class="sub-headline">
         <mat-icon class="icon primary-color">account_circle</mat-icon>
@@ -15,7 +24,7 @@
         Legen Sie sich einen neuen Account für den Cloud Broker an
       </mat-card-subtitle>
     </mat-card>
-    <mat-card class="sub-card" (click)="setState(2)">
+    <mat-card *ngIf="isLoggedIn" class="sub-card" (click)="setState(2)">
       <mat-card-title class="sub-headline">
         <mat-icon class="icon primary-color">add</mat-icon>
         Neues Projekt anlegen

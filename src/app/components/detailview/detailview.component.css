@@ -1,5 +1,6 @@
 .super-headline {
     display: flex;
+    padding: 10px;
 }
 .super-headline .spacer {
     flex: 1;
@@ -18,4 +19,7 @@
 }
 .option-row {
     display: block;
+}
+.form {
+    padding: 0px 10px 0px 10px;
 }

@@ -18,7 +18,7 @@
         <div *ngIf="isLoggedIn" class="option-row">
             <div *ngIf="state == 0">
                 <div *ngIf="editMode; else disableReadOnly">
-                    <button mat-stroked-button color="primary" (click)=toggleReadOnly()>Bearbeitung
+                    <button mat-button (click)=toggleReadOnly()>Bearbeitung
                         deaktivieren
                     </button>
                     <button mat-icon-button class="btn-success" (click)=saveChanges()>
@@ -26,7 +26,7 @@
                     </button>
                 </div>
                 <ng-template #disableReadOnly>
-                    <button mat-stroked-button color="primary" (click)=toggleReadOnly()>Bearbeitung aktivieren</button>
+                    <button mat-button (click)=toggleReadOnly()>Bearbeitung aktivieren</button>
                 </ng-template>
             </div>
             <div *ngIf="state == 1" style="position: absolute; right: 20px;">
@@ -58,30 +58,33 @@
             <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId">
         </mat-form-field>
     </form>
-    <ng-template #readOnly class="example-form">
-        <mat-form-field class="width">
-            <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
-                [(ngModel)]="currentService.serviceName" disabled />
-        </mat-form-field>
-        <mat-form-field class="width">
-            <input matInput placeholder="Titel" name="serviceTitle" [(ngModel)]="currentService.serviceTitle"
-                disabled />
-        </mat-form-field>
-        <mat-form-field class="width">
-            <textarea matInput class="subtitle" placeholder="Beschreibung" name="serviceDescription"
-                [(ngModel)]="currentService.serviceDescription" disabled></textarea>
-        </mat-form-field>
-        <mat-form-field class="width">
-            <input matInput placeholder="Verfügbarkeit" name="servcieAvailability"
-                [(ngModel)]="currentService.servcieAvailability" disabled />
-        </mat-form-field>
-        <mat-form-field class="width">
-            <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
-                [(ngModel)]="currentService.cloudServiceCategoryId" disabled>
-        </mat-form-field>
-        <mat-form-field class="width">
-            <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId" disabled>
-        </mat-form-field>
+    <ng-template #readOnly>
+        <form class="form">
+            <mat-form-field class="width">
+                <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
+                    [(ngModel)]="currentService.serviceName" disabled />
+            </mat-form-field>
+            <mat-form-field class="width">
+                <input matInput placeholder="Titel" name="serviceTitle" [(ngModel)]="currentService.serviceTitle"
+                    disabled />
+            </mat-form-field>
+            <mat-form-field class="width">
+                <textarea matInput class="subtitle" placeholder="Beschreibung" name="serviceDescription"
+                    [(ngModel)]="currentService.serviceDescription" disabled></textarea>
+            </mat-form-field>
+            <mat-form-field class="width">
+                <input matInput placeholder="Verfügbarkeit" name="servcieAvailability"
+                    [(ngModel)]="currentService.servcieAvailability" disabled />
+            </mat-form-field>
+            <mat-form-field class="width">
+                <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
+                    [(ngModel)]="currentService.cloudServiceCategoryId" disabled>
+            </mat-form-field>
+            <mat-form-field class="width">
+                <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId"
+                    disabled>
+            </mat-form-field>
+        </form>
     </ng-template>
 </mat-card>
 <ng-template #noService>

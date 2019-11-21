@@ -1,6 +1,12 @@
-<app-navbar [isLoggedIn]="isLoggedIn" (dialogEmitter)="openLoginDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
+<app-navbar [isLoggedIn]="isLoggedIn" [username]="username" (dialogEmitter)="openLoginDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
 </app-navbar>
-<app-startpage *ngIf="state == 0" (stateEmitter)="setState($event)" (dialogEmitter)="openDialog($event)">
+<app-startpage
+    *ngIf="state == 0"
+    [isLoggedIn]="isLoggedIn"
+    (stateEmitter)="setState($event)"
+    (loginDialogEmitter)="openLoginDialog()"
+    (registerDialogEmitter)="openRegisterDialog()"
+>
 </app-startpage>
 <app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>

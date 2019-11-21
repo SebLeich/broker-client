@@ -9,13 +9,6 @@ export const rootStates = {
   SERVICEDETAILVIEW: 4
 };
 /**
- * the enumeration contains all component codes
- */
-export const components = {
-  REGISTERCOMPONENT: 0,
-  LOGINCOMPONENT: 1
-};
-/**
  * the enumeration contains all login states
  */
 export const loginStates = {

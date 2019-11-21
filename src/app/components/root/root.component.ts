@@ -133,50 +133,15 @@ export class RootComponent implements OnInit {
         )
       }
     );
-    /*
-    dialogRef.beforeClosed().subscribe(
-      (credentials) => {
-        this.service.loginUser(credentials).subscribe(
-          (result) => {
-            this.loginCallback(result);
-          },
-          (error) => {
-            console.log(error);
-          }
-        )
-      }
-    );
-    */
   }
-
-  openDialog(dialogComponentName: number) {
+  /**
+   * the method starts the register dialog
+   */
+  openRegisterDialog() {
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-
-    dialogConfig.data = {
-      id: 1,
-      title: "Angular For Beginners"
-    };
-
-    let dialogComponent;
-
-    switch (dialogComponentName) {
-      case globals.components.REGISTERCOMPONENT:
-        dialogComponent = RegisterComponent;
-
-        break;
-      case globals.components.LOGINCOMPONENT:
-        dialogComponent = LoginComponent;
-        dialogConfig.data = new User();
-        break;
-      default:
-        throw "unknown component error";
-    }
-
-    const dialogRef = this.dialog.open(dialogComponent, dialogConfig);
-
+    const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
     dialogRef
       .afterClosed()
       .subscribe((data) => {
