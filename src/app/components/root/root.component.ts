@@ -45,22 +45,22 @@ export class RootComponent implements OnInit {
   /**
    * the method checks whether the current user is logged in
    */
-  get isLoggedIn(){
+  get isLoggedIn() {
     var token = this.token;
-    if(token == null || typeof(token) == "undefined") return false;
+    if (token == null || typeof (token) == "undefined") return false;
     return true;
   }
   /**
    * the method is called after the successful login
    */
-  loginCallback(result){
+  loginCallback(result) {
     this.token = result.access_token;
     this.username = result.userName;
   }
   /**
    * the method logs the current user out
    */
-  logout(){
+  logout() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("username");
   }
@@ -101,13 +101,13 @@ export class RootComponent implements OnInit {
   /**
    * the method returns the current access token
    */
-  get token(){
+  get token() {
     return this.service.token;
   }
   /**
    * the method returns the current access token
    */
-  set token(token: string){
+  set token(token: string) {
     this.service.token = token;
   }
   /**
@@ -119,6 +119,21 @@ export class RootComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = new User();
     const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
+    dialogRef.componentInstance.submitData.subscribe(
+      (credentials: User) => {
+        if(!credentials.isLoginValid()) return;
+        this.service.loginUser(credentials).subscribe(
+          (result) => {
+            this.loginCallback(result);
+            dialogRef.close();
+          },
+          (error) => {
+            console.log(error);
+          }
+        )
+      }
+    );
+    /*
     dialogRef.beforeClosed().subscribe(
       (credentials) => {
         this.service.loginUser(credentials).subscribe(
@@ -131,6 +146,7 @@ export class RootComponent implements OnInit {
         )
       }
     );
+    */
   }
 
   openDialog(dialogComponentName: number) {
@@ -170,13 +186,13 @@ export class RootComponent implements OnInit {
   /**
    * the method returns the current access token
    */
-  get username(){
+  get username() {
     return localStorage.getItem("username");
   }
   /**
    * the method returns the current access token
    */
-  set username(token: string){
+  set username(token: string) {
     localStorage.setItem("username", token);
   }
 }

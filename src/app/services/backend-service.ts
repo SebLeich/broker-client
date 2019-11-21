@@ -27,7 +27,6 @@ export class BackEndService {
      * the method logs an user in
      */
     loginUser(credentials: User) {
-        console.log(credentials);
         return this.http.post(
             globals.serverLocation + "/token",
             "grant_type=password&username=" + encodeURIComponent(credentials.username) + "&password=" + encodeURIComponent(credentials.password)

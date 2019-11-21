@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { User } from "../../classes/user";
 import * as globals from "../../globals";
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material'
@@ -19,6 +19,10 @@ export class LoginComponent implements OnInit {
    * the current views state
    */
   _state: number = globals.viewStates.DEFAULT;
+  /**
+   * the observable attribute emits on login click
+   */
+  @Output() submitData = new EventEmitter<any>();
   /**
    * the constructor creates a new instance of the login component
    */
@@ -41,10 +45,10 @@ export class LoginComponent implements OnInit {
     return false;
   }
   /**
-   * the method logs the current user in
+   * the method emits the user credentials
    */
   loginUser(){
-    this.dialogRef.close(this.user);
+    this.submitData.emit(this.user);
   }
   /**
    * the method logs the current user out
