@@ -4,7 +4,6 @@ import * as globals from "../globals";
 import { UseCaseHistoryEntry } from '../classes/use-case-history-entry';
 import { Service, BlockStorageService } from '../classes/service';
 import { User } from '../classes/user';
-import { URLSearchParams } from 'url';
 
 /**
  * the service provides access to the backend's API
@@ -16,6 +15,12 @@ export class BackEndService {
         private http: HttpClient
     ) {
 
+    }
+    /**
+     * the method initiates a get request to the backend
+     */
+    get(url){
+        return this.http.get(globals.serverLocation + "/" + url);
     }
     /**
      * the method returns all use-cases from the configuration file

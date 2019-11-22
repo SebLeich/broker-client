@@ -12,4 +12,4 @@
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
 <app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)">
 </app-use-case-selection>
-<app-detailview [isLoggedIn]="isLoggedIn" *ngIf="state == 4" [services]=services></app-detailview>
+<app-detailview [isLoggedIn]="isLoggedIn" *ngIf="state == 4" [services]=services [serviceCategories]=serviceCategories></app-detailview>

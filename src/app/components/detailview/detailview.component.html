@@ -52,7 +52,7 @@
         </mat-form-field>
         <mat-form-field class="width">
             <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
-                [(ngModel)]="currentService.cloudServiceCategoryId">
+                [(ngModel)]="currentService.cloudServiceCategoryId" [matAutocomplete]="categories">
         </mat-form-field>
         <mat-form-field class="width">
             <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId">
@@ -78,7 +78,7 @@
             </mat-form-field>
             <mat-form-field class="width">
                 <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
-                    [(ngModel)]="currentService.cloudServiceCategoryId" disabled>
+                    [(ngModel)]="currentService.cloudServiceCategoryId" [matAutocomplete]="categories" disabled>
             </mat-form-field>
             <mat-form-field class="width">
                 <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId"
@@ -97,3 +97,8 @@
         </mat-card-subtitle>
     </mat-card>
 </ng-template>
+<mat-autocomplete #categories="matAutocomplete">
+    <mat-option *ngFor="let c of serviceCategories" [value]="c.id">
+        {{ c.cloudServiceCategoryName }}
+    </mat-option>
+</mat-autocomplete>

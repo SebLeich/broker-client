@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
 import { Project } from "../../classes/project";
-import { Service, BlockStorageService } from "../../classes/service";
+import { Service, BlockStorageService, ServiceCategory } from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
@@ -33,6 +33,7 @@ export class RootComponent implements OnInit {
   project: Project;
   useCases: UseCase[] = [];
   services: Service[] = [];
+  serviceCategories: ServiceCategory[] = [];
   /**
    * the constructor creates a new instance of the component
    */
@@ -69,6 +70,7 @@ export class RootComponent implements OnInit {
    */
   ngOnInit() {
     this.service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
+    this.service.get(ServiceCategory.location).subscribe((o: Object) => this.setServiceCategories(o));
   }
   /**
    * the method is called when the user sends his use case search
@@ -91,6 +93,17 @@ export class RootComponent implements OnInit {
       array.push(new UseCase(o[index]));
     }
     this.useCases = array;
+  }
+  
+  /**
+   * the method creates the service categories from the given array
+   */
+  setServiceCategories(o: Object) {
+    var array = [];
+    for (var index in o) {
+      array.push(new ServiceCategory(o[index]));
+    }
+    this.serviceCategories = array;
   }
   /**
    * the method sets the applications state

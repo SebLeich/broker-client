@@ -52,6 +52,32 @@ export class BlockStorageService extends Service {
      * the method returns the classes server endpoint
      */
     static get location() : string {
-        return "/api/blockstorageservice";
+        return "api/blockstorageservice";
+    }
+}
+/**
+ * the class contains a service category
+ */
+export class ServiceCategory {
+    public id: number;
+    public cloudServiceCategoryName: string;
+    /**
+     * the constructor creates a new instance of a service category
+     */
+    constructor(object){
+        this.id = object.id;
+        this.cloudServiceCategoryName = object.cloudServiceCategoryName;
+    }
+    /**
+     * the method returns the classes server endpoint
+     */
+    get location() : string {
+        return ServiceCategory.location;
+    }
+    /**
+     * the method returns the classes server endpoint
+     */
+    static get location() : string {
+        return "api/cloudservicecategory";
     }
 }
