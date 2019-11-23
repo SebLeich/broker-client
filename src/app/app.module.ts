@@ -20,7 +20,7 @@ import { RegisterComponent } from "./components/register/register.component";
 import { ProjectDescriptionComponent } from "./components/project-description/project-description.component";
 import { UseCaseComponent } from './use-case/use-case.component';
 import { UseCaseDirective } from './use-case.directive';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [

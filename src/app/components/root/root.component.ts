@@ -6,7 +6,7 @@ import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
 import { UseCaseService } from "../../services/use-case-service";
 import { UseCaseComponent } from "../../use-case/use-case.component";
-import { LoginComponent } from "src/app/login/login.component";
+import { LoginComponent } from "src/app/components/login/login.component";
 
 @Component({
   selector: "app-root",
