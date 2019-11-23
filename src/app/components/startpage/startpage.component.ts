@@ -1,47 +1,58 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import * as globals from "../../globals";
-import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material";
-import { RegisterComponent } from "../register/register.component";
 
 @Component({
   selector: "app-startpage",
   templateUrl: "./startpage.component.html",
   styleUrls: ["./startpage.component.css"]
 })
+/**
+ * the class contains the startpage
+ */
 export class StartpageComponent implements OnInit {
+  /**
+   * the attribute stores whether the user is logged in or not
+   */
+  @Input() isLoggedIn;
+  /**
+   * the method emits the window state
+   */
   @Output() public stateEmitter = new EventEmitter();
-  @Output() public dialogEmitter = new EventEmitter();
+  /**
+ * the method emits the register dialog event
+ */
+  @Output() public registerDialogEmitter = new EventEmitter();
+  /**
+   * the method emits the login dialog event
+   */
+  @Output() public loginDialogEmitter = new EventEmitter();
+  /**
+   * the constructor creates a new instance of the component
+   */
+  constructor() {
 
-  globals = globals;
+  }
+  /**
+   * the method is called on component initalization
+   */
+  ngOnInit() {
 
-  constructor(private dialog: MatDialog) {}
-
-  ngOnInit() {}
-
+  }
+  /**
+   * the method emits the window state
+   */
   setState(state: number) {
     this.stateEmitter.emit(state);
   }
-  openRegisterDialog() {
-    this.dialogEmitter.emit(globals.components.REGISTERCOMPONENT);
+  /**
+   * the method initiates the login dialog
+   */
+  openLoginDialog() {
+    this.loginDialogEmitter.emit();
   }
-  openDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "600px";
-    dialogConfig.height = "500px";
-
-    dialogConfig.data = {
-      id: 1,
-      title: "Angular For Beginners"
-    };
-
-    this.dialog.open(RegisterComponent, dialogConfig);
-
-    const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
-
-    dialogRef
-      .afterClosed()
-      .subscribe(data => console.log("Dialog output:", data));
+  /**
+   * the method initiates the login dialog
+   */
+  openRegisterDialog() {
+    this.registerDialogEmitter.emit();
   }
 }

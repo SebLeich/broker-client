@@ -7,7 +7,12 @@
 }
 
 .super-headline {
-    font-size: 2rem;
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+.super-sub-headline {
+    padding-left: 10px;
 }
 
 .sub-headline {
@@ -30,7 +35,6 @@
 .sub-card .icon {
     font-size: 1.8rem;
     vertical-align: sub;
-    color: #6f6f6f;
     margin-right: 5px;
 }
 

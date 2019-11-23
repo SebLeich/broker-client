@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UseCaseComponent } from './use-case.component';
+import { DetailviewComponent } from './detailview.component';
 
-describe('UseCaseComponent', () => {
-  let component: UseCaseComponent;
-  let fixture: ComponentFixture<UseCaseComponent>;
+describe('DetailviewComponent', () => {
+  let component: DetailviewComponent;
+  let fixture: ComponentFixture<DetailviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UseCaseComponent ]
+      declarations: [ DetailviewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UseCaseComponent);
+    fixture = TestBed.createComponent(DetailviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

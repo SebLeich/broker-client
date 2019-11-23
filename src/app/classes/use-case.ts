@@ -7,7 +7,7 @@ export class UseCase {
     /**
      * the constructor creates a new instance of an use case
      */
-    constructor(public component: Type<any>, public data: any) {
+    constructor(public data: any) {
 
     }
 }

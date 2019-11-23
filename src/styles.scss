@@ -1,4 +1,4 @@
-@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import './theme.scss';
 
 /* You can add global styles to this file, and also import other style files */
 :root {
@@ -301,5 +301,23 @@ input[type="text"]:placeholder {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.primary-color {
+  color: $primary;
+}
+
+.primary-border {
+  border: 1px solid $primary;
+}
+
+.primary-bg {
+  background-color: $primary;
+}
+
+.mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
+  color: rgba(0, 0, 0, 0.81);
+}
+
+.btn-success {
+  color: #69ad33;
+  background-color: white;
+}

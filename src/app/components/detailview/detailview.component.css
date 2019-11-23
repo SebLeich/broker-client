@@ -1,0 +1,25 @@
+.super-headline {
+    display: flex;
+    padding: 10px;
+}
+.super-headline .spacer {
+    flex: 1;
+}
+.headline {
+    font-size: 2rem;
+}
+.headline:not(:focus) {
+    text-transform: uppercase;
+}
+.width {
+    width: 100%;
+}
+.subtitle {
+    font-size: 1rem;
+}
+.option-row {
+    display: block;
+}
+.form {
+    padding: 0px 10px 0px 10px;
+}

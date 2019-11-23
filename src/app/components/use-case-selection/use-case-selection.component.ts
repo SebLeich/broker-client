@@ -1,7 +1,6 @@
-import { Component, ViewChild, ComponentFactoryResolver, Input, AfterViewInit } from '@angular/core';
-import { UseCaseDirective } from "src/app/use-case.directive";
+import { Component, EventEmitter, Input, AfterViewInit, ChangeDetectorRef, Output } from '@angular/core';
 import { UseCase } from "../../classes/use-case";
-import { UseCaseComponent } from 'src/app/use-case/use-case.component';
+import { UseCaseHistoryEntry } from "src/app/classes/use-case-history-entry"
 
 @Component({
   selector: 'app-use-case-selection',
@@ -19,6 +18,10 @@ export class UseCaseSelectionComponent implements AfterViewInit {
    */
   stateHistory: number[] = [];
   /**
+   * a set of selected use cases
+   */
+  useCaseHistory: UseCaseHistoryEntry[] = [];
+  /**
    * the current states id
    */
   state: number = 0;
@@ -27,55 +30,55 @@ export class UseCaseSelectionComponent implements AfterViewInit {
    */
   @Input() set useCases(useCases: UseCase[]) {
     this._uc = useCases;
-    this.loadComponent()
   }
   /**
-   * the use case child container providing space for all use cases
+   * the emitter for the send search callback
    */
-  @ViewChild(UseCaseDirective, { static: true }) ucHost: UseCaseDirective;
-
+  @Output() searchEmitter = new EventEmitter();;
   /**
    * the construtor creates a new instance of the component
    */
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-    
+  constructor(
+    private ref: ChangeDetectorRef
+  ) {
+
   }
   /**
-   * the method fills the view's dynamic content
+   * the method returns all use cases available in the current state
    */
-  loadComponent() {
-    for (var index in this._uc) {
-      const viewContainerRef = this.ucHost.viewContainerRef;
-      if(index == "0") viewContainerRef.clear();
-
-      var u = this._uc[index];
-
-      if(!u.data.source.includes(this.state)) continue;
-
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(u.component);
-
-      const componentRef = viewContainerRef.createComponent(componentFactory);
-      (<UseCaseComponent>componentRef.instance).o = u.data;
-      (<UseCaseComponent>componentRef.instance).setState.subscribe((u) => {
-        var s = u.o.target;
-        this.stateHistory.push(this.state);
-        this.state = s;
-        this.loadComponent();
-      });
-    }
+  get currentUseCases(){
+    return this._uc.filter(x => x.data.source.includes(this.state));
   }
-
+  /**
+   * the method is called after the component is initialized
+   */
   ngAfterViewInit() {
-    
+
+  }
+  /**
+   * the method sends the current search to the server
+   */
+  sendSearch(){
+    this.searchEmitter.emit(this.useCaseHistory);
+  }
+  /**
+   * the method sets the current states id
+   */
+  setUseCase(uCId: number){
+    var u = this._uc.find(x => x.data.id == uCId);
+    this.useCaseHistory.push(new UseCaseHistoryEntry(u));
+    this.stateHistory.push(this.state);
+    this.state = u.data.target;
+    //this.ref.detectChanges();
   }
   /**
    * the method undos the last user input
    */
-  undo(){
-    if(this.stateHistory.length == 0) throw("no states in history");
-    var s = this.stateHistory[this.stateHistory.length-1];
+  undo() {
+    if (this.stateHistory.length == 0) throw ("no states in history");
+    var s = this.stateHistory[this.stateHistory.length - 1];
+    this.stateHistory.splice(this.stateHistory.length - 1, 1);
+    this.useCaseHistory.splice(this.useCaseHistory.length - 1, 1);
     this.state = s;
-    this.stateHistory.splice(this.stateHistory.length-1, 1);
-    this.loadComponent();
   }
 }
