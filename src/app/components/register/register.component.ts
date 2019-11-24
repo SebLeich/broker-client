@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, Output, EventEmitter } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Profile } from "src/app/classes/profile";
+import { User } from "../../classes/user";
 import { MyErrorStateMatcher } from "src/app/classes/myErrorStateMatcher";
 
 @Component({
@@ -11,20 +11,20 @@ import { MyErrorStateMatcher } from "src/app/classes/myErrorStateMatcher";
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
-  description: string;
-
   matcher = new MyErrorStateMatcher();
 
-  public username: string;
-  private password: string;
-  private passwordRepeat: string;
+  /**
+   * the method emits the registration data
+   */
+  @Output() public registrationDataEmitter = new EventEmitter();
+
+  public user : User;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<RegisterComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.description = data.description;
   }
   checkPasswords(group: FormGroup) {
     // here we have the 'passwords' group
@@ -37,7 +37,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group(
       {
-        description: [this.description, []],
         password: ["", [Validators.required]],
         confirmPassword: [""],
         username: ["", [Validators.required, Validators.minLength(6)]]
@@ -46,11 +45,16 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  
+
   save() {
     this.dialogRef.close(this.form.value);
   }
-
-  close() {
+    /**
+   * the method closes the Dialog an submits the registration data
+   */
+  closeAndSubmit() {
     this.dialogRef.close();
+    this.registrationDataEmitter.emit([this.user]);
   }
 }

@@ -2,9 +2,10 @@
   <mat-form-field class="input-container">
     <input
       matInput
-      placeholder="User name"
+      placeholder="Username"
       formControlName="username"
       required
+      [(ngModel)]="user.username"
     />
     <mat-error *ngIf="form.hasError('required', 'username')">
       Please enter a username (min 6 characters)
@@ -18,6 +19,7 @@
       placeholder="New password"
       formControlName="password"
       required
+      [(ngModel)]="user.password"
     />
     <mat-error *ngIf="form.hasError('required', 'password')">
       Please enter your new password
@@ -30,6 +32,7 @@
       type="password"
       placeholder="Confirm password"
       formControlName="confirmPassword"
+      [(ngModel)]="user.confirmPassword"
       [errorStateMatcher]="matcher"
     />
     <mat-error *ngIf="form.hasError('notSame')">
@@ -38,7 +41,7 @@
   </mat-form-field>
   <button
     mat-raised-button
-    (click)="close()"
+    (click)="closeAndSubmit()"
     type="submit"
     [disabled]="form.invalid"
   >

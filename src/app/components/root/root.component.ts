@@ -41,8 +41,9 @@ export class RootComponent implements OnInit {
     private dialog: MatDialog,
     private service: BackEndService
   ) {
-
   }
+
+
   /**
    * the method checks whether the current user is logged in
    */
@@ -51,6 +52,7 @@ export class RootComponent implements OnInit {
     if (token == null || typeof (token) == "undefined") return false;
     return true;
   }
+  
   /**
    * the method is called after the successful login
    */
