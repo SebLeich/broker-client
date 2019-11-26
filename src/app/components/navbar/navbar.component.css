@@ -27,3 +27,8 @@
 .element {
     cursor: pointer;
 }
+
+.small-element {
+    vertical-align: baseline;
+    font-size: 1.2rem;
+}

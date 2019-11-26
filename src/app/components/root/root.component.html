@@ -1,13 +1,18 @@
-<app-navbar [isLoggedIn]="isLoggedIn" [username]="username" (dialogEmitter)="openLoginDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
-</app-navbar>
+<app-navbar
+    [isLoggedIn]="isLoggedIn"
+    [username]="username"
+    [canCreateServices]="canCreateServices"
+    (dialogEmitter)="openLoginDialog()"
+    (logoutEmitter)="logout()"
+    (stateEmitter)="setState($event)"
+></app-navbar>
 <app-startpage
     *ngIf="state == 0"
     [isLoggedIn]="isLoggedIn"
     (stateEmitter)="setState($event)"
     (loginDialogEmitter)="openLoginDialog()"
     (registerDialogEmitter)="openRegisterDialog()"
->
-</app-startpage>
+></app-startpage>
 <app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
 <app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)">

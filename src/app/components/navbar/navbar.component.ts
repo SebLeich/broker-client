@@ -10,6 +10,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
  */
 export class NavbarComponent implements OnInit {
   /**
+   * is the current user allowed to create services
+   */
+  @Input() canCreateServices;
+  /**
    * the attribute stores whether the user is logged in or not
    */
   @Input() isLoggedIn;

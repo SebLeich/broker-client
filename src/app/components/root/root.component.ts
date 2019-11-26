@@ -9,6 +9,7 @@ import { BackEndService } from "../../services/backend-service";
 import { LoginComponent } from "src/app/components/login/login.component";
 import { UseCaseHistoryEntry } from 'src/app/classes/use-case-history-entry';
 import { User } from 'src/app/classes/user';
+import { RoleRight } from 'src/app/classes/role-right';
 
 @Component({
   selector: "app-root",
@@ -33,6 +34,7 @@ export class RootComponent implements OnInit {
   project: Project;
   useCases: UseCase[] = [];
   services: Service[] = [];
+  roleRights: RoleRight[] = [];
   serviceCategories: ServiceCategory[] = [];
   /**
    * the constructor creates a new instance of the component
@@ -43,6 +45,13 @@ export class RootComponent implements OnInit {
   ) {
   }
 
+  /**
+   * the attribute returns whether the current user is allowed to create services
+   */
+  get canCreateServices(){
+    if(this.roleRights.find(x => x.rule.ruleCode == "create-services" && x.isAllowed)) return true;
+    return false;
+  }
 
   /**
    * the method checks whether the current user is logged in
@@ -73,6 +82,17 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this.service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
     this.service.get(ServiceCategory.location).subscribe((o: Object) => this.setServiceCategories(o));
+    if(this.isLoggedIn){
+      this.service.get("api/account/current-rights").subscribe((result) => {
+        for (var index in result){
+          this.roleRights.push(new RoleRight(result[index]));
+        }
+      }, (error) => {
+        if(error.status == 401){
+          this.logout();
+        }
+      });
+    }
   }
   /**
    * the method is called when the user sends his use case search

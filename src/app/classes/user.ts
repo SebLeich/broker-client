@@ -1,8 +1,20 @@
+/**
+ * the class contains an application's user
+ */
 export class User {
     public id: string;
     public username: string;
     public password: string;
     public confirmPassword: string;
+    /**
+     * the constructor creates a new instance of an user
+     */
+    constructor(){
+        this.id = "";
+        this.username = "";
+        this.password = "";
+        this.confirmPassword = "";
+    }
     /**
      * the method checks whether the user model is valid for registration
      */

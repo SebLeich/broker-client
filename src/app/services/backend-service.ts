@@ -20,7 +20,9 @@ export class BackEndService {
      * the method initiates a get request to the backend
      */
     get(url){
-        return this.http.get(globals.serverLocation + "/" + url);
+        return this.http.get(globals.serverLocation + "/" + url, {
+            headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
+        });
     }
     /**
      * the method returns all use-cases from the configuration file
