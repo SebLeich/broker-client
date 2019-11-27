@@ -2,6 +2,7 @@
     [isLoggedIn]="isLoggedIn"
     [username]="username"
     [canCreateServices]="canCreateServices"
+    [canRegisterRoles]="canRegisterRoles"
     (loginDialogEmitter)="openLoginDialog()"
     (userDialogEmitter)="openUserDetailDialog()"
     (logoutEmitter)="logout()"
@@ -18,4 +19,26 @@
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
 <app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)">
 </app-use-case-selection>
-<app-detailview [isLoggedIn]="isLoggedIn" *ngIf="state == 4" [services]=services [serviceCategories]=serviceCategories></app-detailview>
+<app-detailview
+    *ngIf="state == 4" 
+    [isLoggedIn]=isLoggedIn 
+    [services]=services 
+    [serviceCategories]=serviceCategories
+></app-detailview>
+<div *ngIf="state == 5">
+    <app-administration
+        *ngIf="canRegisterRoles; else noAccessRight"  
+        [canRegisterRoles]=canRegisterRoles
+    ></app-administration>
+</div>
+<ng-template #noAccessRight>
+    <div>
+        <div style="display: block; text-align: center; margin-top: 25vh;">
+            <mat-icon style="font-size: 5rem; width: auto; height: auto; color: rgb(199, 36, 36);">lock</mat-icon>
+        </div>
+        <h1 style="text-align: center;">Geschützter Bereich</h1>
+        <div style="text-align: center; margin: 0 30vw; color: grey;">
+            Dieser Bereich ist nur für Nutzer mit erweiterten Nutzungsrechten zugänglich. Melden Sie sich an oder verwenden Sie einen anderen Account für die Nutzung.
+        </div>
+    </div>
+</ng-template>

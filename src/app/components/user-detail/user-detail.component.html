@@ -1,4 +1,4 @@
-<h1>Willkommen {{ data.username }}</h1>
+<h1>Willkommen, <span class="primary-color"> {{ data.username }} </span></h1>
 <h2>Rollenberechtigungen</h2>
 <table mat-table [dataSource]="rights">
     <ng-container matColumnDef="isAllowed">
@@ -24,6 +24,10 @@
             </mat-chip-list>
         </td>
     </ng-container>
-
     <tr mat-row *matRowDef="let row; columns: cols;"></tr>
 </table>
+<div style="margin-top: 20px;">
+    <button mat-button color="primary" (click)=logout()>
+        Ausloggen
+    </button>
+</div>

@@ -17,6 +17,14 @@ export class BackEndService {
 
     }
     /**
+     * the method initiates a delete request to the backend
+     */
+    delete(url){
+        return this.http.delete(globals.serverLocation + "/" + url, {
+            headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
+        });
+    }
+    /**
      * the method initiates a get request to the backend
      */
     get(url){
@@ -47,6 +55,14 @@ export class BackEndService {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         };
         return this.http.put<Service>(globals.serverLocation + "/" + input.location, input, config);
+    }
+    /**
+     * the method initiates a post request to the backend
+     */
+    post(url, data){
+        return this.http.post(globals.serverLocation + "/" + url, data, {
+            headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
+        });
     }
     /**
      * the method regiters a new User

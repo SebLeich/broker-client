@@ -53,6 +53,13 @@ export class RootComponent implements OnInit {
     return false;
   }
   /**
+   * the attribute returns whether the current user is allowed to create roles
+   */
+  get canRegisterRoles() {
+    if (this.roleRights.find(x => x.rule.ruleCode == "register-roles" && x.isAllowed)) return true;
+    return false;
+  }
+  /**
    * the method checks whether the current user is logged in
    */
   get isLoggedIn() {
@@ -220,9 +227,10 @@ export class RootComponent implements OnInit {
       "rights": this.roleRights
     };
     const dialogRef = this.dialog.open(UserDetailComponent, dialogConfig);
-    dialogRef.componentInstance.submitData.subscribe(
-      (credentials: User) => {
-        console.log(credentials);
+    dialogRef.componentInstance.logoutEmitter.subscribe(
+      () => {
+        dialogRef.close();
+        this.logout();
       }
     );
   }

@@ -12,6 +12,15 @@ export class RoleRight {
 
 }
 
+export class Role {
+
+    public roleName: string;
+
+    constructor(object){
+        this.roleName = object.roleName;
+    }
+}
+
 export class Rule {
 
     public id: number;

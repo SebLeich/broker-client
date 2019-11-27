@@ -30,6 +30,7 @@ import { ProjectDescriptionComponent } from "./components/project-description/pr
 import { LoginComponent } from './components/login/login.component';
 import { DetailviewComponent } from './components/detailview/detailview.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { AdministrationComponent } from './components/administration/administration.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     ProjectDescriptionComponent,
     LoginComponent,
     DetailviewComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    AdministrationComponent
   ],
   imports: [
     BrowserModule,

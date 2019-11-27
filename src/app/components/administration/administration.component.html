@@ -1,0 +1,22 @@
+<h1>Administration</h1>
+<div>Diese Seite enthält verschiedene Funktionen um den Cloud Broker anzupassen.</div>
+<div *ngIf="canRegisterRoles">
+    <h2>
+        Rollen
+        (<span class="primary-color">{{ roles.length }}</span>)
+    </h2>
+    <mat-form-field class="example-chip-list">
+        <mat-chip-list #roleList aria-label="Rollen bearbeiten">
+            <mat-chip *ngFor="let r of roles" [selectable]="selectable" [removable]="removable" (removed)="removeRole(r)">
+                {{ r.roleName }}
+                <mat-icon matChipRemove *ngIf="removable" style="color: red;">cancel</mat-icon>
+            </mat-chip>
+            <input
+                placeholder="Neue Rolle anlegen ..."
+                [matChipInputFor]="roleList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addRole($event)">
+        </mat-chip-list>
+    </mat-form-field>
+</div>

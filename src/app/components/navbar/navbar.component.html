@@ -5,6 +5,7 @@
         </span>
         <span class="small" (click)="setState(1)">Service suchen</span>
         <span *ngIf="canCreateServices" class="small">Service anlegen</span>
+        <span *ngIf="canRegisterRoles" class="small" (click)="setState(5)">Verwaltung</span>
         <span class="spacer"></span>
         <div *ngIf="isLoggedIn; else login">
             <span class="small" id="current-username" style="vertical-align: text-bottom;" (click)="openUserDetailDialog()">{{username}}</span>

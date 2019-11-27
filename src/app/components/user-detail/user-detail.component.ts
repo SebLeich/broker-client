@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { User } from "../../classes/user";
-import * as globals from "../../globals";
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material'
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'
 import { RoleRight } from 'src/app/classes/role-right';
 
 @Component({
@@ -17,7 +15,7 @@ export class UserDetailComponent implements OnInit {
   /**
    * the observable attribute emits on login click
    */
-  @Output() submitData = new EventEmitter<any>();
+  @Output() logoutEmitter = new EventEmitter<any>();
   /**
    * the constructor creates a new instance of the login component
    */
@@ -32,6 +30,12 @@ export class UserDetailComponent implements OnInit {
     private dialogRef: MatDialogRef<UserDetailComponent>
   ) {
 
+  }
+  /**
+   * the method logs the current user out
+   */
+  logout(){
+    this.logoutEmitter.emit();
   }
   /**
    * the method is called on component initalization
