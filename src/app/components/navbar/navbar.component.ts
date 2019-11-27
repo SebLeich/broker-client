@@ -24,7 +24,11 @@ export class NavbarComponent implements OnInit {
   /**
    * the method emits the login dialog invoke
    */
-  @Output() public dialogEmitter = new EventEmitter();
+  @Output() loginDialogEmitter = new EventEmitter();
+  /**
+   * the method emits the user details dialog invoke
+   */
+  @Output() userDialogEmitter = new EventEmitter();
   /**
    * the method returns the window state
    */
@@ -55,7 +59,13 @@ export class NavbarComponent implements OnInit {
    * the method invokes the login dialog
    */
   openLoginDialog(){
-    this.dialogEmitter.emit();
+    this.loginDialogEmitter.emit();
+  }
+  /**
+   * the method invokes the user detail dialog
+   */
+  openUserDetailDialog(){
+    this.userDialogEmitter.emit();
   }
   /**
    * the method sets the applications state

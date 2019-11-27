@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
      */
     @Inject(MAT_DIALOG_DATA) public user: User,
     /**
-     * the dialoge parent
+     * the dialog parent
      */
     private dialogRef: MatDialogRef<LoginComponent>
   ) {
@@ -51,16 +51,10 @@ export class LoginComponent implements OnInit {
     this.submitData.emit(this.user);
   }
   /**
-   * the method logs the current user out
-   */
-  logout(){
-
-  }
-  /**
    * the method is called on component initalization
    */
   ngOnInit() {
-    console.log(this.user);
+    
   }
   /**
    * the method sets the component states

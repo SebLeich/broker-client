@@ -14,7 +14,9 @@ import {
   MatButtonModule,
   MatProgressSpinnerModule,
   MatTooltipModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatTableModule,
+  MatChipsModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -27,6 +29,7 @@ import { RegisterComponent } from "./components/register/register.component";
 import { ProjectDescriptionComponent } from "./components/project-description/project-description.component";
 import { LoginComponent } from './components/login/login.component';
 import { DetailviewComponent } from './components/detailview/detailview.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { DetailviewComponent } from './components/detailview/detailview.componen
     RegisterComponent,
     ProjectDescriptionComponent,
     LoginComponent,
-    DetailviewComponent
+    DetailviewComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -56,13 +60,16 @@ import { DetailviewComponent } from './components/detailview/detailview.componen
     MatButtonModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    MatAutocompleteModule
+    MatTableModule,
+    MatAutocompleteModule,
+    MatChipsModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],
   entryComponents: [
+    LoginComponent,
     RegisterComponent,
-    LoginComponent
+    UserDetailComponent
   ]
 })
 

@@ -7,7 +7,7 @@
         <span *ngIf="canCreateServices" class="small">Service anlegen</span>
         <span class="spacer"></span>
         <div *ngIf="isLoggedIn; else login">
-            <span class="small" id="current-username" style="vertical-align: text-bottom;">{{username}}</span>
+            <span class="small" id="current-username" style="vertical-align: text-bottom;" (click)="openUserDetailDialog()">{{username}}</span>
             <mat-icon (click)="logout()" class="element small-element logout" matTooltip="Abmelden">power_settings_new</mat-icon>
         </div>
         <ng-template #login>

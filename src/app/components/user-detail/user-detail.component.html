@@ -1,0 +1,29 @@
+<h1>Willkommen {{ data.username }}</h1>
+<h2>Rollenberechtigungen</h2>
+<table mat-table [dataSource]="rights">
+    <ng-container matColumnDef="isAllowed">
+        <th mat-header-cell *matHeaderCellDef>Ist erlaubt</th>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.isAllowed; else notAllowed" class="icon success">done</mat-icon>
+            <ng-template #notAllowed>
+                <mat-icon class="icon error">clear</mat-icon>
+            </ng-template>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rule">
+        <th mat-header-cell *matHeaderCellDef>Regel</th>
+        <td mat-cell *matCellDef="let element"> {{ element.rule.ruleTitle }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Rollen</th>
+        <td mat-cell *matCellDef="let element" class="role-cell">
+            <mat-chip-list>
+                <mat-chip *ngFor="let role of element.roles" class="primary-contrast"> {{ role.roleName }} </mat-chip>
+            </mat-chip-list>
+        </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: cols;"></tr>
+</table>

@@ -19,7 +19,7 @@ export class User {
      * the method checks whether the user model is valid for registration
      */
     isLoginValid() {
-        if (this.username.length < 5) return false;
+        if (this.username.length < 4) return false;
         if (this.password.length < 6) return false;
         return true;
     }
@@ -27,7 +27,7 @@ export class User {
      * the method checks whether the user model is valid for registration
      */
     isRegistrationValid() {
-        if (this.username.length < 5) return false;
+        if (this.username.length < 4) return false;
         if (this.password.length < 6) return false;
         if (this.password != this.confirmPassword) return false;
         return true;

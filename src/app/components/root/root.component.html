@@ -2,7 +2,8 @@
     [isLoggedIn]="isLoggedIn"
     [username]="username"
     [canCreateServices]="canCreateServices"
-    (dialogEmitter)="openLoginDialog()"
+    (loginDialogEmitter)="openLoginDialog()"
+    (userDialogEmitter)="openUserDetailDialog()"
     (logoutEmitter)="logout()"
     (stateEmitter)="setState($event)"
 ></app-navbar>

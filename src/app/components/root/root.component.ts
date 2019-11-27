@@ -10,6 +10,7 @@ import { LoginComponent } from "src/app/components/login/login.component";
 import { UseCaseHistoryEntry } from 'src/app/classes/use-case-history-entry';
 import { User } from 'src/app/classes/user';
 import { RoleRight } from 'src/app/classes/role-right';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
 
 @Component({
   selector: "app-root",
@@ -44,15 +45,13 @@ export class RootComponent implements OnInit {
     private service: BackEndService
   ) {
   }
-
   /**
    * the attribute returns whether the current user is allowed to create services
    */
-  get canCreateServices(){
-    if(this.roleRights.find(x => x.rule.ruleCode == "create-services" && x.isAllowed)) return true;
+  get canCreateServices() {
+    if (this.roleRights.find(x => x.rule.ruleCode == "create-services" && x.isAllowed)) return true;
     return false;
   }
-
   /**
    * the method checks whether the current user is logged in
    */
@@ -61,13 +60,22 @@ export class RootComponent implements OnInit {
     if (token == null || typeof (token) == "undefined") return false;
     return true;
   }
-  
   /**
    * the method is called after the successful login
    */
   loginCallback(result) {
     this.token = result.access_token;
     this.username = result.userName;
+    this.service.get("api/account/current-rights").subscribe((result) => {
+      this.roleRights = [];
+      for (var index in result) {
+        this.roleRights.push(new RoleRight(result[index]));
+      }
+    }, (error) => {
+      if (error.status == 401) {
+        this.logout();
+      }
+    });
   }
   /**
    * the method logs the current user out
@@ -75,6 +83,7 @@ export class RootComponent implements OnInit {
   logout() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("username");
+    this.roleRights = [];
   }
   /**
    * the method is called on component initalization
@@ -82,13 +91,13 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this.service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
     this.service.get(ServiceCategory.location).subscribe((o: Object) => this.setServiceCategories(o));
-    if(this.isLoggedIn){
+    if (this.isLoggedIn) {
       this.service.get("api/account/current-rights").subscribe((result) => {
-        for (var index in result){
+        for (var index in result) {
           this.roleRights.push(new RoleRight(result[index]));
         }
       }, (error) => {
-        if(error.status == 401){
+        if (error.status == 401) {
           this.logout();
         }
       });
@@ -116,7 +125,6 @@ export class RootComponent implements OnInit {
     }
     this.useCases = array;
   }
-  
   /**
    * the method creates the service categories from the given array
    */
@@ -156,7 +164,7 @@ export class RootComponent implements OnInit {
     const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
     dialogRef.componentInstance.submitData.subscribe(
       (credentials: User) => {
-        if(!credentials.isLoginValid()) return;
+        if (!credentials.isLoginValid()) return;
         this.service.loginUser(credentials).subscribe(
           (result) => {
             this.loginCallback(result);
@@ -165,7 +173,7 @@ export class RootComponent implements OnInit {
           (error) => {
             console.log(error);
           }
-        )
+        );
       }
     );
   }
@@ -176,12 +184,47 @@ export class RootComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
+    dialogConfig.data = new User();
     const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
-    dialogRef
-      .afterClosed()
-      .subscribe((data) => {
-        console.log("Dialog output:", data);
-      });
+    dialogRef.componentInstance.submitData.subscribe(
+      (credentials: User) => {
+        if (!credentials.isRegistrationValid()) return;
+        this.service.registerUser(credentials).subscribe(
+          (result) => {
+            this.service.loginUser(credentials).subscribe(
+              (result) => {
+                this.loginCallback(result);
+                dialogRef.close();
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    );
+  }
+  /**
+   * the method starts the register dialog
+   */
+  openUserDetailDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      "username":  this.username,
+      "rights": this.roleRights
+    };
+    const dialogRef = this.dialog.open(UserDetailComponent, dialogConfig);
+    dialogRef.componentInstance.submitData.subscribe(
+      (credentials: User) => {
+        console.log(credentials);
+      }
+    );
   }
   /**
    * the method returns the current access token

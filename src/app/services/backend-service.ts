@@ -52,7 +52,7 @@ export class BackEndService {
      * the method regiters a new User
      */
     registerUser(credentials: User) {
-        return this.http.post<User>(globals.serverLocation + "/api/account/register", credentials)
+        return this.http.post<User>(globals.serverLocation + "/api/account/register", credentials);
     }
     /**
      * the method sends the search request to the server

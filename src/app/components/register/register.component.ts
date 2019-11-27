@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import * as globals from "../../globals";
 import { User } from "../../classes/user";
-import { MyErrorStateMatcher } from "src/app/classes/myErrorStateMatcher";
 
 @Component({
   selector: "app-register",
@@ -10,51 +9,56 @@ import { MyErrorStateMatcher } from "src/app/classes/myErrorStateMatcher";
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
-  form: FormGroup;
-  matcher = new MyErrorStateMatcher();
-
   /**
-   * the method emits the registration data
+   * the current views state
    */
-  @Output() public registrationDataEmitter = new EventEmitter();
-
-  public user : User;
+  _state: number = globals.viewStates.DEFAULT;
+  /**
+   * the observable attribute emits on login click
+   */
+  @Output() submitData = new EventEmitter<any>();
 
   constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<RegisterComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-  }
-  checkPasswords(group: FormGroup) {
-    // here we have the 'passwords' group
-    let pass = group.get("password").value;
-    let confirmPass = group.get("confirmPassword").value;
-
-    return pass === confirmPass ? null : { notSame: true };
-  }
-
-  ngOnInit() {
-    this.form = this.fb.group(
-      {
-        password: ["", [Validators.required]],
-        confirmPassword: [""],
-        username: ["", [Validators.required, Validators.minLength(6)]]
-      },
-      { validator: this.checkPasswords }
-    );
-  }
-
-  
-
-  save() {
-    this.dialogRef.close(this.form.value);
-  }
     /**
-   * the method closes the Dialog an submits the registration data
+     * the data injected by the root component
+     */
+    @Inject(MAT_DIALOG_DATA) public user: User,
+    /**
+     * the dialog parent
+     */
+    private dialogRef: MatDialogRef<RegisterComponent>
+  ) {
+
+  }
+  /**
+   * the method emits the user credentials
    */
-  closeAndSubmit() {
-    this.dialogRef.close();
-    this.registrationDataEmitter.emit([this.user]);
+  registerUser() {
+    this.submitData.emit(this.user);
+  }
+  /**
+   * the method is called on component initalization
+   */
+  ngOnInit() {
+
+  }
+  /**
+   * the method sets the component states
+   */
+  set state(state: number) {
+    switch (state) {
+      case globals.viewStates.WAITING:
+        this._state = state;
+        break;
+      case globals.viewStates.READY:
+        this._state = globals.viewStates.DEFAULT;
+        break;
+    }
+  }
+  /**
+   * the method returns the components state
+   */
+  get state() {
+    return this._state;
   }
 }

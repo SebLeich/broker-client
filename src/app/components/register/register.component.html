@@ -1,50 +1,28 @@
-<form [formGroup]="form">
-  <mat-form-field class="input-container">
-    <input
-      matInput
-      placeholder="Username"
-      formControlName="username"
-      required
-      [(ngModel)]="user.username"
-    />
-    <mat-error *ngIf="form.hasError('required', 'username')">
-      Please enter a username (min 6 characters)
-    </mat-error>
+<h2 mat-dialog-title>
+  Nutzer Registrierung
+</h2>
+<mat-dialog-content>
+  <mat-form-field class="width">
+    <input matInput placeholder="Benutzername" name="username" [(ngModel)]="user.username">
   </mat-form-field>
-
-  <mat-form-field class="input-container">
-    <input
-      matInput
-      type="password"
-      placeholder="New password"
-      formControlName="password"
-      required
-      [(ngModel)]="user.password"
-    />
-    <mat-error *ngIf="form.hasError('required', 'password')">
-      Please enter your new password
-    </mat-error>
+  <mat-form-field class="width">
+    <input matInput placeholder="Passwort" name="password" type="password" [(ngModel)]="user.password">
   </mat-form-field>
-
-  <mat-form-field class="input-container">
-    <input
-      matInput
-      type="password"
-      placeholder="Confirm password"
-      formControlName="confirmPassword"
-      [(ngModel)]="user.confirmPassword"
-      [errorStateMatcher]="matcher"
-    />
-    <mat-error *ngIf="form.hasError('notSame')">
-      Passwords do not match
-    </mat-error>
+  <mat-form-field class="width">
+    <input matInput placeholder="Passwort bestätigen" name="password" type="password"
+      [(ngModel)]="user.confirmPassword">
   </mat-form-field>
-  <button
-    mat-raised-button
-    (click)="closeAndSubmit()"
-    type="submit"
-    [disabled]="form.invalid"
-  >
-    Registrieren
-  </button>
-</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div *ngIf="state == 0">
+    <button mat-button [mat-dialog-close]="true">
+      Abbrechen
+    </button>
+    <button mat-button color="primary" (click)=registerUser()>
+      Registrieren
+    </button>
+  </div>
+  <div *ngIf="state == 1" style="position: absolute; right: 20px;">
+    <mat-spinner diameter="50" color="primary"></mat-spinner>
+  </div>
+</mat-dialog-actions>
