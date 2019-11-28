@@ -4,7 +4,10 @@
         Rollenberechtigungen editieren und ähnliches.</div>
 </section>
 <section class="section content-section" *ngIf="canRegisterRoles">
-    <span class="section-header">Rollen</span>
+    <span class="section-header">
+        Rollen
+        <span class="sub">Welche Rollen existieren im Cloud Broker?</span>
+    </span>
     <div *ngIf="roleState == 2; else loader">
         <mat-form-field class="example-chip-list">
             <mat-chip-list #roleList aria-label="Rollen bearbeiten">
@@ -13,7 +16,8 @@
                     {{ r.roleName }}
                     <mat-icon matChipRemove *ngIf="removable" style="color: red;">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="Neue Rolle anlegen ..." [matChipInputFor]="roleList"
+                <input
+                    [matChipInputFor]="roleList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                     (matChipInputTokenEnd)="addRole($event)">
             </mat-chip-list>
@@ -21,7 +25,10 @@
     </div>
 </section>
 <section class="section content-section" *ngIf="canEditSecurityGuidelines">
-    <span class="section-header">Rollenberechtigungen</span>
+    <span class="section-header">
+        Rollenberechtigungen
+        <span class="sub">Welche Rollen dürfen welche Aktionen ausführen?</span>
+    </span>
     <div *ngIf="currentRole != null; else loader">
         <mat-select class="selector" [placeholder]=selectRolePlaceholder [value]=currentRole.roleName
             (selectionChange)=selectRole($event)>
@@ -48,7 +55,10 @@
     </div>
 </section>
 <section class="section content-section" *ngIf="canEditSecurityGuidelines">
-    <span class="section-header">Nutzer-Rollen Zuweisungen</span>
+    <span class="section-header">
+        Nutzer-Rollen Zuweisungen
+        <span class="sub">Welche Nutzer sind welchen Rollen zugeordnet?</span>
+    </span>
     <div *ngIf="userState == 2 && roleState == 2; else loader">
         <table mat-table [dataSource]="users" style="width: 100%;">
             <ng-container matColumnDef="icon">

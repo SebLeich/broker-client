@@ -18,7 +18,8 @@ import {
   MatTableModule,
   MatChipsModule,
   MatSlideToggleModule,
-  MatSelectModule
+  MatSelectModule,
+  MatStepperModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -33,6 +34,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DetailviewComponent } from './components/detailview/detailview.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { AdministrationComponent } from './components/administration/administration.component';
+import { AddServiceComponent } from './components/add-service/add-service.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { AdministrationComponent } from './components/administration/administrat
     LoginComponent,
     DetailviewComponent,
     UserDetailComponent,
-    AdministrationComponent
+    AdministrationComponent,
+    AddServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import { AdministrationComponent } from './components/administration/administrat
     MatAutocompleteModule,
     MatChipsModule,
     MatSlideToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

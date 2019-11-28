@@ -13,9 +13,9 @@ export class DetailviewComponent implements OnInit {
   private _ser: Service[] = [];
   private _serCats: ServiceCategory[] = [];
   private _currentInd = 0;
-  public editMode: boolean = false;
   private _state: number = globals.viewStates.DEFAULT;
 
+  @Input() editMode = false;
   /**
    * the attribute contains whether the user is logged in or not
    */

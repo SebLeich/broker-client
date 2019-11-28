@@ -33,3 +33,9 @@
     display: block;
     padding: 10px 0px;
 }
+
+.section-header .sub {
+    font-size: .8rem;
+    color: grey;
+    margin-left: 10px;
+}

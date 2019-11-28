@@ -1,39 +1,4 @@
 <mat-card *ngIf="serviceCount > 0; else noService" (dblclick)=log(currentService)>
-    <mat-card-title class="super-headline">
-        <div *ngIf="serviceCount == 1; else multipleSuggestions">
-            <span>
-                Wir haben eine Empfehlung für Sie
-            </span>
-        </div>
-        <ng-template #multipleSuggestions>
-            <span>
-                Wir haben {{ serviceCount }} Empfehlungen für Sie
-            </span>
-            <span class="spacer"></span>
-            <button mat-stroked-button color="primary" (click)=next()>
-                Nächste
-            </button>
-        </ng-template>
-        <span class="spacer"></span>
-        <div *ngIf="isLoggedIn" class="option-row">
-            <div *ngIf="state == 0">
-                <div *ngIf="editMode; else disableReadOnly">
-                    <button mat-button (click)=toggleReadOnly()>Bearbeitung
-                        deaktivieren
-                    </button>
-                    <button mat-icon-button class="btn-success" (click)=saveChanges()>
-                        <mat-icon>save</mat-icon>
-                    </button>
-                </div>
-                <ng-template #disableReadOnly>
-                    <button mat-button (click)=toggleReadOnly()>Bearbeitung aktivieren</button>
-                </ng-template>
-            </div>
-            <div *ngIf="state == 1" style="position: absolute; right: 20px;">
-                <mat-spinner diameter="50" color="primary"></mat-spinner>
-            </div>
-        </div>
-    </mat-card-title>
     <form class="form" *ngIf="editMode && isLoggedIn; else readOnly">
         <mat-form-field class="width">
             <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
@@ -58,6 +23,27 @@
             <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId">
         </mat-form-field>
     </form>
+    <mat-card-title class="super-headline">
+        <span class="spacer"></span>
+        <div *ngIf="isLoggedIn" class="option-row">
+            <div *ngIf="state == 0">
+                <div *ngIf="editMode; else disableReadOnly">
+                    <button mat-button (click)=toggleReadOnly()>Bearbeitung
+                        deaktivieren
+                    </button>
+                    <button mat-icon-button class="btn-success" (click)=saveChanges()>
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </div>
+                <ng-template #disableReadOnly>
+                    <button mat-button (click)=toggleReadOnly()>Bearbeitung aktivieren</button>
+                </ng-template>
+            </div>
+            <div *ngIf="state == 1" style="position: absolute; right: 20px;">
+                <mat-spinner diameter="50" color="primary"></mat-spinner>
+            </div>
+        </div>
+    </mat-card-title>
     <ng-template #readOnly>
         <form class="form">
             <mat-form-field class="width">

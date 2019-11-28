@@ -1,0 +1,20 @@
+<section class="section l-primary-bg" style="color: white;">
+    <span class="super-section-header">Neuen Service anlegen</span>
+    <div style="padding-bottom: 20px;">Auf dieser Seite können Sie einen neuen Service im System hinterlegen.</div>
+</section>
+<mat-horizontal-stepper [linear]=linear #stepper>
+    <mat-step [stepControl]="select-type">
+        <ng-template matStepLabel>Wählen Sie eine Art</ng-template>
+        <mat-card *ngFor="let type of types" class="option" (click)=setType(stepper,type.type)>
+            <mat-card-content class="content">
+                <span class="name">{{ type.name }}</span>
+                <span class="spacer"></span>
+                <mat-icon>chevron_right</mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Eigenschaften</ng-template>
+        <app-detailview [isLoggedIn]=isLoggedIn [services]=services [serviceCategories]=serviceCategories [editMode]=editMode></app-detailview>
+    </mat-step>
+</mat-horizontal-stepper>

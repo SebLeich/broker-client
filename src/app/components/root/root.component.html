@@ -33,6 +33,13 @@
         [canEditSecurityGuidelines]=canEditSecurityGuidelines
     ></app-administration>
 </div>
+<div *ngIf="state == 6">
+    <app-add-service
+        *ngIf="canCreateServices; else noAccessRight"
+        [isLoggedIn]=isLoggedIn 
+        [serviceCategories]=serviceCategories
+    ></app-add-service>
+</div>
 <ng-template #noAccessRight>
     <div>
         <div style="display: block; text-align: center; margin-top: 25vh;">

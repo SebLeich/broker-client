@@ -8,9 +8,6 @@
 .headline {
     font-size: 2rem;
 }
-.headline:not(:focus) {
-    text-transform: uppercase;
-}
 .width {
     width: 100%;
 }

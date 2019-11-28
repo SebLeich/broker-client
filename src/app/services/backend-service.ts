@@ -54,7 +54,11 @@ export class BackEndService {
         var config = {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         };
-        return this.http.put<Service>(globals.serverLocation + "/" + input.location, input, config);
+        if(input.sessionState.isNew){
+            return this.http.post<Service>(globals.serverLocation + "/" + input.location, input, config);
+        } else {
+            return this.http.put<Service>(globals.serverLocation + "/" + input.location, input, config);
+        }
     }
     /**
      * the method initiates a post request to the backend

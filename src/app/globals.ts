@@ -7,7 +7,8 @@ export const rootStates = {
   PROJECTDESCRIPTION: 2,
   REGISTER: 3,
   SERVICEDETAILVIEW: 4,
-  ADMINISTRATION: 5
+  ADMINISTRATION: 5,
+  ADDSERVICE: 6
 };
 /**
  * the enumeration contains all login states

@@ -1,0 +1,13 @@
+.option {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.option .content {
+    display: flex;
+}
+.option .content .name {
+    font-size: 1.2rem;
+}
+.spacer {
+    flex: 1;
+}
