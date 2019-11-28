@@ -313,6 +313,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: $primary;
 }
 
+.l-primary-bg {
+  background-color: $light-primary;
+}
+
+.accent-bg {
+  background-color: $accent;
+}
+
 .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
   color: rgba(0, 0, 0, 0.81);
 }

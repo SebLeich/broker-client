@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import * as globals from "../../globals";
-import { User } from "../../classes/user";
+import { User } from "../../classes/account";
 
 @Component({
   selector: "app-register",

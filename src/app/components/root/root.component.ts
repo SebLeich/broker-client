@@ -8,8 +8,7 @@ import { UseCase } from "../../classes/use-case";
 import { BackEndService } from "../../services/backend-service";
 import { LoginComponent } from "src/app/components/login/login.component";
 import { UseCaseHistoryEntry } from 'src/app/classes/use-case-history-entry';
-import { User } from 'src/app/classes/user';
-import { RoleRight } from 'src/app/classes/role-right';
+import { RoleRight, User } from 'src/app/classes/account';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 
 @Component({
@@ -50,6 +49,13 @@ export class RootComponent implements OnInit {
    */
   get canCreateServices() {
     if (this.roleRights.find(x => x.rule.ruleCode == "create-services" && x.isAllowed)) return true;
+    return false;
+  }
+  /**
+   * the attribute returns whether the current user can edit security guidelines
+   */
+  get canEditSecurityGuidelines() {
+    if (this.roleRights.find(x => x.rule.ruleCode == "edit-security-guidelines" && x.isAllowed)) return true;
     return false;
   }
   /**

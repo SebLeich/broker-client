@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
-import { User } from "../../classes/user";
+import { User } from "../../classes/account";
 import * as globals from "../../globals";
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material'
 

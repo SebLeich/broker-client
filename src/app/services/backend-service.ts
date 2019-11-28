@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import * as globals from "../globals";
 import { UseCaseHistoryEntry } from '../classes/use-case-history-entry';
 import { Service, BlockStorageService } from '../classes/service';
-import { User } from '../classes/user';
+import { User } from '../classes/account';
 
 /**
  * the service provides access to the backend's API

@@ -16,7 +16,9 @@ import {
   MatTooltipModule,
   MatAutocompleteModule,
   MatTableModule,
-  MatChipsModule
+  MatChipsModule,
+  MatSlideToggleModule,
+  MatSelectModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -64,7 +66,9 @@ import { AdministrationComponent } from './components/administration/administrat
     MatTooltipModule,
     MatTableModule,
     MatAutocompleteModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSlideToggleModule,
+    MatSelectModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

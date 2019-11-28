@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'
-import { RoleRight } from 'src/app/classes/role-right';
+import { RoleRight } from 'src/app/classes/account';
 
 @Component({
   selector: 'app-user-detail',

@@ -1,3 +1,10 @@
+.navbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000;
+}
+
 .example-icon {
     padding: 0 14px;
     cursor: pointer;
