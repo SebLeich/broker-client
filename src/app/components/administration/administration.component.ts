@@ -33,7 +33,7 @@ export class AdministrationComponent implements OnInit {
   /**
    * the user-role table columns
    */
-  uRCols: string[] = ["icon", "user", "roles"];
+  uRCols: string[] = ["icon", "user", "roles", "options"];
 
   public selectRolePlaceholder: string = "Rolle wählen";
 
@@ -51,7 +51,7 @@ export class AdministrationComponent implements OnInit {
 
   @Input() canEditSecurityGuidelines;
 
-  @Input() currentUser : string;
+  @Input() currentUser: string;
 
   addRole(event: MatChipInputEvent) {
     let r = new Role({ roleName: event.value });
@@ -88,6 +88,16 @@ export class AdministrationComponent implements OnInit {
   get currentRights(): RoleRight[] {
     if (this.roleRightState == globals.viewStates.WAITING) return null;
     return this._RoleRightStore;
+  }
+
+  deleteUser(user: User){
+    var i = this.users.indexOf(user);
+    if(i > -1){
+      this.users.splice(i, 1);
+      this.service.delete("api/account/" + user.username).subscribe((result) => {
+        this.ngOnInit();
+      });
+    }
   }
 
   ngOnInit() {

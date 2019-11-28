@@ -39,3 +39,11 @@
     color: grey;
     margin-left: 10px;
 }
+
+.options-cell {
+    padding-left: 10px;
+}
+
+.control {
+    cursor: pointer;
+}

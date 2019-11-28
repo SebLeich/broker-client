@@ -14,7 +14,7 @@
                 <mat-chip *ngFor="let r of roles" [selectable]="selectable" [removable]="removable"
                     (removed)="removeRole(r)">
                     {{ r.roleName }}
-                    <mat-icon matChipRemove *ngIf="removable" style="color: red;">cancel</mat-icon>
+                    <mat-icon matChipRemove *ngIf="removable control-red">cancel</mat-icon>
                 </mat-chip>
                 <input
                     [matChipInputFor]="roleList"
@@ -76,6 +76,11 @@
                     <mat-select multiple [ngModel]="element.roles" (selectionChange)=selectRoleForUser(element,$event)>
                         <mat-option *ngFor="let role of roles" [value]="role.roleName"> {{ role.roleName }} </mat-option>
                     </mat-select>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="options">
+                <td mat-cell *matCellDef="let element" class="small-cell options-cell">
+                    <mat-icon (click)=deleteUser(element) class="control control-red" matTooltip="{{ element.username }} löschen">delete</mat-icon>
                 </td>
             </ng-container>
             <tr mat-row *matRowDef="let row; columns: uRCols;"></tr>
