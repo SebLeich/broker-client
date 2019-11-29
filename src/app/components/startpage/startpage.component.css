@@ -41,3 +41,37 @@
 .sub-card .content {
     padding-left: calc(2rem + 5px);
 }
+
+.tile {
+    cursor: pointer;
+    border: 2px solid #ffffff1f;
+}
+
+.tile:hover {
+    border-color: white;
+}
+
+.custom-tile {
+    text-align: left;
+    display: block;
+    width: calc(100% - 60px);
+}
+
+.custom-tile .headline {
+    font-size: 1.5rem;
+}
+
+.custom-tile .subtitle {
+    padding-top: 10px;
+    font-size: .9rem;
+}
+
+.bg-icon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 8rem;
+    width: auto;
+    height: auto;
+    color: #ffffff61;
+}

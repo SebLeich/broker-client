@@ -317,6 +317,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: $sh-primary;
 }
 
+.gradient-bg {
+  background: linear-gradient(45deg, #1372c7 50%, white);
+}
+
 .th-primary-bg {
   background-color: $th-primary;
 }

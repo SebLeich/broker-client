@@ -1,35 +1,15 @@
-<section class="section l-primary-bg" style="color: white;">
-  <span class="super-section-header">Cloud Broker</span>
-  <div style="padding-bottom: 20px;">Willkommen beim Cloud Broker</div>
+<section class="section gradient-bg" style="color: white; position: relative;">
+  <mat-icon class="bg-icon">cloud_queue</mat-icon>
+  <span class="super-section-header" style="padding-bottom: 50px; font-size: 4rem;">Cloud Broker</span>
+  <mat-grid-list cols="5" rowHeight="150px" gutterSize="7">
+    <div *ngFor="let o of options">
+      <mat-grid-tile *ngIf=o.ngIf(this) [colspan]="o.cols" [rowspan]="o.rows" [style.background]="o.bgColor" class="tile"
+        (click)=o.click(this)>
+        <div class="custom-tile">
+          <span class="headline" [style.color]="o.headColor">{{ o.text }}</span>
+          <div class="subtitle" [style.color]="o.subColor">{{ o.subtitle }}</div>
+        </div>
+      </mat-grid-tile>
+    </div>
+  </mat-grid-list>
 </section>
-<mat-card class="main-content">
-  <mat-card-content class="sub-card-parent">
-    <mat-card *ngIf="!isLoggedIn" class="sub-card" (click)="openLoginDialog()">
-      <mat-card-title class="sub-headline">
-        <mat-icon class="icon primary-color">input</mat-icon>
-        Anmelden
-      </mat-card-title>
-      <mat-card-subtitle class="content">
-        Melden Sie sich mit einem bestehenden Account an
-      </mat-card-subtitle>
-    </mat-card>
-    <mat-card class="sub-card" (click)="openRegisterDialog()">
-      <mat-card-title class="sub-headline">
-        <mat-icon class="icon primary-color">account_circle</mat-icon>
-        Registrieren
-      </mat-card-title>
-      <mat-card-subtitle class="content">
-        Legen Sie sich einen neuen Account für den Cloud Broker an
-      </mat-card-subtitle>
-    </mat-card>
-    <mat-card *ngIf="isLoggedIn" class="sub-card" (click)="setState(2)">
-      <mat-card-title class="sub-headline">
-        <mat-icon class="icon primary-color">add</mat-icon>
-        Neues Projekt anlegen
-      </mat-card-title>
-      <mat-card-subtitle class="content">
-        Legen Sie ein neues Projekt an um suchen Sie nach geeigneten Lösungen
-      </mat-card-subtitle>
-    </mat-card>
-  </mat-card-content>
-</mat-card>

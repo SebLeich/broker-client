@@ -19,7 +19,8 @@ import {
   MatChipsModule,
   MatSlideToggleModule,
   MatSelectModule,
-  MatStepperModule
+  MatStepperModule,
+  MatGridListModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -76,7 +77,8 @@ import { ServiceproviderPipe } from './pipes/serviceprovider.pipe';
     MatChipsModule,
     MatSlideToggleModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatGridListModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],
