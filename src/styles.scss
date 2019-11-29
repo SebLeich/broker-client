@@ -314,7 +314,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .l-primary-bg {
-  background-color: $light-primary;
+  background-color: $sh-primary;
+}
+
+.th-primary-bg {
+  background-color: $th-primary;
 }
 
 .accent-bg {
@@ -351,7 +355,7 @@ tr.mat-row:last-child td.mat-cell {
 .super-section-header {
   font-size: 3rem;
   display: block;
-  padding: 20px 0px;
+  padding: 20px 0px 10px 0px;
   text-transform: uppercase;
 }
 

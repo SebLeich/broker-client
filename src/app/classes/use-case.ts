@@ -1,5 +1,3 @@
-import { Type } from '@angular/core';
-
 /**
  * the class contains an use-case for service matching
  */

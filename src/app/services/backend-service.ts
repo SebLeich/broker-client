@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as globals from "../globals";
-import { UseCaseHistoryEntry } from '../classes/use-case-history-entry';
-import { Service, BlockStorageService } from '../classes/service';
+import { Service } from '../classes/service';
 import { User } from '../classes/account';
+import { SearchVector } from '../classes/search';
 
 /**
  * the service provides access to the backend's API
@@ -77,8 +77,9 @@ export class BackEndService {
     /**
      * the method sends the search request to the server
      */
-    sendSearch(input: UseCaseHistoryEntry[]) {
-        return this.http.get<BlockStorageService[]>(globals.serverLocation + "/" + BlockStorageService.location);
+    sendSearch(input: SearchVector) {
+        if(!input.isSearchable()) return;
+        return this.post(input.searchType.location + "/search", input);
     }
     /**
      * the method returns the current access token

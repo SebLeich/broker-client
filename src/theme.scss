@@ -9,7 +9,8 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
 $app-primary: mat-palette($mat-blue,800);
-$app-light-primary: mat-palette($mat-blue,700);
+$app-sh-primary: mat-palette($mat-blue,600);
+$app-th-primary: mat-palette($mat-blue,200);
 $app-accent:  mat-palette($mat-light-blue);
 $app-warn: mat-palette($mat-pink);
 
@@ -23,6 +24,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 // Export theme colors
 $primary: mat-color($app-primary);
-$light-primary: mat-color($app-light-primary);
+$sh-primary: mat-color($app-sh-primary);
+$th-primary: mat-color($app-th-primary);
 $accent: mat-color($app-accent);
 $warn: mat-color($app-warn);

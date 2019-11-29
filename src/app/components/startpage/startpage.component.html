@@ -1,10 +1,8 @@
+<section class="section l-primary-bg" style="color: white;">
+  <span class="super-section-header">Cloud Broker</span>
+  <div style="padding-bottom: 20px;">Willkommen beim Cloud Broker</div>
+</section>
 <mat-card class="main-content">
-  <mat-card-title class="super-headline">
-    Cloud Broker
-  </mat-card-title>
-  <mat-card-subtitle class="super-sub-headline">
-    Wählen Sie eine der folgenden Aktionen
-  </mat-card-subtitle>
   <mat-card-content class="sub-card-parent">
     <mat-card *ngIf="!isLoggedIn" class="sub-card" (click)="openLoginDialog()">
       <mat-card-title class="sub-headline">

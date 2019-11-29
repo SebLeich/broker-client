@@ -24,6 +24,7 @@
     [isLoggedIn]=isLoggedIn 
     [services]=services 
     [serviceCategories]=serviceCategories
+    [serviceProviders]=serviceProviders
 ></app-detailview>
 <div *ngIf="state == 5">
     <app-administration
@@ -38,6 +39,7 @@
         *ngIf="canCreateServices; else noAccessRight"
         [isLoggedIn]=isLoggedIn 
         [serviceCategories]=serviceCategories
+        [serviceProviders]=serviceProviders
     ></app-add-service>
 </div>
 <ng-template #noAccessRight>

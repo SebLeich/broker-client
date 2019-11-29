@@ -16,12 +16,49 @@
                 [(ngModel)]="currentService.servcieAvailability">
         </mat-form-field>
         <mat-form-field class="width">
-            <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
-                [(ngModel)]="currentService.cloudServiceCategoryId" [matAutocomplete]="categories">
+            <mat-select [placeholder]=selectCategoryPlaceholder [ngModel]="currentService.cloudServiceCategoryId"
+                (ngModelChange)="currentService.cloudServiceCategoryId=$event" name="cloudServiceCategoryId">
+                <mat-option *ngFor="let c of serviceCategories" [value]="c.id">
+                    {{ c.cloudServiceCategoryName }}
+                </mat-option>
+                <mat-option (click)="showCategoryAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Kategorie anlegen ...
+                </mat-option>
+            </mat-select>
         </mat-form-field>
+        <div *ngIf="showCategoryAdder">
+            <mat-form-field class="add-on">
+                <input matInput #newCSCat placeholder="Neue Cloud Service Kategorie"
+                    (keydown.enter)="addServiceCategory(newCSCat.value)" />
+            </mat-form-field>
+            <button class="add-on-button" mat-raised-button color="primary"
+                (click)="addServiceCategory(newCSCat.value)">
+                Anlegen
+            </button>
+        </div>
         <mat-form-field class="width">
-            <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId">
+            <mat-select [placeholder]=selectProviderPlaceholder [ngModel]="currentService.providerId"
+                (ngModelChange)="currentService.providerId=$event" name="providerId">
+                <mat-option *ngFor="let p of serviceProviders" [value]="p.id">
+                    {{ p.providerName }}
+                </mat-option>
+                <mat-option (click)="showProviderAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Provider anlegen ...
+                </mat-option>
+            </mat-select>
         </mat-form-field>
+        <div *ngIf="showProviderAdder">
+            <mat-form-field class="add-on">
+                <input matInput #newCSProv placeholder="Neuer Service Provider"
+                    (keydown.enter)="addServiceProvider(newCSProv.value)" />
+            </mat-form-field>
+            <button class="add-on-button" mat-raised-button color="primary"
+                (click)="addServiceProvider(newCSProv.value)">
+                Anlegen
+            </button>
+        </div>
     </form>
     <mat-card-title class="super-headline">
         <span class="spacer"></span>
@@ -60,15 +97,15 @@
             </mat-form-field>
             <mat-form-field class="width">
                 <input matInput placeholder="Verfügbarkeit" name="servcieAvailability"
-                    [(ngModel)]="currentService.servcieAvailability" disabled />
+                    [ngModel]="currentService.servcieAvailability" disabled />
             </mat-form-field>
             <mat-form-field class="width">
                 <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
-                    [(ngModel)]="currentService.cloudServiceCategoryId" [matAutocomplete]="categories" disabled>
+                    [ngModel]="currentService.cloudServiceCategoryId|servicecategory:serviceCategories" disabled />
             </mat-form-field>
             <mat-form-field class="width">
-                <input matInput placeholder="Service Provider" name="providerId" [(ngModel)]="currentService.providerId"
-                    disabled>
+                <input matInput placeholder="Service Provider" name="providerId"
+                    [ngModel]="currentService.providerId|serviceprovider:serviceProviders" disabled />
             </mat-form-field>
         </form>
     </ng-template>

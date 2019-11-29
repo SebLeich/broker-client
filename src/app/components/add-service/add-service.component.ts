@@ -31,9 +31,13 @@ export class AddServiceComponent implements OnInit {
    */
   @Input() isLoggedIn;
   /**
-   * the input value sets the internal use case list
+   * the input value sets the service categories
    */
   @Input() serviceCategories;
+  /**
+   * the input value sets the service providers
+   */
+  @Input() serviceProviders;
 
   public types: CloudServiceType[] = [
     new CloudServiceType({ "name": "Block Storage Service", "type": BlockStorageService }),

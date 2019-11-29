@@ -11,6 +11,22 @@
 .width {
     width: 100%;
 }
+.add-on {
+    position: relative;
+    left: 20px;
+    width: calc(100% - 150px);
+}
+.add-on-button {
+    margin-left: 40px;
+}
+.mat-option-adder {
+    border-top: 1px solid grey;
+}
+.mat-option-adder .icon {
+    vertical-align: sub;
+    margin-right: 0px;
+    color: green;
+}
 .subtitle {
     font-size: 1rem;
 }

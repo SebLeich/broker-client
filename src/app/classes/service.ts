@@ -19,7 +19,7 @@ export abstract class Service {
      * the constructor creates a new instance of a service
      */
     constructor(object?){
-        if(typeof(object) != "undefined"){
+        if(typeof(object) != "undefined" && object != null){
             this.id = object.id;
             this.serviceName = object.serviceName;
             this.serviceDescription = object.serviceDescription;
@@ -195,7 +195,6 @@ export class RelationalDatabaseService extends Service {
         return "api/relationaldatabaseservice";
     }
 }
-
 /**
  * the class contains a service category
  */
@@ -220,5 +219,31 @@ export class ServiceCategory {
      */
     static get location() : string {
         return "api/cloudservicecategory";
+    }
+}
+/**
+ * the class contains a service provider
+ */
+export class ServiceProvider {
+    public id: number;
+    public providerName: string;
+    /**
+     * the constructor creates a new instance of a service provider
+     */
+    constructor(object){
+        this.id = object.id;
+        this.providerName = object.providerName;
+    }
+    /**
+     * the method returns the classes server endpoint
+     */
+    get location() : string {
+        return ServiceProvider.location;
+    }
+    /**
+     * the method returns the classes server endpoint
+     */
+    static get location() : string {
+        return "api/serviceprovider";
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
 import { Project } from "../../classes/project";
-import { Service, BlockStorageService, ServiceCategory } from "../../classes/service";
+import { Service, BlockStorageService, ServiceCategory, ObjectStorageService, OnlineDriveStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService, ServiceProvider } from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
@@ -10,6 +10,7 @@ import { LoginComponent } from "src/app/components/login/login.component";
 import { UseCaseHistoryEntry } from 'src/app/classes/use-case-history-entry';
 import { RoleRight, User } from 'src/app/classes/account';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { SearchVector } from 'src/app/classes/search';
 
 @Component({
   selector: "app-root",
@@ -36,6 +37,7 @@ export class RootComponent implements OnInit {
   services: Service[] = [];
   roleRights: RoleRight[] = [];
   serviceCategories: ServiceCategory[] = [];
+  serviceProviders: ServiceProvider[] = [];
   /**
    * the constructor creates a new instance of the component
    */
@@ -43,6 +45,7 @@ export class RootComponent implements OnInit {
     private dialog: MatDialog,
     private service: BackEndService
   ) {
+    
   }
   /**
    * the attribute returns whether the current user is allowed to create services
@@ -104,6 +107,7 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this.service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
     this.service.get(ServiceCategory.location).subscribe((o: Object) => this.setServiceCategories(o));
+    this.service.get(ServiceProvider.location).subscribe((o: Object) => this.setServiceProviders(o));
     if (this.isLoggedIn) {
       this.service.get("api/account/current-rights").subscribe((result) => {
         for (var index in result) {
@@ -120,12 +124,44 @@ export class RootComponent implements OnInit {
    * the method is called when the user sends his use case search
    */
   sendSearch(s: UseCaseHistoryEntry[]) {
-    // s = ausgwählte Anwendungsfälle - bislang noch keine Suche möglich ... TODO
-    this.service.sendSearch([]).subscribe((result) => {
-      this.setState(globals.rootStates.SERVICEDETAILVIEW);
+    var r = s.filter(x => x.object.data.mapping != null);
+    if(r.length == 0) throw("error: no history entry with final target");
+    var object = { "type": null };
+    var v = r[0].object.data.mapping;
+    switch(v){
+      case "object-storage":
+        object.type = ObjectStorageService;
+        break;
+      case "odrive":
+        object.type = OnlineDriveStorageService;
+        break;
+      case "block-storage":
+        object.type = BlockStorageService;
+        break;
+      case "direct-att":
+        object.type = DirectAttachedService;
+        break;
+      case "rdb":
+        object.type = RelationalDatabaseService;
+        break;
+      case "nrdb":
+        object.type = KeyValueStorageService;
+        break;
+      default:
+        throw("error: unknown final type " + v);
+    }
+    var search = new SearchVector(object);
+    this.service.sendSearch(search).subscribe((result) => {
+      console.log(result);
       var o = [];
-      for (var index in result) o.push(new BlockStorageService(result[index]));
+      if(Array.isArray(result)){
+        for (var index in result) o.push(new object.type(result[index]));
+      } else {
+        o.push(new object.type(result));
+      }
+      console.log(o);
       this.services = o;
+      this.setState(globals.rootStates.SERVICEDETAILVIEW);
     });
   }
   /**
@@ -147,6 +183,16 @@ export class RootComponent implements OnInit {
       array.push(new ServiceCategory(o[index]));
     }
     this.serviceCategories = array;
+  }
+  /**
+   * the method creates the service categories from the given array
+   */
+  setServiceProviders(o: Object) {
+    var array = [];
+    for (var index in o) {
+      array.push(new ServiceProvider(o[index]));
+    }
+    this.serviceProviders = array;
   }
   /**
    * the method sets the applications state

@@ -35,6 +35,8 @@ import { DetailviewComponent } from './components/detailview/detailview.componen
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { AdministrationComponent } from './components/administration/administration.component';
 import { AddServiceComponent } from './components/add-service/add-service.component';
+import { ServicecategoryPipe } from './pipes/servicecategory.pipe';
+import { ServiceproviderPipe } from './pipes/serviceprovider.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { AddServiceComponent } from './components/add-service/add-service.compon
     DetailviewComponent,
     UserDetailComponent,
     AdministrationComponent,
-    AddServiceComponent
+    AddServiceComponent,
+    ServicecategoryPipe,
+    ServiceproviderPipe
   ],
   imports: [
     BrowserModule,
