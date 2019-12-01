@@ -20,7 +20,8 @@ import {
   MatSlideToggleModule,
   MatSelectModule,
   MatStepperModule,
-  MatGridListModule
+  MatGridListModule,
+  MatPaginatorModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -39,6 +40,7 @@ import { AddServiceComponent } from './components/add-service/add-service.compon
 import { ServiceCategoryPipe } from './pipes/servicecategory.pipe';
 import { ServiceProviderPipe } from './pipes/serviceprovider.pipe';
 import { ServiceModelPipe } from './pipes/servicemodel.pipe';
+import { ManageServicesComponent } from './components/manage-services/manage-services.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { ServiceModelPipe } from './pipes/servicemodel.pipe';
     AddServiceComponent,
     ServiceCategoryPipe,
     ServiceProviderPipe,
-    ServiceModelPipe
+    ServiceModelPipe,
+    ManageServicesComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,8 @@ import { ServiceModelPipe } from './pipes/servicemodel.pipe';
     MatSlideToggleModule,
     MatSelectModule,
     MatStepperModule,
-    MatGridListModule
+    MatGridListModule,
+    MatPaginatorModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

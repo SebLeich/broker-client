@@ -69,7 +69,6 @@ export class UseCaseSelectionComponent implements AfterViewInit {
     this.useCaseHistory.push(new UseCaseHistoryEntry(u));
     this.stateHistory.push(this.state);
     this.state = u.data.target;
-    //this.ref.detectChanges();
   }
   /**
    * the method undos the last user input

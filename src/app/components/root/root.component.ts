@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
 import { Project } from "../../classes/project";
-import { Service, BlockStorageService, ServiceCategory, ObjectStorageService, OnlineDriveStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService, ServiceProvider } from "../../classes/service";
+import { Service, BlockStorageService, ServiceCategory, ObjectStorageService, OnlineDriveStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService, ServiceProvider, IService } from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
@@ -74,6 +74,11 @@ export class RootComponent implements OnInit {
   get canRegisterRoles() {
     if (this.roleRights.find(x => x.rule.ruleCode == "register-roles" && x.isAllowed)) return true;
     return false;
+  }
+
+  editService(service: Service){
+    this.services = [ service ];
+    this.setState(globals.rootStates.SERVICEDETAILVIEW);
   }
   /**
    * the method checks whether the current user is logged in

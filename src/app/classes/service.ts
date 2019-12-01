@@ -4,6 +4,19 @@ export interface IService {
     new (object?): Service;
 }
 /**
+ * the class contains a service preview
+ */
+export class ServicePreview {
+    public id: number;
+    public discriminator: string;
+    public serviceName: string;
+    constructor(object){
+        this.id = object.id;
+        this.discriminator = object.discriminator;
+        this.serviceName = object.serviceName;
+    }
+}
+/**
  * the class contains a generic cloud service
  */
 export abstract class Service {
@@ -149,14 +162,21 @@ export class BlockStorageService extends Service {
 }
 
 export class DirectAttachedService extends Service {
+    public storageTypeId : number;
+    public storageType: StorageType;
     /**
      * the constructor creates a new instance of the class
      */
     constructor(object){
         if(typeof(object) != "undefined"){
             super(object);
+            this.storageTypeId = object.storageTypeId;
+            if(typeof(object.storageType) != "undefined" && object.storageType != null){
+                this.storageType = new StorageType(object.storageType);
+            }
         } else {
             super();
+            this.storageTypeId = null;
         }
     }
     /**
@@ -170,6 +190,14 @@ export class DirectAttachedService extends Service {
      */
     static get location() : string {
         return "api/directattachedstorageservice";
+    }
+    /**
+     * the method creates the the classes object fitting the backend's interface
+     */
+    toServerObject(){
+        var o = super.toServerObject();
+        o.storageTypeId = this.storageTypeId;
+        return o;
     }
 }
 

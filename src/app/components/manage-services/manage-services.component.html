@@ -1,0 +1,28 @@
+<section class="section l-primary-bg" style="color: white;">
+    <span class="super-section-header">Service Verwaltung</span>
+    <div style="padding-bottom: 20px;">Auf dieser Seite können Sie die angelegten Services verwalten.</div>
+</section>
+<div>
+    <table mat-table [dataSource]="dataSource" class="table">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{ element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serviceName">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{ element.serviceName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="discriminator">
+            <th mat-header-cell *matHeaderCellDef> Typ </th>
+            <td mat-cell *matCellDef="let element"> {{ element.discriminator }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="serviceMgmCols"></tr>
+        <tr mat-row *matRowDef="let service; columns: serviceMgmCols;" (click)=editService(service) class="clickable-row"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>

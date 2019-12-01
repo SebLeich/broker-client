@@ -1,50 +1,29 @@
-<app-navbar
-    [isLoggedIn]="isLoggedIn"
-    [username]="username"
-    [canCreateServices]="canCreateServices"
-    [canRegisterRoles]="canRegisterRoles"
-    (loginDialogEmitter)="openLoginDialog()"
-    (userDialogEmitter)="openUserDetailDialog()"
-    (logoutEmitter)="logout()"
-    (stateEmitter)="setState($event)"
-></app-navbar>
-<app-startpage
-    *ngIf="state == 0"
-    [isLoggedIn]="isLoggedIn"
-    [canAdministrate]="canAdministrate"
-    [canCreateServices]="canCreateServices"
-    (stateEmitter)="setState($event)"
-    (loginDialogEmitter)="openLoginDialog()"
-    (registerDialogEmitter)="openRegisterDialog()"
-    (userDialogEmitter)="openUserDetailDialog()"
-></app-startpage>
+<app-navbar [isLoggedIn]="isLoggedIn" [username]="username" [canCreateServices]="canCreateServices"
+    [canRegisterRoles]="canRegisterRoles" (loginDialogEmitter)="openLoginDialog()"
+    (userDialogEmitter)="openUserDetailDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
+</app-navbar>
+<app-startpage *ngIf="state == 0" [isLoggedIn]="isLoggedIn" [canAdministrate]="canAdministrate"
+    [canCreateServices]="canCreateServices" (stateEmitter)="setState($event)" (loginDialogEmitter)="openLoginDialog()"
+    (registerDialogEmitter)="openRegisterDialog()" (userDialogEmitter)="openUserDetailDialog()"></app-startpage>
 <app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
 <app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)">
 </app-use-case-selection>
-<app-detailview
-    *ngIf="state == 4" 
-    [isLoggedIn]=isLoggedIn 
-    [services]=services 
-    [serviceCategories]=serviceCategories
-    [serviceProviders]=serviceProviders
-></app-detailview>
+<app-detailview *ngIf="state == 4" [isLoggedIn]=isLoggedIn [services]=services [serviceCategories]=serviceCategories
+    [serviceProviders]=serviceProviders></app-detailview>
 <div *ngIf="state == 5">
-    <app-administration
-        *ngIf="canRegisterRoles; else noAccessRight"
-        [currentUser]=username  
-        [canRegisterRoles]=canRegisterRoles
-        [canEditSecurityGuidelines]=canEditSecurityGuidelines
-    ></app-administration>
+    <app-administration *ngIf="canRegisterRoles; else noAccessRight" [currentUser]=username
+        [canRegisterRoles]=canRegisterRoles [canEditSecurityGuidelines]=canEditSecurityGuidelines></app-administration>
 </div>
 <div *ngIf="state == 6">
-    <app-add-service
-        *ngIf="canCreateServices; else noAccessRight"
-        [isLoggedIn]=isLoggedIn 
-        [serviceCategories]=serviceCategories
-        [serviceProviders]=serviceProviders
-    ></app-add-service>
+    <app-add-service *ngIf="canCreateServices; else noAccessRight" [isLoggedIn]=isLoggedIn
+        [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders></app-add-service>
 </div>
+<div *ngIf="state == 7">
+    <app-manage-services *ngIf="canCreateServices; else noAccessRight" (serviceEmitter)=editService($event) (stateEmitter)="setState($event)"></app-manage-services>
+</div>
+
+<!-- HELPER AREAS -->
 <ng-template #noAccessRight>
     <div>
         <div style="display: block; text-align: center; margin-top: 25vh;">
@@ -52,7 +31,8 @@
         </div>
         <h1 style="text-align: center;">Geschützter Bereich</h1>
         <div style="text-align: center; margin: 0 30vw; color: grey;">
-            Dieser Bereich ist nur für Nutzer mit erweiterten Nutzungsrechten zugänglich. Melden Sie sich an oder verwenden Sie einen anderen Account für die Nutzung.
+            Dieser Bereich ist nur für Nutzer mit erweiterten Nutzungsrechten zugänglich. Melden Sie sich an oder
+            verwenden Sie einen anderen Account für die Nutzung.
         </div>
     </div>
 </ng-template>
