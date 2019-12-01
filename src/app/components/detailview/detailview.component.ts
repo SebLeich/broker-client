@@ -242,8 +242,15 @@ export class DetailviewComponent implements OnInit {
   get displayStorageType(): boolean {
     if (
       this.currentService instanceof DirectAttachedService
+      || this.currentService instanceof BlockStorageService
     ) return true;
     return false;
+  }
+  /**
+   * the function sets the file encryption value
+   */
+  set fileCompression(event: MatSlideToggleChange) {
+    this.currentService.hasFileCompression = event.checked;
   }
   /**
    * the function sets the file encryption value
@@ -329,6 +336,7 @@ export class DetailviewComponent implements OnInit {
     this.service.persistService(this.currentService).subscribe((result) => {
       this.state = globals.viewStates.READY;
       this.currentService = new this.currentService.constructor(result);
+      console.log(this.currentService);
     });
   }
   /**

@@ -20,7 +20,7 @@
         [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders></app-add-service>
 </div>
 <div *ngIf="state == 7">
-    <app-manage-services *ngIf="canCreateServices; else noAccessRight" (serviceEmitter)=editService($event) (stateEmitter)="setState($event)"></app-manage-services>
+    <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices (serviceEmitter)=editService($event) (stateEmitter)="setState($event)"></app-manage-services>
 </div>
 
 <!-- HELPER AREAS -->

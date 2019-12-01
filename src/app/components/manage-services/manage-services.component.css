@@ -1,9 +1,20 @@
 .table {
     width: 100%;
 }
-.clickable-row {
+.control {
     cursor: pointer;
 }
-.clickable-row:hover {
-    background-color: lightgray;
+.cell .main {
+    display: block;
+}
+.cell .subtitle {
+    display: block;
+    color: lightgray;
+    font-size: .6rem;
+}
+.centered-content {
+    text-align: center;
+}
+.control-cell {
+    padding: 0px 20px;
 }

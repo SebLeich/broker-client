@@ -10,10 +10,17 @@ export class ServicePreview {
     public id: number;
     public discriminator: string;
     public serviceName: string;
+    public creation: Date;
+    public lastModified: Date;
     constructor(object){
         this.id = object.id;
         this.discriminator = object.discriminator;
         this.serviceName = object.serviceName;
+        this.creation = new Date(object.creation);
+        this.lastModified = new Date(object.lastModified);
+    }
+    get discriminatorNorm(){
+        return this.discriminator.substr(0, 20).split("_")[0];
     }
 }
 /**
@@ -37,6 +44,8 @@ export abstract class Service {
     public deploymentInfo: DeploymentInformation = null;
     public serviceCertificates: ServiceCertificate[] = [];
     public sessionState : SessionState = new SessionState();
+    public creation: string;
+    public lastModified: string;
     /**
      * the constructor creates a new instance of a service
      */
@@ -160,16 +169,29 @@ export class BlockStorageService extends Service {
         return o;
     }
 }
-
+/**
+ * the class contains a direct attached service
+ */
 export class DirectAttachedService extends Service {
+    public hasFileEncryption : boolean;
+    public hasReplication : boolean;
+    public hasFileCompression : boolean;
+    public hasFilePermissions: boolean;
+    public hasFileLocking: boolean;
     public storageTypeId : number;
     public storageType: StorageType;
+
     /**
      * the constructor creates a new instance of the class
      */
     constructor(object){
         if(typeof(object) != "undefined"){
             super(object);
+            this.hasFileEncryption = object.hasFileEncryption;
+            this.hasReplication = object.hasReplication;
+            this.hasFileCompression = object.hasFileCompression;
+            this.hasFilePermissions = object.hasFilePermissions;
+            this.hasFileLocking = object.hasFileLocking;
             this.storageTypeId = object.storageTypeId;
             if(typeof(object.storageType) != "undefined" && object.storageType != null){
                 this.storageType = new StorageType(object.storageType);
@@ -197,19 +219,32 @@ export class DirectAttachedService extends Service {
     toServerObject(){
         var o = super.toServerObject();
         o.storageTypeId = this.storageTypeId;
+        o.hasFileEncryption = this.hasFileEncryption;
+        o.hasReplication = this.hasReplication;
+        o.hasFileCompression = this.hasFileCompression;
+        o.hasFilePermissions = this.hasFilePermissions;
+        o.hasFileLocking = this.hasFileLocking;
         return o;
     }
 }
-
+/**
+ * the class contains a key value storage
+ */
 export class KeyValueStorageService extends Service {
+    public hasDBMS : boolean;
+    public hasReplication : boolean;
     /**
      * the constructor creates a new instance of the class
      */
     constructor(object){
         if(typeof(object) != "undefined"){
             super(object);
+            this.hasDBMS = object.hasDBMS;
+            this.hasReplication = object.hasReplication;
         } else {
             super();
+            this.hasDBMS = false;
+            this.hasReplication = false;
         }
     }
     /**
@@ -223,6 +258,15 @@ export class KeyValueStorageService extends Service {
      */
     static get location() : string {
         return "api/keyvaluestoreservice";
+    }
+    /**
+     * the method creates the backend's interface
+     */
+    toServerObject(){
+        var o = super.toServerObject();
+        o.hasDBMS = this.hasDBMS;
+        o.hasReplication = this.hasReplication;
+        return o;
     }
 }
 

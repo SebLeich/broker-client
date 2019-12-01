@@ -366,3 +366,15 @@ tr.mat-row:last-child td.mat-cell {
 .control-red {
   color: #d35252;
 }
+
+.control-red-hov:hover {
+  color: #eb9090;
+}
+
+.control-blue {
+  color: rgb(91, 128, 177);
+}
+
+.control-blue-hov:hover {
+  color: rgb(182, 198, 219);
+}

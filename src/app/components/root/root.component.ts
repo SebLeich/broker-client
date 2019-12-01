@@ -55,6 +55,13 @@ export class RootComponent implements OnInit {
     return false;
   }
   /**
+   * the attribute returns whether the current user is allowed to create services
+   */
+  get canDeleteServices() {
+    if (this.roleRights.find(x => x.rule.ruleCode == "delete-services" && x.isAllowed)) return true;
+    return false;
+  }
+  /**
    * the attribute returns whether the current user can administrate
    */
   get canAdministrate(){

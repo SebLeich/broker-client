@@ -3,25 +3,53 @@
     <div style="padding-bottom: 20px;">Auf dieser Seite können Sie die angelegten Services verwalten.</div>
 </section>
 <div>
-    <table mat-table [dataSource]="dataSource" class="table">
-
+    <table mat-table [dataSource]="dataSource" matSort class="table">
+        <ng-container matColumnDef="options">
+            <th mat-header-cell *matHeaderCellDef class="centered-content control-cell">Optionen</th>
+            <td mat-cell *matCellDef="let element" class="centered-content control-cell">
+                <mat-icon class="control control-blue control-blue-hov" (click)=editService(element)
+                    matTooltip="{{ element.serviceName }} bearbeiten">edit</mat-icon>
+                <mat-icon *ngIf=canDeleteServices class="control control-red control-red-hov"
+                    (click)=removeService(element) matTooltip="{{ element.serviceName }} löschen">delete_forever
+                </mat-icon>
+            </td>
+        </ng-container>
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
             <td mat-cell *matCellDef="let element"> {{ element.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="serviceName">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
             <td mat-cell *matCellDef="let element"> {{ element.serviceName }} </td>
         </ng-container>
 
+        <ng-container matColumnDef="creation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Erstellt </th>
+            <td mat-cell *matCellDef="let element" class="cell">
+                <span class="main"> {{ element.creation|date:'dd.MM.yyyy' }} </span>
+                <span class="subtitle"> {{ element.creation|date:'h:mm a' }} </span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastModified">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Zuletzt bearbeitet </th>
+            <td mat-cell *matCellDef="let element" class="cell">
+                <span class="main"> {{ element.lastModified|date:'dd.MM.yyyy' }} </span>
+                <span class="subtitle"> {{ element.lastModified|date:'h:mm a' }} </span>
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef="discriminator">
-            <th mat-header-cell *matHeaderCellDef> Typ </th>
-            <td mat-cell *matCellDef="let element"> {{ element.discriminator }} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Typ </th>
+            <td mat-cell *matCellDef="let element" class="cell">
+                <span class="main"> {{ serviceMetaData(element.discriminator).name }} </span>
+                <span class="subtitle"> {{ element.discriminator }} </span>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="serviceMgmCols"></tr>
-        <tr mat-row *matRowDef="let service; columns: serviceMgmCols;" (click)=editService(service) class="clickable-row"></tr>
+        <tr mat-row *matRowDef="let service; columns: serviceMgmCols;" class="clickable-row"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>

@@ -94,8 +94,7 @@
                 <input matInput #newSType placeholder="Neue Speicherart"
                     (keydown.enter)="addStorageType(newCSCat.value)" />
             </mat-form-field>
-            <button class="add-on-button" mat-raised-button color="primary"
-                (click)="addStorageType(newSType.value)">
+            <button class="add-on-button" mat-raised-button color="primary" (click)="addStorageType(newSType.value)">
                 Anlegen
             </button>
         </div>
@@ -128,9 +127,17 @@
         <mat-slide-toggle *ngIf="displayFilePermissions" class="bool-slider" (change)="filePermissions=$event"
             [checked]=currentService.hasFilePermissions>Unterstützt der Service File-Permissions?</mat-slide-toggle>
         <mat-slide-toggle *ngIf="displayFileVersioning" class="bool-slider" (change)="fileVersioning=$event"
-            [checked]=currentService.hasFileVersioning>Unterstützt der Service File-Versioning?</mat-slide-toggle>
+            [checked]=currentService.hasFileVersioning>
+            Unterstützt der Service File-Versioning?
+        </mat-slide-toggle>
         <mat-slide-toggle *ngIf="displayReplication" class="bool-slider" (change)="fileReplication=$event"
-            [checked]=currentService.hasReplication>Unterstützt der Service Replication?</mat-slide-toggle>
+            [checked]=currentService.hasReplication>
+            Unterstützt der Service Replication?
+        </mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFileCompression" class="bool-slider" (change)="fileCompression=$event"
+            [checked]=currentService.hasFileCompression>
+            Unterstützt der Service File Compression?
+        </mat-slide-toggle>
         <mat-slide-toggle *ngIf="displayDBMS" class="bool-slider" (change)="dbms=$event"
             [checked]=currentService.hasDBMS>Beinhaltet der Service ein Datenbankmanagmentsystem (DBMS)?
         </mat-slide-toggle>

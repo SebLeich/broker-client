@@ -80,7 +80,7 @@
             </ng-container>
             <ng-container matColumnDef="options">
                 <td mat-cell *matCellDef="let element" class="small-cell options-cell">
-                    <mat-icon (click)=deleteUser(element) class="control control-red" matTooltip="{{ element.username }} löschen">delete</mat-icon>
+                    <mat-icon (click)=deleteUser(element) class="control control-red" matTooltip="{{ element.username }} löschen">delete_forever</mat-icon>
                 </td>
             </ng-container>
             <tr mat-row *matRowDef="let row; columns: uRCols;"></tr>
