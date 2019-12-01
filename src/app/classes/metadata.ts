@@ -47,7 +47,6 @@ export class StartPageTitle {
     ngIf(input: StartpageComponent){
         if(this.condition == null) return true;
         else {
-            console.log(this, this.condition(input), input);
             return this.condition(input);
         }
     }

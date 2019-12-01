@@ -16,7 +16,7 @@ export class StartpageComponent implements OnInit {
    */
   public options: StartPageTitle[] = [
     new StartPageTitle({
-      "cols": 3,
+      "cols": 2,
       "rows": 2,
       "bgColor": "#ffb00ade",
       "text": "Service suchen",
@@ -68,7 +68,7 @@ export class StartpageComponent implements OnInit {
         return false;
       },
       "click": function (input: StartpageComponent) {
-        input.openLoginDialog();
+        input.openUserDialog();
       }
     }),
     new StartPageTitle({
@@ -82,6 +82,38 @@ export class StartpageComponent implements OnInit {
       "click": function (input: StartpageComponent) {
         input.openRegisterDialog();
       }
+    }),
+    new StartPageTitle({
+      "cols": 1,
+      "rows": 1,
+      "bgColor": "rgba(255, 26, 26, 0.74)",
+      "text": "Administration",
+      "subtitle": "Verwalten Sie den Cloud Broker",
+      "headColor": "",
+      "subColor": "",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.canAdministrate) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.setState(globals.rootStates.ADMINISTRATION);
+      }
+    }),
+    new StartPageTitle({
+      "cols": 1,
+      "rows": 1,
+      "bgColor": "#2e3039bd",
+      "text": "Service anlegen",
+      "subtitle": "Legen Sie einen neuen Servive an",
+      "headColor": "",
+      "subColor": "",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.canCreateServices) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.setState(globals.rootStates.ADDSERVICE);
+      }
     })
   ];
   /**
@@ -89,17 +121,29 @@ export class StartpageComponent implements OnInit {
    */
   @Input() isLoggedIn;
   /**
+   * is the current user allowed to create services
+   */
+  @Input() canAdministrate;
+  /**
+   * is the current user allowed to create services
+   */
+  @Input() canCreateServices;
+  /**
    * the method emits the window state
    */
-  @Output() public stateEmitter = new EventEmitter();
+  @Output() stateEmitter = new EventEmitter();
   /**
  * the method emits the register dialog event
  */
-  @Output() public registerDialogEmitter = new EventEmitter();
+  @Output() registerDialogEmitter = new EventEmitter();
   /**
    * the method emits the login dialog event
    */
-  @Output() public loginDialogEmitter = new EventEmitter();
+  @Output() loginDialogEmitter = new EventEmitter();
+  /**
+   * the method emits the user details dialog invoke
+   */
+  @Output() userDialogEmitter = new EventEmitter();
   /**
    * the constructor creates a new instance of the component
    */
@@ -129,5 +173,11 @@ export class StartpageComponent implements OnInit {
    */
   openRegisterDialog() {
     this.registerDialogEmitter.emit();
+  }
+  /**
+   * the method initiates the user details dialog
+   */
+  openUserDialog() {
+    this.userDialogEmitter.emit();
   }
 }

@@ -36,3 +36,13 @@
 .form {
     padding: 0px 10px 0px 10px;
 }
+::ng-deep .mat-option.mat-option-adder .mat-pseudo-checkbox{ display: none; }
+
+.bool-slider {
+    display: block;
+    padding: 10px 0px;
+}
+
+.bool-slider .mat-slide-toggle-content {
+    padding-left: 5px;
+}

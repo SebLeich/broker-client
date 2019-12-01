@@ -4,7 +4,7 @@ import { ServiceCategory } from '../classes/service';
 @Pipe({
   name: 'servicecategory'
 })
-export class ServicecategoryPipe implements PipeTransform {
+export class ServiceCategoryPipe implements PipeTransform {
 
   transform(value: number, serviceCategories: ServiceCategory[]): string {
     var c = serviceCategories.find(x => x.id == value);

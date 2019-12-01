@@ -29,11 +29,73 @@
         </mat-form-field>
         <div *ngIf="showCategoryAdder">
             <mat-form-field class="add-on">
-                <input matInput #newCSCat placeholder="Neue Cloud Service Kategorie"
+                <input matInput #newCSCat placeholder="Neue Service Kategorie"
                     (keydown.enter)="addServiceCategory(newCSCat.value)" />
             </mat-form-field>
             <button class="add-on-button" mat-raised-button color="primary"
                 (click)="addServiceCategory(newCSCat.value)">
+                Anlegen
+            </button>
+        </div>
+        <mat-form-field class="width">
+            <mat-select [placeholder]=selectServiceModelPlaceholder [ngModel]="currentService.cloudServiceModelId"
+                (ngModelChange)="currentService.cloudServiceModelId=$event" name="cloudServiceModelId">
+                <mat-option *ngFor="let m of serviceModels" [value]="m.id">
+                    {{ m.cloudServiceModelName }}
+                </mat-option>
+                <mat-option (click)="showServiceModelAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Service Modell anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showServiceModelAdder">
+            <mat-form-field class="add-on">
+                <input matInput #newCSMod placeholder="Neues Service Modell"
+                    (keydown.enter)="addServiceModel(newCSMod.value)" />
+            </mat-form-field>
+            <button class="add-on-button" mat-raised-button color="primary" (click)="addServiceModel(newCSMod.value)">
+                Anlegen
+            </button>
+        </div>
+        <mat-form-field class="width">
+            <mat-label>Zertifikate</mat-label>
+            <mat-select (selectionChange)="setCertificates($event)" [value]="currentService.certificateIds()" multiple>
+                <mat-option *ngFor="let c of certificates" [value]="c.id">{{c.certificateName}}</mat-option>
+                <mat-option (click)="showCertAdder = true" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Zertifikat anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showCertAdder">
+            <mat-form-field class="add-on">
+                <input matInput #newCert placeholder="Neues Zertifikat anlegen"
+                    (keydown.enter)="addCertificate(newCert.value)" />
+            </mat-form-field>
+            <button class="add-on-button" mat-raised-button color="primary" (click)="addCertificate(newCert.value)">
+                Anlegen
+            </button>
+        </div>
+        <mat-form-field *ngIf="displayStorageType" class="width">
+            <mat-select [placeholder]="selectStorageTypePlaceholder" [ngModel]="currentService.storageTypeId"
+                (ngModelChange)="currentService.storageTypeId=$event" name="storageTypeId">
+                <mat-option *ngFor="let t of storageTypes" [value]="t.id">
+                    {{ t.storageTypeDescription }}
+                </mat-option>
+                <mat-option (click)="showStorageTypeAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Speicherart anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showStorageTypeAdder">
+            <mat-form-field class="add-on">
+                <input matInput #newSType placeholder="Neue Speicherart"
+                    (keydown.enter)="addStorageType(newCSCat.value)" />
+            </mat-form-field>
+            <button class="add-on-button" mat-raised-button color="primary"
+                (click)="addStorageType(newSType.value)">
                 Anlegen
             </button>
         </div>
@@ -59,6 +121,19 @@
                 Anlegen
             </button>
         </div>
+        <mat-slide-toggle *ngIf="displayFileEncryption" class="bool-slider" (change)="fileEncryption=$event"
+            [checked]=currentService.hasFileEncryption>Unterstützt der Service File-Encryption?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFileLocking" class="bool-slider" (change)="fileLocking=$event"
+            [checked]=currentService.hasFileLocking>Unterstützt der Service File-Locking?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFilePermissions" class="bool-slider" (change)="filePermissions=$event"
+            [checked]=currentService.hasFilePermissions>Unterstützt der Service File-Permissions?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFileVersioning" class="bool-slider" (change)="fileVersioning=$event"
+            [checked]=currentService.hasFileVersioning>Unterstützt der Service File-Versioning?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayReplication" class="bool-slider" (change)="fileReplication=$event"
+            [checked]=currentService.hasReplication>Unterstützt der Service Replication?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayDBMS" class="bool-slider" (change)="dbms=$event"
+            [checked]=currentService.hasDBMS>Beinhaltet der Service ein Datenbankmanagmentsystem (DBMS)?
+        </mat-slide-toggle>
     </form>
     <mat-card-title class="super-headline">
         <span class="spacer"></span>
@@ -104,9 +179,44 @@
                     [ngModel]="currentService.cloudServiceCategoryId|servicecategory:serviceCategories" disabled />
             </mat-form-field>
             <mat-form-field class="width">
+                <input matInput placeholder="Service Modell" name="cloudServiceModel"
+                    [ngModel]="currentService.cloudServiceModelId|servicemodel:serviceModels" disabled />
+            </mat-form-field>
+            <mat-form-field class="width" disabled>
+                <mat-label #cert>Zertifikate</mat-label>
+                <mat-chip-list #certList aria-label="cert" disabled>
+                    <mat-chip *ngFor="let c of currentService.serviceCertificates">
+                        {{ c.certificate.certificateName }}
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-form-field>
+            <mat-form-field class="width">
                 <input matInput placeholder="Service Provider" name="providerId"
                     [ngModel]="currentService.providerId|serviceprovider:serviceProviders" disabled />
             </mat-form-field>
+            <mat-slide-toggle *ngIf="displayFileEncryption" class="bool-slider"
+                [checked]=currentService.hasFileEncryption [disabled]=true>
+                Unterstützt der Service File-Encryption?
+            </mat-slide-toggle>
+            <mat-slide-toggle *ngIf="displayFileLocking" class="bool-slider" [checked]=currentService.hasFileLocking
+                [disabled]=true>
+                Unterstützt der Service File-Locking?
+            </mat-slide-toggle>
+            <mat-slide-toggle *ngIf="displayFilePermissions" class="bool-slider"
+                [checked]=currentService.hasFilePermissions [disabled]=true>
+                Unterstützt der Service File-Permissions?
+            </mat-slide-toggle>
+            <mat-slide-toggle *ngIf="displayFileVersioning" class="bool-slider"
+                [checked]=currentService.hasFileVersioning [disabled]=true>
+                Unterstützt der Service File-Versioning?
+            </mat-slide-toggle>
+            <mat-slide-toggle *ngIf="displayReplication" class="bool-slider" [checked]=currentService.hasReplication
+                [disabled]=true>
+                Unterstützt der Service Replication?
+            </mat-slide-toggle>
+            <mat-slide-toggle *ngIf="displayDBMS" class="bool-slider" [checked]=currentService.hasDBMS [disabled]=true>
+                Beinhaltet der Service ein Datenbankmanagmentsystem (DBMS)?
+            </mat-slide-toggle>
         </form>
     </ng-template>
 </mat-card>

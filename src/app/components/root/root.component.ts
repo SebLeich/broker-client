@@ -55,6 +55,13 @@ export class RootComponent implements OnInit {
     return false;
   }
   /**
+   * the attribute returns whether the current user can administrate
+   */
+  get canAdministrate(){
+    if(this.canEditSecurityGuidelines || this.canRegisterRoles) return true;
+    return false;
+  }
+  /**
    * the attribute returns whether the current user can edit security guidelines
    */
   get canEditSecurityGuidelines() {

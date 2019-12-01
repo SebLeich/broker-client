@@ -4,7 +4,7 @@ import { ServiceProvider } from '../classes/service';
 @Pipe({
   name: 'serviceprovider'
 })
-export class ServiceproviderPipe implements PipeTransform {
+export class ServiceProviderPipe implements PipeTransform {
 
   transform(value: number, serviceProviders: ServiceProvider[]): string {
     var c = serviceProviders.find(x => x.id == value);

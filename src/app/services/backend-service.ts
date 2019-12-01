@@ -55,9 +55,9 @@ export class BackEndService {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         };
         if(input.sessionState.isNew){
-            return this.http.post<Service>(globals.serverLocation + "/" + input.location, input, config);
+            return this.http.post<Service>(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
         } else {
-            return this.http.put<Service>(globals.serverLocation + "/" + input.location, input, config);
+            return this.http.put<Service>(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
         }
     }
     /**

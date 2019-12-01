@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
    * is the current user allowed to create services
    */
   @Input() canCreateServices;
-    /**
+  /**
    * is the current user allowed to create services
    */
   @Input() canRegisterRoles;
