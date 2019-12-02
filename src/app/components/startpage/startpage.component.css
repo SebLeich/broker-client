@@ -51,6 +51,10 @@
     border-color: white;
 }
 
+.tile:hover .tile-icon {
+    color: white !important;
+}
+
 .custom-tile {
     text-align: left;
     display: block;
