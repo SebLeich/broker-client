@@ -122,7 +122,7 @@ export class StartpageComponent implements OnInit {
       "rows": 1,
       "bgColor": "#2e3039bd",
       "text": "Service anlegen",
-      "subtitle": "Legen Sie einen neuen Servive an",
+      "subtitle": "Legen Sie einen neuen Service an",
       "headColor": "",
       "subColor": "",
       "ngIf": (page: StartpageComponent) => {
