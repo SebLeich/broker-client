@@ -23,18 +23,20 @@ export class StartpageComponent implements OnInit {
       "subtitle": "Suchen Sie nach Lösungen für Ihre Aufgaben",
       "headColor": "",
       "subColor": "",
+      "icon": "search",
       "click": function (input: StartpageComponent) {
         input.setState(globals.rootStates.USECASESELECTION);
       }
     }),
     new StartPageTitle({
       "cols": 2,
-      "rows": 1,
+      "rows": 2,
       "bgColor": "#ff6c0ade",
       "text": "Neues Projekt anlegen",
       "subtitle": "Erstellen Sie ein neues Projekt",
       "headColor": "",
       "subColor": "",
+      "icon": "add",
       "click": function (input: StartpageComponent) {
         alert("NOT IMPLEMENTED NOW!");
       }
@@ -74,6 +76,22 @@ export class StartpageComponent implements OnInit {
     new StartPageTitle({
       "cols": 1,
       "rows": 1,
+      "bgColor": "#ee1b1bd6",
+      "text": "Abmelden",
+      "subtitle": "Benutzer abmelden",
+      "headColor": "",
+      "subColor": "",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.isLoggedIn) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.logout();
+      }
+    }),
+    new StartPageTitle({
+      "cols": 1,
+      "rows": 1,
       "bgColor": "rgba(3, 17, 45, 0.67)",
       "text": "Registrieren",
       "subtitle": "Erstellen Sie einen Account",
@@ -86,7 +104,7 @@ export class StartpageComponent implements OnInit {
     new StartPageTitle({
       "cols": 1,
       "rows": 1,
-      "bgColor": "rgba(255, 26, 26, 0.74)",
+      "bgColor": "#ffffff61",
       "text": "Administration",
       "subtitle": "Verwalten Sie den Cloud Broker",
       "headColor": "",
@@ -118,7 +136,7 @@ export class StartpageComponent implements OnInit {
     new StartPageTitle({
       "cols": 2,
       "rows": 1,
-      "bgColor": "#ff007abd",
+      "bgColor": "#196a34bd",
       "text": "Services verwalten",
       "subtitle": "Verwalten Sie angelegte Services",
       "headColor": "",
@@ -149,6 +167,10 @@ export class StartpageComponent implements OnInit {
    */
   @Output() stateEmitter = new EventEmitter();
   /**
+   * the method emits the logout event
+   */
+  @Output() logoutEmitter = new EventEmitter();
+  /**
  * the method emits the register dialog event
  */
   @Output() registerDialogEmitter = new EventEmitter();
@@ -165,6 +187,12 @@ export class StartpageComponent implements OnInit {
    */
   constructor() {
 
+  }
+  /**
+   * the method initiates the logout event
+   */
+  logout(){
+    this.logoutEmitter.emit();
   }
   /**
    * the method is called on component initalization

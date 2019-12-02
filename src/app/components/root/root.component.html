@@ -3,7 +3,7 @@
     (userDialogEmitter)="openUserDetailDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
 </app-navbar>
 <app-startpage *ngIf="state == 0" [isLoggedIn]="isLoggedIn" [canAdministrate]="canAdministrate"
-    [canCreateServices]="canCreateServices" (stateEmitter)="setState($event)" (loginDialogEmitter)="openLoginDialog()"
+    [canCreateServices]="canCreateServices" (logoutEmitter)="logout()" (stateEmitter)="setState($event)" (loginDialogEmitter)="openLoginDialog()"
     (registerDialogEmitter)="openRegisterDialog()" (userDialogEmitter)="openUserDetailDialog()"></app-startpage>
 <app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>

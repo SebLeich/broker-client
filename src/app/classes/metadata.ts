@@ -29,6 +29,7 @@ export class StartPageTitle {
     public text: string = "[NO_TEXT]";
     public subtitle: string = "[NO_SUBTITLE]";
     public subColor: string = "rgb(233, 233, 233)";
+    public icon: string = null;
     public click;
     public condition: { (data: StartpageComponent): boolean; } = null;
     /**
@@ -44,6 +45,9 @@ export class StartPageTitle {
             this.subtitle = object.subtitle;
             this.click = object.click;
             if(typeof(object.ngIf) == "function") this.condition = object.ngIf;
+            if(typeof(object.icon) != "undefined" && object.icon != null){
+                this.icon = object.icon;
+            }
         }
     }
     ngIf(input: StartpageComponent){

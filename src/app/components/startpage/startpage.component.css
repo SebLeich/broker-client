@@ -75,3 +75,9 @@
     height: auto;
     color: #ffffff2b;
 }
+
+.tile-icon {
+    bottom: 20px;
+    top: auto;
+    font-size: 100px;
+}
