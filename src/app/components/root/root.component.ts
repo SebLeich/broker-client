@@ -21,6 +21,7 @@ import { SearchVector } from 'src/app/classes/search';
  * the class contains the main application component
  */
 export class RootComponent implements OnInit {
+  errorMsg: string = "";
   /**
    * the attribute contains the current application state
    */
@@ -142,45 +143,25 @@ export class RootComponent implements OnInit {
   /**
    * the method is called when the user sends his use case search
    */
-  sendSearch(s: UseCaseHistoryEntry[]) {
-    var r = s.filter(x => x.object.data.mapping != null);
-    if(r.length == 0) throw("error: no history entry with final target");
-    var object = { "type": null };
-    var v = r[0].object.data.mapping;
-    switch(v){
-      case "object-storage":
-        object.type = ObjectStorageService;
-        break;
-      case "odrive":
-        object.type = OnlineDriveStorageService;
-        break;
-      case "block-storage":
-        object.type = BlockStorageService;
-        break;
-      case "direct-att":
-        object.type = DirectAttachedService;
-        break;
-      case "rdb":
-        object.type = RelationalDatabaseService;
-        break;
-      case "nrdb":
-        object.type = KeyValueStorageService;
-        break;
-      default:
-        throw("error: unknown final type " + v);
-    }
-    var search = new SearchVector(object);
-    this.service.sendSearch(search).subscribe((result) => {
-      console.log(result);
-      var o = [];
-      if(Array.isArray(result)){
-        for (var index in result) o.push(new object.type(result[index]));
-      } else {
-        o.push(new object.type(result));
-      }
-      console.log(o);
-      this.services = o;
-      this.setState(globals.rootStates.SERVICEDETAILVIEW);
+  sendSearch(s: SearchVector) {
+    this.state = globals.rootStates.WAITING;
+    this.service.sendSearch(s).subscribe((result) => {
+      setTimeout(() => {
+        console.log(result);
+        var o = [];
+        if(Array.isArray(result)){
+          for (var index in result) o.push(new s.type(result[index]));
+        } else {
+          o.push(new s.type(result));
+        }
+        console.log(o);
+        this.services = o;
+        this.setState(globals.rootStates.SERVICEDETAILVIEW);
+      }, 2000);
+    }, (error) => {
+      console.log(error);
+      this.state = globals.rootStates.HTTPERROR;
+      this.errorMsg = error.status + " - " + error.statusText;
     });
   }
   /**

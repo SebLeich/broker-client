@@ -9,7 +9,9 @@ export const rootStates = {
   SERVICEDETAILVIEW: 4,
   ADMINISTRATION: 5,
   ADDSERVICE: 6,
-  MANAGESERVICES: 7
+  MANAGESERVICES: 7,
+  WAITING: 8,
+  HTTPERROR: 9
 };
 /**
  * the enumeration contains all entity framework service classes
@@ -53,5 +55,5 @@ export const viewStates = {
 /**
  * the backend's server location
  */
-//export const serverLocation = "http://217.160.64.83:81"; // LIVE VERSION
-export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING
+export const serverLocation = "http://217.160.64.83:81"; // LIVE VERSION
+//export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING

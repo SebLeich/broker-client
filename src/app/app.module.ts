@@ -21,7 +21,8 @@ import {
   MatSelectModule,
   MatStepperModule,
   MatGridListModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatCheckboxModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -84,7 +85,8 @@ import { ManageServicesComponent } from './components/manage-services/manage-ser
     MatSelectModule,
     MatStepperModule,
     MatGridListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

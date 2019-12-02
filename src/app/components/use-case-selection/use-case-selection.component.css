@@ -46,3 +46,36 @@
 .entry .content .text {
     padding-top: 4px;
 }
+
+::ng-deep .mat-checkbox .mat-checkbox-layout {
+    display: block;
+    font-size: 1rem;
+    padding: 10px;
+    margin: 0px 20px;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+    width: 14px !important;
+    height: 14px !important;
+    vertical-align: initial !important;
+}
+
+.option.active-true {
+    cursor: pointer;
+    color: black;
+}
+
+.option.active-false {
+    color: #b8b8b8;
+    cursor: not-allowed;
+}
+
+.option.active-true:hover {
+    background: linear-gradient(45deg, #4f97eb, transparent);
+    border-radius: 5px;
+    color: white;
+}
+
+.option mat-icon {
+    font-size: 1.3rem;
+}

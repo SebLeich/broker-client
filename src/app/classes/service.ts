@@ -2,6 +2,7 @@ import { SessionState } from "../classes/metadata";
 
 export interface IService {
     new (object?): Service;
+    location: string;
 }
 /**
  * the class contains a service preview

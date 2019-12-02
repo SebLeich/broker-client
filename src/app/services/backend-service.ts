@@ -79,7 +79,7 @@ export class BackEndService {
      */
     sendSearch(input: SearchVector) {
         if(!input.isSearchable()) return;
-        return this.post(input.searchType.location + "/search", input);
+        return this.post(input.type.location + "/search", input);
     }
     /**
      * the method returns the current access token

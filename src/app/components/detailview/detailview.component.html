@@ -221,6 +221,9 @@
                 [disabled]=true>
                 Unterstützt der Service Replication?
             </mat-slide-toggle>
+            <mat-slide-toggle *ngIf="displayFileCompression" class="bool-slider" [checked]=currentService.hasFileCompression [disabled]=true>
+                Unterstützt der Service File Compression?
+            </mat-slide-toggle>
             <mat-slide-toggle *ngIf="displayDBMS" class="bool-slider" [checked]=currentService.hasDBMS [disabled]=true>
                 Beinhaltet der Service ein Datenbankmanagmentsystem (DBMS)?
             </mat-slide-toggle>

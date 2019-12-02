@@ -12,6 +12,7 @@ $app-primary: mat-palette($mat-blue,800);
 $app-sh-primary: mat-palette($mat-blue,600);
 $app-th-primary: mat-palette($mat-blue,200);
 $app-accent:  mat-palette($mat-light-blue);
+$app-accent2: mat-palette($mat-green,300);
 $app-warn: mat-palette($mat-pink);
 
 // Create the theme object (a Sass map containing all of the palettes).
@@ -24,6 +25,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 // Export theme colors
 $primary: mat-color($app-primary);
+$accent2: mat-color($app-accent2);
 $sh-primary: mat-color($app-sh-primary);
 $th-primary: mat-color($app-th-primary);
 $accent: mat-color($app-accent);

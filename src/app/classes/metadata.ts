@@ -1,5 +1,7 @@
-import { IService } from './service';
+import { IService, Service } from './service';
 import { StartpageComponent } from '../components/startpage/startpage.component';
+import { FormGroup } from '@angular/forms';
+import { UseCase } from './use-case';
 
 export class CloudServiceType {
     public name: string = "";
@@ -49,5 +51,35 @@ export class StartPageTitle {
         else {
             return this.condition(input);
         }
+    }
+}
+
+export class UseCaseSelecionStep {
+    public id: number;
+    public headline: string;
+    public options: UseCaseSelectionOption[] = [];
+    public fg: FormGroup;
+    constructor(object: any){
+        this.id = object.id;
+        this.headline = object.headline;
+        this.options = object.options;
+        this.fg = object.fg;
+    }
+}
+
+export class UseCaseSelectionOption {
+    public id: number;
+    public text: string;
+    public isActive: boolean;
+    public condition: { (data: StartpageComponent): boolean; } = function(){
+        return true;
+    };
+    public uC: UseCase = null;
+    constructor(object: any){
+        this.id = object.id;
+        this.text = object.text;
+        this.isActive = object.isActive;
+        this.uC = object.uC;
+        if(typeof(object.ngIf) == "function") this.condition = object.ngIf;
     }
 }

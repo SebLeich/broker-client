@@ -1,0 +1,21 @@
+.load-placeholder {
+    width: 100%;
+    height: calc(100% - 64px);
+    display: block;
+    background-color: #000000b0;
+}
+::ng-deep .mat-progress-spinner {
+    margin: 0 auto;
+    top: 40%;
+}
+.loading-text {
+    text-align: center;
+    color: white;
+    top: 45%;
+    position: relative;
+}
+.error-message {
+    padding-top: 10vh;
+    font-size: 3rem;
+    text-align: center;
+}

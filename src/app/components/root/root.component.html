@@ -20,10 +20,20 @@
         [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders></app-add-service>
 </div>
 <div *ngIf="state == 7">
-    <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices (serviceEmitter)=editService($event) (stateEmitter)="setState($event)"></app-manage-services>
+    <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices
+        (serviceEmitter)=editService($event) (stateEmitter)="setState($event)"></app-manage-services>
 </div>
 
 <!-- HELPER AREAS -->
+<div *ngIf="state == 8" class="load-placeholder">
+    <mat-spinner diameter="100"></mat-spinner>
+    <div class="loading-text">Loading</div>
+</div>
+<div *ngIf="state == 9" class="http-error">
+    <div class="error-message">
+        {{ errorMsg }}
+    </div>
+</div>
 <ng-template #noAccessRight>
     <div>
         <div style="display: block; text-align: center; margin-top: 25vh;">

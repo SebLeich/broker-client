@@ -114,6 +114,22 @@ export class StartpageComponent implements OnInit {
       "click": function (input: StartpageComponent) {
         input.setState(globals.rootStates.ADDSERVICE);
       }
+    }),
+    new StartPageTitle({
+      "cols": 2,
+      "rows": 1,
+      "bgColor": "#ff007abd",
+      "text": "Services verwalten",
+      "subtitle": "Verwalten Sie angelegte Services",
+      "headColor": "",
+      "subColor": "",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.canCreateServices) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.setState(globals.rootStates.MANAGESERVICES);
+      }
     })
   ];
   /**
