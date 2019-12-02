@@ -21,10 +21,10 @@ export class SessionState {
 /**
  * the class contains a tile for option selection
  */
-export class StartPageTitle {
+export class StartPageTile {
     public cols: number = 1;
     public rows: number = 1;
-    public bgColor: string = "#ffffffc5";
+    public bgColor: string = "rgba(255, 255, 255, 0.5)";
     public headColor: string = "#262678";
     public text: string = "[NO_TEXT]";
     public subtitle: string = "[NO_SUBTITLE]";

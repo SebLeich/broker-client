@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { StartPageTitle } from 'src/app/classes/metadata';
+import { StartPageTile } from 'src/app/classes/metadata';
 import * as globals from "../../globals";
 
 @Component({
@@ -14,8 +14,8 @@ export class StartpageComponent implements OnInit {
   /**
    * the option tiles on the startpage
    */
-  public options: StartPageTitle[] = [
-    new StartPageTitle({
+  public options: StartPageTile[] = [
+    new StartPageTile({
       "cols": 2,
       "rows": 2,
       "bgColor": "#ffb00ade",
@@ -28,7 +28,7 @@ export class StartpageComponent implements OnInit {
         input.setState(globals.rootStates.USECASESELECTION);
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 2,
       "rows": 2,
       "bgColor": "#ff6c0ade",
@@ -41,7 +41,7 @@ export class StartpageComponent implements OnInit {
         alert("NOT IMPLEMENTED NOW!");
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 1,
       "rows": 1,
       "bgColor": "#66ae138c",
@@ -57,7 +57,7 @@ export class StartpageComponent implements OnInit {
         input.openLoginDialog();
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 1,
       "rows": 1,
       "bgColor": "#66ae138c",
@@ -73,7 +73,7 @@ export class StartpageComponent implements OnInit {
         input.openUserDialog();
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 1,
       "rows": 1,
       "bgColor": "#ee1b1bd6",
@@ -89,7 +89,7 @@ export class StartpageComponent implements OnInit {
         input.logout();
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 1,
       "rows": 1,
       "bgColor": "rgba(3, 17, 45, 0.67)",
@@ -101,7 +101,7 @@ export class StartpageComponent implements OnInit {
         input.openRegisterDialog();
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 1,
       "rows": 1,
       "bgColor": "#ffffff61",
@@ -117,7 +117,7 @@ export class StartpageComponent implements OnInit {
         input.setState(globals.rootStates.ADMINISTRATION);
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 1,
       "rows": 1,
       "bgColor": "#2e3039bd",
@@ -133,7 +133,7 @@ export class StartpageComponent implements OnInit {
         input.setState(globals.rootStates.ADDSERVICE);
       }
     }),
-    new StartPageTitle({
+    new StartPageTile({
       "cols": 2,
       "rows": 1,
       "bgColor": "#196a34bd",
