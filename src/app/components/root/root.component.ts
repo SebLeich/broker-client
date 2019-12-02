@@ -83,10 +83,16 @@ export class RootComponent implements OnInit {
     if (this.roleRights.find(x => x.rule.ruleCode == "register-roles" && x.isAllowed)) return true;
     return false;
   }
+  /**
+   * the method returns the current service that can be passed for visualization
+   */
+  get currentService(): Service {
+    return this.services[0];
+  }
 
   editService(service: Service){
     this.services = [ service ];
-    this.setState(globals.rootStates.SERVICEDETAILVIEW);
+    this.setState(globals.rootStates.SERVICEPREVIEW);
   }
   /**
    * the method checks whether the current user is logged in

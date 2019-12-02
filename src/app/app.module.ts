@@ -42,6 +42,7 @@ import { ServiceCategoryPipe } from './pipes/servicecategory.pipe';
 import { ServiceProviderPipe } from './pipes/serviceprovider.pipe';
 import { ServiceModelPipe } from './pipes/servicemodel.pipe';
 import { ManageServicesComponent } from './components/manage-services/manage-services.component';
+import { ServicePreviewComponent } from './components/service-preview/service-preview.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ManageServicesComponent } from './components/manage-services/manage-ser
     ServiceCategoryPipe,
     ServiceProviderPipe,
     ServiceModelPipe,
-    ManageServicesComponent
+    ManageServicesComponent,
+    ServicePreviewComponent
   ],
   imports: [
     BrowserModule,

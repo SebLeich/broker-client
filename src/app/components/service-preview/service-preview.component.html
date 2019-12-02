@@ -1,0 +1,81 @@
+<section #servicPreviewHeader class="section l-primary-bg" style="color: white;" (window:resize)="onResize($event)">
+    <span class="super-section-header">
+        {{ service.serviceName }}
+        <span class="extension">
+            {{ serviceType }}
+        </span>
+    </span>
+</section>
+<div class="main-content">
+    <mat-grid-list *ngIf="isInit" cols="3" rowHeight={{rowHeight}} gutterSize={{gap}}>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
+            Diagramm 1
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="2" class="tile">
+            <div class="tile-inner">
+                <div class="custom-card">
+                    <div class="icon-container">
+                        <mat-icon class="icon">subject</mat-icon>
+                    </div>
+                    <div>
+                        <div *ngIf="service.serviceTitle != null || service.serviceDescription != null; else noMetadata"
+                            class="content">
+                            <span class="subtitle">Details von {{ service.serviceName }}</span>
+                            <span *ngIf="service.serviceTitle != null" class="title">{{ service.serviceTitle }}</span>
+                            <span *ngIf="service.serviceDescription != null"
+                                class="small-title">{{ service.serviceDescription }}</span>
+                        </div>
+                        <ng-template #noMetadata>
+                            <div class="content">
+                                <span class="subtitle">Weitere Details</span>
+                                <span class="title empty-title">Keine Details hinterlegt</span>
+                            </div>
+                        </ng-template>
+                        <div class="content">
+                            <span class="subtitle extra-margin">Service Art</span>
+                            <span class="title">
+                                {{ service.cloudServiceCategory.cloudServiceCategoryName }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-card">
+                    <div class="icon-container">
+                        <mat-icon class="icon">domain</mat-icon>
+                    </div>
+                    <div class="content">
+                        <span class="subtitle">Informationen des Anbieters</span>
+                        <span class="title">
+                            {{ service.provider.providerName }}
+                            <mat-icon *ngIf="service.provider.verified; else notVerified" class="veri-icon verified"
+                                matTooltip="Verifizierter Anbieter">verified_user</mat-icon>
+                            <ng-template #notVerified>
+                                <mat-icon class="veri-icon not-verified" matTooltip="Nicht verifizierter Anbieter">
+                                    security</mat-icon>
+                            </ng-template>
+                        </span>
+                    </div>
+                </div>
+                <div class="custom-card">
+                    <div class="icon-container">
+                        <mat-icon class="icon">assignment_turned_in</mat-icon>
+                    </div>
+                    <div class="content">
+                        <span class="subtitle">Zertifizierungen</span>
+                        <div *ngIf="service.certificates.length > 0; else noCertificates">
+                            <div *ngFor="let certificate of service.certificates">
+                                <span class="title">{{ certificate.certificateName }}</span>
+                            </div>
+                        </div>
+                        <ng-template #noCertificates>
+                            <span class="title empty-title">Keine Zertifikate hinterlegt</span>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
+            Diagramm 2
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
