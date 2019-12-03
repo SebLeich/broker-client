@@ -1,5 +1,7 @@
 /**
  * the enumeration contains all available window states
+ * SERVICEDETAILVIEW = old preview
+ * SERVICEPREVIEW = new preview
  */
 export const rootStates = {
   STARTPAGE: 0,
@@ -11,7 +13,8 @@ export const rootStates = {
   ADDSERVICE: 6,
   MANAGESERVICES: 7,
   WAITING: 8,
-  HTTPERROR: 9
+  HTTPERROR: 9,
+  SERVICEPREVIEW: 10
 };
 /**
  * the enumeration contains all entity framework service classes

@@ -22,7 +22,8 @@ import {
   MatStepperModule,
   MatGridListModule,
   MatPaginatorModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSortModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -42,6 +43,8 @@ import { ServiceCategoryPipe } from './pipes/servicecategory.pipe';
 import { ServiceProviderPipe } from './pipes/serviceprovider.pipe';
 import { ServiceModelPipe } from './pipes/servicemodel.pipe';
 import { ManageServicesComponent } from './components/manage-services/manage-services.component';
+import { ServicePreviewComponent } from './components/service-preview/service-preview.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import { ManageServicesComponent } from './components/manage-services/manage-ser
     ServiceCategoryPipe,
     ServiceProviderPipe,
     ServiceModelPipe,
-    ManageServicesComponent
+    ManageServicesComponent,
+    ServicePreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +90,9 @@ import { ManageServicesComponent } from './components/manage-services/manage-ser
     MatStepperModule,
     MatGridListModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ChartsModule,
+    MatSortModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

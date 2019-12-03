@@ -22,12 +22,47 @@ export class ManageServicesComponent implements OnInit {
 
   @Output() stateEmitter = new EventEmitter();
   @Output() serviceEmitter = new EventEmitter();
+  @Output() servicePreviewEmitter = new EventEmitter();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private service: BackEndService) {
 
+  }
+
+  showService(o: ServicePreview) {
+    var url = "";
+    var t: IService;
+    switch (o.discriminatorNorm) {
+      case globals.efTypeMap.DIRECTATTACHEDSTORAGE:
+        t = DirectAttachedService;
+        url = DirectAttachedService.location;
+        break;
+      case globals.efTypeMap.KEYVALUESTORAGE:
+        t = KeyValueStorageService;
+        url = KeyValueStorageService.location;
+        break;
+      case globals.efTypeMap.OBJECTSTORAGE:
+        t = ObjectStorageService;
+        url = ObjectStorageService.location;
+        break;
+      case globals.efTypeMap.BLOCKSTORAGE:
+        t = BlockStorageService;
+        url = BlockStorageService.location;
+        break;
+      case globals.efTypeMap.ONLINEDRIVESTORAGE:
+        t = OnlineDriveStorageService;
+        url = OnlineDriveStorageService.location;
+        break;
+      case globals.efTypeMap.RELATIONALDATABASE:
+        t = RelationalDatabaseService;
+        url = RelationalDatabaseService.location;
+        break;
+    }
+    this.service.get(url + "/" + o.id).subscribe((result) => {
+      this.servicePreviewEmitter.emit(new t(result));
+    });
   }
 
   editService(o: ServicePreview) {

@@ -22,6 +22,7 @@ import { SearchVector } from 'src/app/classes/search';
  */
 export class RootComponent implements OnInit {
   errorMsg: string = "";
+  errorState: number = 0;
   /**
    * the attribute contains the current application state
    */
@@ -82,6 +83,17 @@ export class RootComponent implements OnInit {
   get canRegisterRoles() {
     if (this.roleRights.find(x => x.rule.ruleCode == "register-roles" && x.isAllowed)) return true;
     return false;
+  }
+  /**
+   * the method returns the current service that can be passed for visualization
+   */
+  get currentService(): Service {
+    return this.services[0];
+  }
+
+  showService(service: Service){
+    this.services = [ service ];
+    this.setState(globals.rootStates.SERVICEPREVIEW);
   }
 
   editService(service: Service){
@@ -147,21 +159,20 @@ export class RootComponent implements OnInit {
     this.state = globals.rootStates.WAITING;
     this.service.sendSearch(s).subscribe((result) => {
       setTimeout(() => {
-        console.log(result);
         var o = [];
         if(Array.isArray(result)){
           for (var index in result) o.push(new s.type(result[index]));
         } else {
           o.push(new s.type(result));
         }
-        console.log(o);
         this.services = o;
-        this.setState(globals.rootStates.SERVICEDETAILVIEW);
+        this.setState(globals.rootStates.SERVICEPREVIEW);
       }, 2000);
     }, (error) => {
       console.log(error);
       this.state = globals.rootStates.HTTPERROR;
       this.errorMsg = error.status + " - " + error.statusText;
+      this.errorState = error.status;
     });
   }
   /**

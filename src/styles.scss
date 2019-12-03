@@ -368,6 +368,12 @@ tr.mat-row:last-child td.mat-cell {
   text-transform: uppercase;
 }
 
+.super-section-header .extension {
+  font-size: 1rem;
+  color: lightgrey;
+  text-transform: none;
+}
+
 .control-red {
   color: #d35252;
 }
@@ -382,6 +388,22 @@ tr.mat-row:last-child td.mat-cell {
 
 .control-blue-hov:hover {
   color: rgb(182, 198, 219);
+}
+
+.control-green {
+  color: #a0be86;
+}
+
+.control-green-hov:hover {
+  color: #a0be8698;
+}
+
+.control-accent {
+  color: #7415cc;
+}
+
+.control-accent-hov:hover {
+  color: #7415ccab;
 }
 
 .footer {

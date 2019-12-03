@@ -3,10 +3,13 @@
     <div style="padding-bottom: 20px;">Auf dieser Seite können Sie die angelegten Services verwalten.</div>
 </section>
 <div>
-    <table mat-table [dataSource]="dataSource" matSort class="table">
+    <table mat-table matSort [dataSource]="dataSource" class="table">
         <ng-container matColumnDef="options">
             <th mat-header-cell *matHeaderCellDef class="centered-content control-cell">Optionen</th>
             <td mat-cell *matCellDef="let element" class="centered-content control-cell">
+                <mat-icon class="control control-green control-green-hov" (click)=showService(element)
+                    matTooltip="Vorschau von {{ element.serviceName }}">search
+                </mat-icon>
                 <mat-icon class="control control-blue control-blue-hov" (click)=editService(element)
                     matTooltip="{{ element.serviceName }} bearbeiten">edit</mat-icon>
                 <mat-icon *ngIf=canDeleteServices class="control control-red control-red-hov"
@@ -15,7 +18,7 @@
             </td>
         </ng-container>
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID </th>
             <td mat-cell *matCellDef="let element"> {{ element.id}} </td>
         </ng-container>
 

@@ -2,13 +2,34 @@
     user-select: none;
 }
 
-.main-content {
-    margin: 10px;
+.grid-bg {
+    width: 80%;
+    margin: 0% 10%;
 }
 
 .super-headline {
     font-size: 4rem;
     text-transform: uppercase;
+}
+
+.super-section-header {
+    margin: 0% 10%;
+}
+
+@media (max-width: 1200px) {
+
+    .grid-bg {
+        width: 100% !important;
+        margin: 0px !important;
+    }
+
+    .super-section-header {
+        margin: 0px !important;
+    }
+}
+
+.main-content {
+    margin: 10px;
 }
 
 .super-sub-headline {

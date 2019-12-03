@@ -26,7 +26,8 @@ export class StartpageComponent implements OnInit {
       "icon": "search",
       "click": function (input: StartpageComponent) {
         input.setState(globals.rootStates.USECASESELECTION);
-      }
+      },
+      "class": ""
     }),
     new StartPageTile({
       "cols": 2,
@@ -65,6 +66,7 @@ export class StartpageComponent implements OnInit {
       "subtitle": "Benutzerprofil einsehen",
       "headColor": "",
       "subColor": "",
+      "icon": "person",
       "ngIf": (page: StartpageComponent) => {
         if(page.isLoggedIn) return true;
         return false;
@@ -104,22 +106,6 @@ export class StartpageComponent implements OnInit {
     new StartPageTile({
       "cols": 1,
       "rows": 1,
-      "bgColor": "#ffffff61",
-      "text": "Administration",
-      "subtitle": "Verwalten Sie den Cloud Broker",
-      "headColor": "",
-      "subColor": "",
-      "ngIf": (page: StartpageComponent) => {
-        if(page.canAdministrate) return true;
-        return false;
-      },
-      "click": function (input: StartpageComponent) {
-        input.setState(globals.rootStates.ADMINISTRATION);
-      }
-    }),
-    new StartPageTile({
-      "cols": 1,
-      "rows": 1,
       "bgColor": "#2e3039bd",
       "text": "Service anlegen",
       "subtitle": "Legen Sie einen neuen Service an",
@@ -141,12 +127,30 @@ export class StartpageComponent implements OnInit {
       "subtitle": "Verwalten Sie angelegte Services",
       "headColor": "",
       "subColor": "",
+      "icon": "filter_drama",
       "ngIf": (page: StartpageComponent) => {
         if(page.canCreateServices) return true;
         return false;
       },
       "click": function (input: StartpageComponent) {
         input.setState(globals.rootStates.MANAGESERVICES);
+      }
+    }),
+    new StartPageTile({
+      "cols": 1,
+      "rows": 1,
+      "bgColor": "#ffffff61",
+      "text": "Administration",
+      "subtitle": "Verwalten Sie den Cloud Broker",
+      "headColor": "",
+      "subColor": "",
+      "icon": "tune",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.canAdministrate) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.setState(globals.rootStates.ADMINISTRATION);
       }
     })
   ];

@@ -32,6 +32,7 @@ export class StartPageTile {
     public icon: string = null;
     public click;
     public condition: { (data: StartpageComponent): boolean; } = null;
+    public class: string = "";
     /**
      * the constructor creates a new instance of a start page tile
      */
@@ -47,6 +48,9 @@ export class StartPageTile {
             if(typeof(object.ngIf) == "function") this.condition = object.ngIf;
             if(typeof(object.icon) != "undefined" && object.icon != null){
                 this.icon = object.icon;
+            }
+            if(typeof(object.class) != "undefined" && object.class != null){
+                this.class = object.class;
             }
         }
     }

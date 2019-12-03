@@ -33,7 +33,7 @@ export abstract class Service {
     public serviceDescription : string;
     public serviceTitle : string;
     public serviceCompliance: string;
-    public servcieAvailability : string;
+    public serviceAvailability : string;
     public cloudServiceCategory : ServiceCategory;
     public cloudServiceCategoryId : number;
     public cloudServiceModel : ServiceModel = null;
@@ -41,9 +41,9 @@ export abstract class Service {
     public providerId : number;
     public provider: Provider = null;
     public pricing: Pricing[] = [];
-    public dataLocation = [];
     public deploymentInfo: DeploymentInformation = null;
     public serviceCertificates: ServiceCertificate[] = [];
+    public serviceDataLocations: ServiceDataLocation[] = [];
     public sessionState : SessionState = new SessionState();
     public creation: string;
     public lastModified: string;
@@ -57,7 +57,7 @@ export abstract class Service {
             this.serviceDescription = object.serviceDescription;
             this.serviceCompliance = object.serviceCompliance;
             this.serviceTitle = object.serviceTitle;
-            this.servcieAvailability = object.servcieAvailability;
+            this.serviceAvailability = object.servcieAvailability;
             this.cloudServiceCategoryId = object.cloudServiceCategoryId;
             this.cloudServiceModelId = object.cloudServiceModelId;
             this.providerId = object.providerId;
@@ -80,7 +80,7 @@ export abstract class Service {
             }
             if(Array.isArray(object.serviceDataLocations)){
                 for(var index in object.serviceDataLocations){
-                    this.dataLocation.push(new DataLocation(object.serviceDataLocations[index].dataLocation));
+                    this.serviceDataLocations.push(new ServiceDataLocation(object.serviceDataLocations[index]));
                 }
             }
             if(typeof(object.deploymentInfo) != "undefined" && object.deploymentInfo != null){
@@ -96,8 +96,26 @@ export abstract class Service {
     /**
      * the method returns all certificates linked to the service
      */
-    certificateIds(): number[] {
+    get certificates(): Certificate[] {
+        return this.serviceCertificates.map(x => x.certificate);
+    }
+    /**
+     * the method returns all certificate ids linked to the service
+     */
+    get certificateIds(): number[] {
         return this.serviceCertificates.map(x => x.certificate.id);
+    }
+    /**
+     * the method returns all datalocations linked to the service
+     */
+    get dataLocations(): DataLocation[] {
+        return this.serviceDataLocations.map(x => x.dataLocation);
+    }
+    /**
+     * the method returns all certificate ids linked to the service
+     */
+    get dataLocationIds(): number[] {
+        return this.serviceDataLocations.map(x => x.dataLocation.id);
     }
     /**
      * the static method returns the classes current server endpoint
@@ -112,7 +130,7 @@ export abstract class Service {
             "serviceName": this.serviceName,
             "serviceDescription": this.serviceDescription,
             "serviceTitle": this.serviceTitle,
-            "servcieAvailability": this.servcieAvailability,
+            "serviceAvailability": this.serviceAvailability,
             "cloudServiceCategoryId": this.cloudServiceCategoryId,
             "cloudServiceModelId": this.cloudServiceModelId,
             "providerId": this.providerId,
@@ -502,7 +520,7 @@ export class Provider {
     public providerName: string;
     public url: string;
     public revision: string;
-    public verified: boolean;
+    public verified: boolean = false;
     public payments: Payment[] = [];
     /**
      * the constructor creates a new instance of a service category
@@ -596,6 +614,22 @@ export class ServiceCertificate {
         this.serviceId = object.serviceId;
         this.certificateId = object.certificateId;
         this.certificate = new Certificate(object.certificate);
+    }
+}
+/**
+ * the class contains the service datalocation n:m
+ */
+export class ServiceDataLocation {
+    public serviceId: number;
+    public dataLocationId: number;
+    public dataLocation: DataLocation;
+    /**
+     * the constructor creates a new instance of a service category
+     */
+    constructor(object){
+        this.serviceId = object.serviceId;
+        this.dataLocationId = object.dataLocationId;
+        this.dataLocation = new DataLocation(object.dataLocation);
     }
 }
 /**

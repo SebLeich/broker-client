@@ -12,8 +12,8 @@
                 [(ngModel)]="currentService.serviceDescription"></textarea>
         </mat-form-field>
         <mat-form-field class="width">
-            <input matInput placeholder="Verfügbarkeit" name="servcieAvailability"
-                [(ngModel)]="currentService.servcieAvailability">
+            <input matInput placeholder="Verfügbarkeit" name="serviceAvailability"
+                [(ngModel)]="currentService.serviceAvailability">
         </mat-form-field>
         <mat-form-field class="width">
             <mat-select [placeholder]=selectCategoryPlaceholder [ngModel]="currentService.cloudServiceCategoryId"
@@ -60,7 +60,7 @@
         </div>
         <mat-form-field class="width">
             <mat-label>Zertifikate</mat-label>
-            <mat-select (selectionChange)="setCertificates($event)" [value]="currentService.certificateIds()" multiple>
+            <mat-select (selectionChange)="setCertificates($event)" [value]="currentService.certificateIds" multiple>
                 <mat-option *ngFor="let c of certificates" [value]="c.id">{{c.certificateName}}</mat-option>
                 <mat-option (click)="showCertAdder = true" class="mat-option-adder">
                     <mat-icon class="icon">add</mat-icon>
@@ -178,8 +178,8 @@
                     [(ngModel)]="currentService.serviceDescription" disabled></textarea>
             </mat-form-field>
             <mat-form-field class="width">
-                <input matInput placeholder="Verfügbarkeit" name="servcieAvailability"
-                    [ngModel]="currentService.servcieAvailability" disabled />
+                <input matInput placeholder="Verfügbarkeit" name="serviceAvailability"
+                    [ngModel]="currentService.serviceAvailability" disabled />
             </mat-form-field>
             <mat-form-field class="width">
                 <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
