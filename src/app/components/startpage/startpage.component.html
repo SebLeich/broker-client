@@ -6,7 +6,7 @@
       <mat-grid-tile *ngIf=o.ngIf(this) [colspan]="o.cols" [rowspan]="o.rows" [style.background]="o.bgColor" class="tile"
         (click)=o.click(this)>
         <div class="custom-tile">
-          <mat-icon *ngIf="o.icon != null" class="bg-icon tile-icon">{{ o.icon }}</mat-icon>
+          <mat-icon *ngIf="o.icon != null && o.cols >= 2" class="bg-icon tile-icon">{{ o.icon }}</mat-icon>
           <span class="headline" [style.color]="o.headColor">{{ o.text }}</span>
           <div class="subtitle" [style.color]="o.subColor">{{ o.subtitle }}</div>
         </div>

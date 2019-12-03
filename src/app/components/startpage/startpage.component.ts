@@ -65,6 +65,7 @@ export class StartpageComponent implements OnInit {
       "subtitle": "Benutzerprofil einsehen",
       "headColor": "",
       "subColor": "",
+      "icon": "person",
       "ngIf": (page: StartpageComponent) => {
         if(page.isLoggedIn) return true;
         return false;
@@ -125,6 +126,7 @@ export class StartpageComponent implements OnInit {
       "subtitle": "Verwalten Sie angelegte Services",
       "headColor": "",
       "subColor": "",
+      "icon": "filter_drama",
       "ngIf": (page: StartpageComponent) => {
         if(page.canCreateServices) return true;
         return false;
@@ -141,6 +143,7 @@ export class StartpageComponent implements OnInit {
       "subtitle": "Verwalten Sie den Cloud Broker",
       "headColor": "",
       "subColor": "",
+      "icon": "tune",
       "ngIf": (page: StartpageComponent) => {
         if(page.canAdministrate) return true;
         return false;
