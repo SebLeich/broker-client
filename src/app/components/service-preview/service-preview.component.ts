@@ -78,8 +78,8 @@ export class ServicePreviewComponent implements AfterContentInit {
     var result = (window.innerHeight
       - 64 // navbar
       - this.header.nativeElement.offsetHeight // header
-      - this.gap
-    ) / 2;
+      - 2*this.gap
+    ) / 3;
     return result;
   }
 

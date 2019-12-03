@@ -8,7 +8,7 @@
 </section>
 <div class="main-content">
     <mat-grid-list *ngIf="isInit" cols="3" rowHeight={{rowHeight}} gutterSize={{gap}}>
-        <mat-grid-tile [colspan]="2" [rowspan]="2" class="tile">
+        <mat-grid-tile [colspan]="2" [rowspan]="3" class="tile">
             <div class="tile-inner">
                 <div class="custom-card">
                     <div class="icon-container">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
+        <mat-grid-tile [colspan]="1" [rowspan]="2" class="tile">
             <canvas baseChart class="chart" width="400" height={{rowHeight}} [datasets]="lineChartData"
                 [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
                 [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
