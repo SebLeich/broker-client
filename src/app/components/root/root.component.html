@@ -31,8 +31,28 @@
     <div class="loading-text">Loading</div>
 </div>
 <div *ngIf="state == 9" class="http-error">
-    <div class="error-message">
-        {{ errorMsg }}
+    <div>
+        <div style="display: block; text-align: center; margin-top: 10vh;">
+            <mat-icon style="font-size: 10rem; width: auto; height: auto; color: rgb(199, 36, 36);">not_interested</mat-icon>
+        </div>
+        <h1 style="text-align: center; font-size: 3rem;">{{ errorMsg }}</h1>
+        <div style="text-align: center; margin: 0 30vw; color: grey;">
+            Bei der Anfrage ist ein Fehler aufgetreten. Der Server hat mit dem Status {{ errorMsg }} geantwortet.
+        </div>
+        <div style="text-align: center; margin: 40px 30vw; color: #000000; font-weight: bold;">
+            <div *ngIf="errorState == 0">
+                Der Fehlercode besagt, dass der Server nicht erreichbar ist. Überprüfen Sie Ihre Internetverbindung und den Serverstatus.
+            </div>
+            <div *ngIf="errorState == 401">
+                Der Fehlercode besagt, dass sie nicht authentifiziert sind. Bitte melden Sie sich an um die Ressource zu verwenden.
+            </div>
+            <div *ngIf="errorState == 403">
+                Der Fehlercode besagt, dass sie zwar authentifiziert aber nicht autorisiert sind. Überprüfen Sie ihre Rollenberechtigungen.
+            </div>
+            <div *ngIf="errorState == 404">
+                Der Fehlercode besagt, dass die angefragte Ressource nicht zur Verfügung steht. Dies tritt z.B. auf, wenn kein Service mit den entsprechenden Eigenschaften existiert.
+            </div>
+        </div>
     </div>
 </div>
 <ng-template #noAccessRight>

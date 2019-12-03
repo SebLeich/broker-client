@@ -3,6 +3,7 @@
 }
 .control {
     cursor: pointer;
+    margin-right: 5px;
 }
 .cell .main {
     display: block;

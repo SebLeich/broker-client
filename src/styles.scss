@@ -391,11 +391,19 @@ tr.mat-row:last-child td.mat-cell {
 }
 
 .control-green {
-  color: #4d8234;
+  color: #a0be86;
 }
 
 .control-green-hov:hover {
-  color: #4d8234a8;
+  color: #a0be8698;
+}
+
+.control-accent {
+  color: #7415cc;
+}
+
+.control-accent-hov:hover {
+  color: #7415ccab;
 }
 
 .footer {

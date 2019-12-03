@@ -26,7 +26,8 @@ export class StartpageComponent implements OnInit {
       "icon": "search",
       "click": function (input: StartpageComponent) {
         input.setState(globals.rootStates.USECASESELECTION);
-      }
+      },
+      "class": ""
     }),
     new StartPageTile({
       "cols": 2,

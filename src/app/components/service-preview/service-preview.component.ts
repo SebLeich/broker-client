@@ -15,13 +15,13 @@ export class ServicePreviewComponent implements AfterContentInit {
 
   public lineChartData: ChartDataSets[] = [
     { data: [
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-      Math.random() * 100,
-    ], label: "Erfüllungsgrad" }
+      parseInt( (Math.random() * 100).toString() ),
+      parseInt( (Math.random() * 100).toString() ),
+      parseInt( (Math.random() * 100).toString() ),
+      parseInt( (Math.random() * 100).toString() ),
+      parseInt( (Math.random() * 100).toString() ),
+      parseInt( (Math.random() * 100).toString() ),
+    ], label: "Erfüllungsgrad Suchanfrage" }
   ];
   public lineChartLabels: Label[] = ["Data Location", "Zertifizierung", "Verfügbarkeit", "Service Model", "Deployment", "Pricing"];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -37,6 +37,12 @@ export class ServicePreviewComponent implements AfterContentInit {
     responsive: true,
     annotation: {
     },
+    scale: {
+      ticks: {
+        min: 0,
+        max: 100
+      }
+    }
   };
   public lineChartColors: Color[] = [
     { // grey

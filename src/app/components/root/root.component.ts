@@ -22,6 +22,7 @@ import { SearchVector } from 'src/app/classes/search';
  */
 export class RootComponent implements OnInit {
   errorMsg: string = "";
+  errorState: number = 0;
   /**
    * the attribute contains the current application state
    */
@@ -171,6 +172,7 @@ export class RootComponent implements OnInit {
       console.log(error);
       this.state = globals.rootStates.HTTPERROR;
       this.errorMsg = error.status + " - " + error.statusText;
+      this.errorState = error.status;
     });
   }
   /**
