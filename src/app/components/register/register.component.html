@@ -2,23 +2,58 @@
   Nutzer Registrierung
 </h2>
 <mat-dialog-content>
-  <mat-form-field class="width">
-    <input matInput placeholder="Benutzername" name="username" [(ngModel)]="user.username">
-  </mat-form-field>
-  <mat-form-field class="width">
-    <input matInput placeholder="Passwort" name="password" type="password" [(ngModel)]="user.password">
-  </mat-form-field>
-  <mat-form-field class="width">
-    <input matInput placeholder="Passwort bestätigen" name="password" type="password"
-      [(ngModel)]="user.confirmPassword">
-  </mat-form-field>
+  <form [formGroup]="mySignupForm">
+    <mat-form-field class="width">
+      <input
+        formControlName="username"
+        matInput
+        placeholder="Benutzername"
+        name="username"
+        [(ngModel)]="user.username"
+      />
+      <mat-error *ngIf="username.invalid && username.dirty">
+        Min. 6 Zeichen
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="width">
+      <input
+        formControlName="password1"
+        matInput
+        placeholder="Passwort"
+        name="password"
+        type="password"
+        [(ngModel)]="user.password"
+      />
+      <div *ngIf="password1.errors != null">
+        <mat-error *ngIf="password1.errors.pattern" class="passwordError">
+          Min. 8 Zeichen: 1 Groß-,1 Kleinbuchstabe, 1 Zahl
+        </mat-error>
+      </div>
+    </mat-form-field>
+    <mat-form-field class="width">
+      <input
+        formControlName="password2"
+        matInput
+        placeholder="Passwort bestätigen"
+        name="password"
+        type="password"
+        [(ngModel)]="user.confirmPassword"
+      />
+      <mat-error
+        *ngIf="
+          !user.equalPasswords(mySignupForm) && password2.hasError('notMatched')
+        "
+        >Passwörter müssen übereinstimmen</mat-error
+      >
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <div *ngIf="state == 0">
     <button mat-button [mat-dialog-close]="true">
       Abbrechen
     </button>
-    <button mat-button color="primary" (click)=registerUser()>
+    <button mat-button color="primary" (click)="registerUser()">
       Registrieren
     </button>
   </div>

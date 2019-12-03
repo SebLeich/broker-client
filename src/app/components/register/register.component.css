@@ -9,3 +9,7 @@
   display: block;
   min-width: 300px;
 }
+.passwordError{
+  width: 300px;
+  font-size: 12px;
+}
