@@ -43,6 +43,7 @@ import { ServiceProviderPipe } from './pipes/serviceprovider.pipe';
 import { ServiceModelPipe } from './pipes/servicemodel.pipe';
 import { ManageServicesComponent } from './components/manage-services/manage-services.component';
 import { ServicePreviewComponent } from './components/service-preview/service-preview.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { ServicePreviewComponent } from './components/service-preview/service-pr
     MatStepperModule,
     MatGridListModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ChartsModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

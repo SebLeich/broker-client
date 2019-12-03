@@ -390,6 +390,14 @@ tr.mat-row:last-child td.mat-cell {
   color: rgb(182, 198, 219);
 }
 
+.control-green {
+  color: #4d8234;
+}
+
+.control-green-hov:hover {
+  color: #4d8234a8;
+}
+
 .footer {
   position: sticky;
   bottom: 0px;

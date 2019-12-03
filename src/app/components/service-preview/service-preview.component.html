@@ -8,9 +8,6 @@
 </section>
 <div class="main-content">
     <mat-grid-list *ngIf="isInit" cols="3" rowHeight={{rowHeight}} gutterSize={{gap}}>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
-            Diagramm 1
-        </mat-grid-tile>
         <mat-grid-tile [colspan]="2" [rowspan]="2" class="tile">
             <div class="tile-inner">
                 <div class="custom-card">
@@ -75,7 +72,30 @@
             </div>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
-            Diagramm 2
+            <canvas baseChart class="chart" width="400" height={{rowHeight}} [datasets]="lineChartData"
+                [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+                [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+            </canvas>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
+            <div class="tile-inner">
+                <div class="option">
+                    <mat-icon class="icon">save</mat-icon>
+                    Projekt speichern
+                </div>
+                <div class="option" (click)=editService()>
+                    <mat-icon class="icon">edit</mat-icon>
+                    Bearbeiten
+                </div>
+                <div class="option">
+                    <mat-icon class="icon">reply</mat-icon>
+                    Zurück zur Suche
+                </div>
+                <div class="option">
+                    <mat-icon class="icon">info</mat-icon>
+                    Weitere Informationen
+                </div>
+            </div>
         </mat-grid-tile>
     </mat-grid-list>
 </div>

@@ -90,9 +90,14 @@ export class RootComponent implements OnInit {
     return this.services[0];
   }
 
-  editService(service: Service){
+  showService(service: Service){
     this.services = [ service ];
     this.setState(globals.rootStates.SERVICEPREVIEW);
+  }
+
+  editService(service: Service){
+    this.services = [ service ];
+    this.setState(globals.rootStates.SERVICEDETAILVIEW);
   }
   /**
    * the method checks whether the current user is logged in
@@ -153,16 +158,14 @@ export class RootComponent implements OnInit {
     this.state = globals.rootStates.WAITING;
     this.service.sendSearch(s).subscribe((result) => {
       setTimeout(() => {
-        console.log(result);
         var o = [];
         if(Array.isArray(result)){
           for (var index in result) o.push(new s.type(result[index]));
         } else {
           o.push(new s.type(result));
         }
-        console.log(o);
         this.services = o;
-        this.setState(globals.rootStates.SERVICEDETAILVIEW);
+        this.setState(globals.rootStates.SERVICEPREVIEW);
       }, 2000);
     }, (error) => {
       console.log(error);
