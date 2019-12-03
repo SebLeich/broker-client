@@ -53,7 +53,12 @@
     <button mat-button [mat-dialog-close]="true">
       Abbrechen
     </button>
-    <button mat-button color="primary" (click)="registerUser()">
+    <button
+      mat-button
+      color="primary"
+      [disabled]="!mySignupForm.valid"
+      (click)="registerUser()"
+    >
       Registrieren
     </button>
   </div>
