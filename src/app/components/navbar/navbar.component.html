@@ -1,19 +1,45 @@
 <mat-toolbar #navbar color="primary" class="navbar">
-    <mat-toolbar-row>
-        <span class="label" (click)="setState(0)">
-            <mat-icon class="icon" matTooltip="Zur Startseite">cloud</mat-icon>
-        </span>
-        <span class="small" (click)="setState(1)">Service suchen</span>
-        <span *ngIf="canCreateServices" class="small" (click)="setState(6)">Service anlegen</span>
-        <span *ngIf="canCreateServices" class="small" (click)="setState(7)">Services verwalten</span>
-        <span *ngIf="canRegisterRoles" class="small" (click)="setState(5)">Verwaltung</span>
-        <span class="spacer"></span>
-        <div *ngIf="isLoggedIn; else login">
-            <span class="small" id="current-username" style="vertical-align: text-bottom;" (click)="openUserDetailDialog()">{{username}}</span>
-            <mat-icon (click)="logout()" class="element small-element logout" matTooltip="Abmelden">power_settings_new</mat-icon>
-        </div>
-        <ng-template #login>
-            <mat-icon (click)="openLoginDialog()" class="element small-element login" matTooltip="Anmelden">person</mat-icon>
-        </ng-template >
-    </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span class="label" (click)="setState(0)">
+      <mat-icon class="icon" matTooltip="Zur Startseite">cloud</mat-icon>
+    </span>
+    <span class="small" (click)="setState(1)">Service suchen</span>
+    <span *ngIf="canCreateServices" class="small" (click)="setState(6)"
+      >Service anlegen</span
+    >
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item (click)="setState(7)">Services Verwalten</button>
+      <button mat-menu-item (click)="setState(5)">Verwaltung</button>
+    </mat-menu>
+
+    <span class="small" [matMenuTriggerFor]="appMenu" *ngIf="canCreateServices"
+      >Verwalten</span
+    >
+
+    <span class="spacer"></span>
+
+    <div *ngIf="isLoggedIn; else login">
+      <span
+        class="small"
+        id="current-username"
+        style="vertical-align: text-bottom;"
+        (click)="openUserDetailDialog()"
+        >{{ username }}</span
+      >
+      <mat-icon
+        (click)="logout()"
+        class="element small-element logout"
+        matTooltip="Abmelden"
+        >power_settings_new</mat-icon
+      >
+    </div>
+    <ng-template #login>
+      <mat-icon
+        (click)="openLoginDialog()"
+        class="element small-element login"
+        matTooltip="Anmelden"
+        >person</mat-icon
+      >
+    </ng-template>
+  </mat-toolbar-row>
 </mat-toolbar>

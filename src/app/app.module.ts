@@ -23,7 +23,8 @@ import {
   MatGridListModule,
   MatPaginatorModule,
   MatCheckboxModule,
-  MatSortModule
+  MatSortModule,
+  MatMenuModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -34,17 +35,17 @@ import { StartpageComponent } from "./components/startpage/startpage.component";
 import { UseCaseSelectionComponent } from "./components/use-case-selection/use-case-selection.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { ProjectDescriptionComponent } from "./components/project-description/project-description.component";
-import { LoginComponent } from './components/login/login.component';
-import { DetailviewComponent } from './components/detailview/detailview.component';
-import { UserDetailComponent } from './components/user-detail/user-detail.component';
-import { AdministrationComponent } from './components/administration/administration.component';
-import { AddServiceComponent } from './components/add-service/add-service.component';
-import { ServiceCategoryPipe } from './pipes/servicecategory.pipe';
-import { ServiceProviderPipe } from './pipes/serviceprovider.pipe';
-import { ServiceModelPipe } from './pipes/servicemodel.pipe';
-import { ManageServicesComponent } from './components/manage-services/manage-services.component';
-import { ServicePreviewComponent } from './components/service-preview/service-preview.component';
-import { ChartsModule } from 'ng2-charts';
+import { LoginComponent } from "./components/login/login.component";
+import { DetailviewComponent } from "./components/detailview/detailview.component";
+import { UserDetailComponent } from "./components/user-detail/user-detail.component";
+import { AdministrationComponent } from "./components/administration/administration.component";
+import { AddServiceComponent } from "./components/add-service/add-service.component";
+import { ServiceCategoryPipe } from "./pipes/servicecategory.pipe";
+import { ServiceProviderPipe } from "./pipes/serviceprovider.pipe";
+import { ServiceModelPipe } from "./pipes/servicemodel.pipe";
+import { ManageServicesComponent } from "./components/manage-services/manage-services.component";
+import { ServicePreviewComponent } from "./components/service-preview/service-preview.component";
+import { ChartsModule } from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -92,15 +93,11 @@ import { ChartsModule } from 'ng2-charts';
     MatPaginatorModule,
     MatCheckboxModule,
     ChartsModule,
-    MatSortModule
+    MatSortModule,
+    MatMenuModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],
-  entryComponents: [
-    LoginComponent,
-    RegisterComponent,
-    UserDetailComponent
-  ]
+  entryComponents: [LoginComponent, RegisterComponent, UserDetailComponent]
 })
-
 export class AppModule {}
