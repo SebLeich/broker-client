@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
    * the current views state
    */
   _state: number = globals.viewStates.DEFAULT;
+
+  hasError: boolean = false;
+  loginErrorMsg: string = "";
   /**
    * the observable attribute emits on login click
    */

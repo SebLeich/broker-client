@@ -9,3 +9,7 @@
     display: block;
     min-width: 300px;
 }
+.hasError{
+    font-size: 12px;
+    color: red;
+}

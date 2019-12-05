@@ -1,16 +1,27 @@
 import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
 import { Project } from "../../classes/project";
-import { Service, BlockStorageService, ServiceCategory, ObjectStorageService, OnlineDriveStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService, ServiceProvider, IService } from "../../classes/service";
+import {
+  Service,
+  BlockStorageService,
+  ServiceCategory,
+  ObjectStorageService,
+  OnlineDriveStorageService,
+  DirectAttachedService,
+  RelationalDatabaseService,
+  KeyValueStorageService,
+  ServiceProvider,
+  IService
+} from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
 import { BackEndService } from "../../services/backend-service";
 import { LoginComponent } from "src/app/components/login/login.component";
-import { UseCaseHistoryEntry } from 'src/app/classes/use-case-history-entry';
-import { RoleRight, User } from 'src/app/classes/account';
-import { UserDetailComponent } from '../user-detail/user-detail.component';
-import { SearchVector } from 'src/app/classes/search';
+import { UseCaseHistoryEntry } from "src/app/classes/use-case-history-entry";
+import { RoleRight, User } from "src/app/classes/account";
+import { UserDetailComponent } from "../user-detail/user-detail.component";
+import { SearchVector } from "src/app/classes/search";
 
 @Component({
   selector: "app-root",
@@ -43,45 +54,60 @@ export class RootComponent implements OnInit {
   /**
    * the constructor creates a new instance of the component
    */
-  constructor(
-    private dialog: MatDialog,
-    private service: BackEndService
-  ) {
-    
-  }
+  constructor(private dialog: MatDialog, private service: BackEndService) {}
   /**
    * the attribute returns whether the current user is allowed to create services
    */
   get canCreateServices() {
-    if (this.roleRights.find(x => x.rule.ruleCode == "create-services" && x.isAllowed)) return true;
+    if (
+      this.roleRights.find(
+        x => x.rule.ruleCode == "create-services" && x.isAllowed
+      )
+    )
+      return true;
     return false;
   }
   /**
    * the attribute returns whether the current user is allowed to create services
    */
   get canDeleteServices() {
-    if (this.roleRights.find(x => x.rule.ruleCode == "delete-services" && x.isAllowed)) return true;
+    if (
+      this.roleRights.find(
+        x => x.rule.ruleCode == "delete-services" && x.isAllowed
+      )
+    )
+      return true;
     return false;
   }
   /**
    * the attribute returns whether the current user can administrate
    */
-  get canAdministrate(){
-    if(this.canEditSecurityGuidelines || this.canRegisterRoles) return true;
+  get canAdministrate() {
+    if (this.canEditSecurityGuidelines || this.canRegisterRoles) return true;
     return false;
   }
   /**
    * the attribute returns whether the current user can edit security guidelines
    */
   get canEditSecurityGuidelines() {
-    if (this.roleRights.find(x => x.rule.ruleCode == "edit-security-guidelines" && x.isAllowed)) return true;
+    if (
+      this.roleRights.find(
+        x => x.rule.ruleCode == "edit-security-guidelines" && x.isAllowed
+      )
+    )
+      return true;
     return false;
   }
   /**
    * the attribute returns whether the current user is allowed to create roles
    */
   get canRegisterRoles() {
-    if (this.roleRights.find(x => x.rule.ruleCode == "register-roles" && x.isAllowed)) return true;
+    if (
+      this.roleRights.find(
+        x => x.rule.ruleCode == "register-roles" && x.isAllowed
+      )
+    )
+      return true;
     return false;
   }
   /**
@@ -91,13 +117,13 @@ export class RootComponent implements OnInit {
     return this.services[0];
   }
 
-  showService(service: Service){
-    this.services = [ service ];
+  showService(service: Service) {
+    this.services = [service];
     this.setState(globals.rootStates.SERVICEPREVIEW);
   }
 
-  editService(service: Service){
-    this.services = [ service ];
+  editService(service: Service) {
+    this.services = [service];
     this.setState(globals.rootStates.SERVICEDETAILVIEW);
   }
   /**
@@ -105,7 +131,7 @@ export class RootComponent implements OnInit {
    */
   get isLoggedIn() {
     var token = this.token;
-    if (token == null || typeof (token) == "undefined") return false;
+    if (token == null || typeof token == "undefined") return false;
     return true;
   }
   /**
@@ -114,16 +140,19 @@ export class RootComponent implements OnInit {
   loginCallback(result) {
     this.token = result.access_token;
     this.username = result.userName;
-    this.service.get("api/account/current-rights").subscribe((result) => {
-      this.roleRights = [];
-      for (var index in result) {
-        this.roleRights.push(new RoleRight(result[index]));
+    this.service.get("api/account/current-rights").subscribe(
+      result => {
+        this.roleRights = [];
+        for (var index in result) {
+          this.roleRights.push(new RoleRight(result[index]));
+        }
+      },
+      error => {
+        if (error.status == 401) {
+          this.logout();
+        }
       }
-    }, (error) => {
-      if (error.status == 401) {
-        this.logout();
-      }
-    });
+    );
   }
   /**
    * the method logs the current user out
@@ -138,18 +167,25 @@ export class RootComponent implements OnInit {
    */
   ngOnInit() {
     this.service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
-    this.service.get(ServiceCategory.location).subscribe((o: Object) => this.setServiceCategories(o));
-    this.service.get(ServiceProvider.location).subscribe((o: Object) => this.setServiceProviders(o));
+    this.service
+      .get(ServiceCategory.location)
+      .subscribe((o: Object) => this.setServiceCategories(o));
+    this.service
+      .get(ServiceProvider.location)
+      .subscribe((o: Object) => this.setServiceProviders(o));
     if (this.isLoggedIn) {
-      this.service.get("api/account/current-rights").subscribe((result) => {
-        for (var index in result) {
-          this.roleRights.push(new RoleRight(result[index]));
+      this.service.get("api/account/current-rights").subscribe(
+        result => {
+          for (var index in result) {
+            this.roleRights.push(new RoleRight(result[index]));
+          }
+        },
+        error => {
+          if (error.status == 401) {
+            this.logout();
+          }
         }
-      }, (error) => {
-        if (error.status == 401) {
-          this.logout();
-        }
-      });
+      );
     }
   }
   /**
@@ -157,23 +193,26 @@ export class RootComponent implements OnInit {
    */
   sendSearch(s: SearchVector) {
     this.state = globals.rootStates.WAITING;
-    this.service.sendSearch(s).subscribe((result) => {
-      setTimeout(() => {
-        var o = [];
-        if(Array.isArray(result)){
-          for (var index in result) o.push(new s.type(result[index]));
-        } else {
-          o.push(new s.type(result));
-        }
-        this.services = o;
-        this.setState(globals.rootStates.SERVICEPREVIEW);
-      }, 2000);
-    }, (error) => {
-      console.log(error);
-      this.state = globals.rootStates.HTTPERROR;
-      this.errorMsg = error.status + " - " + error.statusText;
-      this.errorState = error.status;
-    });
+    this.service.sendSearch(s).subscribe(
+      result => {
+        setTimeout(() => {
+          var o = [];
+          if (Array.isArray(result)) {
+            for (var index in result) o.push(new s.type(result[index]));
+          } else {
+            o.push(new s.type(result));
+          }
+          this.services = o;
+          this.setState(globals.rootStates.SERVICEPREVIEW);
+        }, 2000);
+      },
+      error => {
+        console.log(error);
+        this.state = globals.rootStates.HTTPERROR;
+        this.errorMsg = error.status + " - " + error.statusText;
+        this.errorState = error.status;
+      }
+    );
   }
   /**
    * the method creates the use cases from the given array
@@ -226,26 +265,30 @@ export class RootComponent implements OnInit {
   /**
    * the method opens the login dialog
    */
+  
   openLoginDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = new User();
+    dialogConfig.data = new User()
     const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
-    dialogRef.componentInstance.submitData.subscribe(
-      (credentials: User) => {
-        if (!credentials.isLoginValid()) return;
-        this.service.loginUser(credentials).subscribe(
-          (result) => {
-            this.loginCallback(result);
-            dialogRef.close();
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-    );
+    dialogRef.componentInstance.submitData.subscribe((credentials: User) => {
+      if (!credentials.isLoginValid()) return;
+      this.service.loginUser(credentials).subscribe(
+        result => {
+          this.loginCallback(result);
+          dialogRef.close();
+        },
+
+        error => {
+          console.log(error);
+          this.errorMsg = error.status + " - " + error.statusText;
+          this.errorState = error.status;
+          dialogRef.componentInstance.hasError = true;
+          dialogRef.componentInstance.loginErrorMsg = error.error.error_description;
+        }
+      );
+    });
   }
   /**
    * the method starts the register dialog
@@ -256,27 +299,25 @@ export class RootComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = new User();
     const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
-    dialogRef.componentInstance.submitData.subscribe(
-      (credentials: User) => {
-        if (!credentials.isRegistrationValid()) return;
-        this.service.registerUser(credentials).subscribe(
-          (result) => {
-            this.service.loginUser(credentials).subscribe(
-              (result) => {
-                this.loginCallback(result);
-                dialogRef.close();
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-    );
+    dialogRef.componentInstance.submitData.subscribe((credentials: User) => {
+      if (!credentials.isRegistrationValid()) return;
+      this.service.registerUser(credentials).subscribe(
+        result => {
+          this.service.loginUser(credentials).subscribe(
+            result => {
+              this.loginCallback(result);
+              dialogRef.close();
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
   }
   /**
    * the method starts the register dialog
@@ -286,16 +327,14 @@ export class RootComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-      "username":  this.username,
-      "rights": this.roleRights
+      username: this.username,
+      rights: this.roleRights
     };
     const dialogRef = this.dialog.open(UserDetailComponent, dialogConfig);
-    dialogRef.componentInstance.logoutEmitter.subscribe(
-      () => {
-        dialogRef.close();
-        this.logout();
-      }
-    );
+    dialogRef.componentInstance.logoutEmitter.subscribe(() => {
+      dialogRef.close();
+      this.logout();
+    });
   }
   /**
    * the method returns the current access token

@@ -16,9 +16,10 @@
         <mat-form-field class="width">
             <input matInput placeholder="Passwort" name="password" type="password" [(ngModel)]="user.password">
         </mat-form-field>
+    <div *ngIf="hasError == true" class="hasError">{{loginErrorMsg}}</div>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <div *ngIf="state == 0">
+        <div *ngIf="state == 0" >
             <button mat-button [mat-dialog-close]="true">
                 Abbrechen
             </button>
