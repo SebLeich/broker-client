@@ -17,7 +17,7 @@ import { BackEndService } from "../../services/backend-service";
 import { LoginComponent } from "src/app/components/login/login.component";
 import { RoleRight, User } from "src/app/classes/account";
 import { UserDetailComponent } from "../user-detail/user-detail.component";
-import { SearchVector } from "src/app/classes/search";
+import { SearchVector, MatchingResponse } from "src/app/classes/search";
 
 @Component({
   selector: "app-root",
@@ -39,16 +39,19 @@ export class RootComponent implements OnInit {
    */
   loginState: number = globals.loginStates.CLOSED;
 
+  projectPointer: number = 0;
+
   certificates: Certificate[] = [];
   dataLocations: DataLocation[] = [];
   deploymentInformation: DeploymentInformation[] = [];
-  project: Project;
+  projects: Project[] = [];
   useCases: UseCase[] = [];
   services: Service[] = [];
   roleRights: RoleRight[] = [];
   serviceCategories: ServiceCategory[] = [];
   serviceModels: ServiceModel[] = [];
   serviceProviders: ServiceProvider[] = [];
+
   /**
    * the constructor creates a new instance of the component
    */
@@ -113,6 +116,12 @@ export class RootComponent implements OnInit {
    */
   get currentService(): Service {
     return this.services[0];
+  }
+
+  get currentProject(): Project {
+    var p = this.projects.find(x => x.projectId == this.projectPointer);
+    if(typeof(p) == "undefined") return null;
+    return p;
   }
 
   showService(service: Service) {
@@ -202,9 +211,32 @@ export class RootComponent implements OnInit {
    * the method is called when the user sends his use case search
    */
   sendSearch(s: SearchVector) {
-    console.log(s);
-    /*
     this.state = globals.rootStates.WAITING;
+    for(var index in s.types){
+      var t = s.types[index];
+      this.service.sendSearch(t, s).subscribe((result: any) => {
+        if(result.length == 0) return;
+        var p = this.currentProject;
+        if(p == null){
+          p = new Project();
+          p.sessionState.isNew = true;
+          this.projects.push(p);
+          this.projectPointer = p.projectId;
+        }
+        for(var index in result){
+          var r = result[index];
+          p.matchingResponses.push(new MatchingResponse(r.match, new t(r.content)));
+        }
+        p.sessionState.isChanged = true;
+        console.log(p);
+        this.setState(globals.rootStates.SERVICEPREVIEW);
+      },
+      (error) => {
+        console.log(error);
+      });
+    }
+    /*
+    
     this.service.sendSearch(s).subscribe(
       result => {
         setTimeout(() => {

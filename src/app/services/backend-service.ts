@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as globals from "../globals";
-import { Service } from '../classes/service';
+import { Service, IService } from '../classes/service';
 import { User } from '../classes/account';
 import { SearchVector } from '../classes/search';
 
@@ -77,9 +77,9 @@ export class BackEndService {
     /**
      * the method sends the search request to the server
      */
-    sendSearch(input: SearchVector) {
+    sendSearch(type: IService, input: SearchVector) {
         //if(!input.isSearchable()) return;
-        return this.post(input.types[0].location + "/search", input);
+        return this.post(type.location + "/search", input);
     }
     /**
      * the method returns the current access token

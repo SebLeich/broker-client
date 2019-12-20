@@ -1,6 +1,18 @@
 import { IService, BlockStorageService, DirectAttachedService, ObjectStorageService, OnlineDriveStorageService, KeyValueStorageService, RelationalDatabaseService } from './service';
 import { FormGroup } from '@angular/forms';
 
+export class MatchingResponse {
+    public total: number;
+    public points: number;
+    public service: any;
+
+    constructor(match, content){
+        this.total = match.total;
+        this.points = match.points;
+        this.service = content;
+    }
+}
+
 /**
  * the class represents a search vector for service filtering
  */
@@ -22,6 +34,7 @@ export class SearchVector {
     public hasDBMS: SearchVectorBooleanEntry;
     public hasFileVersioning: SearchVectorBooleanEntry;
     public hasAutomatedSynchronisation: SearchVectorBooleanEntry;
+    public minFulfillmentPercentage: number;
 
     constructor() {
         this.categories = new SearchVectorListEntry();
@@ -40,6 +53,7 @@ export class SearchVector {
         this.hasDBMS = new SearchVectorBooleanEntry();
         this.hasFileVersioning = new SearchVectorBooleanEntry();
         this.hasAutomatedSynchronisation = new SearchVectorBooleanEntry();
+        this.minFulfillmentPercentage = 0;
     }
 
     addType(type: IService) {

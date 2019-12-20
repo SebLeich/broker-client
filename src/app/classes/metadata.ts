@@ -33,6 +33,7 @@ export const CustomValidator = (validator: ValidatorFn, controls: string[] = nul
 
 export class SessionState {
     public isNew: boolean = true;
+    public isChanged: boolean = false;
     constructor(){
 
     }

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
-import { Service, BlockStorageService, DirectAttachedService, KeyValueStorageService, ObjectStorageService, OnlineDriveStorageService, RelationalDatabaseService } from 'src/app/classes/service';
+import { BlockStorageService, DirectAttachedService, KeyValueStorageService, ObjectStorageService, OnlineDriveStorageService, RelationalDatabaseService, IService } from 'src/app/classes/service';
+import { Project } from 'src/app/classes/project';
 
 @Component({
   selector: 'app-service-preview',
@@ -57,7 +58,23 @@ export class ServicePreviewComponent implements AfterContentInit {
   public lineChartLegend = true;
   public lineChartType = 'radar';
 
-  @Input() service: Service;
+  @Input() project: Project;
+
+  servicePointer: number;
+
+  get service(): IService{
+    if(this.project != null && this.project.matchingResponses.length > 0){
+      if(this.servicePointer == null){
+        var s = this.project.matchingResponses[0].service;
+        this.servicePointer = s.id;
+        return s;
+      }
+      for(var index in this.project.matchingResponses){
+        if(this.project.matchingResponses[index].service.id == this.servicePointer) return this.project.matchingResponses[0].service;
+      }
+    }
+    return null;
+  }
 
   @Output() editEmitter = new EventEmitter();
 
