@@ -1,8 +1,5 @@
 import {
-  FormGroup,
-  FormControl,
-  ValidatorFn,
-  AbstractControl
+  FormGroup
 } from "@angular/forms";
 
 export class RoleRight {
@@ -96,8 +93,6 @@ export class User {
     const password2 = myForm.get("password2").value;
 
     const matched: boolean = password1 === password2;
-
-    console.log("equaltest", matched);
 
     if (matched) {
       myForm.controls.password2.setErrors(null);

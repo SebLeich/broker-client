@@ -2,23 +2,19 @@ import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
 import { Project } from "../../classes/project";
 import {
+  Certificate,
   Service,
-  BlockStorageService,
   ServiceCategory,
-  ObjectStorageService,
-  OnlineDriveStorageService,
-  DirectAttachedService,
-  RelationalDatabaseService,
-  KeyValueStorageService,
   ServiceProvider,
-  IService
+  DeploymentInformation,
+  DataLocation,
+  ServiceModel
 } from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
 import { UseCase } from "../../classes/use-case";
 import { BackEndService } from "../../services/backend-service";
 import { LoginComponent } from "src/app/components/login/login.component";
-import { UseCaseHistoryEntry } from "src/app/classes/use-case-history-entry";
 import { RoleRight, User } from "src/app/classes/account";
 import { UserDetailComponent } from "../user-detail/user-detail.component";
 import { SearchVector } from "src/app/classes/search";
@@ -42,19 +38,21 @@ export class RootComponent implements OnInit {
    * obsolet?
    */
   loginState: number = globals.loginStates.CLOSED;
-  /**
-   * obsolet?
-   */
+
+  certificates: Certificate[] = [];
+  dataLocations: DataLocation[] = [];
+  deploymentInformation: DeploymentInformation[] = [];
   project: Project;
   useCases: UseCase[] = [];
   services: Service[] = [];
   roleRights: RoleRight[] = [];
   serviceCategories: ServiceCategory[] = [];
+  serviceModels: ServiceModel[] = [];
   serviceProviders: ServiceProvider[] = [];
   /**
    * the constructor creates a new instance of the component
    */
-  constructor(private dialog: MatDialog, private service: BackEndService) {}
+  constructor(private dialog: MatDialog, private service: BackEndService) { }
   /**
    * the attribute returns whether the current user is allowed to create services
    */
@@ -168,8 +166,20 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this.service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
     this.service
+      .get(Certificate.location)
+      .subscribe((o: Object) => this.setCertificates(o));
+    this.service
+      .get(DataLocation.location)
+      .subscribe((o: Object) => this.setDataLocations(o));
+    this.service
+      .get(DeploymentInformation.location)
+      .subscribe((o: Object) => this.setDeploymentInformation(o));
+    this.service
       .get(ServiceCategory.location)
       .subscribe((o: Object) => this.setServiceCategories(o));
+    this.service
+      .get(ServiceModel.location)
+      .subscribe((o: Object) => this.setServiceModels(o));
     this.service
       .get(ServiceProvider.location)
       .subscribe((o: Object) => this.setServiceProviders(o));
@@ -215,6 +225,36 @@ export class RootComponent implements OnInit {
     );
   }
   /**
+   * the method creates the certificates from the given array
+   */
+  setCertificates(o: Object) {
+    var array = [];
+    for (var index in o) {
+      array.push(new Certificate(o[index]));
+    }
+    this.certificates = array;
+  }
+  /**
+   * the method creates the datalocations from the given array
+   */
+  setDataLocations(o: Object) {
+    var array = [];
+    for (var index in o) {
+      array.push(new DataLocation(o[index]));
+    }
+    this.dataLocations = array;
+  }
+  /**
+   * the method sets the deployment information
+   */
+  setDeploymentInformation(o: Object) {
+    var array = [];
+    for (var index in o) {
+      array.push(new DeploymentInformation(o[index]));
+    }
+    this.deploymentInformation = array;
+  }
+  /**
    * the method creates the use cases from the given array
    */
   setUseCases(o: Object) {
@@ -233,6 +273,16 @@ export class RootComponent implements OnInit {
       array.push(new ServiceCategory(o[index]));
     }
     this.serviceCategories = array;
+  }
+  /**
+   * the method sets the service models
+   */
+  setServiceModels(o: Object){
+    var array = [];
+    for (var index in o) {
+      array.push(new ServiceModel(o[index]));
+    }
+    this.serviceModels = array;
   }
   /**
    * the method creates the service categories from the given array
@@ -265,7 +315,7 @@ export class RootComponent implements OnInit {
   /**
    * the method opens the login dialog
    */
-  
+
   openLoginDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;

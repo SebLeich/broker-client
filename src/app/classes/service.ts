@@ -1,7 +1,7 @@
 import { SessionState } from "../classes/metadata";
 
 export interface IService {
-    new (object?): Service;
+    new(object?): Service;
     location: string;
 }
 /**
@@ -13,14 +13,14 @@ export class ServicePreview {
     public serviceName: string;
     public creation: Date;
     public lastModified: Date;
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.discriminator = object.discriminator;
         this.serviceName = object.serviceName;
         this.creation = new Date(object.creation);
         this.lastModified = new Date(object.lastModified);
     }
-    get discriminatorNorm(){
+    get discriminatorNorm() {
         return this.discriminator.substr(0, 20).split("_")[0];
     }
 }
@@ -28,30 +28,30 @@ export class ServicePreview {
  * the class contains a generic cloud service
  */
 export abstract class Service {
-    public id : number;
-    public serviceName : string;
-    public serviceDescription : string;
-    public serviceTitle : string;
+    public id: number;
+    public serviceName: string;
+    public serviceDescription: string;
+    public serviceTitle: string;
     public serviceCompliance: string;
-    public serviceAvailability : string;
-    public cloudServiceCategory : ServiceCategory;
-    public cloudServiceCategoryId : number;
-    public cloudServiceModel : ServiceModel = null;
-    public cloudServiceModelId : number;
-    public providerId : number;
+    public serviceAvailability: string;
+    public cloudServiceCategory: ServiceCategory;
+    public cloudServiceCategoryId: number;
+    public cloudServiceModel: ServiceModel = null;
+    public cloudServiceModelId: number;
+    public providerId: number;
     public provider: Provider = null;
     public pricing: Pricing[] = [];
     public deploymentInfo: DeploymentInformation = null;
     public serviceCertificates: ServiceCertificate[] = [];
     public serviceDataLocations: ServiceDataLocation[] = [];
-    public sessionState : SessionState = new SessionState();
+    public sessionState: SessionState = new SessionState();
     public creation: string;
     public lastModified: string;
     /**
      * the constructor creates a new instance of a service
      */
-    constructor(object?){
-        if(typeof(object) != "undefined" && object != null){
+    constructor(object?) {
+        if (typeof (object) != "undefined" && object != null) {
             this.id = object.id;
             this.serviceName = object.serviceName;
             this.serviceDescription = object.serviceDescription;
@@ -62,31 +62,31 @@ export abstract class Service {
             this.cloudServiceModelId = object.cloudServiceModelId;
             this.providerId = object.providerId;
             this.sessionState.isNew = false;
-            if(typeof(object.cloudServiceCategory) != "undefined" && object.cloudServiceCategory != null){
+            if (typeof (object.cloudServiceCategory) != "undefined" && object.cloudServiceCategory != null) {
                 this.cloudServiceCategory = new ServiceCategory(object.cloudServiceCategory);
             }
-            if(typeof(object.cloudServiceModel) != "undefined" && object.cloudServiceModel != null){
+            if (typeof (object.cloudServiceModel) != "undefined" && object.cloudServiceModel != null) {
                 this.cloudServiceModel = new ServiceModel(object.cloudServiceModel);
             }
-            if(Array.isArray(object.pricing)){
-                for(var index in object.pricing){
+            if (Array.isArray(object.pricing)) {
+                for (var index in object.pricing) {
                     this.pricing.push(new Pricing(object.pricing[index]));
                 }
             }
-            if(Array.isArray(object.serviceCertificates)){
-                for(var index in object.serviceCertificates){
+            if (Array.isArray(object.serviceCertificates)) {
+                for (var index in object.serviceCertificates) {
                     this.serviceCertificates.push(new ServiceCertificate(object.serviceCertificates[index]));
                 }
             }
-            if(Array.isArray(object.serviceDataLocations)){
-                for(var index in object.serviceDataLocations){
+            if (Array.isArray(object.serviceDataLocations)) {
+                for (var index in object.serviceDataLocations) {
                     this.serviceDataLocations.push(new ServiceDataLocation(object.serviceDataLocations[index]));
                 }
             }
-            if(typeof(object.deploymentInfo) != "undefined" && object.deploymentInfo != null){
+            if (typeof (object.deploymentInfo) != "undefined" && object.deploymentInfo != null) {
                 this.deploymentInfo = new DeploymentInformation(object.deploymentInfo);
             }
-            if(typeof(object.provider) != "undefined" && object.provider != null){
+            if (typeof (object.provider) != "undefined" && object.provider != null) {
                 this.provider = new Provider(object.provider);
             }
         } else {
@@ -120,11 +120,11 @@ export abstract class Service {
     /**
      * the static method returns the classes current server endpoint
      */
-    abstract get location() : string;
+    abstract get location(): string;
     /**
      * the method creates the backend's interface
      */
-    toServerObject(): any{
+    toServerObject(): any {
         return {
             "id": this.id,
             "serviceName": this.serviceName,
@@ -142,20 +142,20 @@ export abstract class Service {
  * the class contains a block storage servie
  */
 export class BlockStorageService extends Service {
-    public hasFileEncryption : boolean;
-    public hasReplication : boolean;
-    public storageTypeId : number;
+    public hasFileEncryption: boolean;
+    public hasReplication: boolean;
+    public storageTypeId: number;
     public storageType: StorageType;
     /**
      * the constructor creates a new block storage service
      */
-    constructor(object?){
-        if(typeof(object) != "undefined"){
+    constructor(object?) {
+        if (typeof (object) != "undefined") {
             super(object);
             this.hasFileEncryption = object.hasFileEncryption;
             this.hasReplication = object.hasReplication;
             this.storageTypeId = object.storageTypeId;
-            if(typeof(object.storageType) != "undefined" && object.storageType != null){
+            if (typeof (object.storageType) != "undefined" && object.storageType != null) {
                 this.storageType = new StorageType(object.storageType);
             }
         } else {
@@ -168,19 +168,19 @@ export class BlockStorageService extends Service {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return BlockStorageService.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/blockstorageservice";
     }
     /**
      * the method creates the backend's interface
      */
-    toServerObject(){
+    toServerObject() {
         var o = super.toServerObject();
         o.hasFileEncryption = this.hasFileEncryption;
         o.hasReplication = this.hasReplication;
@@ -192,19 +192,19 @@ export class BlockStorageService extends Service {
  * the class contains a direct attached service
  */
 export class DirectAttachedService extends Service {
-    public hasFileEncryption : boolean;
-    public hasReplication : boolean;
-    public hasFileCompression : boolean;
+    public hasFileEncryption: boolean;
+    public hasReplication: boolean;
+    public hasFileCompression: boolean;
     public hasFilePermissions: boolean;
     public hasFileLocking: boolean;
-    public storageTypeId : number;
+    public storageTypeId: number;
     public storageType: StorageType;
 
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object){
-        if(typeof(object) != "undefined"){
+    constructor(object) {
+        if (typeof (object) != "undefined") {
             super(object);
             this.hasFileEncryption = object.hasFileEncryption;
             this.hasReplication = object.hasReplication;
@@ -212,7 +212,7 @@ export class DirectAttachedService extends Service {
             this.hasFilePermissions = object.hasFilePermissions;
             this.hasFileLocking = object.hasFileLocking;
             this.storageTypeId = object.storageTypeId;
-            if(typeof(object.storageType) != "undefined" && object.storageType != null){
+            if (typeof (object.storageType) != "undefined" && object.storageType != null) {
                 this.storageType = new StorageType(object.storageType);
             }
         } else {
@@ -223,19 +223,19 @@ export class DirectAttachedService extends Service {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return DirectAttachedService.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/directattachedstorageservice";
     }
     /**
      * the method creates the the classes object fitting the backend's interface
      */
-    toServerObject(){
+    toServerObject() {
         var o = super.toServerObject();
         o.storageTypeId = this.storageTypeId;
         o.hasFileEncryption = this.hasFileEncryption;
@@ -250,13 +250,13 @@ export class DirectAttachedService extends Service {
  * the class contains a key value storage
  */
 export class KeyValueStorageService extends Service {
-    public hasDBMS : boolean;
-    public hasReplication : boolean;
+    public hasDBMS: boolean;
+    public hasReplication: boolean;
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object){
-        if(typeof(object) != "undefined"){
+    constructor(object) {
+        if (typeof (object) != "undefined") {
             super(object);
             this.hasDBMS = object.hasDBMS;
             this.hasReplication = object.hasReplication;
@@ -269,19 +269,19 @@ export class KeyValueStorageService extends Service {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return KeyValueStorageService.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/keyvaluestoreservice";
     }
     /**
      * the method creates the backend's interface
      */
-    toServerObject(){
+    toServerObject() {
         var o = super.toServerObject();
         o.hasDBMS = this.hasDBMS;
         o.hasReplication = this.hasReplication;
@@ -299,8 +299,8 @@ export class ObjectStorageService extends Service {
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object){
-        if(typeof(object) != "undefined"){
+    constructor(object) {
+        if (typeof (object) != "undefined") {
             super(object);
             this.hasFileEncryption = object.hasFileEncryption;
             this.hasFileLocking = object.hasFileLocking;
@@ -319,19 +319,19 @@ export class ObjectStorageService extends Service {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return ObjectStorageService.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/objectstorageservice";
     }
     /**
      * the method creates the backend's interface
      */
-    toServerObject(){
+    toServerObject() {
         var o = super.toServerObject();
         o.hasFileEncryption = this.hasFileEncryption;
         o.hasFileLocking = this.hasFileLocking;
@@ -346,8 +346,8 @@ export class OnlineDriveStorageService extends Service {
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object){
-        if(typeof(object) != "undefined"){
+    constructor(object) {
+        if (typeof (object) != "undefined") {
             super(object);
         } else {
             super();
@@ -356,38 +356,44 @@ export class OnlineDriveStorageService extends Service {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return OnlineDriveStorageService.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/onlinedrivestorageservice";
     }
 }
 
 export class RelationalDatabaseService extends Service {
+    public hasDBMS: boolean;
+    public hasReplication: boolean;
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object){
-        if(typeof(object) != "undefined"){
+    constructor(object) {
+        if (typeof (object) != "undefined") {
             super(object);
+            this.hasDBMS = object.hasDBMS;
+            this.hasReplication = object.hasReplication;
         } else {
             super();
+            this.hasDBMS = false;
+            this.hasReplication = false;
         }
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return RelationalDatabaseService.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/relationaldatabaseservice";
     }
 }
@@ -401,21 +407,27 @@ export class DeploymentInformation {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.deploymentName = object.deploymentName;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return DeploymentInformation.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/deploymentinformation";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.deploymentName;
     }
 }
 /**
@@ -432,29 +444,29 @@ export class Pricing {
     /**
      * the constructor creates a new instance of a pricing dataset
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.pricingValue = object.pricingValue;
         this.serviceId = object.serviceId;
         this.pricingModelId = object.pricingModelId;
         this.pricingPeriodId = object.pricingPeriodId;
-        if(typeof(object.pricingModel) != "undefined" && object.pricingModel != null){
+        if (typeof (object.pricingModel) != "undefined" && object.pricingModel != null) {
             this.pricingModel = new PricingModel(object.pricingModel);
         }
-        if(typeof(object.pricingPeriod) != "undefined" && object.pricingPeriod != null){
+        if (typeof (object.pricingPeriod) != "undefined" && object.pricingPeriod != null) {
             this.pricingPeriod = new PricingPeriod(object.pricingPeriod);
         }
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return Pricing.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/pricing";
     }
 }
@@ -467,20 +479,20 @@ export class PricingModel {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.pricingModelName = object.pricingModelName;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return PricingModel.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/pricingmodel";
     }
 }
@@ -494,7 +506,7 @@ export class PricingPeriod {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.pricingPeriodName = object.pricingPeriodName;
         this.pricingPeriodCode = object.pricingPeriodCode;
@@ -502,13 +514,13 @@ export class PricingPeriod {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return PricingPeriod.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/pricingperiod";
     }
 }
@@ -525,27 +537,33 @@ export class Provider {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.providerName = object.providerName;
         this.url = object.url;
         this.revision = object.revision;
         this.verified = object.verified;
-        if(Array.isArray(object.providerPayments)){
-            for(var index in object.providerPayments) this.payments.push(new Payment(object.providerPayments[index].payment));
+        if (Array.isArray(object.providerPayments)) {
+            for (var index in object.providerPayments) this.payments.push(new Payment(object.providerPayments[index].payment));
         }
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return Provider.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/provider";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.providerName;
     }
 }
 /**
@@ -557,20 +575,20 @@ export class Payment {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.paymentType = object.paymentType;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return Payment.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/payment";
     }
 }
@@ -583,21 +601,27 @@ export class ServiceCategory {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.cloudServiceCategoryName = object.cloudServiceCategoryName;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return ServiceCategory.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/cloudservicecategory";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.cloudServiceCategoryName;
     }
 }
 /**
@@ -610,7 +634,7 @@ export class ServiceCertificate {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.serviceId = object.serviceId;
         this.certificateId = object.certificateId;
         this.certificate = new Certificate(object.certificate);
@@ -626,7 +650,7 @@ export class ServiceDataLocation {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.serviceId = object.serviceId;
         this.dataLocationId = object.dataLocationId;
         this.dataLocation = new DataLocation(object.dataLocation);
@@ -641,21 +665,27 @@ export class Certificate {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.certificateName = object.certificateName;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return Certificate.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/certificate";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.certificateName;
     }
 }
 /**
@@ -668,11 +698,11 @@ export class DataLocation {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
-        if(object != null && typeof(object) != undefined){
+    constructor(object) {
+        if (object != null && typeof (object) != undefined) {
             this.id = object.id;
             this.dataLocationName = object.dataLocationName;
-            if(object.dataLocationType != null && typeof(object.dataLocationType) != undefined){
+            if (object.dataLocationType != null && typeof (object.dataLocationType) != undefined) {
                 this.dataLocationType = new DataLocationType(object.dataLocationType);
             }
         }
@@ -680,14 +710,21 @@ export class DataLocation {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return DataLocation.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/datalocation";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        if (this.dataLocationType == null) return this.dataLocationName;
+        return this.dataLocationType + ": " + this.dataLocationName;
     }
 }
 /**
@@ -699,8 +736,8 @@ export class DataLocationType {
     /**
      * the constructor creates a new instance of a data location type
      */
-    constructor(object){
-        if(object != null && typeof(object) != undefined){
+    constructor(object) {
+        if (object != null && typeof (object) != undefined) {
             this.id = object.id;
             this.typeName = object.typeName;
         }
@@ -708,14 +745,20 @@ export class DataLocationType {
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return DataLocationType.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/datalocationtype";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.typeName;
     }
 }
 /**
@@ -727,21 +770,27 @@ export class ServiceModel {
     /**
      * the constructor creates a new instance of a service category
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.cloudServiceModelName = object.cloudServiceModelName;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return ServiceModel.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/cloudservicemodel";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.cloudServiceModelName;
     }
 }
 /**
@@ -753,21 +802,27 @@ export class ServiceProvider {
     /**
      * the constructor creates a new instance of a service provider
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.providerName = object.providerName;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return ServiceProvider.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/serviceprovider";
+    }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.providerName;
     }
 }
 /**
@@ -779,20 +834,41 @@ export class StorageType {
     /**
      * the constructor creates a new instance of a storage type
      */
-    constructor(object){
+    constructor(object) {
         this.id = object.id;
         this.storageTypeDescription = object.storageTypeDescription;
     }
     /**
      * the method returns the classes server endpoint
      */
-    get location() : string {
+    get location(): string {
         return StorageType.location;
     }
     /**
      * the method returns the classes server endpoint
      */
-    static get location() : string {
+    static get location(): string {
         return "api/storagetype";
     }
+    /**
+     * the method returns a string representation of the instance
+     */
+    toString(): string {
+        return this.storageTypeDescription;
+    }
+}
+
+export const serviceMapping = {
+    "bls": BlockStorageService,
+    "das": DirectAttachedService,
+    "obs": ObjectStorageService,
+    "ods": OnlineDriveStorageService,
+    "kvs": KeyValueStorageService,
+    "rds": RelationalDatabaseService,
+    BlockStorageService: "bls",
+    DirectAttachedService: "das",
+    ObjectStorageService: "obs",
+    OnlineDriveStorageService: "ods",
+    KeyValueStorageService: "kvs",
+    RelationalDatabaseService: "rds"
 }

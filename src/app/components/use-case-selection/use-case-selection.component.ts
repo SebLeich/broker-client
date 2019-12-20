@@ -1,11 +1,23 @@
-import { Component, EventEmitter, Input, Output, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UseCase } from "../../classes/use-case";
-import { UseCaseHistoryEntry } from "src/app/classes/use-case-history-entry";
+import { Component, EventEmitter, Input, Output, OnInit, ViewChild, Provider } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { SearchVector } from 'src/app/classes/search';
-import { UseCaseSelecionStep, UseCaseSelectionOption } from 'src/app/classes/metadata';
+import {
+  CustomValidator,
+  SelectionComponent,
+  UseCaseSelecionStep, 
+  UseCaseSelectionOption, 
+  UseCaseMultipleSelectionOption 
+} from 'src/app/classes/metadata';
+import {
+  Certificate,
+  DataLocation,
+  DeploymentInformation,
+  ServiceCategory, 
+  ServiceModel,
+  serviceMapping
+} from '../../classes/service';
 import { MatStepper } from '@angular/material/stepper';
-import { Service, ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, IService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
+import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, IService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
 
 @Component({
   selector: 'app-use-case-selection',
@@ -30,36 +42,257 @@ export class UseCaseSelectionComponent implements OnInit {
     return this.steps.find(x => x.id);
   }
   /**
-   * a set of all available use cases from the configuration
+   * a set of all available data locations
    */
-  private _uc: UseCase[] = [];
+  private _dl: DataLocation[] = [];
+  /**
+   * a set of all available service categories
+   */
+  private _sc: ServiceCategory[] = [];
+  /**
+   * a set of all available service models
+   */
+  private _sm: ServiceModel[] = [];
+  /**
+   * a set of all available providers
+   */
+  private _prov: Provider[] = [];
+  /**
+   * a set of all available certificates
+   */
+  private _cert: Certificate[] = [];
+  /**
+   * a set of all available deployment informations
+   */
+  private _di: DeploymentInformation[] = [];
   /**
    * the search vector
    */
-  private _searchVector = null;
+  public searchVector: SearchVector;
   /**
-   * a set of passed states
+   * the input value sets the internal data location list
    */
-  stateHistory: number[] = [];
+  @Input() set dataLocations(dl: DataLocation[]) {
+    this._dl = dl;
+  }
   /**
-   * a set of selected use cases
+   * the input value sets the internal service model list
    */
-  useCaseHistory: UseCaseHistoryEntry[] = [];
+  @Input() set certificates(cert: Certificate[]) {
+    this._cert = cert;
+  }
   /**
-   * the current states id
+   * the input value sets the internal service category list
    */
-  state: number = 0;
+  @Input() set serviceCategories(sc: ServiceCategory[]) {
+    this._sc = sc;
+  }
   /**
-   * the input value sets the internal use case list
+   * the input value sets the internal service category list
    */
-  @Input() set useCases(useCases: UseCase[]) {
-    this._uc = useCases;
+  @Input() set deploymentInformation(di: DeploymentInformation[]) {
+    this._di = di;
+  }
+  /**
+   * the input value sets the internal service model list
+   */
+  @Input() set serviceModels(sm: ServiceModel[]) {
+    this._sm = sm;
+  }
+  /**
+   * the input value sets the internal service category list
+   */
+  @Input() set serviceProviders(prov: Provider[]) {
+    this._prov = prov;
+  }
+  /**
+   * the input value returns the internal data location list
+   */
+  get dataLocations() : DataLocation[] {
+    return this._dl;
+  }
+  /**
+   * the input value returns the internal service category list
+   */
+  get serviceCategories() : ServiceCategory[] {
+    return this._sc;
+  }
+  /**
+   * the input value returns the internal service model list
+   */
+  get serviceModels() : ServiceModel[]{
+    return this._sm;
+  }
+  /**
+   * the input value returns the internal service category list
+   */
+  get serviceProviders() : Provider[] {
+    return this._prov;
+  }
+  /**
+   * the input value returns the internal service model list
+   */
+  get certificates() : Certificate[] {
+    return this._cert;
+  }
+  /**
+   * the input value returns the internal service category list
+   */
+  get deploymentInformation() : DeploymentInformation[] {
+    return this._di;
+  }
+  /**
+   * the method returns all current options according to the current search vector
+   */
+  get currentOptions() : SelectionComponent[]{
+    var output = [];
+    if(this.searchVector.categories.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "categories",
+        "text": "Servicekategorien", 
+        "desc": "Welche Servicekategorien kommen für Sie in Frage?", 
+        "isActive": true,
+        "list": this.serviceCategories
+      }));
+    }
+    if(this.searchVector.certificates.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "certificates",
+        "text": "Zertifikate", 
+        "desc": "Welche Zertifikate kommen sollte ein Service vorweisen?", 
+        "isActive": true,
+        "list": this.certificates
+      }));
+    }
+    if(this.searchVector.dataLocations.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "datalocations",
+        "text": "Datenspeicherorte", 
+        "desc": "Welche Standorte kommen für Sie in Frage?", 
+        "isActive": true,
+        "list": this.dataLocations
+      }));
+    }
+    if(this.searchVector.deploymentInformation.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "deploymentinfos",
+        "text": "Veröffentlichungsinformationen", 
+        "desc": "Welche Veröffentlichungsinformationen sind Ihnen wichtig?", 
+        "isActive": true,
+        "list": this.deploymentInformation
+      }));
+    }
+    if(this.searchVector.models.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "models",
+        "text": "Servicemodelle", 
+        "desc": "Welche Servicemodelle kommen für Sie in Frage?", 
+        "isActive": true,
+        "list": this.serviceModels
+      }));
+    }
+    if(this.searchVector.providers.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "providers",
+        "text": "Serviceprovider", 
+        "desc": "Welche Serviceprovider kommen für Sie in Frage?", 
+        "isActive": true,
+        "list": this.serviceProviders
+      }));
+    }
+    if(this.searchVector.hasFileEncryption.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasFileEncryption",
+        "text": "Dateiverschlüsselung", 
+        "desc": "Wünschen Sie Dateiverschlüsselung?", 
+        "isActive": true
+      }));
+    }
+    if(this.searchVector.hasReplication.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasReplication",
+        "text": "File Replication", 
+        "desc": "Wünschen Sie File Replication?", 
+        "isActive": true
+      }));
+    }
+    return output;
+  }
+  /**
+   * the method returns the current option form group
+   */
+  get currentOptionFg() {
+    var output = {};
+    if(this.searchVector.categories.isSearchable){
+      output["categories"] = this.searchVector.categories.value;
+    }
+    if(this.searchVector.certificates.isSearchable){
+      output["certificates"] = this.searchVector.certificates.value;
+    }
+    if(this.searchVector.dataLocations.isSearchable){
+      output["datalocations"] = this.searchVector.dataLocations.value;
+    }
+    if(this.searchVector.deploymentInformation.isSearchable){
+      output["deploymentinfos"] = this.searchVector.deploymentInformation.value;
+    }
+    if(this.searchVector.models.isSearchable){
+      output["models"] = this.searchVector.models.value;
+    }
+    if(this.searchVector.providers.isSearchable){
+      output["providers"] = this.searchVector.providers.value;
+    }
+    if(this.searchVector.hasFileEncryption.isSearchable){
+      output["hasFileEncryption"] = this.searchVector.hasFileEncryption.value;
+    }
+    if(this.searchVector.hasReplication.isSearchable){
+      output["hasReplication"] = this.searchVector.hasReplication.value;
+    }
+    return output;
+  }
+  /**
+   * the method returns the current type selection form group
+   */
+  get currentTypeSelectionFg() {
+    var output = {};
+    if(this.searchVector.types.includes(BlockStorageService)){
+      output["bls"] = true;
+    } else {
+      output["bls"] = false;
+    }
+    if(this.searchVector.types.includes(DirectAttachedService)){
+      output["das"] = true;
+    } else {
+      output["das"] = false;
+    }
+    if(this.searchVector.types.includes(KeyValueStorageService)){
+      output["kvs"] = true;
+    } else {
+      output["kvs"] = false;
+    }
+    if(this.searchVector.types.includes(ObjectStorageService)){
+      output["obs"] = true;
+    } else {
+      output["obs"] = false;
+    }
+    if(this.searchVector.types.includes(OnlineDriveStorageService)){
+      output["ods"] = true;
+    } else {
+      output["ods"] = false;
+    }
+    if(this.searchVector.types.includes(RelationalDatabaseService)){
+      output["rds"] = true;
+    } else {
+      output["rds"] = false;
+    }
+    return output;
   }
   /**
    * the emitter for the send search callback
    */
   @Output() searchEmitter = new EventEmitter();
-
+  /**
+   * the steppers view reference
+   */
   @ViewChild("stepper", { static: true }) stepper: MatStepper;
   /**
    * the construtor creates a new instance of the component
@@ -67,49 +300,55 @@ export class UseCaseSelectionComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder
   ) {
-
+    this.searchVector = new SearchVector();
   }
   /**
-   * the method returns all use cases available in the current state
+   * the method returns whether the given object is an instance of the given object
    */
-  get currentUseCases() {
-    return this._uc.filter(x => x.data.source.includes(this.state));
+  isMultipleSelectionOption(o: any) : boolean {
+    return (o.constructor == UseCaseMultipleSelectionOption);
   }
+  /**
+   * the method returns whether the given object is an instance of the given object
+   */
+  isSelectionOption(o: any) : boolean {
+    return (o.constructor == UseCaseSelectionOption);
+  }
+  /**
+   * the method returns whether the current vector is searchable or not
+   */
   get isSearchable(): boolean {
-    if(this._searchVector != null) return true;
-    return false;
+    return true;
   }
   /**
    * the method initiates the page change of the stepper
    */
-  next(){
+  next() {
     this.stepper.next();
   }
   /**
    * the method is called on component initalization
    */
   ngOnInit() {
-    var uCOpts: UseCaseSelectionOption[] = [];
-    var o: any = {};
-    for(var index in this._uc){
-      var uc = this._uc[index];
-      uCOpts.push(new UseCaseSelectionOption({
-        "id": uc.data.id,
-        "text": uc.data.desc,
-        "isActive": true,
-        "uC": uc,
-        "ngIf": function(page: UseCaseSelectionComponent): boolean {
-          if(this.uC.data.source.includes(page.state)) return true;
-          return false;
+    var tSFg = this._formBuilder.group(this.currentTypeSelectionFg);
+    tSFg.valueChanges.subscribe((values) => {
+      this.searchVector.reset();
+      for(var index in values){
+        if(values[index] == true){
+          this.searchVector.addType(serviceMapping[index]);
         }
-      }));
-      o[uc.data.id] = [false, Validators.required];
-    }
-    var uCFg: FormGroup = this._formBuilder.group(o);
+      }
+      this.steps[2] = new UseCaseSelecionStep({
+        "id": 3,
+        "headline": "Welche Anforderungen haben sie?",
+        "options": this.currentOptions,
+        "fg": this._formBuilder.group(this.currentOptionFg)
+      });
+    });
     this.steps.push(
       new UseCaseSelecionStep({
         "id": 1,
-        "headline": "Welche Art von Cloud Services suchen Sie?",
+        "headline": "Welche Klasse von Cloud Services suchen Sie?",
         "options": [
           new UseCaseSelectionOption({
             "id": 1, "text": "Cloud Storage", "isActive": true
@@ -125,90 +364,42 @@ export class UseCaseSelectionComponent implements OnInit {
       }),
       new UseCaseSelecionStep({
         "id": 2,
-        "headline": "Welche Aussage trifft am meisten zu?",
-        "options": uCOpts,
-        "fg": uCFg
+        "headline": "Welche Arten sind für Sie interessant?",
+        "options": [
+          new UseCaseSelectionOption({
+            "id": "bls", "text": "Block Storage", "isActive": true
+          }),
+          new UseCaseSelectionOption({
+            "id": "das", "text": "Direct Attached Storage", "isActive": true
+          }),
+          new UseCaseSelectionOption({
+            "id": "kvs", "text": "Key Value Storage", "isActive": true
+          }),
+          new UseCaseSelectionOption({
+            "id": "obs", "text": "Object Storage", "isActive": true
+          }),
+          new UseCaseSelectionOption({
+            "id": "ods", "text": "Online Drive Storage", "isActive": true
+          }),
+          new UseCaseSelectionOption({
+            "id": "rds", "text": "Relational Database Storage", "isActive": true
+          })
+        ],
+        "fg": tSFg
       }),
       new UseCaseSelecionStep({
         "id": 3,
-        "headline": "Welche Anforderungen treffen am meisten zu?",
-        "options": [
-          new UseCaseSelectionOption({
-            "id": 1, "text": "Suche nach Pseudo 1", "isActive": true
-          }),
-          new UseCaseSelectionOption({
-            "id": 2, "text": "Suche nach Pseudo 2", "isActive": true
-          })
-        ],
-        "fg": this._formBuilder.group({
-          1: [null, Validators.nullValidator],
-          2: [null, Validators.nullValidator]
-        })
+        "headline": "Welche Anforderungen haben sie?",
+        "options": this.currentOptions,
+        "fg": this._formBuilder.group(this.currentOptionFg)
       })
     );
-    uCFg.valueChanges.subscribe((result) => {
-      var o: UseCase[] = [];
-      for(var index in result){
-        if(result[index]) o.push(this._uc.find(x => x.data.id == index));
-      }
-      var currentUC = o.find(x => x.data.source.includes(this.state));
-      if(typeof(currentUC) == "undefined") throw("ERROR");
-      this.state = currentUC.data.target;
-      if(currentUC.data.mapping != null){
-        this.setSearchMapping(currentUC.data.mapping);
-      }
-    });
   }
   /**
    * the method sends the current search to the server
    */
   sendSearch() {
-    this.searchEmitter.emit(this._searchVector);
-  }
-
-  setSearchMapping(mapping: string){
-    var input: IService;
-    switch(mapping){
-      case "object-storage":
-        input = ObjectStorageService;
-        break;
-      case "odrive":
-        input = OnlineDriveStorageService;
-        break;
-      case "block-storage":
-        input = BlockStorageService;
-        break;
-      case "direct-att":
-        input = DirectAttachedService;
-        break;
-      case "rdb":
-        input = RelationalDatabaseService;
-        break;
-      case "nrdb":
-        input = KeyValueStorageService;
-        break;
-    }
-    if(typeof(input) == "undefined") throw("unknown mapping: " + mapping);
-    this._searchVector = new SearchVector(input);
-    this.stepper.next();
-  }
-  /**
-   * the method sets the current states id
-   */
-  setUseCase(uCId: number) {
-    var u = this._uc.find(x => x.data.id == uCId);
-    this.useCaseHistory.push(new UseCaseHistoryEntry(u));
-    this.stateHistory.push(this.state);
-    this.state = u.data.target;
-  }
-  /**
-   * the method undos the last user input
-   */
-  undo() {
-    if (this.stateHistory.length == 0) throw ("no states in history");
-    var s = this.stateHistory[this.stateHistory.length - 1];
-    this.stateHistory.splice(this.stateHistory.length - 1, 1);
-    this.useCaseHistory.splice(this.useCaseHistory.length - 1, 1);
-    this.state = s;
+    this.searchVector.applyForm(this.steps[2].fg);
+    console.log(this.steps, this.searchVector);
   }
 }

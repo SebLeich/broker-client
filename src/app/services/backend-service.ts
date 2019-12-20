@@ -1,10 +1,9 @@
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { Injectable, ErrorHandler } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import * as globals from "../globals";
 import { Service } from '../classes/service';
 import { User } from '../classes/account';
 import { SearchVector } from '../classes/search';
-import { Observable } from 'rxjs';
 
 /**
  * the service provides access to the backend's API

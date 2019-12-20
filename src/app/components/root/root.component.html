@@ -7,7 +7,16 @@
     (registerDialogEmitter)="openRegisterDialog()" (userDialogEmitter)="openUserDetailDialog()"></app-startpage>
 <app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
-<app-use-case-selection [useCases]=useCases *ngIf="state == 1" (searchEmitter)="sendSearch($event)">
+<app-use-case-selection
+    *ngIf="state == 1" 
+    (searchEmitter)="sendSearch($event)"
+    [certificates]=certificates
+    [dataLocations]=dataLocations
+    [deploymentInformation]=deploymentInformation
+    [serviceCategories]=serviceCategories
+    [serviceModels]=serviceModels
+    [serviceProviders]=serviceProviders
+>
 </app-use-case-selection>
 <app-detailview *ngIf="state == 4" [isLoggedIn]=isLoggedIn [services]=services [serviceCategories]=serviceCategories
     [serviceProviders]=serviceProviders></app-detailview>

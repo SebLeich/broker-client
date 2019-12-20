@@ -2,18 +2,6 @@
     margin: 10px;
 }
 
-.timeline-container {
-    height: 100%;
-    width: 40px;
-    display: inline-block;
-    position: relative;
-    vertical-align: bottom;
-}
-
-.timeline-container .timeline-graph {
-    width: 40px;
-}
-
 .history-element {
     margin: 10px 20px;
     display: flex;
@@ -70,12 +58,28 @@
     cursor: not-allowed;
 }
 
-.option.active-true:hover {
-    background: linear-gradient(45deg, #4f97eb, transparent);
-    border-radius: 5px;
-    color: white;
-}
-
 .option mat-icon {
     font-size: 1.3rem;
+}
+
+.option {
+    display: flex;
+}
+
+.option .stretch {
+    flex: 1;
+    padding: 0px 20px;
+}
+
+.option .fixed-width {
+    width: 300px;
+    padding: 10px 20px;
+    background-color: #1e88e50f;
+    overflow: hidden;
+    color: #595959;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: .9rem;
+    align-content: center;
+    display: grid;
 }

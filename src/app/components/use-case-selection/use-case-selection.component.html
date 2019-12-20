@@ -3,13 +3,29 @@
     <div style="padding-bottom: 20px;">Finden Sie Schritt für Schritt ihren passenden Cloud Service</div>
 </section>
 <div style="height: calc(100% - 290px); overflow-y: auto;">
-    <mat-horizontal-stepper [linear]="isLinear" #stepper (dblclick)=log(steps)>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <mat-step *ngFor="let step of steps" [stepControl]="step.fg">
             <form [formGroup]="step.fg">
                 <ng-template matStepLabel>{{ step.headline }}</ng-template>
-                <ng-container *ngFor="let element of step.options">
-                    <div *ngIf="element.condition(this)" class="option active-{{ element.isActive }}">
-                        <mat-checkbox color="primary" formControlName={{element.id}} disabled={{!element.isActive}}>{{ element.text }}</mat-checkbox>
+                <ng-container *ngFor="let element of step.options" class="selection-parent">
+                    <div *ngIf="isSelectionOption(element) && element.condition(this)"
+                        class="option active-{{ element.isActive }}">
+                        <div class="stretch">
+                            <mat-checkbox color="primary" class="option-label" formControlName={{element.id}}
+                                disabled={{!element.isActive}}>{{ element.text }}</mat-checkbox>
+                        </div>
+                        <div *ngIf="element.desc != null" class="fixed-width">{{ element.desc }}</div>
+                    </div>
+                    <div *ngIf="isMultipleSelectionOption(element) && element.condition(this)"
+                        class="option active-{{ element.isActive }}">
+                        <mat-form-field class="stretch">
+                            <mat-label>{{ element.text }}</mat-label>
+                            <mat-select formControlName={{element.id}} multiple>
+                                <mat-option *ngFor="let option of element.list" [value]="option.id">{{ option }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="element.desc != null" class="fixed-width">{{ element.desc }}</div>
                     </div>
                 </ng-container>
             </form>
@@ -18,7 +34,8 @@
 </div>
 <div class="footer">
     <button mat-raised-button color="primary" class="button" (click)=next()>Weiter</button>
-    <button *ngIf="isSearchable" mat-raised-button class="button btn-success-filled" (click)=sendSearch()>Service suchen</button>
+    <button *ngIf="isSearchable" mat-raised-button class="button btn-success-filled" (click)=sendSearch()>Service
+        suchen</button>
 </div>
 
 <!--

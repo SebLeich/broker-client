@@ -1,7 +1,11 @@
-import { IService, Service } from './service';
+import { IService } from './service';
 import { StartpageComponent } from '../components/startpage/startpage.component';
-import { FormGroup } from '@angular/forms';
 import { UseCase } from './use-case';
+import {
+    FormGroup,
+    ValidationErrors,
+    ValidatorFn
+} from '@angular/forms';
 
 export class CloudServiceType {
     public name: string = "";
@@ -11,6 +15,21 @@ export class CloudServiceType {
         this.type = object.type;
     }
 }
+
+export const CustomValidator = (validator: ValidatorFn, controls: string[] = null) => (
+    group: FormGroup,
+): ValidationErrors | null => {
+    if (!controls) {
+        controls = Object.keys(group.controls)
+    }
+
+    const hasAtLeastOne = group && group.controls && controls
+        .some(k => !validator(group.controls[k]));
+
+    return hasAtLeastOne ? null : {
+        atLeastOne: true,
+    };
+};
 
 export class SessionState {
     public isNew: boolean = true;
@@ -75,9 +94,10 @@ export class UseCaseSelecionStep {
     }
 }
 
-export class UseCaseSelectionOption {
+export class SelectionComponent {
     public id: number;
     public text: string;
+    public desc: string;
     public isActive: boolean;
     public condition: { (data: StartpageComponent): boolean; } = function(){
         return true;
@@ -86,8 +106,23 @@ export class UseCaseSelectionOption {
     constructor(object: any){
         this.id = object.id;
         this.text = object.text;
+        this.desc = object.desc;
         this.isActive = object.isActive;
         this.uC = object.uC;
         if(typeof(object.ngIf) == "function") this.condition = object.ngIf;
+    }
+}
+
+export class UseCaseMultipleSelectionOption extends SelectionComponent {
+    public list;
+    constructor(object: any){
+        super(object);
+        this.list = object.list;
+    }
+}
+
+export class UseCaseSelectionOption extends SelectionComponent {
+    constructor(object: any){
+        super(object);
     }
 }
