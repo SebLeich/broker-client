@@ -202,15 +202,17 @@ export class RootComponent implements OnInit {
    * the method is called when the user sends his use case search
    */
   sendSearch(s: SearchVector) {
+    console.log(s);
+    /*
     this.state = globals.rootStates.WAITING;
     this.service.sendSearch(s).subscribe(
       result => {
         setTimeout(() => {
           var o = [];
           if (Array.isArray(result)) {
-            for (var index in result) o.push(new s.type(result[index]));
+            for (var index in result) o.push(new s.types[0](result[index]));
           } else {
-            o.push(new s.type(result));
+            o.push(new s.types[0](result));
           }
           this.services = o;
           this.setState(globals.rootStates.SERVICEPREVIEW);
@@ -223,6 +225,7 @@ export class RootComponent implements OnInit {
         this.errorState = error.status;
       }
     );
+    */
   }
   /**
    * the method creates the certificates from the given array

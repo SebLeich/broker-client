@@ -16,17 +16,17 @@ body {
   flex: 1 1 auto;
 }
 
-.use-case-history {
-  width: 30vw;
-  display: inline-block;
-  vertical-align: top;
+.responsive-container {
+  width: 80%;
+  margin: 0% 10%;
 }
 
-.use-case-list {
-  width: calc(70vw - 40px);
-  display: inline-block;
-  vertical-align: top;
-  padding: 20px;
+@media (max-width: 1200px) {
+
+  .responsive-container {
+      width: 100% !important;
+      margin: 0px !important;
+  }
 }
 
 /* Styles for the Register and Login Pages from https://bootsnipp.com/snippets/dldxB */

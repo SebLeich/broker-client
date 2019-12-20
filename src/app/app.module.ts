@@ -24,7 +24,8 @@ import {
   MatPaginatorModule,
   MatCheckboxModule,
   MatSortModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSliderModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -94,7 +95,8 @@ import { ChartsModule } from "ng2-charts";
     MatCheckboxModule,
     ChartsModule,
     MatSortModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSliderModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

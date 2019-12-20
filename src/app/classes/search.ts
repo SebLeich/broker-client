@@ -8,8 +8,8 @@ export class SearchVector {
 
     public categories: SearchVectorListEntry;
     public certificates: SearchVectorListEntry;
-    public dataLocations: SearchVectorListEntry;
-    public deploymentInformation: SearchVectorListEntry;
+    public datalocations: SearchVectorListEntry;
+    public deploymentinfos: SearchVectorListEntry;
     public models: SearchVectorListEntry;
     public providers: SearchVectorListEntry;
     public types: IService[];
@@ -26,8 +26,8 @@ export class SearchVector {
     constructor() {
         this.categories = new SearchVectorListEntry();
         this.certificates = new SearchVectorListEntry();
-        this.dataLocations = new SearchVectorListEntry();
-        this.deploymentInformation = new SearchVectorListEntry();
+        this.datalocations = new SearchVectorListEntry();
+        this.deploymentinfos = new SearchVectorListEntry();
         this.models = new SearchVectorListEntry();
         this.providers = new SearchVectorListEntry();
         this.types = [];
@@ -48,8 +48,8 @@ export class SearchVector {
             case BlockStorageService:
                 this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
-                this.dataLocations.isSearchable = true;
-                this.deploymentInformation.isSearchable = true;
+                this.datalocations.isSearchable = true;
+                this.deploymentinfos.isSearchable = true;
                 this.models.isSearchable = true;
                 this.providers.isSearchable = true;
                 this.hasFileEncryption.isSearchable = true;
@@ -59,8 +59,8 @@ export class SearchVector {
             case DirectAttachedService:
                 this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
-                this.dataLocations.isSearchable = true;
-                this.deploymentInformation.isSearchable = true;
+                this.datalocations.isSearchable = true;
+                this.deploymentinfos.isSearchable = true;
                 this.models.isSearchable = true;
                 this.providers.isSearchable = true;
                 this.hasFileEncryption.isSearchable = true;
@@ -74,8 +74,8 @@ export class SearchVector {
             case RelationalDatabaseService:
                 this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
-                this.dataLocations.isSearchable = true;
-                this.deploymentInformation.isSearchable = true;
+                this.datalocations.isSearchable = true;
+                this.deploymentinfos.isSearchable = true;
                 this.models.isSearchable = true;
                 this.providers.isSearchable = true;
                 this.hasDBMS.isSearchable = true;
@@ -84,8 +84,8 @@ export class SearchVector {
             case ObjectStorageService:
                 this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
-                this.dataLocations.isSearchable = true;
-                this.deploymentInformation.isSearchable = true;
+                this.datalocations.isSearchable = true;
+                this.deploymentinfos.isSearchable = true;
                 this.models.isSearchable = true;
                 this.providers.isSearchable = true;
                 this.hasFileEncryption.isSearchable = true;
@@ -97,8 +97,8 @@ export class SearchVector {
             case OnlineDriveStorageService:
                 this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
-                this.dataLocations.isSearchable = true;
-                this.deploymentInformation.isSearchable = true;
+                this.datalocations.isSearchable = true;
+                this.deploymentinfos.isSearchable = true;
                 this.models.isSearchable = true;
                 this.providers.isSearchable = true;
                 this.hasFileEncryption.isSearchable = true;
@@ -111,16 +111,25 @@ export class SearchVector {
 
     applyForm(fg: FormGroup) {
         for (var index in fg.value) {
-            if (typeof (this[index]) == "undefined") continue;
-            this[index].value = fg.value[index];
+            if(typeof(index) != "string"){
+                console.log("index is no string");
+                continue;
+            }
+            if (typeof (this[index]) == "undefined"){
+                var a = index.split("-");
+                if(a.length != 2 || a[1] != "prio" || typeof (this[a[0]]) == "undefined") continue;
+                this[a[0]].priority = fg.value[index];
+            } else {
+                this[index].value = fg.value[index];
+            }
         }
     }
 
     reset() {
         this.categories.isSearchable = false;
         this.certificates.isSearchable = false;
-        this.dataLocations.isSearchable = false;
-        this.deploymentInformation.isSearchable = false;
+        this.datalocations.isSearchable = false;
+        this.deploymentinfos.isSearchable = false;
         this.models.isSearchable = false;
         this.providers.isSearchable = false;
         this.types = [];
@@ -141,16 +150,21 @@ export class SearchVectorBooleanEntry {
 
     public isSearchable: boolean;
     public value: boolean;
+    public priority: number;
 
     constructor(object?) {
         this.isSearchable = false;
         this.value = false;
+        this.priority = 1;
         if (typeof (object) != "undefined" && object != null) {
             if (typeof (object.isSearchable) == "boolean") {
                 this.isSearchable = object.isSearchable;
             }
             if (typeof (object.value) == "boolean") {
                 this.value = object.value;
+            }
+            if (typeof (object.priority) == "number") {
+                this.priority = object.priority;
             }
         }
     }
@@ -161,13 +175,18 @@ export class SearchVectorListEntry {
 
     public isSearchable: boolean;
     public value: number[];
+    public priority: number;
 
     constructor(object?) {
         this.isSearchable = false;
         this.value = [];
+        this.priority = 1;
         if (typeof (object) != "undefined" && object != null) {
             if (typeof (object.isSearchable) == "boolean") {
                 this.isSearchable = object.isSearchable;
+            }
+            if (typeof (object.priority) == "number") {
+                this.priority = object.priority;
             }
             if (Array.isArray(object.value)) {
                 this.value = object.value;

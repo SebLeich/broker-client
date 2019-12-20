@@ -103,6 +103,8 @@ export class SelectionComponent {
         return true;
     };
     public uC: UseCase = null;
+    public hasPriority: boolean = false;
+    public priority: number;
     constructor(object: any){
         this.id = object.id;
         this.text = object.text;
@@ -110,6 +112,8 @@ export class SelectionComponent {
         this.isActive = object.isActive;
         this.uC = object.uC;
         if(typeof(object.ngIf) == "function") this.condition = object.ngIf;
+        if(typeof(object.hasPriority) == "boolean") this.hasPriority = object.hasPriority;
+        if(typeof(object.priority) == "number") this.priority = object.priority;
     }
 }
 

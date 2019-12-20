@@ -68,11 +68,25 @@
 
 .option .stretch {
     flex: 1;
-    padding: 0px 20px;
+    padding: 10px 20px;
+}
+
+.width {
+    width: calc(100% - 30px);
+}
+
+.head-title {
+    color: #353638;
+    font-size: 1.3rem;
+    background-color: #f2f8fd;
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
 }
 
 .option .fixed-width {
-    width: 300px;
+    width: 200px;
     padding: 10px 20px;
     background-color: #1e88e50f;
     overflow: hidden;
@@ -82,4 +96,16 @@
     font-size: .9rem;
     align-content: center;
     display: grid;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.option .slider-width {
+    width: 100%;
+    overflow: unset;
+    min-height: 40px;
+}
+
+.multiple-selection-option {
+    margin-left: 10px;
 }

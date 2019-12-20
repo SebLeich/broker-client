@@ -343,14 +343,26 @@ export class ObjectStorageService extends Service {
 }
 
 export class OnlineDriveStorageService extends Service {
+    public hasFileEncryption: boolean;
+    public hasAutomatedSynchronisation: boolean;
+    public hasFilePermissions: boolean;
+    public hasFileVersioning: boolean;
     /**
      * the constructor creates a new instance of the class
      */
     constructor(object) {
         if (typeof (object) != "undefined") {
             super(object);
+            this.hasFileEncryption = object.hasFileEncryption;
+            this.hasAutomatedSynchronisation = object.hasAutomatedSynchronisation;
+            this.hasFilePermissions = object.hasFilePermissions;
+            this.hasFileVersioning = object.hasFileVersioning;
         } else {
             super();
+            this.hasFileEncryption = false;
+            this.hasAutomatedSynchronisation = false;
+            this.hasFilePermissions = false;
+            this.hasFileVersioning = false;
         }
     }
     /**

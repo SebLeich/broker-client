@@ -1,7 +1,7 @@
 <section class="section gradient-bg" style="color: white; position: relative; min-height: calc(100% - 104px);">
   <mat-icon class="bg-icon">filter_drama</mat-icon>
-  <span class="super-section-header" style="padding-bottom: 50px; font-size: 4rem;">Cloud Broker</span>
-  <mat-grid-list class="grid-bg" cols="5" rowHeight="150px" gutterSize="7">
+  <span class="responsive-container super-section-header" style="padding-bottom: 50px; font-size: 4rem;">Cloud Broker</span>
+  <mat-grid-list class="responsive-container grid-bg" cols="5" rowHeight="150px" gutterSize="7">
     <div *ngFor="let o of options">
       <mat-grid-tile *ngIf=o.ngIf(this) [colspan]="o.cols" [rowspan]="o.rows" [style.background]="o.bgColor" class="tile"
         (click)=o.click(this)>

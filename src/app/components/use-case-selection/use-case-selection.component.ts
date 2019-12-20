@@ -14,7 +14,8 @@ import {
   DeploymentInformation,
   ServiceCategory, 
   ServiceModel,
-  serviceMapping
+  serviceMapping,
+  StorageType
 } from '../../classes/service';
 import { MatStepper } from '@angular/material/stepper';
 import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, IService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
@@ -66,6 +67,10 @@ export class UseCaseSelectionComponent implements OnInit {
    */
   private _di: DeploymentInformation[] = [];
   /**
+   * a set of all available storage types
+   */
+  private _storageTypes: StorageType[] = [];
+  /**
    * the search vector
    */
   public searchVector: SearchVector;
@@ -106,6 +111,12 @@ export class UseCaseSelectionComponent implements OnInit {
     this._prov = prov;
   }
   /**
+   * the input value sets the internal storage type list
+   */
+  @Input() set storageTypes(stty: StorageType[]) {
+    this._storageTypes = stty;
+  }
+  /**
    * the input value returns the internal data location list
    */
   get dataLocations() : DataLocation[] {
@@ -142,6 +153,12 @@ export class UseCaseSelectionComponent implements OnInit {
     return this._di;
   }
   /**
+   * the input value returns the internal service category list
+   */
+  get storageTypes() : StorageType[] {
+    return this._storageTypes;
+  }
+  /**
    * the method returns all current options according to the current search vector
    */
   get currentOptions() : SelectionComponent[]{
@@ -152,7 +169,9 @@ export class UseCaseSelectionComponent implements OnInit {
         "text": "Servicekategorien", 
         "desc": "Welche Servicekategorien kommen für Sie in Frage?", 
         "isActive": true,
-        "list": this.serviceCategories
+        "list": this.serviceCategories,
+        "hasPriority": true,
+        "priority": this.searchVector.categories.priority
       }));
     }
     if(this.searchVector.certificates.isSearchable){
@@ -161,25 +180,31 @@ export class UseCaseSelectionComponent implements OnInit {
         "text": "Zertifikate", 
         "desc": "Welche Zertifikate kommen sollte ein Service vorweisen?", 
         "isActive": true,
-        "list": this.certificates
+        "list": this.certificates,
+        "hasPriority": true,
+        "priority": this.searchVector.certificates.priority
       }));
     }
-    if(this.searchVector.dataLocations.isSearchable){
+    if(this.searchVector.datalocations.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "datalocations",
         "text": "Datenspeicherorte", 
         "desc": "Welche Standorte kommen für Sie in Frage?", 
         "isActive": true,
-        "list": this.dataLocations
+        "list": this.dataLocations,
+        "hasPriority": true,
+        "priority": this.searchVector.datalocations.priority
       }));
     }
-    if(this.searchVector.deploymentInformation.isSearchable){
+    if(this.searchVector.deploymentinfos.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "deploymentinfos",
         "text": "Veröffentlichungsinformationen", 
         "desc": "Welche Veröffentlichungsinformationen sind Ihnen wichtig?", 
         "isActive": true,
-        "list": this.deploymentInformation
+        "list": this.deploymentInformation,
+        "hasPriority": true,
+        "priority": this.searchVector.deploymentinfos.priority
       }));
     }
     if(this.searchVector.models.isSearchable){
@@ -188,7 +213,9 @@ export class UseCaseSelectionComponent implements OnInit {
         "text": "Servicemodelle", 
         "desc": "Welche Servicemodelle kommen für Sie in Frage?", 
         "isActive": true,
-        "list": this.serviceModels
+        "list": this.serviceModels,
+        "hasPriority": true,
+        "priority": this.searchVector.models.priority
       }));
     }
     if(this.searchVector.providers.isSearchable){
@@ -197,7 +224,20 @@ export class UseCaseSelectionComponent implements OnInit {
         "text": "Serviceprovider", 
         "desc": "Welche Serviceprovider kommen für Sie in Frage?", 
         "isActive": true,
-        "list": this.serviceProviders
+        "list": this.serviceProviders,
+        "hasPriority": true,
+        "priority": this.searchVector.providers.priority
+      }));
+    }
+    if(this.searchVector.storageType.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "storageType",
+        "text": "Speicherart", 
+        "desc": "Welche Speicherart wünschen Sie?", 
+        "isActive": true,
+        "list": this.storageTypes,
+        "hasPriority": true,
+        "priority": this.searchVector.storageType.priority
       }));
     }
     if(this.searchVector.hasFileEncryption.isSearchable){
@@ -205,7 +245,9 @@ export class UseCaseSelectionComponent implements OnInit {
         "id": "hasFileEncryption",
         "text": "Dateiverschlüsselung", 
         "desc": "Wünschen Sie Dateiverschlüsselung?", 
-        "isActive": true
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasFileEncryption.priority
       }));
     }
     if(this.searchVector.hasReplication.isSearchable){
@@ -213,7 +255,69 @@ export class UseCaseSelectionComponent implements OnInit {
         "id": "hasReplication",
         "text": "File Replication", 
         "desc": "Wünschen Sie File Replication?", 
-        "isActive": true
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasReplication.priority
+      }));
+    }
+    if(this.searchVector.hasAutomatedSynchronisation.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasAutomatedSynchronisation",
+        "text": "Automatische Synchronisation", 
+        "desc": "Wünschen Sie automatische Synchronisation?", 
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasAutomatedSynchronisation.priority
+      }));
+    }
+    if(this.searchVector.hasDBMS.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasDBMS",
+        "text": "Datenbankmanagementsystem", 
+        "desc": "Wünschen Sie ein Datenbankmanagementsystem?", 
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasDBMS.priority
+      }));
+    }
+    if(this.searchVector.hasFileCompression.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasFileCompression",
+        "text": "Dateikomprimierung", 
+        "desc": "Wünschen Sie Dateikomprimierung?", 
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasFileCompression.priority
+      }));
+    }
+    if(this.searchVector.hasFileLocking.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasFileLocking",
+        "text": "Filelocking", 
+        "desc": "Wünschen Sie Filelocking?", 
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasFileLocking.priority
+      }));
+    }
+    if(this.searchVector.hasFilePermissions.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasFilePermissions",
+        "text": "Berechtigungssystem", 
+        "desc": "Wünschen Sie ein Berechtigungssystem?", 
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasFilePermissions.priority
+      }));
+    }
+    if(this.searchVector.hasFileVersioning.isSearchable){
+      output.push(new UseCaseSelectionOption({
+        "id": "hasFileVersioning",
+        "text": "Dateiversionierung", 
+        "desc": "Wünschen Sie Dateiversionierung?", 
+        "isActive": true,
+        "hasPriority": true,
+        "priority": this.searchVector.hasFileVersioning.priority
       }));
     }
     return output;
@@ -225,27 +329,63 @@ export class UseCaseSelectionComponent implements OnInit {
     var output = {};
     if(this.searchVector.categories.isSearchable){
       output["categories"] = this.searchVector.categories.value;
+      output["categories-prio"] = this.searchVector.categories.priority;
     }
     if(this.searchVector.certificates.isSearchable){
       output["certificates"] = this.searchVector.certificates.value;
+      output["certificates-prio"] = this.searchVector.certificates.priority;
     }
-    if(this.searchVector.dataLocations.isSearchable){
-      output["datalocations"] = this.searchVector.dataLocations.value;
+    if(this.searchVector.datalocations.isSearchable){
+      output["datalocations"] = this.searchVector.datalocations.value;
+      output["datalocations-prio"] = this.searchVector.datalocations.priority;
     }
-    if(this.searchVector.deploymentInformation.isSearchable){
-      output["deploymentinfos"] = this.searchVector.deploymentInformation.value;
+    if(this.searchVector.deploymentinfos.isSearchable){
+      output["deploymentinfos"] = this.searchVector.deploymentinfos.value;
+      output["deploymentinfos-prio"] = this.searchVector.deploymentinfos.priority;
     }
     if(this.searchVector.models.isSearchable){
       output["models"] = this.searchVector.models.value;
+      output["models-prio"] = this.searchVector.models.priority;
     }
     if(this.searchVector.providers.isSearchable){
       output["providers"] = this.searchVector.providers.value;
+      output["providers-prio"] = this.searchVector.providers.priority;
+    }
+    if(this.searchVector.storageType.isSearchable){
+      output["storageType"] = this.searchVector.storageType.value;
+      output["storageType-prio"] = this.searchVector.storageType.priority;
     }
     if(this.searchVector.hasFileEncryption.isSearchable){
       output["hasFileEncryption"] = this.searchVector.hasFileEncryption.value;
+      output["hasFileEncryption-prio"] = this.searchVector.hasFileEncryption.priority;
     }
     if(this.searchVector.hasReplication.isSearchable){
       output["hasReplication"] = this.searchVector.hasReplication.value;
+      output["hasReplication-prio"] = this.searchVector.hasReplication.priority;
+    }
+    if(this.searchVector.hasAutomatedSynchronisation.isSearchable){
+      output["hasAutomatedSynchronisation"] = this.searchVector.hasAutomatedSynchronisation.value;
+      output["hasAutomatedSynchronisation-prio"] = this.searchVector.hasAutomatedSynchronisation.priority;
+    }
+    if(this.searchVector.hasDBMS.isSearchable){
+      output["hasDBMS"] = this.searchVector.hasDBMS.value;
+      output["hasDBMS-prio"] = this.searchVector.hasDBMS.priority;
+    }
+    if(this.searchVector.hasFileCompression.isSearchable){
+      output["hasFileCompression"] = this.searchVector.hasFileCompression.value;
+      output["hasFileCompression-prio"] = this.searchVector.hasFileCompression.priority;
+    }
+    if(this.searchVector.hasFileLocking.isSearchable){
+      output["hasFileLocking"] = this.searchVector.hasFileLocking.value;
+      output["hasFileLocking-prio"] = this.searchVector.hasFileLocking.priority;
+    }
+    if(this.searchVector.hasFilePermissions.isSearchable){
+      output["hasFilePermissions"] = this.searchVector.hasFilePermissions.value;
+      output["hasFilePermissions-prio"] = this.searchVector.hasFilePermissions.priority;
+    }
+    if(this.searchVector.hasFileVersioning.isSearchable){
+      output["hasFileVersioning"] = this.searchVector.hasFileVersioning.value;
+      output["hasFileVersioning-prio"] = this.searchVector.hasFileVersioning.priority;
     }
     return output;
   }
@@ -400,6 +540,6 @@ export class UseCaseSelectionComponent implements OnInit {
    */
   sendSearch() {
     this.searchVector.applyForm(this.steps[2].fg);
-    console.log(this.steps, this.searchVector);
+    this.searchEmitter.emit(this.searchVector);
   }
 }
