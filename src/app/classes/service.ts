@@ -118,6 +118,12 @@ export abstract class Service {
         return this.serviceDataLocations.map(x => x.dataLocation.id);
     }
     /**
+     * the method returns the classe's icon
+     */
+    static get icon(){
+        return "cloud_queue";
+    }
+    /**
      * the static method returns the classes current server endpoint
      */
     abstract get location(): string;
@@ -136,6 +142,12 @@ export abstract class Service {
             "providerId": this.providerId,
             "serviceCertificates": this.serviceCertificates
         };
+    }
+    /**
+     * the method returns the classes string representation
+     */
+    toString(): string {
+        return this.serviceName;
     }
 }
 /**

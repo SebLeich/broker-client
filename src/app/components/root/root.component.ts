@@ -29,6 +29,7 @@ import { SearchVector, MatchingResponse } from "src/app/classes/search";
  */
 export class RootComponent implements OnInit {
   errorMsg: string = "";
+  errorInner: string = "";
   errorState: number = 0;
   /**
    * the attribute contains the current application state
@@ -233,6 +234,10 @@ export class RootComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        this.state = globals.rootStates.HTTPERROR;
+        this.errorMsg = error.status + " - " + error.statusText;
+        this.errorState = error.status;
+        this.errorInner = error.error;
       });
     }
     /*

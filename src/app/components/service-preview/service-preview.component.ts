@@ -60,7 +60,19 @@ export class ServicePreviewComponent implements AfterContentInit {
 
   @Input() project: Project;
 
-  servicePointer: number;
+  servicePointer: number = null;
+
+  collapseSidebar: boolean = true;
+
+  get services(): IService[]{
+    var output = [];
+    if(this.project != null && this.project.matchingResponses.length > 0){
+      for(var index in this.project.matchingResponses){
+        output.push(this.project.matchingResponses[index].service);
+      }
+    }
+    return output;
+  }
 
   get service(): IService{
     if(this.project != null && this.project.matchingResponses.length > 0){
@@ -118,4 +130,13 @@ export class ServicePreviewComponent implements AfterContentInit {
     return null;
   }
 
+  setService(service: any){
+    this.servicePointer = service.id;
+    console.log(this.service);
+  }
+
+  toggleSidebar(){
+    if(this.collapseSidebar) this.collapseSidebar = false;
+    else this.collapseSidebar = true;
+  }
 }
