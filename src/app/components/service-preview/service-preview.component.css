@@ -199,4 +199,33 @@ super-section-header {
 
 .dough-counter .subtitle {
     color: lightgray;
+    font-size: .8rem;
+}
+
+.percentage-badge {
+    margin-left: 10px;
+    padding: 3px 8px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: .9rem;
+}
+
+.percentage-error {
+    color: rgb(255, 0, 128);
+}
+
+.percentage-danger {
+    color: red;
+}
+
+.percentage-warning {
+    color: rgb(255, 153, 0);
+}
+
+.percentage-ok {
+    color: #d1ff61;
+}
+
+.percentage-success {
+    color: #b4ff00;
 }

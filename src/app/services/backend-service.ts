@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import * as globals from "../globals";
 import { Service, IService } from '../classes/service';
 import { User } from '../classes/account';
-import { SearchVector } from '../classes/search';
+import { SearchVector, MatchingResponse } from "src/app/classes/search";
 
 /**
  * the service provides access to the backend's API
@@ -19,7 +19,7 @@ export class BackEndService {
     /**
      * the method initiates a delete request to the backend
      */
-    delete(url){
+    delete(url) {
         return this.http.delete(globals.serverLocation + "/" + url, {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         });
@@ -27,7 +27,7 @@ export class BackEndService {
     /**
      * the method initiates a get request to the backend
      */
-    get(url){
+    get(url) {
         return this.http.get(globals.serverLocation + "/" + url, {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         });
@@ -45,8 +45,9 @@ export class BackEndService {
         return this.http.post(
             globals.serverLocation + "/token",
             "grant_type=password&username=" + encodeURIComponent(credentials.username) + "&password=" + encodeURIComponent(credentials.password)
-        );}
-        
+        );
+    }
+
     /**
      * the method persists a service
      */
@@ -54,7 +55,7 @@ export class BackEndService {
         var config = {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         };
-        if(input.sessionState.isNew){
+        if (input.sessionState.isNew) {
             return this.http.post<Service>(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
         } else {
             return this.http.put<Service>(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
@@ -63,7 +64,7 @@ export class BackEndService {
     /**
      * the method initiates a post request to the backend
      */
-    post(url, data){
+    post(url, data) {
         return this.http.post(globals.serverLocation + "/" + url, data, {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         });
@@ -77,9 +78,18 @@ export class BackEndService {
     /**
      * the method sends the search request to the server
      */
-    sendSearch(type: IService, input: SearchVector) {
+    sendSearch(type: IService, input: SearchVector, successcallback, errorCallback) {
         //if(!input.isSearchable()) return;
-        return this.post(type.location + "/search", input);
+        return this.post(type.location + "/search", input).subscribe((result) => {
+            var output = [];
+            for (var index in result) {
+                var r = result[index];
+                output.push(new MatchingResponse(r.match, new type(r.content)));
+            }
+            successcallback(output);
+        }, (error) => {
+            errorCallback(error);
+        });
     }
     /**
      * the method returns the current access token

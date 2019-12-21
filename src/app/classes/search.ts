@@ -28,7 +28,7 @@ export class MatchingResponse {
 
     get percentage(): number {
         if(this.total == 0) return 0;
-        return (this.points / this.total)*100;
+        return Math.round((this.points / this.total)*100);
     }
 }
 
@@ -188,7 +188,7 @@ export class SearchVectorBooleanEntry {
     constructor(object?) {
         this.isSearchable = false;
         this.value = false;
-        this.priority = 1;
+        this.priority = 0;
         if (typeof (object) != "undefined" && object != null) {
             if (typeof (object.isSearchable) == "boolean") {
                 this.isSearchable = object.isSearchable;

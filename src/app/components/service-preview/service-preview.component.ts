@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, AfterViewInit, AfterViewChecked, OnInit } from '@angular/core';
 import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import { BlockStorageService, DirectAttachedService, KeyValueStorageService, ObjectStorageService, OnlineDriveStorageService, RelationalDatabaseService, IService } from 'src/app/classes/service';
@@ -10,9 +10,9 @@ import { MatchingResponse } from 'src/app/classes/search';
   templateUrl: './service-preview.component.html',
   styleUrls: ['./service-preview.component.css']
 })
-export class ServicePreviewComponent implements AfterContentInit {
+export class ServicePreviewComponent implements OnInit {
 
-  gap: number = 2;
+  gap: number = 0;
   isInit: boolean = false;
 
   public lineChartData: ChartDataSets[] = [
@@ -76,7 +76,7 @@ export class ServicePreviewComponent implements AfterContentInit {
       data: {
         datasets: [{
           data: [m.percentage, (100-m.percentage)],
-          backgroundColor: ["rgba(102, 174, 19, 0.55)", "grey"],
+          backgroundColor: ["rgba(102, 174, 19, 0.55)", "#dfdfdf"],
           borderColor: ["rgb(255,255,255)", "rgb(255,255,255)"],
           borderWidth: 5
         }],
@@ -107,6 +107,13 @@ export class ServicePreviewComponent implements AfterContentInit {
   }
 
   collapseSidebar: boolean = true;
+
+  get matchingResponses(): MatchingResponse[] {
+    if (this.project != null) {
+      return this.project.matchingResponses;
+    }
+    return [];
+  }
 
   get matchingResponse(): MatchingResponse {
     if (this.project != null && this.project.matchingResponses.length > 0) {
@@ -148,19 +155,31 @@ export class ServicePreviewComponent implements AfterContentInit {
 
   @Output() editEmitter = new EventEmitter();
 
-  @ViewChild("servicPreviewHeader", { static: true }) header: ElementRef;
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   constructor() {
     setTimeout(() => this.isInit = true, 10);
   }
 
+  classForPercentage(percentage: number): string{
+    if(typeof(percentage) != "number") return "percentage-error";
+    if(percentage < 30){
+      return "percentage-danger";
+    } else if(percentage < 60){
+      return "percentage-warning";
+    } else if(percentage < 80){
+      return "percentage-ok";
+    } else {
+      return "percentage-success";
+    }
+  }
+
   editService() {
     this.editEmitter.emit(this.service);
   }
 
-  ngAfterContentInit() {
-
+  ngOnInit() {
+    setTimeout(() => this.servicePointer = this.project.matchingResponses[0].service.id, 100);
   }
 
   onResize() {
@@ -168,11 +187,13 @@ export class ServicePreviewComponent implements AfterContentInit {
   }
 
   get rowHeight(): number {
+    var element = <HTMLDivElement> document.getElementById("servicPreviewHeader");
+    if(typeof(element) == "undefined") return 0;
     var result = (window.innerHeight
       - 64 // navbar
-      - this.header.nativeElement.offsetHeight // header
+      - element.offsetHeight // header
       - 2 * this.gap
-    ) / 3;
+    ) / 2;
     return result;
   }
 

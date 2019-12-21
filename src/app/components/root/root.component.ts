@@ -121,7 +121,7 @@ export class RootComponent implements OnInit {
 
   get currentProject(): Project {
     var p = this.projects.find(x => x.projectId == this.projectPointer);
-    if(typeof(p) == "undefined") return null;
+    if (typeof (p) == "undefined") return null;
     return p;
   }
 
@@ -213,32 +213,29 @@ export class RootComponent implements OnInit {
    */
   sendSearch(s: SearchVector) {
     this.state = globals.rootStates.WAITING;
-    for(var index in s.types){
+    for (var index in s.types) {
       var t = s.types[index];
-      this.service.sendSearch(t, s).subscribe((result: any) => {
-        if(result.length == 0) return;
-        var p = this.currentProject;
-        if(p == null){
-          p = new Project();
-          p.sessionState.isNew = true;
-          this.projects.push(p);
-          this.projectPointer = p.projectId;
+      this.service.sendSearch(t, s,
+        (result: MatchingResponse[]) => {
+          var p = this.currentProject;
+          if (p == null) {
+            p = new Project();
+            p.sessionState.isNew = true;
+            this.projects.push(p);
+            this.projectPointer = p.projectId;
+          }
+          p.sessionState.isChanged = true;
+          p.matchingResponses.push.apply(p.matchingResponses, result);
+          this.setState(globals.rootStates.SERVICEPREVIEW);
+        },
+        (error) => {
+          console.log(error);
+          this.state = globals.rootStates.HTTPERROR;
+          this.errorMsg = error.status + " - " + error.statusText;
+          this.errorState = error.status;
+          this.errorInner = error.error;
         }
-        for(var index in result){
-          var r = result[index];
-          p.matchingResponses.push(new MatchingResponse(r.match, new t(r.content)));
-        }
-        p.sessionState.isChanged = true;
-        console.log(p);
-        this.setState(globals.rootStates.SERVICEPREVIEW);
-      },
-      (error) => {
-        console.log(error);
-        this.state = globals.rootStates.HTTPERROR;
-        this.errorMsg = error.status + " - " + error.statusText;
-        this.errorState = error.status;
-        this.errorInner = error.error;
-      });
+      );
     }
     /*
     
@@ -317,7 +314,7 @@ export class RootComponent implements OnInit {
   /**
    * the method sets the service models
    */
-  setServiceModels(o: Object){
+  setServiceModels(o: Object) {
     var array = [];
     for (var index in o) {
       array.push(new ServiceModel(o[index]));
