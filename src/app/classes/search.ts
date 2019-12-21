@@ -6,10 +6,29 @@ export class MatchingResponse {
     public points: number;
     public service: any;
 
-    constructor(match, content){
+    constructor(match, content) {
         this.total = match.total;
         this.points = match.points;
         this.service = content;
+    }
+
+    get chartdatasets() {
+        return {
+            data: [
+                {
+                    data: [
+                        this.points,
+                        (this.total - this.points)
+                    ], label: "Erfüllungsgrad"
+                }
+            ],
+            labels: ["Erreicht", "Fehlend"]
+        };
+    }
+
+    get percentage(): number {
+        if(this.total == 0) return 0;
+        return (this.points / this.total)*100;
     }
 }
 
@@ -125,13 +144,13 @@ export class SearchVector {
 
     applyForm(fg: FormGroup) {
         for (var index in fg.value) {
-            if(typeof(index) != "string"){
+            if (typeof (index) != "string") {
                 console.log("index is no string");
                 continue;
             }
-            if (typeof (this[index]) == "undefined"){
+            if (typeof (this[index]) == "undefined") {
                 var a = index.split("-");
-                if(a.length != 2 || a[1] != "prio" || typeof (this[a[0]]) == "undefined") continue;
+                if (a.length != 2 || a[1] != "prio" || typeof (this[a[0]]) == "undefined") continue;
                 this[a[0]].priority = fg.value[index];
             } else {
                 this[index].value = fg.value[index];

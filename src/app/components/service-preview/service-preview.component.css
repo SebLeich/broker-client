@@ -186,3 +186,17 @@ super-section-header {
     margin-right: 5px;
     color: #335588;
 }
+
+.dough-counter {
+    position: absolute;
+    text-align: center;
+}
+
+.dough-counter .text {
+    font-size: 2.5rem;
+    color: #454545;
+}
+
+.dough-counter .subtitle {
+    color: lightgray;
+}

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import { BlockStorageService, DirectAttachedService, KeyValueStorageService, ObjectStorageService, OnlineDriveStorageService, RelationalDatabaseService, IService } from 'src/app/classes/service';
 import { Project } from 'src/app/classes/project';
+import { MatchingResponse } from 'src/app/classes/search';
 
 @Component({
   selector: 'app-service-preview',
@@ -15,14 +16,16 @@ export class ServicePreviewComponent implements AfterContentInit {
   isInit: boolean = false;
 
   public lineChartData: ChartDataSets[] = [
-    { data: [
-      parseInt( (Math.random() * 100).toString() ),
-      parseInt( (Math.random() * 100).toString() ),
-      parseInt( (Math.random() * 100).toString() ),
-      parseInt( (Math.random() * 100).toString() ),
-      parseInt( (Math.random() * 100).toString() ),
-      parseInt( (Math.random() * 100).toString() ),
-    ], label: "Erfüllungsgrad Suchanfrage" }
+    {
+      data: [
+        parseInt((Math.random() * 100).toString()),
+        parseInt((Math.random() * 100).toString()),
+        parseInt((Math.random() * 100).toString()),
+        parseInt((Math.random() * 100).toString()),
+        parseInt((Math.random() * 100).toString()),
+        parseInt((Math.random() * 100).toString()),
+      ], label: "Erfüllungsgrad Suchanfrage"
+    }
   ];
   public lineChartLabels: Label[] = ["Data Location", "Zertifizierung", "Verfügbarkeit", "Service Model", "Deployment", "Pricing"];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -60,29 +63,84 @@ export class ServicePreviewComponent implements AfterContentInit {
 
   @Input() project: Project;
 
-  servicePointer: number = null;
+  _sP: number = null;
+
+  set servicePointer(value: number) {
+    this._sP = value;
+    var element = <HTMLCanvasElement>document.getElementById("fulfillment-dough");
+    if (element == null) return;
+    var m = this.matchingResponse;
+    var ctx = element.getContext("2d");
+    var c = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        datasets: [{
+          data: [m.percentage, (100-m.percentage)],
+          backgroundColor: ["rgba(102, 174, 19, 0.55)", "grey"],
+          borderColor: ["rgb(255,255,255)", "rgb(255,255,255)"],
+          borderWidth: 5
+        }],
+        labels: [
+          "Übereinstimmung",
+          "Fehlend"
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        layout: {
+          padding: {
+            top: 10,
+            right: 10,
+            bottom: 10,
+            left: 10
+          }
+        }
+      }
+    });
+    (<HTMLDivElement>document.getElementById("fulfillment-dough-counter")).innerHTML = m.percentage.toString() + "%";
+  }
+
+  get servicePointer(): number {
+    return this._sP;
+  }
 
   collapseSidebar: boolean = true;
 
-  get services(): IService[]{
+  get matchingResponse(): MatchingResponse {
+    if (this.project != null && this.project.matchingResponses.length > 0) {
+      if (this.servicePointer == null) {
+        var s = this.project.matchingResponses[0];
+        this.servicePointer = s.service.id;
+        return s;
+      }
+      for (var index in this.project.matchingResponses) {
+        if (this.project.matchingResponses[index].service.id == this.servicePointer) return this.project.matchingResponses[index];
+      }
+    }
+    return null;
+  }
+
+  get services(): IService[] {
     var output = [];
-    if(this.project != null && this.project.matchingResponses.length > 0){
-      for(var index in this.project.matchingResponses){
+    if (this.project != null && this.project.matchingResponses.length > 0) {
+      for (var index in this.project.matchingResponses) {
         output.push(this.project.matchingResponses[index].service);
       }
     }
     return output;
   }
 
-  get service(): IService{
-    if(this.project != null && this.project.matchingResponses.length > 0){
-      if(this.servicePointer == null){
+  get service(): IService {
+    if (this.project != null && this.project.matchingResponses.length > 0) {
+      if (this.servicePointer == null) {
         var s = this.project.matchingResponses[0].service;
         this.servicePointer = s.id;
         return s;
       }
-      for(var index in this.project.matchingResponses){
-        if(this.project.matchingResponses[index].service.id == this.servicePointer) return this.project.matchingResponses[0].service;
+      for (var index in this.project.matchingResponses) {
+        if (this.project.matchingResponses[index].service.id == this.servicePointer) return this.project.matchingResponses[index].service;
       }
     }
     return null;
@@ -97,7 +155,7 @@ export class ServicePreviewComponent implements AfterContentInit {
     setTimeout(() => this.isInit = true, 10);
   }
 
-  editService(){
+  editService() {
     this.editEmitter.emit(this.service);
   }
 
@@ -113,7 +171,7 @@ export class ServicePreviewComponent implements AfterContentInit {
     var result = (window.innerHeight
       - 64 // navbar
       - this.header.nativeElement.offsetHeight // header
-      - 2*this.gap
+      - 2 * this.gap
     ) / 3;
     return result;
   }
@@ -130,13 +188,14 @@ export class ServicePreviewComponent implements AfterContentInit {
     return null;
   }
 
-  setService(service: any){
+  setService(service: any) {
     this.servicePointer = service.id;
+    console.log(service, this.servicePointer);
     console.log(this.service);
   }
 
-  toggleSidebar(){
-    if(this.collapseSidebar) this.collapseSidebar = false;
+  toggleSidebar() {
+    if (this.collapseSidebar) this.collapseSidebar = false;
     else this.collapseSidebar = true;
   }
 }
