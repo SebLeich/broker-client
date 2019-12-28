@@ -1,4 +1,4 @@
-<mat-card *ngIf="serviceCount > 0; else noService" (dblclick)=log(currentService)>
+<mat-card *ngIf="serviceCount > 0; else noService" (dblclick)=log()>
     <form class="form" *ngIf="editMode && isLoggedIn; else readOnly">
         <mat-form-field class="width">
             <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
@@ -49,6 +49,24 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field class="width">
+            <mat-label>Lokalisation</mat-label>
+            <mat-select (selectionChange)="setDataLocations($event)" [value]="currentService.dataLocationIds" multiple>
+                <mat-option *ngFor="let l of dataLocations" [value]="l.id">{{l.toString()}}</mat-option>
+                <mat-option (click)="showDataLocationAdder = true" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Lokalisation anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showDataLocationAdder">
+            <mat-form-field class="add-on">
+                <input matInput #newDL placeholder="Neue Lokalisation anlegen" (keydown.enter)="addDataLocation(newDL.value)" />
+            </mat-form-field>
+            <button class="add-on-button" mat-raised-button color="primary" (click)="addDataLocation(newDL.value)">
+                Anlegen
+            </button>
+        </div>
         <div *ngIf="showServiceModelAdder">
             <mat-form-field class="add-on">
                 <input matInput #newCSMod placeholder="Neues Service Modell"

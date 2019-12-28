@@ -110,33 +110,8 @@
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
-                    <canvas baseChart class="chart" width="400" height={{rowHeight}} [datasets]="lineChartData"
-                        [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
-                        [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
-                    </canvas>
+                    <canvas id="fulfillment-net" style="height: 100%; width: 100%; background-color: white;"></canvas>
                 </mat-grid-tile>
-                <!--
-                <mat-grid-tile [colspan]="1" [rowspan]="2" class="tile">
-                    <div class="tile-inner">
-                        <div class="option">
-                            <mat-icon class="icon">save</mat-icon>
-                            Projekt speichern
-                        </div>
-                        <div class="option" (click)=editService()>
-                            <mat-icon class="icon">edit</mat-icon>
-                            Bearbeiten
-                        </div>
-                        <div class="option">
-                            <mat-icon class="icon">reply</mat-icon>
-                            Zurück zur Suche
-                        </div>
-                        <div class="option">
-                            <mat-icon class="icon">info</mat-icon>
-                            Weitere Informationen
-                        </div>
-                    </div>
-                </mat-grid-tile>
-            -->
             </mat-grid-list>
         </div>
     </div>

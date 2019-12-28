@@ -217,6 +217,7 @@ export class RootComponent implements OnInit {
       var t = s.types[index];
       this.service.sendSearch(t, s,
         (result: MatchingResponse[]) => {
+          console.log(result);
           var p = this.currentProject;
           if (p == null) {
             p = new Project();

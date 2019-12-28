@@ -2,33 +2,120 @@ import { IService, BlockStorageService, DirectAttachedService, ObjectStorageServ
 import { FormGroup } from '@angular/forms';
 
 export class MatchingResponse {
-    public total: number;
-    public points: number;
+
     public service: any;
+    public search: SearchVector;
+    public pointscategories: number = 0;
+    public pointscertificates: number = 0;
+    public pointsdatalocations: number = 0;
+    public pointsdeploymentinfos: number = 0;
+    public pointsmodels: number = 0;
+    public pointsproviders: number = 0;
+    public pointsstoragetype: number = 0;
+    public pointsHasFileEncryption: number = 0;
+    public pointsHasReplication: number = 0;
+    public pointsHasFilePermissions: number = 0;
+    public pointsHasFileLocking: number = 0;
+    public pointsHasFileCompression: number = 0;
+    public pointsHasDBMS: number = 0;
+    public pointsHasFileVersioning: number = 0;
+    public pointsHasAutomatedSynchronisation: number = 0;
+    public prioritycategories: number = 0;
+    public prioritycertificates: number = 0;
+    public prioritydatalocations: number = 0;
+    public prioritydeploymentinfos: number = 0;
+    public prioritymodels: number = 0;
+    public priorityproviders: number = 0;
+    public prioritystoragetype: number = 0;
+    public priorityHasFileEncryption: number = 0;
+    public priorityHasReplication: number = 0;
+    public priorityHasFilePermissions: number = 0;
+    public priorityHasFileLocking: number = 0;
+    public priorityHasFileCompression: number = 0;
+    public priorityHasDBMS: number = 0;
+    public priorityHasFileVersioning: number = 0;
+    public priorityHasAutomatedSynchronisation: number = 0;
 
-    constructor(match, content) {
-        this.total = match.total;
-        this.points = match.points;
+    constructor(match, content, search) {
         this.service = content;
-    }
-
-    get chartdatasets() {
-        return {
-            data: [
-                {
-                    data: [
-                        this.points,
-                        (this.total - this.points)
-                    ], label: "Erfüllungsgrad"
-                }
-            ],
-            labels: ["Erreicht", "Fehlend"]
-        };
+        this.search = search;
+        if(match != null && typeof(match) != "undefined"){
+            this.pointscategories = match.pointscategories;
+            this.pointscertificates = match.pointscertificates;
+            this.pointsdatalocations = match.pointsdatalocations;
+            this.pointsdeploymentinfos = match.pointsdeploymentinfos;
+            this.pointsmodels = match.pointsmodels;
+            this.pointsproviders = match.pointsproviders;
+            this.pointsstoragetype = match.pointsstoragetype;
+            this.pointsHasFileEncryption = match.pointsHasFileEncryption;
+            this.pointsHasReplication = match.pointsHasReplication;
+            this.pointsHasFilePermissions = match.pointsHasFilePermissions;
+            this.pointsHasFileLocking = match.pointsHasFileLocking;
+            this.pointsHasFileCompression = match.pointsHasFileCompression;
+            this.pointsHasDBMS = match.pointsHasDBMS;
+            this.pointsHasFileVersioning = match.pointsHasFileVersioning;
+            this.pointsHasAutomatedSynchronisation = match.pointsHasAutomatedSynchronisation;
+            this.prioritycategories = match.prioritycategories;
+            this.prioritycertificates = match.prioritycertificates;
+            this.prioritydatalocations = match.prioritydatalocations;
+            this.prioritydeploymentinfos = match.prioritydeploymentinfos;
+            this.prioritymodels = match.prioritymodels;
+            this.priorityproviders = match.priorityproviders;
+            this.prioritystoragetype = match.prioritystoragetype;
+            this.priorityHasFileEncryption = match.priorityHasFileEncryption;
+            this.priorityHasReplication = match.priorityHasReplication;
+            this.priorityHasFilePermissions = match.priorityHasFilePermissions;
+            this.priorityHasFileLocking = match.priorityHasFileLocking;
+            this.priorityHasFileCompression = match.priorityHasFileCompression;
+            this.priorityHasDBMS = match.priorityHasDBMS;
+            this.priorityHasFileVersioning = match.priorityHasFileVersioning;
+            this.priorityHasAutomatedSynchronisation = match.priorityHasAutomatedSynchronisation;
+        }
     }
 
     get percentage(): number {
-        if(this.total == 0) return 0;
-        return Math.round((this.points / this.total)*100);
+        if (this.total == 0) return 0;
+        return Math.round((this.points / this.total) * 100);
+    }
+
+    get points(): number {
+        return (
+            this.pointscategories +
+            this.pointscertificates +
+            this.pointsdatalocations +
+            this.pointsdeploymentinfos +
+            this.pointsmodels +
+            this.pointsproviders +
+            this.pointsstoragetype +
+            this.priorityHasAutomatedSynchronisation +
+            this.pointsHasDBMS +
+            this.pointsHasFileCompression +
+            this.pointsHasFileEncryption +
+            this.pointsHasFileLocking +
+            this.pointsHasFilePermissions +
+            this.pointsHasFileVersioning +
+            this.pointsHasReplication
+        );
+    }
+
+    get total(): number {
+        return (
+            this.prioritycategories +
+            this.prioritycertificates +
+            this.prioritydatalocations +
+            this.prioritydeploymentinfos +
+            this.prioritymodels +
+            this.priorityproviders +
+            this.prioritystoragetype +
+            this.priorityHasAutomatedSynchronisation +
+            this.priorityHasDBMS +
+            this.priorityHasFileCompression +
+            this.priorityHasFileEncryption +
+            this.priorityHasFileLocking +
+            this.priorityHasFilePermissions +
+            this.priorityHasFileVersioning +
+            this.priorityHasReplication
+        );
     }
 }
 

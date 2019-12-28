@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Certificate, Service, ServiceCategory, ServiceProvider, ServiceModel, ServiceCertificate, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType } from "../../classes/service";
+import { Certificate, Service, ServiceCategory, ServiceProvider, ServiceModel, ServiceCertificate, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, ServiceDataLocation } from "../../classes/service";
 import { BackEndService } from "../../services/backend-service";
 import * as globals from "../../globals";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -18,6 +18,7 @@ export class DetailviewComponent implements OnInit {
   private _serProv: ServiceProvider[] = [];
   private _serCert: Certificate[] = [];
   private _sTypes: StorageType[] = [];
+  private _dataLocations: DataLocation[] = [];
   private _currentInd = 0;
   private _state: number = globals.viewStates.DEFAULT;
 
@@ -25,7 +26,9 @@ export class DetailviewComponent implements OnInit {
   public selectProviderPlaceholder: string = "Service Provider";
   public selectServiceModelPlaceholder: string = "Service Modell";
   public selectStorageTypePlaceholder: string = "Speicherart";
+  public selectDataLocationPlaceholder: string = "Lokalisierung";
   public showCategoryAdder: boolean = false;
+  public showDataLocationAdder: boolean = false;
   public showProviderAdder: boolean = false;
   public showServiceModelAdder: boolean = false;
   public showCertAdder: boolean = false;
@@ -90,6 +93,17 @@ export class DetailviewComponent implements OnInit {
     });
   }
   /**
+   * the method adds a new data location
+   */
+  addDataLocation(name: string) {
+    var l = new DataLocation({ "dataLocationName": name });
+    this.service.post(DataLocation.location, l).subscribe((result) => {
+      l = new DataLocation(result);
+      this._dataLocations.push(l);
+      this.showDataLocationAdder = false;
+    });
+  }
+  /**
    * the method adds a new cloud service category
    */
   addServiceCategory(name: string) {
@@ -149,6 +163,18 @@ export class DetailviewComponent implements OnInit {
     this._ser[i] = service;
     this._currentInd = i;
     console.log(this.currentService);
+  }
+  /**
+   * the method returns the current service
+   */
+  get dataLocations(): DataLocation[] {
+    return this._dataLocations;
+  }
+  /**
+   * the method sets the current service
+   */
+  set dataLocations(dataLocations: DataLocation[]) {
+    this._dataLocations = dataLocations;
   }
   /**
    * the method returns all service categories
@@ -319,6 +345,24 @@ export class DetailviewComponent implements OnInit {
     this.currentService.serviceCertificates = a;
   }
   /**
+   * the method sets the current service's certificates array
+   */
+  setDataLocations(input: MatSelectChange) {
+    var v = input.value;
+    var a: ServiceDataLocation[] = [];
+    for (var index in v) {
+      if (typeof (v[index]) == "undefined") continue;
+      var l = this.dataLocations.find(x => x.id == v[index]);
+      if (typeof (l) == "undefined") continue;
+      a.push(new ServiceDataLocation({
+        "serviceId": this.currentService.id,
+        "dataLocationId": l.id,
+        "dataLocation": l
+      }));
+    }
+    this.currentService.serviceDataLocations = a;
+  }
+  /**
    * the method increases the current service pointer
    */
   next() {
@@ -400,6 +444,13 @@ export class DetailviewComponent implements OnInit {
       }
       this.certificates = array;
     });
+    this.service.get(DataLocation.location).subscribe((o) => {
+      var array = [];
+      for (var index in o) {
+        array.push(new DataLocation(o[index]));
+      }
+      this.dataLocations = array;
+    });
     if(this.displayStorageType){
       this.service.get(StorageType.location).subscribe((o) => {
         var array = [];
@@ -409,5 +460,11 @@ export class DetailviewComponent implements OnInit {
         this.storageTypes = array;
       });
     }
+  }
+  /**
+   * the method logs the component in the console
+   */
+  log(){
+    console.log(this);
   }
 }
