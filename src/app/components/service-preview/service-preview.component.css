@@ -126,10 +126,11 @@ super-section-header {
     padding: 5px 10px 10px 10px;
 }
 
-.title.empty-title {
+.title.empty-title, .title.notSetted {
     color: lightgray !important;
     padding: 10px !important;
-    font-size: 1.5rem !important;
+    font-size: 1.2rem !important;
+    font-style: italic;
 }
 
 .custom-card .content .small-title {

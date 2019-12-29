@@ -28,7 +28,11 @@
                     <mat-icon class="icon">
                         {{ element.service.constructor.icon }}
                     </mat-icon>
-                    <div class="text">{{ element.service.toString() }}<span class="percentage-badge {{ classForPercentage(element.percentage) }}">{{ element.percentage }}%</span></div>
+                    <div class="text">{{ element.service.toString() }}
+                        <span matTooltip="Erfüllungsgrad ({{ element.percentage }}%)" class="percentage-badge {{ classForPercentage(element.percentage) }}">
+                            {{ element.percentage }}%
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,23 +64,29 @@
                         <div class="custom-card">
                             <div class="content">
                                 <span class="subtitle">Kategorie</span>
-                                <span class="title">
+                                <span *ngIf="categorySetted(); else noCategory" class="title">
                                     {{ service.cloudServiceCategory.cloudServiceCategoryName }}
                                 </span>
+                                <ng-template #noCategory>
+                                    <span class="title notSetted">Keine Kategorie angegeben</span>
+                                </ng-template>
                             </div>
                         </div>
                         <div class="custom-card">
                             <div class="content">
-                                <span class="subtitle">Modell</span>
-                                <span class="title">
+                                <span class="subtitle">Servicemodell</span>
+                                <span *ngIf="modelSetted(); else noModel" class="title">
                                     {{ service.cloudServiceModel.cloudServiceModelName }}
                                 </span>
+                                <ng-template #noModel>
+                                    <span class="title notSetted">Kein Servicemodell angegeben</span>
+                                </ng-template>
                             </div>
                         </div>
                         <div class="custom-card">
                             <div class="content">
                                 <span class="subtitle">Informationen des Anbieters</span>
-                                <span class="title">
+                                <span *ngIf="providerSetted(); else noProvider" class="title">
                                     {{ service.provider.providerName }}
                                     <mat-icon *ngIf="service.provider.verified; else notVerified"
                                         class="veri-icon verified" matTooltip="Verifizierter Anbieter">verified_user
@@ -87,14 +97,22 @@
                                             security</mat-icon>
                                     </ng-template>
                                 </span>
+                                <ng-template #noProvider>
+                                    <span class="title notSetted">Keine Speichertechnologie angegeben</span>
+                                </ng-template>
                             </div>
                         </div>
                         <div class="custom-card">
                             <div class="content">
                                 <span class="subtitle">Lokalisierung</span>
-                                <span class="title">
-                                    <span *ngFor="let element of dataLocations">{{ element.toString() }}</span>
-                                </span>
+                                <div *ngIf="dataLocations > 0; else noDataLocations">
+                                    <div *ngFor="let element of dataLocations">
+                                        <span class="title">{{ element.toString() }}</span>
+                                    </div>
+                                </div>
+                                <ng-template #noDataLocations>
+                                    <span class="title empty-title">Keine Lokalisierungen hinterlegt</span>
+                                </ng-template>
                             </div>
                         </div>
                         <div class="custom-card">
@@ -113,9 +131,12 @@
                         <div *ngIf="matchingResponse.search.storageType.isSearchable" class="custom-card">
                             <div class="content">
                                 <span class="subtitle">Speichertechnologie</span>
-                                <span class="title">
+                                <span *ngIf="storageTypeSetted(); else noStorageType" class="title">
                                     {{ service.storageType.storageTypeDescription }}
                                 </span>
+                                <ng-template #noStorageType>
+                                    <span class="title notSetted">Keine Speichertechnologie angegeben</span>
+                                </ng-template>
                             </div>
                         </div>
                         <div class="custom-card">

@@ -214,7 +214,7 @@ export class ServicePreviewComponent implements OnInit {
     return output;
   }
 
-  get service(): IService {
+  get service(): any {
     if (this.project != null && this.project.matchingResponses.length > 0) {
       if (this.servicePointer == null) {
         var s = this.project.matchingResponses[0].service;
@@ -297,5 +297,25 @@ export class ServicePreviewComponent implements OnInit {
   toggleSidebar() {
     if (this.collapseSidebar) this.collapseSidebar = false;
     else this.collapseSidebar = true;
+  }
+
+  categorySetted(): boolean {
+    if(this.service.cloudServiceCategory != null && typeof(this.service.cloudServiceCategory) != "undefined") return true;
+    return false;
+  }
+
+  modelSetted(): boolean {
+    if(this.service.cloudServiceModel != null && typeof(this.service.cloudServiceModel) != "undefined") return true;
+    return false;
+  }
+
+  providerSetted(): boolean {
+    if(this.service.provider != null && typeof(this.service.provider) != "undefined") return true;
+    return false;
+  }
+
+  storageTypeSetted(): boolean {
+    if(this.service.storageType != null && typeof(this.service.storageType) != "undefined") return true;
+    return false;
   }
 }
