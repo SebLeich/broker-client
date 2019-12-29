@@ -59,16 +59,21 @@
                         </div>
                         <div class="custom-card">
                             <div class="content">
-                                <span class="subtitle">Service Art</span>
+                                <span class="subtitle">Kategorie</span>
                                 <span class="title">
                                     {{ service.cloudServiceCategory.cloudServiceCategoryName }}
                                 </span>
                             </div>
                         </div>
                         <div class="custom-card">
-                            <div class="icon-container">
-                                <mat-icon class="icon">domain</mat-icon>
+                            <div class="content">
+                                <span class="subtitle">Modell</span>
+                                <span class="title">
+                                    {{ service.cloudServiceModel.cloudServiceModelName }}
+                                </span>
                             </div>
+                        </div>
+                        <div class="custom-card">
                             <div class="content">
                                 <span class="subtitle">Informationen des Anbieters</span>
                                 <span class="title">
@@ -85,9 +90,14 @@
                             </div>
                         </div>
                         <div class="custom-card">
-                            <div class="icon-container">
-                                <mat-icon class="icon">assignment_turned_in</mat-icon>
+                            <div class="content">
+                                <span class="subtitle">Lokalisierung</span>
+                                <span class="title">
+                                    <span *ngFor="let element of dataLocations">{{ element.toString() }}</span>
+                                </span>
                             </div>
+                        </div>
+                        <div class="custom-card">
                             <div class="content">
                                 <span class="subtitle">Zertifizierungen</span>
                                 <div *ngIf="service.certificates.length > 0; else noCertificates">
@@ -98,6 +108,75 @@
                                 <ng-template #noCertificates>
                                     <span class="title empty-title">Keine Zertifikate hinterlegt</span>
                                 </ng-template>
+                            </div>
+                        </div>
+                        <div *ngIf="matchingResponse.search.storageType.isSearchable" class="custom-card">
+                            <div class="content">
+                                <span class="subtitle">Speichertechnologie</span>
+                                <span class="title">
+                                    {{ service.storageType.storageTypeDescription }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="custom-card">
+                            <div class="content">
+                                <span class="subtitle">Weitere Eigenschaften</span>
+                                <div *ngIf="matchingResponse.search.hasFileEncryption.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasFileEncryption; else noFileEncryption" class="icon success">done</mat-icon>
+                                    <ng-template #noFileEncryption>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Dateiverschlüsselung</span>
+                                </div>
+                                <div *ngIf="matchingResponse.search.hasReplication.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasReplication; else noReplication" class="icon success">done</mat-icon>
+                                    <ng-template #noReplication>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Replikation</span>
+                                </div>
+                                <div *ngIf="matchingResponse.search.hasFileCompression.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasFileCompression; else noFileCompression" class="icon success">done</mat-icon>
+                                    <ng-template #noFileCompression>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Dateikomprimierung</span>
+                                </div>
+                                <div *ngIf="matchingResponse.search.hasFilePermissions.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasFilePermissions; else noFilePermissions" class="icon success">done</mat-icon>
+                                    <ng-template #noFilePermissions>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Dateiberechtigungen</span>
+                                </div>
+                                <div *ngIf="matchingResponse.search.hasFileLocking.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasFileLocking; else noFileLocking" class="icon success">done</mat-icon>
+                                    <ng-template #noFileLocking>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Filelocking</span>
+                                </div>
+                                <div *ngIf="matchingResponse.search.hasDBMS.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasDBMS; else noDBMS" class="icon success">done</mat-icon>
+                                    <ng-template #noDBMS>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Datenbankmanagementsystem</span>
+                                </div>
+                                <div *ngIf="matchingResponse.search.hasFileVersioning.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasFileVersioning; else noFileVersioning" class="icon success">done</mat-icon>
+                                    <ng-template #noFileVersioning>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Dateiversionierung</span>
+                                </div>
+                                <div *ngIf="matchingResponse.search.hasAutomatedSynchronisation.isSearchable" class="boolean-entry">
+                                    <mat-icon *ngIf="service.hasAutomatedSynchronisation; else noAutomatedSync" class="icon success">done</mat-icon>
+                                    <ng-template #noAutomatedSync>
+                                        <mat-icon class="icon danger">clear</mat-icon>
+                                    </ng-template>
+                                    <span>Automatische Synchronisation</span>
+                                </div>
                             </div>
                         </div>
                     </div>

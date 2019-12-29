@@ -57,7 +57,7 @@ export abstract class Service {
             this.serviceDescription = object.serviceDescription;
             this.serviceCompliance = object.serviceCompliance;
             this.serviceTitle = object.serviceTitle;
-            this.serviceAvailability = object.servcieAvailability;
+            this.serviceAvailability = object.serviceAvailability;
             this.cloudServiceCategoryId = object.cloudServiceCategoryId;
             this.cloudServiceModelId = object.cloudServiceModelId;
             this.providerId = object.providerId;
@@ -73,14 +73,22 @@ export abstract class Service {
                     this.pricing.push(new Pricing(object.pricing[index]));
                 }
             }
-            if (Array.isArray(object.serviceCertificates)) {
-                for (var index in object.serviceCertificates) {
-                    this.serviceCertificates.push(new ServiceCertificate(object.serviceCertificates[index]));
+            if (Array.isArray(object.certificates)) {
+                for (var index in object.certificates) {
+                    this.serviceCertificates.push(new ServiceCertificate({
+                        serviceId: object.id,
+                        certificateId: object.certificates[index].id,
+                        certificate: new Certificate(object.certificates[index])
+                    }));
                 }
             }
-            if (Array.isArray(object.serviceDataLocations)) {
-                for (var index in object.serviceDataLocations) {
-                    this.serviceDataLocations.push(new ServiceDataLocation(object.serviceDataLocations[index]));
+            if (Array.isArray(object.dataLocations)) {
+                for (var index in object.dataLocations) {
+                    this.serviceDataLocations.push(new ServiceDataLocation({
+                        serviceId: object.id,
+                        dataLocationId: object.dataLocations[index].id,
+                        dataLocation: new DataLocation(object.dataLocations[index])
+                    }));
                 }
             }
             if (typeof (object.deploymentInfo) != "undefined" && object.deploymentInfo != null) {
@@ -140,7 +148,8 @@ export abstract class Service {
             "cloudServiceCategoryId": this.cloudServiceCategoryId,
             "cloudServiceModelId": this.cloudServiceModelId,
             "providerId": this.providerId,
-            "serviceCertificates": this.serviceCertificates
+            "certificates": this.certificates,
+            "dataLocations": this.dataLocations
         };
     }
     /**

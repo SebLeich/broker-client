@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { Certificate, Service, ServiceCategory, ServiceProvider, ServiceModel, ServiceCertificate, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, ServiceDataLocation } from "../../classes/service";
 import { BackEndService } from "../../services/backend-service";
-import * as globals from "../../globals";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange, MatSlideToggleChange } from '@angular/material';
 
@@ -12,15 +11,14 @@ import { MatSelectChange, MatSlideToggleChange } from '@angular/material';
 })
 export class DetailviewComponent implements OnInit {
 
-  private _ser: Service[] = [];
+  @Input() public currentService: any;
+
   private _serCats: ServiceCategory[] = [];
   private _serMods: ServiceModel[] = [];
   private _serProv: ServiceProvider[] = [];
   private _serCert: Certificate[] = [];
   private _sTypes: StorageType[] = [];
   private _dataLocations: DataLocation[] = [];
-  private _currentInd = 0;
-  private _state: number = globals.viewStates.DEFAULT;
 
   public selectCategoryPlaceholder: string = "Service Kategorie";
   public selectProviderPlaceholder: string = "Service Provider";
@@ -36,23 +34,20 @@ export class DetailviewComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  @Input() editMode = true;
   /**
    * the attribute contains whether the user is logged in or not
    */
   @Input() isLoggedIn;
-  /**
-   * the input value sets the internal use case list
-   */
-  @Input() set services(services: Service[]) {
-    this._ser = services;
-  }
   /**
    * the input value sets the service categories
    */
   @Input() set serviceCategories(categories: ServiceCategory[]) {
     this._serCats = categories;
   }
+  /**
+   * the emitter for the state
+   */
+  @Output() persistService = new EventEmitter();
   /**
    * the input value sets the service models
    */
@@ -146,23 +141,6 @@ export class DetailviewComponent implements OnInit {
       this._sTypes.push(t);
       this.showStorageTypeAdder = false;
     });
-  }
-  /**
-   * the method returns the current service
-   */
-  get currentService(): any {
-    return this._ser[this._currentInd];
-  }
-  /**
-   * the method sets the current service
-   */
-  set currentService(service: any) {
-    var oldObject = this._ser.find(x => x.id == service.id);
-    if (typeof (oldObject) == "undefined") throw ("error");
-    var i = this._ser.indexOf(oldObject);
-    this._ser[i] = service;
-    this._currentInd = i;
-    console.log(this.currentService);
   }
   /**
    * the method returns the current service
@@ -360,64 +338,13 @@ export class DetailviewComponent implements OnInit {
         "dataLocation": l
       }));
     }
-    this.currentService.serviceDataLocations = a;
-  }
-  /**
-   * the method increases the current service pointer
-   */
-  next() {
-    if (this.serviceCount - 1 > this._currentInd) {
-      this._currentInd++;
-    } else {
-      this._currentInd = 0;
-    }
+    this.currentService.dataLoca = a;
   }
   /**
    * the method persists current changes
    */
   saveChanges() {
-    this.state = globals.viewStates.WAITING;
-    this.service.persistService(this.currentService).subscribe((result) => {
-      this.state = globals.viewStates.READY;
-      this.currentService = new this.currentService.constructor(result);
-      console.log(this.currentService);
-    });
-  }
-  /**
-   * the method returns the current number of services
-   */
-  get serviceCount() {
-    return this._ser.length;
-  }
-  /**
-   * the method sets the component states
-   */
-  set state(state: number) {
-    switch (state) {
-      case globals.viewStates.WAITING:
-        this._state = state;
-        break;
-      case globals.viewStates.READY:
-        this._state = globals.viewStates.DEFAULT;
-        this.editMode = false;
-        break;
-    }
-  }
-  /**
-   * the method returns the components state
-   */
-  get state() {
-    return this._state;
-  }
-  /**
-   * the method toggles the edit mode (edit enabled/ disabled)
-   */
-  toggleReadOnly() {
-    if (this.editMode) {
-      this.editMode = false;
-    } else {
-      this.editMode = true;
-    }
+    this.persistService.emit(this.currentService);
   }
   /**
    * the method is called on component initalization

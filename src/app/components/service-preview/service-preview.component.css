@@ -229,3 +229,24 @@ super-section-header {
 .percentage-success {
     color: #b4ff00;
 }
+
+.custom-card .boolean-entry {
+    font-size: 1.4rem;
+    padding: 5px 10px;
+}
+
+.custom-card .boolean-entry > * {
+    vertical-align: middle;
+}
+
+.custom-card .boolean-entry .icon {
+    margin-right: 10px;
+}
+
+.custom-card .boolean-entry .success {
+    color: green;
+}
+
+.custom-card .boolean-entry .danger {
+    color: red;
+}

@@ -46,3 +46,17 @@
 .bool-slider .mat-slide-toggle-content {
     padding-left: 5px;
 }
+
+.select-option-text {
+    vertical-align: middle;
+}
+
+.select-option-text.remove {
+    color: red;
+    cursor: pointer;
+}
+
+.select-option-text.remove:hover {
+    color: rgba(255, 0, 0, 0.479);
+    cursor: pointer;
+}

@@ -53,6 +53,8 @@ export class RootComponent implements OnInit {
   serviceModels: ServiceModel[] = [];
   serviceProviders: ServiceProvider[] = [];
 
+  public currentService: any;
+
   /**
    * the constructor creates a new instance of the component
    */
@@ -112,12 +114,6 @@ export class RootComponent implements OnInit {
       return true;
     return false;
   }
-  /**
-   * the method returns the current service that can be passed for visualization
-   */
-  get currentService(): Service {
-    return this.services[0];
-  }
 
   get currentProject(): Project {
     var p = this.projects.find(x => x.projectId == this.projectPointer);
@@ -125,14 +121,29 @@ export class RootComponent implements OnInit {
     return p;
   }
 
+  /**
+   * the method shows the service detail view
+   * @param service 
+   */
+  editService(service: Service){
+    this.currentService = service;
+    console.log(this.currentService);
+    this.setState(globals.rootStates.SERVICEDETAILVIEW);
+  }
+
   showService(service: Service) {
     this.services = [service];
     this.setState(globals.rootStates.SERVICEPREVIEW);
   }
-
-  editService(service: Service) {
-    this.services = [service];
-    this.setState(globals.rootStates.SERVICEDETAILVIEW);
+  /**
+   * the method persists a given service
+   */
+  persistService(service: Service) {
+    this.setState(globals.rootStates.WAITING);
+    this.service.persistService(service).subscribe((result) => {
+      this.currentService = new this.currentService.constructor(result);
+      this.setState(globals.rootStates.SERVICEDETAILVIEW);
+    });
   }
   /**
    * the method checks whether the current user is logged in

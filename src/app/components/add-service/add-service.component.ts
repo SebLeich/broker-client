@@ -20,11 +20,9 @@ import { MatStepper } from '@angular/material/stepper';
 
 export class AddServiceComponent implements OnInit {
 
-  public object: Service = null;
+  public currentService: Service = null;
 
   public linear: boolean = true;
-
-  public editMode: boolean = true;
 
   /**
    * the attribute contains whether the user is logged in or not
@@ -53,13 +51,8 @@ export class AddServiceComponent implements OnInit {
   ngOnInit() {
   }
 
-  get services(): Service[] {
-    if(this.object == null) return [];
-    return [ this.object ];
-  }
-
   setType(stepper: MatStepper, Class: IService){
-    this.object = new Class();
+    this.currentService = new Class();
     stepper.next();
   }
 }

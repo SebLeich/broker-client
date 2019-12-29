@@ -1,5 +1,5 @@
-<mat-card *ngIf="serviceCount > 0; else noService" (dblclick)=log()>
-    <form class="form" *ngIf="editMode && isLoggedIn; else readOnly">
+<mat-card *ngIf="currentService != null; else noService" (dblclick)=log()>
+    <form class="form">
         <mat-form-field class="width">
             <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
                 [(ngModel)]="currentService.serviceName">
@@ -163,100 +163,14 @@
     <mat-card-title class="super-headline">
         <span class="spacer"></span>
         <div *ngIf="isLoggedIn" class="option-row">
-            <div *ngIf="state == 0">
-                <div *ngIf="editMode; else disableReadOnly">
-                    <button mat-button (click)=toggleReadOnly()>Bearbeitung
-                        deaktivieren
-                    </button>
-                    <button mat-icon-button class="btn-success" (click)=saveChanges()>
-                        <mat-icon>save</mat-icon>
-                    </button>
-                </div>
-                <ng-template #disableReadOnly>
-                    <button mat-button (click)=toggleReadOnly()>Bearbeitung aktivieren</button>
-                </ng-template>
-            </div>
-            <div *ngIf="state == 1" style="position: absolute; right: 20px;">
-                <mat-spinner diameter="50" color="primary"></mat-spinner>
-            </div>
+            <button mat-icon-button class="btn-success" (click)=saveChanges()>
+                <mat-icon>save</mat-icon>
+            </button>
         </div>
     </mat-card-title>
-    <ng-template #readOnly>
-        <form class="form">
-            <mat-form-field class="width">
-                <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
-                    [(ngModel)]="currentService.serviceName" disabled />
-            </mat-form-field>
-            <mat-form-field class="width">
-                <input matInput placeholder="Titel" name="serviceTitle" [(ngModel)]="currentService.serviceTitle"
-                    disabled />
-            </mat-form-field>
-            <mat-form-field class="width">
-                <textarea matInput class="subtitle" placeholder="Beschreibung" name="serviceDescription"
-                    [(ngModel)]="currentService.serviceDescription" disabled></textarea>
-            </mat-form-field>
-            <mat-form-field class="width">
-                <input matInput placeholder="Verfügbarkeit" name="serviceAvailability"
-                    [ngModel]="currentService.serviceAvailability" disabled />
-            </mat-form-field>
-            <mat-form-field class="width">
-                <input matInput placeholder="Service Kategorie" name="cloudServiceCategoryId"
-                    [ngModel]="currentService.cloudServiceCategoryId|servicecategory:serviceCategories" disabled />
-            </mat-form-field>
-            <mat-form-field class="width">
-                <input matInput placeholder="Service Modell" name="cloudServiceModel"
-                    [ngModel]="currentService.cloudServiceModelId|servicemodel:serviceModels" disabled />
-            </mat-form-field>
-            <mat-form-field class="width" disabled>
-                <mat-label #cert>Zertifikate</mat-label>
-                <mat-chip-list #certList aria-label="cert" disabled>
-                    <mat-chip *ngFor="let c of currentService.serviceCertificates">
-                        {{ c.certificate.certificateName }}
-                    </mat-chip>
-                </mat-chip-list>
-            </mat-form-field>
-            <mat-form-field class="width">
-                <input matInput placeholder="Service Provider" name="providerId"
-                    [ngModel]="currentService.providerId|serviceprovider:serviceProviders" disabled />
-            </mat-form-field>
-            <mat-slide-toggle *ngIf="displayFileEncryption" class="bool-slider"
-                [checked]=currentService.hasFileEncryption [disabled]=true>
-                Unterstützt der Service File-Encryption?
-            </mat-slide-toggle>
-            <mat-slide-toggle *ngIf="displayFileLocking" class="bool-slider" [checked]=currentService.hasFileLocking
-                [disabled]=true>
-                Unterstützt der Service File-Locking?
-            </mat-slide-toggle>
-            <mat-slide-toggle *ngIf="displayFilePermissions" class="bool-slider"
-                [checked]=currentService.hasFilePermissions [disabled]=true>
-                Unterstützt der Service File-Permissions?
-            </mat-slide-toggle>
-            <mat-slide-toggle *ngIf="displayFileVersioning" class="bool-slider"
-                [checked]=currentService.hasFileVersioning [disabled]=true>
-                Unterstützt der Service File-Versioning?
-            </mat-slide-toggle>
-            <mat-slide-toggle *ngIf="displayReplication" class="bool-slider" [checked]=currentService.hasReplication
-                [disabled]=true>
-                Unterstützt der Service Replication?
-            </mat-slide-toggle>
-            <mat-slide-toggle *ngIf="displayFileCompression" class="bool-slider" [checked]=currentService.hasFileCompression [disabled]=true>
-                Unterstützt der Service File Compression?
-            </mat-slide-toggle>
-            <mat-slide-toggle *ngIf="displayDBMS" class="bool-slider" [checked]=currentService.hasDBMS [disabled]=true>
-                Beinhaltet der Service ein Datenbankmanagmentsystem (DBMS)?
-            </mat-slide-toggle>
-        </form>
-    </ng-template>
 </mat-card>
 <ng-template #noService>
-    <mat-card>
-        <mat-card-title>
-            Keine Empfehlungen
-        </mat-card-title>
-        <mat-card-subtitle>
-            Wir haben leider keine Empfehlungen für Sie gefunden.
-        </mat-card-subtitle>
-    </mat-card>
+    FEHLER
 </ng-template>
 <mat-autocomplete #categories="matAutocomplete">
     <mat-option *ngFor="let c of serviceCategories" [value]="c.id">

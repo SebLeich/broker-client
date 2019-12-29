@@ -52,6 +52,7 @@ export class BackEndService {
      * the method persists a service
      */
     persistService(input: Service) {
+        console.log(input, input.toServerObject());
         var config = {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         };

@@ -18,8 +18,8 @@
     [serviceProviders]=serviceProviders
 >
 </app-use-case-selection>
-<app-detailview *ngIf="state == 4" [isLoggedIn]=isLoggedIn [services]=services [serviceCategories]=serviceCategories
-    [serviceProviders]=serviceProviders></app-detailview>
+<app-detailview *ngIf="state == 4" [isLoggedIn]=isLoggedIn [currentService]=currentService [serviceCategories]=serviceCategories
+    [serviceProviders]=serviceProviders (persistService)="persistService($event)"></app-detailview>
 <div *ngIf="state == 5">
     <app-administration *ngIf="canRegisterRoles; else noAccessRight" [currentUser]=username
         [canRegisterRoles]=canRegisterRoles [canEditSecurityGuidelines]=canEditSecurityGuidelines></app-administration>

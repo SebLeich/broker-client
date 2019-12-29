@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, AfterViewInit, AfterViewChecked, OnInit } from '@angular/core';
-import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, BaseChartDirective, Label } from 'ng2-charts';
-import { BlockStorageService, DirectAttachedService, KeyValueStorageService, ObjectStorageService, OnlineDriveStorageService, RelationalDatabaseService, IService } from 'src/app/classes/service';
+import { Chart, ChartDataSets } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { BlockStorageService, DirectAttachedService, KeyValueStorageService, ObjectStorageService, OnlineDriveStorageService, RelationalDatabaseService, IService, DataLocation } from 'src/app/classes/service';
 import { Project } from 'src/app/classes/project';
 import { MatchingResponse } from 'src/app/classes/search';
 
@@ -15,32 +15,6 @@ export class ServicePreviewComponent implements OnInit {
 
   gap: number = 0;
   isInit: boolean = false;
-
-  public lineChartData: ChartDataSets[] = [
-    {
-      data: [
-        parseInt((Math.random() * 100).toString()),
-        parseInt((Math.random() * 100).toString()),
-        parseInt((Math.random() * 100).toString()),
-        parseInt((Math.random() * 100).toString()),
-        parseInt((Math.random() * 100).toString()),
-        parseInt((Math.random() * 100).toString()),
-      ], label: "Erfüllungsgrad Suchanfrage"
-    }
-  ];
-  public lineChartLabels: Label[] = ["Data Location", "Zertifizierung", "Verfügbarkeit", "Service Model", "Deployment", "Pricing"];
-  public lineChartColors: Color[] = [
-    { // grey
-      backgroundColor: 'rgba(19,114,199,0.5)',
-      borderColor: 'rgba(19,114,199,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend = true;
-  public lineChartType = 'radar';
 
   @Input() project: Project;
 
@@ -77,7 +51,9 @@ export class ServicePreviewComponent implements OnInit {
             bottom: 10,
             left: 10
           }
-        }
+        },
+        maintainAspectRatio: false,
+        responsive: true
       }
     });
     (<HTMLDivElement>document.getElementById("fulfillment-dough-counter")).innerHTML = m.percentage.toString() + "%";
@@ -252,6 +228,12 @@ export class ServicePreviewComponent implements OnInit {
     return null;
   }
 
+  get dataLocations() : DataLocation[] {
+    var s:any = this.service;
+    if(s == null) return [];
+    return s.serviceDataLocations.map(x => x.dataLocation);
+  }
+
   @Output() editEmitter = new EventEmitter();
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
@@ -310,8 +292,6 @@ export class ServicePreviewComponent implements OnInit {
 
   setService(service: any) {
     this.servicePointer = service.id;
-    console.log(service, this.servicePointer);
-    console.log(this.service);
   }
 
   toggleSidebar() {
