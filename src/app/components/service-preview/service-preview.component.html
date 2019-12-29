@@ -10,8 +10,14 @@
     <div class="body">
         <div class="sidebar">
             <div *ngIf="collapseSidebar" class="collapsed">
-                <mat-icon class="icon" (click)=toggleSidebar()>
+                <mat-icon class="icon" matTooltip="Menü aufklappen" (click)=toggleSidebar()>
                     menu
+                </mat-icon>
+                <mat-icon class="icon" matTooltip="Projekt speichern" (click)=saveProject()>
+                    save
+                </mat-icon>
+                <mat-icon class="icon" matTooltip="Zurück" (click)=toUseCaseSelection()>
+                    arrow_back
                 </mat-icon>
                 <mat-icon *ngFor="let element of services" class="icon" (click)=setService(element)>
                     {{ element.constructor.icon }}
@@ -20,9 +26,21 @@
             <div *ngIf="!collapseSidebar" class="not-collapsed">
                 <div class="sidebar-option" (click)=toggleSidebar()>
                     <mat-icon class="icon">
-                        arrow_back
+                        menu
                     </mat-icon>
                     <div class="text">Menü verstecken</div>
+                </div>
+                <div class="sidebar-option" (click)=saveProject()>
+                    <mat-icon class="icon">
+                        save
+                    </mat-icon>
+                    <div class="text">Projekt speichern</div>
+                </div>
+                <div class="sidebar-option" (click)=toUseCaseSelection()>
+                    <mat-icon class="icon">
+                        arrow_back
+                    </mat-icon>
+                    <div class="text">Zur Suche</div>
                 </div>
                 <div *ngFor="let element of matchingResponses" class="sidebar-option" (click)=setService(element.service)>
                     <mat-icon class="icon">
@@ -203,14 +221,14 @@
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
-                    <canvas id="fulfillment-dough" style="height: 100%; width: 100%; background-color: white;"></canvas>
+                    <div id="fulfillment-dough-parent" style="height: 100%; width: 100%; background-color: white;"></div>
                     <div class="dough-counter">
                         <div class="text" id="fulfillment-dough-counter"></div>
                         <div class="subtitle">Übereinstimmung</div>
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" class="tile">
-                    <canvas id="fulfillment-net" style="height: 100%; width: 100%; background-color: white;"></canvas>
+                    <div id="fulfillment-net-parent" style="height: 100%; width: 100%; background-color: white;"></div>
                 </mat-grid-tile>
             </mat-grid-list>
         </div>

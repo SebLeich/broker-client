@@ -2,9 +2,10 @@ import { IService, BlockStorageService, DirectAttachedService, ObjectStorageServ
 import { FormGroup } from '@angular/forms';
 
 export class MatchingResponse {
-
+    public id: number;
     public service: any;
     public search: SearchVector;
+    public projectId: number;
     public pointscategories: number = 0;
     public pointscertificates: number = 0;
     public pointsdatalocations: number = 0;
@@ -39,7 +40,9 @@ export class MatchingResponse {
     constructor(match, content, search) {
         this.service = content;
         this.search = search;
-        if(match != null && typeof(match) != "undefined"){
+        if (match != null && typeof (match) != "undefined") {
+            this.id = match.id,
+            this.projectId = match.projectId;
             this.pointscategories = match.pointscategories;
             this.pointscertificates = match.pointscertificates;
             this.pointsdatalocations = match.pointsdatalocations;
@@ -116,6 +119,43 @@ export class MatchingResponse {
             this.priorityHasFileVersioning +
             this.priorityHasReplication
         );
+    }
+
+    toServerObject(): any {
+        return {
+            "id": this.id,
+            "pointscategories": this.pointscategories,
+            "pointscertificates": this.pointscertificates,
+            "pointsdatalocations": this.pointsdatalocations,
+            "pointsdeploymentinfos": this.pointsdeploymentinfos,
+            "pointsmodels": this.pointsmodels,
+            "pointsproviders": this.pointsproviders,
+            "pointsstoragetype": this.pointsstoragetype,
+            "pointsHasFileEncryption": this.priorityHasFileEncryption,
+            "pointsHasReplication": this.priorityHasReplication,
+            "pointsHasFilePermissions": this.pointsHasFilePermissions,
+            "pointsHasFileLocking": this.pointsHasFileLocking,
+            "pointsHasFileCompression": this.pointsHasFileCompression,
+            "pointsHasDBMS": this.pointsHasDBMS,
+            "pointsHasFileVersioning": this.pointsHasFileVersioning,
+            "pointsHasAutomatedSynchronisation": this.pointsHasAutomatedSynchronisation,
+            "prioritycategories": this.prioritycategories,
+            "prioritycertificates": this.prioritycertificates,
+            "prioritydatalocations": this.prioritydatalocations,
+            "prioritydeploymentinfos": this.prioritydeploymentinfos,
+            "prioritymodels": this.prioritymodels,
+            "priorityproviders": this.priorityproviders,
+            "prioritystoragetype": this.prioritystoragetype,
+            "priorityHasFileEncryption": this.priorityHasFileEncryption,
+            "priorityHasReplication": this.priorityHasReplication,
+            "priorityHasFilePermissions": this.priorityHasFilePermissions,
+            "priorityHasFileLocking": this.priorityHasFileLocking,
+            "priorityHasFileCompression": this.priorityHasFileCompression,
+            "priorityHasDBMS": this.priorityHasDBMS,
+            "priorityHasFileVersioning": this.priorityHasFileVersioning,
+            "priorityHasAutomatedSynchronisation": this.priorityHasAutomatedSynchronisation,
+            "projectId": this.projectId
+        };
     }
 }
 
@@ -245,6 +285,26 @@ export class SearchVector {
         }
     }
 
+    isSearchable(): boolean {
+        if (this.types.length == 0) return false;
+        if (this.categories.isRelevant()) return true;
+        if (this.certificates.isRelevant()) return true;
+        if (this.datalocations.isRelevant()) return true;
+        if (this.deploymentinfos.isRelevant()) return true;
+        if (this.models.isRelevant()) return true;
+        if (this.providers.isRelevant()) return true;
+        if (this.storageType.isRelevant()) return true;
+        if (this.hasAutomatedSynchronisation.isRelevant()) return true;
+        if (this.hasDBMS.isRelevant()) return true;
+        if (this.hasFileCompression.isRelevant()) return true;
+        if (this.hasFileEncryption.isRelevant()) return true;
+        if (this.hasFileLocking.isRelevant()) return true;
+        if (this.hasFilePermissions.isRelevant()) return true;
+        if (this.hasFileVersioning.isRelevant()) return true;
+        if (this.hasReplication.isRelevant()) return true;
+        return false;
+    }
+
     reset() {
         this.categories.isSearchable = false;
         this.certificates.isSearchable = false;
@@ -288,6 +348,11 @@ export class SearchVectorBooleanEntry {
             }
         }
     }
+
+    isRelevant(): boolean {
+        if (this.isSearchable && this.value && this.priority > 0) return true;
+        return false;
+    }
 }
 
 
@@ -312,5 +377,10 @@ export class SearchVectorListEntry {
                 this.value = object.value;
             }
         }
+    }
+
+    isRelevant(): boolean {
+        if (this.isSearchable && Array.isArray(this.value) && this.value.length > 0 && this.priority > 0) return true;
+        return false;
     }
 }

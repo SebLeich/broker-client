@@ -1,6 +1,7 @@
 <section class="section l-primary-bg" style="color: white;">
     <span class="super-section-header">Service suchen</span>
     <div style="padding-bottom: 20px;">Finden Sie Schritt für Schritt ihren passenden Cloud Service</div>
+    <mat-icon class="settings-control">settings</mat-icon>
 </section>
 <div style="height: calc(100% - 290px); overflow-y: auto;">
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
@@ -48,57 +49,6 @@
 </div>
 <div class="footer">
     <button mat-raised-button color="primary" class="button" (click)=next()>Weiter</button>
-    <button *ngIf="isSearchable" mat-raised-button class="button btn-success-filled" (click)=sendSearch()>Service
+    <button *ngIf="isSearchable()" mat-raised-button class="button btn-success-filled" (click)=sendSearch()>Service
         suchen</button>
 </div>
-
-<!--
-<mat-card class="main-content">
-    <mat-card-title class="super-headline">
-        Welche Aussage trifft am meisten zu?
-    </mat-card-title>
-    <mat-card-subtitle style="display: flex;">
-        <span>Wählen Sie eine der folgenden Aussagen oder entscheiden Sie sich dafür, ihre letzten Aussagen zu
-            wiederholen.</span>
-        <span class="spacer"></span>
-        <button mat-stroked-button color="primary" *ngIf="stateHistory.length > 0" (click)=undo()>
-            Zurück
-        </button>
-    </mat-card-subtitle>
-    <div>
-        <div style="height: 100%; width: 100%; display: inline-block;">
-            <div *ngIf="currentUseCases.length > 0; else searchSection">
-                <mat-card-content *ngFor="let u of currentUseCases">
-                    <mat-card class="entry" (click)=setUseCase(u.data.id)>
-                        <mat-card-content class="content">
-                            <span class="text">{{ u.data.desc }}</span>
-                            <span class="spacer"></span>
-                            <mat-icon>chevron_right</mat-icon>
-                        </mat-card-content>
-                    </mat-card>
-                </mat-card-content>
-            </div>
-            <ng-template #searchSection>
-                <div style="text-align: center;">
-                    <button mat-raised-button color="primary" (click)=sendSearch()>
-                        Service suchen
-                    </button>
-                </div>
-            </ng-template>
-            <div style="display: block; text-align: center;">
-                <mat-icon *ngIf="useCaseHistory.length > 0" style="font-size: 2rem; margin: 20px; color: grey;">
-                    more_vert
-                </mat-icon>
-            </div>
-            <mat-card-content>
-                <div *ngFor="let h of useCaseHistory">
-                    <div class="history-element primary-border">
-                        <div class="time primary-bg">{{ h.time | date:"HH:mm:ss" }}</div>
-                        <div class="desc">{{ h.object.data.desc }}</div>
-                    </div>
-                </div>
-            </mat-card-content>
-        </div>
-    </div>
-</mat-card>
--->

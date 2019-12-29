@@ -121,6 +121,42 @@ export class StartpageComponent implements OnInit {
     }),
     new StartPageTile({
       "cols": 2,
+      "rows": 2,
+      "bgColor": "#ba0630",
+      "text": "Ihre Projekte",
+      "subtitle": "Verwalten Sie Ihre Projekte",
+      "headColor": "",
+      "subColor": "",
+      "icon": "layers",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.isLoggedIn) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        console.log("HEREEE", input);
+
+        //input.setState(globals.rootStates.MANAGESERVICES);
+      }
+    }),
+    new StartPageTile({
+      "cols": 1,
+      "rows": 2,
+      "bgColor": "#ffffff61",
+      "text": "Administration",
+      "subtitle": "Verwalten Sie den Cloud Broker",
+      "headColor": "",
+      "subColor": "",
+      "icon": "tune",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.canAdministrate) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.setState(globals.rootStates.ADMINISTRATION);
+      }
+    }),
+    new StartPageTile({
+      "cols": 2,
       "rows": 1,
       "bgColor": "#196a34bd",
       "text": "Services verwalten",
@@ -134,23 +170,6 @@ export class StartpageComponent implements OnInit {
       },
       "click": function (input: StartpageComponent) {
         input.setState(globals.rootStates.MANAGESERVICES);
-      }
-    }),
-    new StartPageTile({
-      "cols": 1,
-      "rows": 1,
-      "bgColor": "#ffffff61",
-      "text": "Administration",
-      "subtitle": "Verwalten Sie den Cloud Broker",
-      "headColor": "",
-      "subColor": "",
-      "icon": "tune",
-      "ngIf": (page: StartpageComponent) => {
-        if(page.canAdministrate) return true;
-        return false;
-      },
-      "click": function (input: StartpageComponent) {
-        input.setState(globals.rootStates.ADMINISTRATION);
       }
     })
   ];

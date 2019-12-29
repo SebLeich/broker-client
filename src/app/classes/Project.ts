@@ -2,20 +2,37 @@ import { SessionState } from './metadata';
 import { MatchingResponse } from './search';
 
 export class Project {
-  projectId: number;
+  id: number;
   projectTitle: string;
   projectDescription: string;
-  matchingResponses: MatchingResponse[] = [];
-  sessionState: SessionState;
+  matchingResponse: MatchingResponse[] = [];
+  sessionState: SessionState = new SessionState();
+  userId: string;
 
-  constructor() {
-    this.sessionState = new SessionState();
+  constructor(object?) {
+    this.matchingResponse = [];
+    if (object != null && typeof (object) != "undefined") {
+      this.sessionState.isNew = false;
+      this.id = object.projectId;
+      this.projectTitle = object.projectTitle;
+      this.projectDescription = object.projectDescription;
+      for (var index in object.matchingResponse) {
+        var o = object.matchingResponse[index];
+        this.matchingResponse.push(new MatchingResponse(o, null, null));
+      }
+    } else {
+      this.sessionState.isNew = true;
+    }
   }
 
-  public setTitle(title: string) {
-    this.projectTitle = title;
-  }
-  public setDescription(description: string) {
-    this.projectDescription = description;
+  toServerObject(): any {
+    var matchingResponses = [];
+    return {
+      "projectId": this.id,
+      "projectTitle": this.projectTitle,
+      "projectDescription": this.projectDescription,
+      "userId": this.userId,
+      "matchingResponse": matchingResponses
+    };
   }
 }

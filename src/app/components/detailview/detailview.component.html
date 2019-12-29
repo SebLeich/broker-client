@@ -1,4 +1,4 @@
-<mat-card *ngIf="currentService != null; else noService" (dblclick)=log()>
+<mat-card *ngIf="currentService != null; else noService" class="main-content" (dblclick)=log()>
     <form class="form">
         <mat-form-field class="width">
             <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"

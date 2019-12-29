@@ -355,6 +355,22 @@ tr.mat-row:last-child td.mat-cell {
 
 .section {
   padding: 20px;
+  position: relative;
+}
+
+.section .settings-control {
+  font-size: 60px;
+  color: white;
+  height: auto;
+  width: auto;
+  position: absolute;
+  right: 20px;
+  top: calc(50% - 30px);
+  cursor: pointer;
+}
+
+.section .settings-control:hover {
+  color: rgba(255, 255, 255, .7);
 }
 
 .content-section {
@@ -371,7 +387,7 @@ tr.mat-row:last-child td.mat-cell {
 
 .super-section-header .extension {
   font-size: 1rem;
-  color: lightgrey;
+  color: white;
   text-transform: none;
 }
 

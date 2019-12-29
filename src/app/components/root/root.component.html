@@ -9,6 +9,7 @@
     (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
 <app-use-case-selection
     *ngIf="state == 1" 
+    [searchPreSet]="searchvector"
     (searchEmitter)="sendSearch($event)"
     [certificates]=certificates
     [dataLocations]=dataLocations
@@ -32,7 +33,7 @@
     <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices
         (serviceEmitter)=editService($event) (servicePreviewEmitter)=showService($event) (stateEmitter)="setState($event)"></app-manage-services>
 </div>
-<app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event)></app-service-preview>
+<app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event) (gotoUseCaseEmitter)=gotoUseCaseSelection($event)></app-service-preview>
 
 <!-- HELPER AREAS -->
 <div *ngIf="state == 8" class="load-placeholder">

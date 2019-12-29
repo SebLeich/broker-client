@@ -42,6 +42,8 @@ export class RootComponent implements OnInit {
 
   projectPointer: number = 0;
 
+  searchVector: SearchVector = null;
+
   certificates: Certificate[] = [];
   dataLocations: DataLocation[] = [];
   deploymentInformation: DeploymentInformation[] = [];
@@ -116,7 +118,7 @@ export class RootComponent implements OnInit {
   }
 
   get currentProject(): Project {
-    var p = this.projects.find(x => x.projectId == this.projectPointer);
+    var p = this.projects.find(x => x.id == this.projectPointer);
     if (typeof (p) == "undefined") return null;
     return p;
   }
@@ -129,6 +131,12 @@ export class RootComponent implements OnInit {
     this.currentService = service;
     console.log(this.currentService);
     this.setState(globals.rootStates.SERVICEDETAILVIEW);
+  }
+
+  gotoUseCaseSelection(search: SearchVector){
+    console.log(search);
+    this.searchVector = search;
+    this.setState(globals.rootStates.USECASESELECTION);
   }
 
   showService(service: Service) {
@@ -234,10 +242,10 @@ export class RootComponent implements OnInit {
             p = new Project();
             p.sessionState.isNew = true;
             this.projects.push(p);
-            this.projectPointer = p.projectId;
+            this.projectPointer = p.id;
           }
           p.sessionState.isChanged = true;
-          p.matchingResponses.push.apply(p.matchingResponses, result);
+          p.matchingResponse.push.apply(p.matchingResponse, result);
           this.setState(globals.rootStates.SERVICEPREVIEW);
         },
         (error) => {

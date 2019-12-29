@@ -73,7 +73,11 @@ export class UseCaseSelectionComponent implements OnInit {
   /**
    * the search vector
    */
-  public searchVector: SearchVector;
+  public searchVector: SearchVector = null;
+
+  @Input() set searchPreSet(vector: SearchVector){
+    if(vector != null && typeof(vector) != "undefined") this.searchVector = vector;
+  }
   /**
    * the input value sets the internal data location list
    */
@@ -394,6 +398,7 @@ export class UseCaseSelectionComponent implements OnInit {
    */
   get currentTypeSelectionFg() {
     var output = {};
+    console.log(this.searchVector);
     if(this.searchVector.types.includes(BlockStorageService)){
       output["bls"] = true;
     } else {
@@ -440,7 +445,10 @@ export class UseCaseSelectionComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder
   ) {
-    this.searchVector = new SearchVector();
+    if(this.searchVector == null) this.searchVector = new SearchVector();
+    else {
+      this.stepper.next();
+    }
   }
   /**
    * the method returns whether the given object is an instance of the given object
@@ -457,8 +465,10 @@ export class UseCaseSelectionComponent implements OnInit {
   /**
    * the method returns whether the current vector is searchable or not
    */
-  get isSearchable(): boolean {
-    return true;
+  isSearchable(): boolean {
+    this.searchVector.applyForm(this.steps[2].fg);
+    if(this.searchVector == null || typeof(this.searchVector) == "undefined") return false;
+    return this.searchVector.isSearchable();
   }
   /**
    * the method initiates the page change of the stepper

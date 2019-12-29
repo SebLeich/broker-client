@@ -18,14 +18,181 @@ export class ServicePreviewComponent implements OnInit {
 
   @Input() project: Project;
 
+  @Output() gotoUseCaseEmitter = new EventEmitter();
+
   _sP: number = null;
 
   set servicePointer(value: number) {
     this._sP = value;
-    var element = <HTMLCanvasElement>document.getElementById("fulfillment-dough");
-    if (element == null) return;
-    var m = this.matchingResponse;
+    this.renderDough();
+    this.renderNet();
+  }
+
+  get servicePointer(): number {
+    return this._sP;
+  }
+
+  collapseSidebar: boolean = true;
+
+  get matchingResponses(): MatchingResponse[] {
+    if (this.project != null) {
+      return this.project.matchingResponse;
+    }
+    return [];
+  }
+
+  get matchingResponse(): MatchingResponse {
+    if (this.project != null && this.project.matchingResponse.length > 0) {
+      if (this.servicePointer == null) {
+        var s = this.project.matchingResponse[0];
+        this.servicePointer = s.service.id;
+        return s;
+      }
+      for (var index in this.project.matchingResponse) {
+        if (this.project.matchingResponse[index].service.id == this.servicePointer) return this.project.matchingResponse[index];
+      }
+    }
+    return null;
+  }
+
+  get services(): IService[] {
+    var output = [];
+    if (this.project != null && this.project.matchingResponse.length > 0) {
+      for (var index in this.project.matchingResponse) {
+        output.push(this.project.matchingResponse[index].service);
+      }
+    }
+    return output;
+  }
+
+  get service(): any {
+    if (this.project != null && this.project.matchingResponse.length > 0) {
+      if (this.servicePointer == null) {
+        var s = this.project.matchingResponse[0].service;
+        this.servicePointer = s.id;
+        return s;
+      }
+      for (var index in this.project.matchingResponse) {
+        if (this.project.matchingResponse[index].service.id == this.servicePointer) return this.project.matchingResponse[index].service;
+      }
+    }
+    return null;
+  }
+
+  get dataLocations() : DataLocation[] {
+    var s:any = this.service;
+    if(s == null) return [];
+    return s.serviceDataLocations.map(x => x.dataLocation);
+  }
+
+  @Output() editEmitter = new EventEmitter();
+
+  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+
+  constructor() {
+    setTimeout(() => this.isInit = true, 10);
+  }
+
+  classForPercentage(percentage: number): string {
+    if (typeof (percentage) != "number") return "percentage-error";
+    if (percentage < 30) {
+      return "percentage-danger";
+    } else if (percentage < 60) {
+      return "percentage-warning";
+    } else if (percentage < 80) {
+      return "percentage-ok";
+    } else {
+      return "percentage-success";
+    }
+  }
+
+  editService() {
+    this.editEmitter.emit(this.service);
+  }
+
+  ngOnInit() {
+    setTimeout(() => this.servicePointer = this.project.matchingResponse[0].service.id, 100);
+  }
+
+  onResize() {
+    this.isInit = true;
+  }
+
+  get rowHeight(): number {
+    var element = <HTMLDivElement>document.getElementById("servicPreviewHeader");
+    if (typeof (element) == "undefined") return 0;
+    var result = (window.innerHeight
+      - 64 // navbar
+      - element.offsetHeight // header
+      - 2 * this.gap
+    ) / 2;
+    return result;
+  }
+
+  get serviceType(): string {
+    switch (this.service.constructor) {
+      case BlockStorageService: return "Block Storage Service";
+      case DirectAttachedService: return "Direct Attached Service";
+      case KeyValueStorageService: return "Key Value Storage Service";
+      case ObjectStorageService: return "Object Storage Service";
+      case OnlineDriveStorageService: return "Online Drive Storge Service";
+      case RelationalDatabaseService: return "Relational Database Storage Service";
+    }
+    return null;
+  }
+
+  setService(service: any) {
+    this.servicePointer = service.id;
+  }
+
+  toggleSidebar() {
+    if (this.collapseSidebar) this.collapseSidebar = false;
+    else this.collapseSidebar = true;
+  }
+
+  /**
+   * the method saves the current progress in a project
+   */
+  saveProject(){
+
+  }
+
+  /**
+   * the method navigates to the use case selection step
+   */
+  toUseCaseSelection(){
+    this.gotoUseCaseEmitter.emit(this.matchingResponse.search);
+  }
+
+  categorySetted(): boolean {
+    if(this.service.cloudServiceCategory != null && typeof(this.service.cloudServiceCategory) != "undefined") return true;
+    return false;
+  }
+
+  modelSetted(): boolean {
+    if(this.service.cloudServiceModel != null && typeof(this.service.cloudServiceModel) != "undefined") return true;
+    return false;
+  }
+
+  providerSetted(): boolean {
+    if(this.service.provider != null && typeof(this.service.provider) != "undefined") return true;
+    return false;
+  }
+
+  storageTypeSetted(): boolean {
+    if(this.service.storageType != null && typeof(this.service.storageType) != "undefined") return true;
+    return false;
+  }
+
+  renderDough(){
+    var parent = document.getElementById("fulfillment-dough-parent");
+    if (parent == null) return;
+    parent.innerHTML = "";
+    var element = document.createElement("canvas");
+    element.setAttribute("id", "fulfillment-dough");
+    parent.appendChild(element);
     var ctx = element.getContext("2d");
+    var m = this.matchingResponse;
     new Chart(ctx, {
       type: "doughnut",
       data: {
@@ -57,9 +224,17 @@ export class ServicePreviewComponent implements OnInit {
       }
     });
     (<HTMLDivElement>document.getElementById("fulfillment-dough-counter")).innerHTML = m.percentage.toString() + "%";
-    element = <HTMLCanvasElement>document.getElementById("fulfillment-net");
-    if (element == null) return;
+  }
+
+  renderNet(){
+    var parent = document.getElementById("fulfillment-net-parent");
+    if (parent == null) return;
+    parent.innerHTML = "";
+    var element = document.createElement("canvas");
+    element.setAttribute("id", "fulfillment-net");
+    parent.appendChild(element);
     var ctx = element.getContext("2d");
+    var m = this.matchingResponse;
     var labels = [];
     var data: ChartDataSets[] = [
       {
@@ -175,147 +350,5 @@ export class ServicePreviewComponent implements OnInit {
         responsive: true
       }
     });
-  }
-
-  get servicePointer(): number {
-    return this._sP;
-  }
-
-  collapseSidebar: boolean = true;
-
-  get matchingResponses(): MatchingResponse[] {
-    if (this.project != null) {
-      return this.project.matchingResponses;
-    }
-    return [];
-  }
-
-  get matchingResponse(): MatchingResponse {
-    if (this.project != null && this.project.matchingResponses.length > 0) {
-      if (this.servicePointer == null) {
-        var s = this.project.matchingResponses[0];
-        this.servicePointer = s.service.id;
-        return s;
-      }
-      for (var index in this.project.matchingResponses) {
-        if (this.project.matchingResponses[index].service.id == this.servicePointer) return this.project.matchingResponses[index];
-      }
-    }
-    return null;
-  }
-
-  get services(): IService[] {
-    var output = [];
-    if (this.project != null && this.project.matchingResponses.length > 0) {
-      for (var index in this.project.matchingResponses) {
-        output.push(this.project.matchingResponses[index].service);
-      }
-    }
-    return output;
-  }
-
-  get service(): any {
-    if (this.project != null && this.project.matchingResponses.length > 0) {
-      if (this.servicePointer == null) {
-        var s = this.project.matchingResponses[0].service;
-        this.servicePointer = s.id;
-        return s;
-      }
-      for (var index in this.project.matchingResponses) {
-        if (this.project.matchingResponses[index].service.id == this.servicePointer) return this.project.matchingResponses[index].service;
-      }
-    }
-    return null;
-  }
-
-  get dataLocations() : DataLocation[] {
-    var s:any = this.service;
-    if(s == null) return [];
-    return s.serviceDataLocations.map(x => x.dataLocation);
-  }
-
-  @Output() editEmitter = new EventEmitter();
-
-  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
-
-  constructor() {
-    setTimeout(() => this.isInit = true, 10);
-  }
-
-  classForPercentage(percentage: number): string {
-    if (typeof (percentage) != "number") return "percentage-error";
-    if (percentage < 30) {
-      return "percentage-danger";
-    } else if (percentage < 60) {
-      return "percentage-warning";
-    } else if (percentage < 80) {
-      return "percentage-ok";
-    } else {
-      return "percentage-success";
-    }
-  }
-
-  editService() {
-    this.editEmitter.emit(this.service);
-  }
-
-  ngOnInit() {
-    setTimeout(() => this.servicePointer = this.project.matchingResponses[0].service.id, 100);
-  }
-
-  onResize() {
-    this.isInit = true;
-  }
-
-  get rowHeight(): number {
-    var element = <HTMLDivElement>document.getElementById("servicPreviewHeader");
-    if (typeof (element) == "undefined") return 0;
-    var result = (window.innerHeight
-      - 64 // navbar
-      - element.offsetHeight // header
-      - 2 * this.gap
-    ) / 2;
-    return result;
-  }
-
-  get serviceType(): string {
-    switch (this.service.constructor) {
-      case BlockStorageService: return "Block Storage Service";
-      case DirectAttachedService: return "Direct Attached Service";
-      case KeyValueStorageService: return "Key Value Storage Service";
-      case ObjectStorageService: return "Object Storage Service";
-      case OnlineDriveStorageService: return "Online Drive Storge Service";
-      case RelationalDatabaseService: return "Relational Database Storage Service";
-    }
-    return null;
-  }
-
-  setService(service: any) {
-    this.servicePointer = service.id;
-  }
-
-  toggleSidebar() {
-    if (this.collapseSidebar) this.collapseSidebar = false;
-    else this.collapseSidebar = true;
-  }
-
-  categorySetted(): boolean {
-    if(this.service.cloudServiceCategory != null && typeof(this.service.cloudServiceCategory) != "undefined") return true;
-    return false;
-  }
-
-  modelSetted(): boolean {
-    if(this.service.cloudServiceModel != null && typeof(this.service.cloudServiceModel) != "undefined") return true;
-    return false;
-  }
-
-  providerSetted(): boolean {
-    if(this.service.provider != null && typeof(this.service.provider) != "undefined") return true;
-    return false;
-  }
-
-  storageTypeSetted(): boolean {
-    if(this.service.storageType != null && typeof(this.service.storageType) != "undefined") return true;
-    return false;
   }
 }
