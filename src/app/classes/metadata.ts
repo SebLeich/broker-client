@@ -53,6 +53,7 @@ export class StartPageTile {
     public click;
     public condition: { (data: StartpageComponent): boolean; } = null;
     public class: string = "";
+    public counter;
     /**
      * the constructor creates a new instance of a start page tile
      */
@@ -71,6 +72,9 @@ export class StartPageTile {
             }
             if(typeof(object.class) != "undefined" && object.class != null){
                 this.class = object.class;
+            }
+            if(typeof(object.counter) != "undefined" && object.counter != null){
+                this.counter = object.counter;
             }
         }
     }

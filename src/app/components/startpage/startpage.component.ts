@@ -31,15 +31,35 @@ export class StartpageComponent implements OnInit {
     }),
     new StartPageTile({
       "cols": 2,
-      "rows": 2,
+      "rows": 1,
       "bgColor": "#ff6c0ade",
       "text": "Neues Projekt anlegen",
       "subtitle": "Erstellen Sie ein neues Projekt",
       "headColor": "",
       "subColor": "",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.isLoggedIn) return true;
+        return false;
+      },
       "icon": "add",
       "click": function (input: StartpageComponent) {
         alert("NOT IMPLEMENTED NOW!");
+      }
+    }),
+    new StartPageTile({
+      "cols": 1,
+      "rows": 1,
+      "bgColor": "#ee1b1bd6",
+      "text": "Abmelden",
+      "subtitle": "Benutzer abmelden",
+      "headColor": "",
+      "subColor": "",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.isLoggedIn) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.logout();
       }
     }),
     new StartPageTile({
@@ -59,6 +79,28 @@ export class StartpageComponent implements OnInit {
       }
     }),
     new StartPageTile({
+      "cols": 2,
+      "rows": 1,
+      "bgColor": "#ba0630",
+      "text": "Ihre Projekte",
+      "subtitle": "Verwalten Sie Ihre Projekte",
+      "headColor": "",
+      "subColor": "",
+      "icon": "layers",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.isLoggedIn) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        console.log("HEREEE", input);
+        //input.setState(globals.rootStates.MANAGESERVICES);
+      },
+      "counter": function(input: StartpageComponent): number {
+        console.log(input);
+        return input.projectCounter;
+      }
+    }),
+    new StartPageTile({
       "cols": 1,
       "rows": 1,
       "bgColor": "#66ae138c",
@@ -73,22 +115,6 @@ export class StartpageComponent implements OnInit {
       },
       "click": function (input: StartpageComponent) {
         input.openUserDialog();
-      }
-    }),
-    new StartPageTile({
-      "cols": 1,
-      "rows": 1,
-      "bgColor": "#ee1b1bd6",
-      "text": "Abmelden",
-      "subtitle": "Benutzer abmelden",
-      "headColor": "",
-      "subColor": "",
-      "ngIf": (page: StartpageComponent) => {
-        if(page.isLoggedIn) return true;
-        return false;
-      },
-      "click": function (input: StartpageComponent) {
-        input.logout();
       }
     }),
     new StartPageTile({
@@ -121,42 +147,6 @@ export class StartpageComponent implements OnInit {
     }),
     new StartPageTile({
       "cols": 2,
-      "rows": 2,
-      "bgColor": "#ba0630",
-      "text": "Ihre Projekte",
-      "subtitle": "Verwalten Sie Ihre Projekte",
-      "headColor": "",
-      "subColor": "",
-      "icon": "layers",
-      "ngIf": (page: StartpageComponent) => {
-        if(page.isLoggedIn) return true;
-        return false;
-      },
-      "click": function (input: StartpageComponent) {
-        console.log("HEREEE", input);
-
-        //input.setState(globals.rootStates.MANAGESERVICES);
-      }
-    }),
-    new StartPageTile({
-      "cols": 1,
-      "rows": 2,
-      "bgColor": "#ffffff61",
-      "text": "Administration",
-      "subtitle": "Verwalten Sie den Cloud Broker",
-      "headColor": "",
-      "subColor": "",
-      "icon": "tune",
-      "ngIf": (page: StartpageComponent) => {
-        if(page.canAdministrate) return true;
-        return false;
-      },
-      "click": function (input: StartpageComponent) {
-        input.setState(globals.rootStates.ADMINISTRATION);
-      }
-    }),
-    new StartPageTile({
-      "cols": 2,
       "rows": 1,
       "bgColor": "#196a34bd",
       "text": "Services verwalten",
@@ -171,6 +161,23 @@ export class StartpageComponent implements OnInit {
       "click": function (input: StartpageComponent) {
         input.setState(globals.rootStates.MANAGESERVICES);
       }
+    }),
+    new StartPageTile({
+      "cols": 1,
+      "rows": 1,
+      "bgColor": "#ffffff61",
+      "text": "Administration",
+      "subtitle": "Verwalten Sie den Cloud Broker",
+      "headColor": "",
+      "subColor": "",
+      "icon": "tune",
+      "ngIf": (page: StartpageComponent) => {
+        if(page.canAdministrate) return true;
+        return false;
+      },
+      "click": function (input: StartpageComponent) {
+        input.setState(globals.rootStates.ADMINISTRATION);
+      }
     })
   ];
   /**
@@ -181,6 +188,10 @@ export class StartpageComponent implements OnInit {
    * is the current user allowed to create services
    */
   @Input() canAdministrate;
+  /**
+   * is the current user allowed to create services
+   */
+  @Input() projectCounter;
   /**
    * is the current user allowed to create services
    */

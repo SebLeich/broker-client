@@ -49,6 +49,15 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <div *ngIf="showServiceModelAdder">
+            <mat-form-field class="add-on">
+                <input matInput #newCSMod placeholder="Neues Service Modell"
+                    (keydown.enter)="addServiceModel(newCSMod.value)" />
+            </mat-form-field>
+            <button class="add-on-button" mat-raised-button color="primary" (click)="addServiceModel(newCSMod.value)">
+                Anlegen
+            </button>
+        </div>
         <mat-form-field class="width">
             <mat-label>Lokalisation</mat-label>
             <mat-select (selectionChange)="setDataLocations($event)" [value]="currentService.dataLocationIds" multiple>
@@ -64,15 +73,6 @@
                 <input matInput #newDL placeholder="Neue Lokalisation anlegen" (keydown.enter)="addDataLocation(newDL.value)" />
             </mat-form-field>
             <button class="add-on-button" mat-raised-button color="primary" (click)="addDataLocation(newDL.value)">
-                Anlegen
-            </button>
-        </div>
-        <div *ngIf="showServiceModelAdder">
-            <mat-form-field class="add-on">
-                <input matInput #newCSMod placeholder="Neues Service Modell"
-                    (keydown.enter)="addServiceModel(newCSMod.value)" />
-            </mat-form-field>
-            <button class="add-on-button" mat-raised-button color="primary" (click)="addServiceModel(newCSMod.value)">
                 Anlegen
             </button>
         </div>

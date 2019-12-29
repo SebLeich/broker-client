@@ -7,7 +7,12 @@
         (click)=o.click(this)>
         <div class="custom-tile">
           <mat-icon *ngIf="o.icon != null && o.cols >= 2" class="bg-icon tile-icon">{{ o.icon }}</mat-icon>
-          <span class="headline" [style.color]="o.headColor">{{ o.text }}</span>
+          <span class="headline" [style.color]="o.headColor">
+            {{ o.text }}
+            <span *ngIf="o.counter != null" class="counter">
+              {{ o.counter(this) }}
+            </span>
+          </span>
           <div class="subtitle" [style.color]="o.subColor">{{ o.subtitle }}</div>
         </div>
       </mat-grid-tile>

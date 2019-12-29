@@ -15,6 +15,6 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
         <ng-template matStepLabel>Eigenschaften</ng-template>
-        <app-detailview [isLoggedIn]=isLoggedIn [currentService]=currentService [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders></app-detailview>
+        <app-detailview [isLoggedIn]=isLoggedIn [currentService]=currentService [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders (persistService)="saveService($event)"></app-detailview>
     </mat-step>
 </mat-horizontal-stepper>

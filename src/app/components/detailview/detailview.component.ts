@@ -344,6 +344,7 @@ export class DetailviewComponent implements OnInit {
    * the method persists current changes
    */
   saveChanges() {
+    console.log(this.currentService);
     this.persistService.emit(this.currentService);
   }
   /**

@@ -20,6 +20,8 @@ export class ServicePreviewComponent implements OnInit {
 
   @Output() gotoUseCaseEmitter = new EventEmitter();
 
+  @Output() projectEmitter = new EventEmitter();
+
   _sP: number = null;
 
   set servicePointer(value: number) {
@@ -154,9 +156,8 @@ export class ServicePreviewComponent implements OnInit {
    * the method saves the current progress in a project
    */
   saveProject(){
-
+    this.projectEmitter.emit(this.project);
   }
-
   /**
    * the method navigates to the use case selection step
    */

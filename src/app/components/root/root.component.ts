@@ -123,17 +123,21 @@ export class RootComponent implements OnInit {
     return p;
   }
 
+  get projectCounter(): number {
+    return this.projects.length;
+  }
+
   /**
    * the method shows the service detail view
    * @param service 
    */
-  editService(service: Service){
+  editService(service: Service) {
     this.currentService = service;
     console.log(this.currentService);
     this.setState(globals.rootStates.SERVICEDETAILVIEW);
   }
 
-  gotoUseCaseSelection(search: SearchVector){
+  gotoUseCaseSelection(search: SearchVector) {
     console.log(search);
     this.searchVector = search;
     this.setState(globals.rootStates.USECASESELECTION);
@@ -146,10 +150,21 @@ export class RootComponent implements OnInit {
   /**
    * the method persists a given service
    */
-  persistService(service: Service) {
+  persistService(service: any) {
     this.setState(globals.rootStates.WAITING);
     this.service.persistService(service).subscribe((result) => {
-      this.currentService = new this.currentService.constructor(result);
+      this.currentService = new service.constructor(result);
+      this.setState(globals.rootStates.SERVICEDETAILVIEW);
+    });
+  }
+  /**
+   * the method persists a given service
+   */
+  persistProject(project: any) {
+    console.log(project);
+    this.setState(globals.rootStates.WAITING);
+    this.service.persistProject(project).subscribe((result) => {
+      console.log(result);
       this.setState(globals.rootStates.SERVICEDETAILVIEW);
     });
   }
@@ -197,6 +212,9 @@ export class RootComponent implements OnInit {
     this.service
       .get(Certificate.location)
       .subscribe((o: Object) => this.setCertificates(o));
+    this.service
+      .get(Project.location + "/current")
+      .subscribe((o: Object) => this.setCurrentProjects(o));
     this.service
       .get(DataLocation.location)
       .subscribe((o: Object) => this.setDataLocations(o));
@@ -257,29 +275,6 @@ export class RootComponent implements OnInit {
         }
       );
     }
-    /*
-    
-    this.service.sendSearch(s).subscribe(
-      result => {
-        setTimeout(() => {
-          var o = [];
-          if (Array.isArray(result)) {
-            for (var index in result) o.push(new s.types[0](result[index]));
-          } else {
-            o.push(new s.types[0](result));
-          }
-          this.services = o;
-          this.setState(globals.rootStates.SERVICEPREVIEW);
-        }, 2000);
-      },
-      error => {
-        console.log(error);
-        this.state = globals.rootStates.HTTPERROR;
-        this.errorMsg = error.status + " - " + error.statusText;
-        this.errorState = error.status;
-      }
-    );
-    */
   }
   /**
    * the method creates the certificates from the given array
@@ -290,6 +285,16 @@ export class RootComponent implements OnInit {
       array.push(new Certificate(o[index]));
     }
     this.certificates = array;
+  }
+  /**
+   * the method sets the current users projects
+   */
+  setCurrentProjects(o: Object){
+    var array = [];
+    for (var index in o) {
+      array.push(new Project(o[index]));
+    }
+    this.projects = array;
   }
   /**
    * the method creates the datalocations from the given array

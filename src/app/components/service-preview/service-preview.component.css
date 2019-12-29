@@ -24,6 +24,10 @@
     cursor: pointer;
 }
 
+.sidebar .sidebar-option:nth-child(even) {
+    background-color: rgba(255,255,255,.05);
+}
+
 .sidebar .not-collapsed .sidebar-option:hover {
     background-color: rgba(255, 255, 255, .1);
 }

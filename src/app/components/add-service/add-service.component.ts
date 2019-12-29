@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CloudServiceType } from '../../classes/metadata';
 import {
   BlockStorageService, 
@@ -25,6 +25,10 @@ export class AddServiceComponent implements OnInit {
   public linear: boolean = true;
 
   /**
+   * the emitter for the state
+   */
+  @Output() persistService = new EventEmitter();
+  /**
    * the attribute contains whether the user is logged in or not
    */
   @Input() isLoggedIn;
@@ -47,6 +51,10 @@ export class AddServiceComponent implements OnInit {
   ];
 
   constructor() { }
+
+  saveService(service: Service){
+    this.persistService.emit(service);
+  }
 
   ngOnInit() {
   }

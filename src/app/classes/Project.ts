@@ -25,6 +25,14 @@ export class Project {
     }
   }
 
+  get location(): string{
+    return Project.location;
+  }
+
+  static get location(): string {
+    return "api/project";
+  }
+
   toServerObject(): any {
     var matchingResponses = [];
     return {
