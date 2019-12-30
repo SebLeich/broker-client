@@ -1,10 +1,14 @@
-<section class="section l-primary-bg" style="color: white;">
-    <span class="super-section-header">Ihre Projekte</span>
-    <div style="padding-bottom: 20px;">Erhalten Sie einen Überblick über ihre Projekte</div>
-</section>
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
 <div class="content responsive-container">
+    <section class="head-tile">
+        <span class="super-section-header">Ihre Projekte</span>
+        <div>Hier können Sie Ihre {{ projects.length }} gespeicherten Projekte verwalten.</div>
+        <mat-icon class="icon">layers</mat-icon>
+    </section>
     <div *ngIf="projects.length > 0; else noProjects">
-        <div *ngFor="let project of projects; let i = index" class="project-tile">
+        <div *ngFor="let project of projects; let i = index" class="project-tile" (click)="gotoProjectDetailView(project)">
             <div class="index">
                 {{ i }}
             </div>
@@ -20,6 +24,7 @@
                         Keine Beschreibung angegeben
                     </span>
                 </ng-template>
+                <mat-icon class="control-icon">chevron_right</mat-icon>
             </div>
         </div>
     </div>

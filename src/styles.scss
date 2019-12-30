@@ -381,7 +381,6 @@ tr.mat-row:last-child td.mat-cell {
 .super-section-header {
   font-size: 3rem;
   display: block;
-  padding: 20px 0px 10px 0px;
   text-transform: uppercase;
 }
 
@@ -390,6 +389,8 @@ tr.mat-row:last-child td.mat-cell {
   color: white;
   text-transform: none;
 }
+
+
 
 .control-red {
   color: #d35252;
@@ -435,4 +436,14 @@ tr.mat-row:last-child td.mat-cell {
 
 .footer .button {
   margin-left: 5px;
+}
+
+.component-background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background: #dbdbdb;
 }

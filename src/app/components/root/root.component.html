@@ -35,7 +35,7 @@
         (serviceEmitter)=editService($event) (servicePreviewEmitter)=showService($event) (stateEmitter)="setState($event)"></app-manage-services>
 </div>
 <app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event) (gotoUseCaseEmitter)=gotoUseCaseSelection($event) (projectEmitter)=persistProject($event)></app-service-preview>
-<app-project-overview *ngIf="state == 12" [projects]=projects></app-project-overview>
+<app-project-overview *ngIf="state == 12" [projects]=projects (projectEmitter)=gotoProjectDetailView($event)></app-project-overview>
 
 <!-- HELPER AREAS -->
 <div *ngIf="state == 8" class="load-placeholder">

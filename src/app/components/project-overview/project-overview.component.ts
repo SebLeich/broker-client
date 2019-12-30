@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Project } from "../../classes/project";
+import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-project-overview',
@@ -10,8 +11,14 @@ export class ProjectOverviewComponent implements OnInit {
 
   @Input() projects: Project[];
 
+  @Output() projectEmitter = new EventEmitter();
+
   constructor() { }
   
+  gotoProjectDetailView(project){
+    this.projectEmitter.emit(project);
+  }
+
   ngOnInit() {
   }
 

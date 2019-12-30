@@ -143,6 +143,10 @@ export class RootComponent implements OnInit {
     this.setState(globals.rootStates.USECASESELECTION);
   }
 
+  gotoProjectDetailView(project: Project){
+    console.log(project);
+  }
+
   showService(service: Service) {
     this.services = [service];
     this.setState(globals.rootStates.SERVICEPREVIEW);
