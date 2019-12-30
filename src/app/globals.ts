@@ -61,4 +61,5 @@ export const viewStates = {
  * the backend's server location
  */
 export const serverLocation = "http://217.160.64.83:81"; // LIVE VERSION
+
 //export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING

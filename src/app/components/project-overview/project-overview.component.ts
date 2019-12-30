@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { Project } from "../../classes/project";
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-project-overview',
