@@ -1,0 +1,35 @@
+.project-tile {
+    display: flex;
+    margin: 10px 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    background-color: white;
+}
+.project-tile:nth-child(even){
+    background-color: #1e88e51f;
+}
+.project-tile .index {
+    width: 80px;
+    text-align: center;
+    font-size: 3.4rem;
+    display: table-cell;
+    align-self: center;
+    color: #1565c0;
+}
+.project-tile .tile-content {
+    flex: 1;
+    padding: 10px;
+}
+.project-tile .tile-content .headline {
+    font-size: 2.5rem;
+}
+.project-tile .tile-content .subtitle {
+    display: block;
+}
+.project-tile .tile-content .subtitle.no-content {
+    color: lightgray;
+}
+.project-tile .tile-content .dates {
+    display: block;
+    font-size: 1rem;
+    content: lightgrey;
+}

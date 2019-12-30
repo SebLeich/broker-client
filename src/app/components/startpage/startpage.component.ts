@@ -92,11 +92,9 @@ export class StartpageComponent implements OnInit {
         return false;
       },
       "click": function (input: StartpageComponent) {
-        console.log("HEREEE", input);
-        //input.setState(globals.rootStates.MANAGESERVICES);
+        input.setState(globals.rootStates.PROJECTOVERVIEW);
       },
       "counter": function(input: StartpageComponent): number {
-        console.log(input);
         return input.projectCounter;
       }
     }),

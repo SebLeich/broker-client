@@ -5,6 +5,8 @@ export class Project {
   id: number;
   projectTitle: string;
   projectDescription: string;
+  created: string;
+  lastModified: string;
   matchingResponse: MatchingResponse[] = [];
   sessionState: SessionState = new SessionState();
   userId: string;
@@ -16,6 +18,8 @@ export class Project {
       this.id = object.projectId;
       this.projectTitle = object.projectTitle;
       this.projectDescription = object.projectDescription;
+      this.created = object.created;
+      this.lastModified = object.lastModified;
       for (var index in object.matchingResponse) {
         var o = object.matchingResponse[index];
         this.matchingResponse.push(new MatchingResponse(o, null, null));

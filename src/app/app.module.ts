@@ -48,6 +48,7 @@ import { ServiceModelPipe } from "./pipes/servicemodel.pipe";
 import { ManageServicesComponent } from "./components/manage-services/manage-services.component";
 import { ServicePreviewComponent } from "./components/service-preview/service-preview.component";
 import { ChartsModule } from "ng2-charts";
+import { ProjectOverviewComponent } from './components/project-overview/project-overview.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ChartsModule } from "ng2-charts";
     ServiceProviderPipe,
     ServiceModelPipe,
     ManageServicesComponent,
-    ServicePreviewComponent
+    ServicePreviewComponent,
+    ProjectOverviewComponent
   ],
   imports: [
     BrowserModule,

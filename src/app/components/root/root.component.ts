@@ -360,6 +360,7 @@ export class RootComponent implements OnInit {
    * the method sets the applications state
    */
   setState(state: number) {
+    console.log(state);
     this.state = state;
   }
   /**

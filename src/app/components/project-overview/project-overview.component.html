@@ -1,0 +1,29 @@
+<section class="section l-primary-bg" style="color: white;">
+    <span class="super-section-header">Ihre Projekte</span>
+    <div style="padding-bottom: 20px;">Erhalten Sie einen Überblick über ihre Projekte</div>
+</section>
+<div class="content responsive-container">
+    <div *ngIf="projects.length > 0; else noProjects">
+        <div *ngFor="let project of projects; let i = index" class="project-tile">
+            <div class="index">
+                {{ i }}
+            </div>
+            <div class="tile-content">
+                <span class="headline">
+                    {{ project.projectTitle }}
+                </span>
+                <span *ngIf="project.projectDescription != null; else noDescription" class="subtitle">
+                    {{ project.projectDescription }}
+                </span>
+                <ng-template #noDescription>
+                    <span class="subtitle no-content">
+                        Keine Beschreibung angegeben
+                    </span>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <ng-template #noProjects>
+        Keine Projekte gefunden
+    </ng-template>
+</div>
