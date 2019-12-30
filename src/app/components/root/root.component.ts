@@ -116,37 +116,53 @@ export class RootComponent implements OnInit {
       return true;
     return false;
   }
-
+  /**
+   * the method returns the current project
+   */
   get currentProject(): Project {
     var p = this.projects.find(x => x.id == this.projectPointer);
     if (typeof (p) == "undefined") return null;
     return p;
   }
-
+  /**
+   * the method sets the current project
+   */
+  set currentProject(project: Project) {
+    var p = this.projects.find(x => x.id == project.id);
+    if (typeof (p) == "undefined") this.projects.push(project);
+    this.projectPointer = project.id;
+  }
+  /**
+   * the method returns the current project counter
+   */
   get projectCounter(): number {
     return this.projects.length;
   }
-
   /**
    * the method shows the service detail view
-   * @param service 
    */
   editService(service: Service) {
     this.currentService = service;
     console.log(this.currentService);
     this.setState(globals.rootStates.SERVICEDETAILVIEW);
   }
-
+  /**
+   * the method navigates to the use case selection view
+   */
   gotoUseCaseSelection(search: SearchVector) {
-    console.log(search);
     this.searchVector = search;
     this.setState(globals.rootStates.USECASESELECTION);
   }
-
+  /**
+   * the method navigates to the project detail view
+   */
   gotoProjectDetailView(project: Project){
-    console.log(project);
+    this.currentProject = project;
+    this.setState(globals.rootStates.PROJECTDETAILVIEW);
   }
-
+  /**
+   * the method navigates to the service preview
+   */
   showService(service: Service) {
     this.services = [service];
     this.setState(globals.rootStates.SERVICEPREVIEW);

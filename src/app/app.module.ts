@@ -36,7 +36,6 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { StartpageComponent } from "./components/startpage/startpage.component";
 import { UseCaseSelectionComponent } from "./components/use-case-selection/use-case-selection.component";
 import { RegisterComponent } from "./components/register/register.component";
-import { ProjectDescriptionComponent } from "./components/project-description/project-description.component";
 import { LoginComponent } from "./components/login/login.component";
 import { DetailviewComponent } from "./components/detailview/detailview.component";
 import { UserDetailComponent } from "./components/user-detail/user-detail.component";
@@ -57,7 +56,6 @@ import { ProjectOverviewComponent } from './components/project-overview/project-
     StartpageComponent,
     UseCaseSelectionComponent,
     RegisterComponent,
-    ProjectDescriptionComponent,
     LoginComponent,
     DetailviewComponent,
     UserDetailComponent,
