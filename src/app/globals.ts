@@ -16,7 +16,8 @@ export const rootStates = {
   HTTPERROR: 9,
   SERVICEPREVIEW: 10,
   HTTPLOGINERROR: 11,
-  PROJECTOVERVIEW: 12
+  PROJECTOVERVIEW: 12,
+  PROJECTEDITVIEW: 13
 };
 /**
  * the enumeration contains all entity framework service classes

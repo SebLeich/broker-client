@@ -379,8 +379,11 @@ tr.mat-row:last-child td.mat-cell {
 }
 
 .super-section-header {
-  font-size: 3rem;
+  font-size: 3rem !important;
   display: block;
+}
+
+.super-section-header:not(:focus) {
   text-transform: uppercase;
 }
 
@@ -446,4 +449,128 @@ tr.mat-row:last-child td.mat-cell {
   width: 100%;
   z-index: -1;
   background: #dbdbdb;
+}
+
+// NEW STYLE
+
+.head-tile {
+  position: relative;
+  padding: 40px 60px;
+  background-color: white;
+  margin: 10px;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  color: #404040;
+}
+.head-tile .icon {
+  position: absolute;
+  right: 0px;
+  height: auto;
+  width: auto;
+  font-size: 6rem;
+  bottom: 20px;
+  right: 20px;
+  color: #dfdfdf;
+}
+.head-tile .head-button {
+  margin-top: 15px;
+  background-color: #114887;
+  color: white;
+  padding: 5px 10px;
+  border: 0px;
+  font-size: 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 3px;
+}
+.head-tile .head-button.icon-button {
+  vertical-align: top;
+}
+.head-tile .head-button.icon-button .ic {
+  font-size: 1rem;
+  height: auto;
+  width: auto;
+  vertical-align: inherit;
+}
+.head-tile .date-container {
+  margin-top: 5px;
+}
+.head-tile .date-container .date {
+  background-color: #11488745;
+  padding: 2px 4px;
+  margin-top: 2px;
+  border-radius: 2px;
+}
+.project-tile {
+  display: flex;
+  margin: 10px 10px;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  background-color: #134a899c;
+  cursor: pointer;
+  border: 3px solid #ffffffd4;
+  position: relative;
+}
+.project-tile.warning {
+  background-color: #ff940080;
+}
+.project-tile .index {
+  width: 80px;
+  text-align: center;
+  font-size: 3rem;
+  display: table-cell;
+  align-self: center;
+  color: white;
+}
+.project-tile .tile-content {
+  flex: 1;
+  padding: 30px 60px 30px 30px;
+  border-left: 10px solid #114887;
+  background-color: white;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.project-tile .tile-content.warning {
+  border-color: #ff9400;
+}
+.project-tile .tile-content .headline {
+  font-size: 1.8rem;
+  color: #4b4b4b;
+}
+.project-tile:hover {
+  border-color: white;
+}
+.project-tile:hover .tile-content .headline {
+  color: grey;
+}
+.project-tile .control-icon {
+  position: absolute;
+  right: 10px;
+  font-size: 3rem;
+  top: calc(50% - 1.5rem);
+  height: auto;
+  width: auto;
+  color: #dfdfdf;
+}
+.project-tile .control-icon.success {
+  color: rgb(80, 136, 80);
+}
+.project-tile:hover .control-icon:not(.success) {
+  color: #114887;
+}
+.project-tile:hover .control-icon.success {
+  color: rgb(118, 170, 118);
+}
+.project-tile .tile-content .subtitle {
+  display: block;
+  color: #114887;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+}
+.project-tile .tile-content .subtitle.no-content {
+  color: lightgray;
+}
+.project-tile .tile-content .dates {
+  display: block;
+  font-size: 1rem;
+  content: lightgrey;
 }

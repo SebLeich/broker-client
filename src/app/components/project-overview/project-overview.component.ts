@@ -14,6 +14,10 @@ export class ProjectOverviewComponent implements OnInit {
 
   constructor() { }
   
+  createProject(){
+    console.log("NEW PROJEKT");
+  }
+
   gotoProjectDetailView(project){
     this.projectEmitter.emit(project);
   }

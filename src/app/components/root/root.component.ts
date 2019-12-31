@@ -42,8 +42,6 @@ export class RootComponent implements OnInit {
 
   projectPointer: number = 0;
 
-  searchVector: SearchVector = null;
-
   certificates: Certificate[] = [];
   dataLocations: DataLocation[] = [];
   deploymentInformation: DeploymentInformation[] = [];
@@ -143,14 +141,20 @@ export class RootComponent implements OnInit {
    */
   editService(service: Service) {
     this.currentService = service;
-    console.log(this.currentService);
     this.setState(globals.rootStates.SERVICEDETAILVIEW);
+  }
+  /**
+   * the method shows the project edit view
+   */
+  editProject(project: Project) {
+    this.currentProject = project;
+    this.setState(globals.rootStates.PROJECTEDITVIEW);
   }
   /**
    * the method navigates to the use case selection view
    */
   gotoUseCaseSelection(search: SearchVector) {
-    this.searchVector = search;
+    this.currentProject.searchVector = search;
     this.setState(globals.rootStates.USECASESELECTION);
   }
   /**
@@ -159,6 +163,13 @@ export class RootComponent implements OnInit {
   gotoProjectDetailView(project: Project){
     this.currentProject = project;
     this.setState(globals.rootStates.PROJECTDETAILVIEW);
+  }
+  /**
+   * the method navigates to the project detail view
+   */
+  gotoProjectEditView(project: Project){
+    this.currentProject = project;
+    this.setState(globals.rootStates.PROJECTEDITVIEW);
   }
   /**
    * the method navigates to the service preview
@@ -380,7 +391,6 @@ export class RootComponent implements OnInit {
    * the method sets the applications state
    */
   setState(state: number) {
-    console.log(state);
     this.state = state;
   }
   /**

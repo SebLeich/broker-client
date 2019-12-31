@@ -19,6 +19,7 @@ import {
 } from '../../classes/service';
 import { MatStepper } from '@angular/material/stepper';
 import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, IService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
+import { Project } from 'src/app/classes/project';
 
 @Component({
   selector: 'app-use-case-selection',
@@ -36,6 +37,10 @@ export class UseCaseSelectionComponent implements OnInit {
    * the current step pointer
    */
   currentInd = 0;
+  /**
+   * the internal project attribute
+   */
+  private _proj: Project = null;
   /**
    * the method returns the current step
    */
@@ -71,12 +76,30 @@ export class UseCaseSelectionComponent implements OnInit {
    */
   private _storageTypes: StorageType[] = [];
   /**
-   * the search vector
+   * returns the search vector
    */
-  public searchVector: SearchVector = null;
-
-  @Input() set searchPreSet(vector: SearchVector){
-    if(vector != null && typeof(vector) != "undefined") this.searchVector = vector;
+  public get searchVector(): SearchVector {
+    return this.currentProject.searchVector;
+  }
+  /**
+   * sets the search vector
+   */
+  public set searchVector(searchVector: SearchVector) {
+    this.currentProject.searchVector = searchVector;
+  }
+  /**
+   * the method sets the current project
+   */
+  @Input() set currentProject(currentProject: Project){
+    //if(currentProject == null) currentProject = new Project();
+    //this._proj = currentProject;
+    this._proj = new Project();
+  };
+  /**
+   * the method returns the current project
+   */
+  get currentProject() : Project {
+    return this._proj;
   }
   /**
    * the input value sets the internal data location list
@@ -398,7 +421,6 @@ export class UseCaseSelectionComponent implements OnInit {
    */
   get currentTypeSelectionFg() {
     var output = {};
-    console.log(this.searchVector);
     if(this.searchVector.types.includes(BlockStorageService)){
       output["bls"] = true;
     } else {
@@ -445,7 +467,7 @@ export class UseCaseSelectionComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder
   ) {
-    if(this.searchVector == null) this.searchVector = new SearchVector();
+    if(this.currentProject == null) this.currentProject = new Project();
     else {
       this.stepper.next();
     }

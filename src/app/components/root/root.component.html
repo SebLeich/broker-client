@@ -6,11 +6,10 @@
     [canCreateServices]="canCreateServices" (logoutEmitter)="logout()" (stateEmitter)="setState($event)" (loginDialogEmitter)="openLoginDialog()"
     (registerDialogEmitter)="openRegisterDialog()" (userDialogEmitter)="openUserDetailDialog()" [projectCounter]="projectCounter">
 </app-startpage>
-<app-project-description *ngIf="state == 2" (stateEmitter)="setState($event)"
-    (titleAndDescriptionEmitter)="project.setTitleAndDescription($event)"></app-project-description>
+<app-project-detailview *ngIf="state == 2" [currentProject]=currentProject (projectEmitter)="editProject($event)"></app-project-detailview>
 <app-use-case-selection
     *ngIf="state == 1" 
-    [searchPreSet]="searchvector"
+    [(currentProject)]="currentProject"
     (searchEmitter)="sendSearch($event)"
     [certificates]=certificates
     [dataLocations]=dataLocations
@@ -34,8 +33,9 @@
     <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices
         (serviceEmitter)=editService($event) (servicePreviewEmitter)=showService($event) (stateEmitter)="setState($event)"></app-manage-services>
 </div>
-<app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event) (gotoUseCaseEmitter)=gotoUseCaseSelection($event) (projectEmitter)=persistProject($event)></app-service-preview>
+<app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event) (gotoUseCaseEmitter)=gotoUseCaseSelection($event) (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
 <app-project-overview *ngIf="state == 12" [projects]=projects (projectEmitter)=gotoProjectDetailView($event)></app-project-overview>
+<app-project-editview *ngIf="state == 13" [currentProject]=currentProject (projectEmitter)=persistProject($event)></app-project-editview>
 
 <!-- HELPER AREAS -->
 <div *ngIf="state == 8" class="load-placeholder">

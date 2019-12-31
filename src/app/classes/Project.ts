@@ -1,15 +1,17 @@
 import { SessionState } from './metadata';
-import { MatchingResponse } from './search';
+import { MatchingResponse, SearchVector } from './search';
 
 export class Project {
   id: number;
   projectTitle: string;
   projectDescription: string;
+  searchVector: SearchVector = null;
   created: string;
   lastModified: string;
   matchingResponse: MatchingResponse[] = [];
   sessionState: SessionState = new SessionState();
   userId: string;
+  icon: string = "layers";
 
   constructor(object?) {
     this.matchingResponse = [];
@@ -18,6 +20,9 @@ export class Project {
       this.id = object.projectId;
       this.projectTitle = object.projectTitle;
       this.projectDescription = object.projectDescription;
+      if(typeof(object.searchVector) != "undefined" && object.searchVector != null){
+        this.searchVector = object.searchVector;
+      }
       this.created = object.created;
       this.lastModified = object.lastModified;
       for (var index in object.matchingResponse) {
@@ -26,6 +31,7 @@ export class Project {
       }
     } else {
       this.sessionState.isNew = true;
+      this.searchVector = new SearchVector();
     }
   }
 

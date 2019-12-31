@@ -48,6 +48,8 @@ import { ManageServicesComponent } from "./components/manage-services/manage-ser
 import { ServicePreviewComponent } from "./components/service-preview/service-preview.component";
 import { ChartsModule } from "ng2-charts";
 import { ProjectOverviewComponent } from './components/project-overview/project-overview.component';
+import { ProjectDetailviewComponent } from './components/project-detailview/project-detailview.component';
+import { ProjectEditviewComponent } from './components/project-editview/project-editview.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { ProjectOverviewComponent } from './components/project-overview/project-
     ServiceModelPipe,
     ManageServicesComponent,
     ServicePreviewComponent,
-    ProjectOverviewComponent
+    ProjectOverviewComponent,
+    ProjectDetailviewComponent,
+    ProjectEditviewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<form class="form">
+    <div class="content responsive-container">
+        <section class="head-tile">
+            <mat-form-field class="width">
+                <input matInput class="super-section-header" placeholder="Titel" name="projectTitle"
+                    [(ngModel)]="currentProject.projectTitle">
+            </mat-form-field>
+            <mat-form-field class="width">
+                <textarea matInput class="subtitle" placeholder="Beschreibung" name="projectDescription"
+                    [(ngModel)]="currentProject.projectDescription"></textarea>
+            </mat-form-field>
+            <mat-icon class="icon">{{ currentProject.icon }}</mat-icon>
+            <button *ngIf="currentProject.created != null; else postProject" class="head-button" (click)="persistProject()">Änderungen speichern</button>
+            <ng-template #postProject>
+                <button class="head-button" (click)="persistProject()">Projekt anlegen</button>
+            </ng-template>
+        </section>
+    </div>
+</form>

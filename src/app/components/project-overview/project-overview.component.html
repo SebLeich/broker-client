@@ -29,6 +29,19 @@
         </div>
     </div>
     <ng-template #noProjects>
-        Keine Projekte gefunden
+        <div class="project-tile warning" (click)="createProject()">
+            <div class="index">
+                <mat-icon style="font-size: 3rem; height: auto; width: auto;">warning</mat-icon>
+            </div>
+            <div class="tile-content warning">
+                <span class="headline">
+                    Keine Projekte gefunden
+                </span>
+                <span class="subtitle">
+                    Klicken Sie um ein neues Projekt anzulegen
+                </span>
+                <mat-icon class="control-icon success">add</mat-icon>
+            </div>
+        </div>
     </ng-template>
 </div>

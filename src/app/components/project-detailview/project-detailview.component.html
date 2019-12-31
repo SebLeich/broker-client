@@ -1,0 +1,34 @@
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container">
+    <section class="head-tile">
+        <span class="super-section-header">{{ currentProject.projectTitle }}</span>
+        <div>{{ currentProject.projectDescription }}</div>
+        <mat-icon class="icon">{{ currentProject.icon }}</mat-icon>
+        <div class="date-container">
+            <span class="date">Erstellt: {{ currentProject.created|date:'dd.MM.yyyy HH:mm' }} | Bearbeitet:
+                {{ currentProject.lastModified|date:'dd.MM.yyyy HH:mm' }}</span>
+        </div>
+        <button class="head-button icon-button" (click)="editProject()">
+            <mat-icon class="ic">edit</mat-icon>
+        </button>
+        <button class="head-button">Zurück zur Projektübersicht</button>
+    </section>
+    <div *ngIf="currentProject.searchVector != null; else noSearchVector" class="project-tile">
+        <div class="tile-content">
+            <span class="headline">Suchvektor</span>
+        </div>
+    </div>
+    <ng-template #noSearchVector>
+        <div class="project-tile">
+            <div class="tile-content">
+                <span class="headline">Keine Suchkriterien</span>
+                <span class="subtitle">
+                    Klicken um Suchkriterien festzulegen
+                </span>
+                <mat-icon class="control-icon">add</mat-icon>
+            </div>
+        </div>
+    </ng-template>
+</div>

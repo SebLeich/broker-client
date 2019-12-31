@@ -3,7 +3,7 @@
     <div style="padding-bottom: 20px;">Finden Sie Schritt für Schritt ihren passenden Cloud Service</div>
     <mat-icon class="settings-control">settings</mat-icon>
 </section>
-<div style="height: calc(100% - 290px); overflow-y: auto;">
+<div style="height: calc(100% - 260px); overflow-y: auto;">
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <mat-step *ngFor="let step of steps" [stepControl]="step.fg" style="overflow: inherit;">
             <form [formGroup]="step.fg">
