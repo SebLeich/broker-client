@@ -1,0 +1,42 @@
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container" style="height: calc(100% - 80px);">
+    <section class="head-tile">
+        <span class="super-section-header">Service suchen</span>
+        <div>Finden Sie ihren passenden Cloud Storage Service</div>
+        <mat-icon class="icon">filter_drama</mat-icon>
+        <button class="head-button" (click)="gotoProjectOverview()">Einstellungen</button>
+    </section>
+    <div class="project-tile" style="min-height: calc(100% - 265px); padding-bottom: 45px;">
+        <mat-horizontal-stepper style="width: 100%;" [linear]="isLinear" #stepper>
+            <mat-step *ngFor="let step of steps" [stepControl]="step.fg" style="overflow: inherit;">
+                <form [formGroup]="step.fg">
+                    <ng-template matStepLabel>{{ step.headline }}</ng-template>
+                    <ng-container *ngFor="let element of step.options" class="selection-parent">
+                        <div *ngIf="isPreviewElement(element) && element.condition(this)"
+                            class="preview-option active-{{ element.isActive }}">
+                            <div>
+                                <mat-icon class="preview-icon">{{ element.icon }}</mat-icon>
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="headline">{{ element.text }}</div>
+                                <div class="description">{{ element.desc }}</div>
+                            </div>
+                            <div class="preview-selection-control">
+                                <mat-checkbox color="primary" class="option-label" formControlName={{element.id}}
+                                    disabled={{!element.isActive}}></mat-checkbox>
+                            </div>
+                        </div>
+                    </ng-container>
+                </form>
+            </mat-step>
+        </mat-horizontal-stepper>
+        <div class="project-tile-footer">
+            <span style="flex: 1;"></span>
+            <div *ngIf="canGoPrevious()" class="footer-btn warning" (click)="previous()">Zurück</div>
+            <div *ngIf="this.currentStep.fg.valid && canGoForward()" class="footer-btn default" (click)="next()">Weiter</div>
+            <div class="footer-btn success">Service suchen</div>
+        </div>
+    </div>
+</div>

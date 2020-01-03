@@ -1,0 +1,32 @@
+.preview-option {
+    padding: 10px;
+    display: flex;
+}
+
+.preview-option .preview-icon {
+    font-size: 2.2rem;
+    height: auto;
+    width: auto;
+    padding-right: 15px;
+    color: #114887;
+}
+
+.preview-option .headline {
+    border-bottom: 2px solid white;
+    font-size: 1.8rem;
+}
+
+.preview-option .description {
+    margin: 10px 0px;
+    color: rgb(61, 61, 61);
+}
+
+.preview-option .preview-selection-control {
+    align-self: center;
+    padding-left: 20px;
+}
+
+.preview-option:hover .headline {
+    border-color: #114887;
+    transition: all 1s;
+}

@@ -101,6 +101,7 @@ export class UseCaseSelecionStep {
 
 export class SelectionComponent {
     public id: number;
+    public icon: string;
     public text: string;
     public desc: string;
     public isActive: boolean;
@@ -113,6 +114,7 @@ export class SelectionComponent {
     constructor(object: any){
         this.id = object.id;
         this.text = object.text;
+        this.icon = object.icon;
         this.desc = object.desc;
         this.isActive = object.isActive;
         this.uC = object.uC;
@@ -131,6 +133,13 @@ export class UseCaseMultipleSelectionOption extends SelectionComponent {
 }
 
 export class UseCaseSelectionOption extends SelectionComponent {
+    constructor(object: any){
+        super(object);
+    }
+}
+
+
+export class PreviewOption extends SelectionComponent {
     constructor(object: any){
         super(object);
     }

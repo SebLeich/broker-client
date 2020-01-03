@@ -50,6 +50,7 @@ import { ChartsModule } from "ng2-charts";
 import { ProjectOverviewComponent } from './components/project-overview/project-overview.component';
 import { ProjectDetailviewComponent } from './components/project-detailview/project-detailview.component';
 import { ProjectEditviewComponent } from './components/project-editview/project-editview.component';
+import { SearchvectorEditviewComponent } from './components/searchvector-editview/searchvector-editview.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ProjectEditviewComponent } from './components/project-editview/project-
     ServicePreviewComponent,
     ProjectOverviewComponent,
     ProjectDetailviewComponent,
-    ProjectEditviewComponent
+    ProjectEditviewComponent,
+    SearchvectorEditviewComponent
   ],
   imports: [
     BrowserModule,

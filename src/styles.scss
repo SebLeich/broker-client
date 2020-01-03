@@ -634,3 +634,41 @@ tr.mat-row:last-child td.mat-cell {
 .project-tile .interaction-icon-container .inner-tile.interaction-icon {
   cursor: pointer;
 }
+.project-tile-footer {
+  height: 45px;
+  width: calc(100% - 5px);
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: white;
+  display: flex;
+  padding-right: 5px;
+}
+.project-tile-footer .footer-btn {
+  height: 40px;
+  display: inline-block;
+  line-height: 40px;
+  padding: 0px 15px;
+  margin-left: 2px;
+  color: white;
+  border-radius: 3px;
+  font-size: 1rem;
+}
+.project-tile-footer .footer-btn.success {
+  background-color: #5a9542;
+}
+.project-tile-footer .footer-btn.default {
+  background-color: #114887;
+}
+.project-tile-footer .footer-btn.warning {
+  background-color: #ffae00;
+}
+.project-tile-footer .footer-btn.success:hover {
+  background-color: #85b472;
+}
+.project-tile-footer .footer-btn.default:hover {
+  background-color: #4974a5;
+}
+.project-tile-footer .footer-btn.warning:hover {
+  background-color: #ffcb5c;
+}
