@@ -99,7 +99,7 @@ export class BackEndService {
             var output = [];
             for (var index in result) {
                 var r = result[index];
-                output.push(new MatchingResponse(r.match, new type(r.content), input));
+                output.push(new MatchingResponse(r.match));
             }
             successcallback(output);
         }, (error) => {

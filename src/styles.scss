@@ -442,7 +442,7 @@ tr.mat-row:last-child td.mat-cell {
 }
 
 .component-background {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   height: 100%;
@@ -573,4 +573,49 @@ tr.mat-row:last-child td.mat-cell {
   display: block;
   font-size: 1rem;
   content: lightgrey;
+}
+
+.project-tile .inner-tile {
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  color: #434343;
+  border-radius: 5px;
+  margin-top: 5px;
+  position: relative;
+}
+
+.project-tile .inner-tile .inner-tile-headline {
+  font-size: 1.5rem;
+}
+
+.project-tile .inner-tile .inner-tile-headline .counter {
+  padding: 5px;
+  background-color: #114887;
+  color: white;
+}
+
+.project-tile .inner-tile .inner-tile-footer {
+  font-size: .8rem;
+}
+
+.project-tile .headline .counter {
+  font-size: 1rem;
+  padding: 3px 7px;
+  background-color: #87a3c6;
+  border-radius: 50px;
+  color: white;
+  font-family: monospace;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.project-tile .inner-tile .inner-tile-fav-icon {
+  position: absolute;
+  right: 20px;
+  top: calc(50% - 12px);
+  color: lightgrey;
+}
+
+.project-tile .inner-tile .inner-tile-fav-icon.favored {
+  color: gold;
 }

@@ -162,7 +162,7 @@ export class ServicePreviewComponent implements OnInit {
    * the method navigates to the use case selection step
    */
   toUseCaseSelection(){
-    this.gotoUseCaseEmitter.emit(this.matchingResponse.search);
+    this.gotoUseCaseEmitter.emit();
   }
 
   categorySetted(): boolean {
@@ -194,11 +194,12 @@ export class ServicePreviewComponent implements OnInit {
     parent.appendChild(element);
     var ctx = element.getContext("2d");
     var m = this.matchingResponse;
+    var percentage = Math.round((this.matchingResponse.points / this.project.total) * 100);
     new Chart(ctx, {
       type: "doughnut",
       data: {
         datasets: [{
-          data: [m.percentage, (100 - m.percentage)],
+          data: [percentage, (100 - percentage)],
           backgroundColor: ["rgba(102, 174, 19, 0.55)", "#dfdfdf"],
           borderColor: ["rgb(255,255,255)", "rgb(255,255,255)"],
           borderWidth: 5
@@ -224,7 +225,7 @@ export class ServicePreviewComponent implements OnInit {
         responsive: true
       }
     });
-    (<HTMLDivElement>document.getElementById("fulfillment-dough-counter")).innerHTML = m.percentage.toString() + "%";
+    (<HTMLDivElement>document.getElementById("fulfillment-dough-counter")).innerHTML = percentage.toString() + "%";
   }
 
   renderNet(){
@@ -248,79 +249,79 @@ export class ServicePreviewComponent implements OnInit {
         label: "Erfüllungsgrad Suchanfrage"
       }
     ];
-    if(m.prioritycategories > 0){
+    if(this.project.categoryPriority > 0){
       labels.push("Kategorie");
-      data[0].data.push(m.prioritycategories);
+      data[0].data.push(this.project.categoryPriority);
       data[1].data.push(m.pointscategories);
     }
-    if(m.prioritycertificates > 0){
+    if(this.project.certificatePriority > 0){
       labels.push("Zertifizierung");
-      data[0].data.push(m.prioritycertificates);
+      data[0].data.push(this.project.certificatePriority);
       data[1].data.push(m.pointscertificates);
     }
-    if(m.prioritydatalocations > 0){
+    if(this.project.dataLocationPriority > 0){
       labels.push("Lokalisierung");
-      data[0].data.push(m.prioritydatalocations);
+      data[0].data.push(this.project.dataLocationPriority);
       data[1].data.push(m.pointsdatalocations);
     }
-    if(m.prioritydeploymentinfos > 0){
+    if(this.project.deploymentInfoPriority > 0){
       labels.push("Deployment");
-      data[0].data.push(m.prioritydeploymentinfos);
+      data[0].data.push(this.project.deploymentInfoPriority);
       data[1].data.push(m.pointsdeploymentinfos);
     }
-    if(m.prioritymodels > 0){
+    if(this.project.modelPriority > 0){
       labels.push("Servicemodell");
-      data[0].data.push(m.prioritymodels);
+      data[0].data.push(this.project.modelPriority);
       data[1].data.push(m.pointsmodels);
     }
-    if(m.priorityproviders > 0){
+    if(this.project.providerPriority > 0){
       labels.push("Anbieter");
-      data[0].data.push(m.priorityproviders);
+      data[0].data.push(this.project.providerPriority);
       data[1].data.push(m.pointsproviders);
     }
-    if(m.prioritystoragetype > 0){
+    if(this.project.storageTypePriority > 0){
       labels.push("Speichertyp");
-      data[0].data.push(m.prioritystoragetype);
+      data[0].data.push(this.project.storageTypePriority);
       data[1].data.push(m.pointsstoragetype);
     }
-    if(m.priorityHasAutomatedSynchronisation > 0){
+    if(this.project.automatedSynchronisationPriority > 0){
       labels.push("Automatische Synchronisierung");
-      data[0].data.push(m.priorityHasAutomatedSynchronisation);
+      data[0].data.push(this.project.automatedSynchronisationPriority);
       data[1].data.push(m.pointsHasAutomatedSynchronisation);
     }
-    if(m.priorityHasDBMS > 0){
+    if(this.project.dBMSPriority > 0){
       labels.push("Datenbankmanagementsystem");
-      data[0].data.push(m.priorityHasDBMS);
+      data[0].data.push(this.project.dBMSPriority);
       data[1].data.push(m.pointsHasDBMS);
     }
-    if(m.priorityHasFileCompression > 0){
+    if(this.project.fileCompressionPriority > 0){
       labels.push("Dateikomprimierung");
-      data[0].data.push(m.priorityHasFileCompression);
+      data[0].data.push(this.project.fileCompressionPriority);
       data[1].data.push(m.pointsHasFileCompression);
     }
-    if(m.priorityHasFileEncryption > 0){
+    if(this.project.fileEncryptionPriority > 0){
       labels.push("Dateiverschlüsselung");
-      data[0].data.push(m.priorityHasFileEncryption);
+      data[0].data.push(this.project.fileEncryptionPriority);
       data[1].data.push(m.pointsHasFileEncryption);
     }
-    if(m.priorityHasFileLocking > 0){
+    if(this.project.fileLockingPriority > 0){
       labels.push("Filelocking");
-      data[0].data.push(m.priorityHasFileLocking);
+      data[0].data.push(this.project.fileLockingPriority);
       data[1].data.push(m.pointsHasFileLocking);
     }
-    if(m.priorityHasFilePermissions > 0){
+    if(this.project.filePermissionsPriority > 0){
       labels.push("Dateiberechtigungen");
-      data[0].data.push(m.priorityHasFilePermissions);
+      data[0].data.push(this.project.filePermissionsPriority);
       data[1].data.push(m.pointsHasFilePermissions);
     }
-    if(m.priorityHasFileVersioning > 0){
+    if(this.project.fileVersioningPriority > 0){
       labels.push("Dateiversionierung");
-      data[0].data.push(m.priorityHasFileVersioning);
+      data[0].data.push(this.project.fileVersioningPriority);
       data[1].data.push(m.pointsHasFileVersioning);
     }
-    if(m.priorityHasReplication > 0){
+    if(this.project.replicationPriority > 0){
       labels.push("Replikation");
-      data[0].data.push(m.priorityHasReplication);
+      data[0].data.push(this.project.replicationPriority);
       data[1].data.push(m.pointsHasReplication);
     }
     new Chart(ctx, {

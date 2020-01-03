@@ -1,3 +1,20 @@
 .width {
     width: calc(100% - 80px);
 }
+
+.category-table {
+    width: 100%;
+}
+
+.category-table tr th:nth-child(1), .category-table tr td:nth-child(1) {
+    width: 1px;
+    padding-right: 30px;
+}
+
+.category-table .value {
+    margin-right: 5px;
+}
+
+.category-table td .value:not(:last-child)::after {
+    content: ",";
+}

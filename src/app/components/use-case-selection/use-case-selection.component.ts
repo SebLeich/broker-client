@@ -18,8 +18,7 @@ import {
   StorageType
 } from '../../classes/service';
 import { MatStepper } from '@angular/material/stepper';
-import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, IService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
-import { Project } from 'src/app/classes/project';
+import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
 
 @Component({
   selector: 'app-use-case-selection',
@@ -40,7 +39,7 @@ export class UseCaseSelectionComponent implements OnInit {
   /**
    * the internal project attribute
    */
-  private _proj: Project = null;
+  private _searchVector: SearchVector = new SearchVector();
   /**
    * the method returns the current step
    */
@@ -79,27 +78,13 @@ export class UseCaseSelectionComponent implements OnInit {
    * returns the search vector
    */
   public get searchVector(): SearchVector {
-    return this.currentProject.searchVector;
+    return this._searchVector;
   }
   /**
    * sets the search vector
    */
   public set searchVector(searchVector: SearchVector) {
-    this.currentProject.searchVector = searchVector;
-  }
-  /**
-   * the method sets the current project
-   */
-  @Input() set currentProject(currentProject: Project){
-    //if(currentProject == null) currentProject = new Project();
-    //this._proj = currentProject;
-    this._proj = new Project();
-  };
-  /**
-   * the method returns the current project
-   */
-  get currentProject() : Project {
-    return this._proj;
+    this._searchVector = searchVector;
   }
   /**
    * the input value sets the internal data location list
@@ -467,10 +452,7 @@ export class UseCaseSelectionComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder
   ) {
-    if(this.currentProject == null) this.currentProject = new Project();
-    else {
-      this.stepper.next();
-    }
+
   }
   /**
    * the method returns whether the given object is an instance of the given object

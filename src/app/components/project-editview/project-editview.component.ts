@@ -12,7 +12,15 @@ export class ProjectEditviewComponent implements OnInit {
 
   @Output() projectEmitter = new EventEmitter();
 
+  @Output() gotoDetailViewEmitter = new EventEmitter();
+
+  columns: string[] = ["category", "value"];
+
   constructor() { }
+
+  gotoProjectDetailView(){
+    this.gotoDetailViewEmitter.emit(this.currentProject);
+  }
 
   log(){
     console.log(this.currentProject);

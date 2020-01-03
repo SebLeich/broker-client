@@ -61,6 +61,17 @@ export const viewStates = {
 /**
  * the backend's server location
  */
-export const serverLocation = "http://217.160.64.83:81"; // LIVE VERSION
+//export const serverLocation = "http://217.160.64.83:81"; // LIVE VERSION
 
-//export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING
+export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING
+
+export const designColors = [
+  { full: "rgb(186, 6, 48)", med: "rgba(186, 6, 48, .6)", light: "rgba(186, 6, 48, .3)" },
+  { full: "rgb(255, 108, 10)", med: "rgba(255, 108, 10, .6)", light: "rgba(255, 108, 10, .3)" },
+  { full: "rgb(17, 70, 135)", med: "rgba(17, 70, 135, .6)", light: "rgba(17, 70, 135, .3)" },
+  { full: "rgb(46, 148, 87)", med: "rgba(46, 148, 87, .6)", light: "rgba(46, 148, 87, .3)" },
+  { full: "rgb(124, 232, 74)", med: "rgba(124, 232, 74, .6)", light: "rgba(124, 232, 74, .3)" },
+  { full: "rgb(156, 19, 194)", med: "rgba(156, 19, 194, .6)", light: "rgba(156, 19, 194, .3)" },
+  { full: "rgb(194, 19, 98)", med: "rgba(194, 19, 98, .6)", light: "rgba(194, 19, 98, .3)" },
+  { full: "rgb(28, 189, 167)", med: "rgba(28, 189, 167, .6)", light: "rgba(28, 189, 167, .3)" }
+];

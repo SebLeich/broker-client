@@ -3,39 +3,39 @@
     (userDialogEmitter)="openUserDetailDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
 </app-navbar>
 <app-startpage *ngIf="state == 0" [isLoggedIn]="isLoggedIn" [canAdministrate]="canAdministrate"
-    [canCreateServices]="canCreateServices" (logoutEmitter)="logout()" (stateEmitter)="setState($event)" (loginDialogEmitter)="openLoginDialog()"
-    (registerDialogEmitter)="openRegisterDialog()" (userDialogEmitter)="openUserDetailDialog()" [projectCounter]="projectCounter">
+    [canCreateServices]="canCreateServices" (logoutEmitter)="logout()" (stateEmitter)="setState($event)"
+    (loginDialogEmitter)="openLoginDialog()" (registerDialogEmitter)="openRegisterDialog()"
+    (userDialogEmitter)="openUserDetailDialog()" [projectCounter]="projectCounter">
 </app-startpage>
-<app-project-detailview *ngIf="state == 2" [currentProject]=currentProject (projectEmitter)="editProject($event)"></app-project-detailview>
-<app-use-case-selection
-    *ngIf="state == 1" 
-    [(currentProject)]="currentProject"
-    (searchEmitter)="sendSearch($event)"
-    [certificates]=certificates
-    [dataLocations]=dataLocations
-    [deploymentInformation]=deploymentInformation
-    [serviceCategories]=serviceCategories
-    [serviceModels]=serviceModels
-    [serviceProviders]=serviceProviders
->
+<app-project-detailview *ngIf="state == 2" [currentProject]=currentProject (projectEmitter)="editProject($event)" (gotoOverviewEmitter)="gotoProjectOverview()">
+</app-project-detailview>
+<app-use-case-selection *ngIf="state == 1" (searchEmitter)="sendSearch($event)" [certificates]=certificates
+    [dataLocations]=dataLocations [deploymentInformation]=deploymentInformation [serviceCategories]=serviceCategories
+    [serviceModels]=serviceModels [serviceProviders]=serviceProviders>
 </app-use-case-selection>
-<app-detailview *ngIf="state == 4" [isLoggedIn]=isLoggedIn [currentService]=currentService [serviceCategories]=serviceCategories
-    [serviceProviders]=serviceProviders (persistService)="persistService($event)"></app-detailview>
+<app-detailview *ngIf="state == 4" [isLoggedIn]=isLoggedIn [currentService]=currentService
+    [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders (persistService)="persistService($event)">
+</app-detailview>
 <div *ngIf="state == 5">
     <app-administration *ngIf="canRegisterRoles; else noAccessRight" [currentUser]=username
         [canRegisterRoles]=canRegisterRoles [canEditSecurityGuidelines]=canEditSecurityGuidelines></app-administration>
 </div>
 <div *ngIf="state == 6">
     <app-add-service *ngIf="canCreateServices; else noAccessRight" [isLoggedIn]=isLoggedIn
-        [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders (persistService)="persistService($event)"></app-add-service>
+        [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders
+        (persistService)="persistService($event)"></app-add-service>
 </div>
 <div *ngIf="state == 7">
     <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices
-        (serviceEmitter)=editService($event) (servicePreviewEmitter)=showService($event) (stateEmitter)="setState($event)"></app-manage-services>
+        (serviceEmitter)=editService($event) (servicePreviewEmitter)=showService($event)
+        (stateEmitter)="setState($event)"></app-manage-services>
 </div>
-<app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event) (gotoUseCaseEmitter)=gotoUseCaseSelection($event) (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
-<app-project-overview *ngIf="state == 12" [projects]=projects (projectEmitter)=gotoProjectDetailView($event)></app-project-overview>
-<app-project-editview *ngIf="state == 13" [currentProject]=currentProject (projectEmitter)=persistProject($event)></app-project-editview>
+<app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event)
+    (gotoUseCaseEmitter)=gotoUseCaseSelection() (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
+<app-project-overview *ngIf="state == 12" [projects]=projects (projectEmitter)=gotoProjectDetailView($event)>
+</app-project-overview>
+<app-project-editview *ngIf="state == 13" [currentProject]=currentProject (projectEmitter)=persistProject($event) (gotoDetailViewEmitter)=gotoProjectDetailView($event)>
+</app-project-editview>
 
 <!-- HELPER AREAS -->
 <div *ngIf="state == 8" class="load-placeholder">
@@ -45,7 +45,8 @@
 <div *ngIf="state == 9" class="http-error">
     <div>
         <div style="display: block; text-align: center; margin-top: 10vh;">
-            <mat-icon style="font-size: 10rem; width: auto; height: auto; color: rgb(199, 36, 36);">not_interested</mat-icon>
+            <mat-icon style="font-size: 10rem; width: auto; height: auto; color: rgb(199, 36, 36);">not_interested
+            </mat-icon>
         </div>
         <h1 style="text-align: center; font-size: 3rem;">{{ errorMsg }}</h1>
         <div style="text-align: center; margin: 0 30vw; color: grey;">
@@ -53,19 +54,23 @@
         </div>
         <div style="text-align: center; margin: 40px 30vw; color: #000000; font-weight: bold;">
             <div *ngIf="errorState == 0">
-                Der Fehlercode besagt, dass der Server nicht erreichbar ist. Überprüfen Sie Ihre Internetverbindung und den Serverstatus.
+                Der Fehlercode besagt, dass der Server nicht erreichbar ist. Überprüfen Sie Ihre Internetverbindung und
+                den Serverstatus.
             </div>
             <div *ngIf="errorState == 400">
                 Der Fehlercode besagt, dass ihre Anforderung fehlerhaft war.
             </div>
             <div *ngIf="errorState == 401">
-                Der Fehlercode besagt, dass sie nicht authentifiziert sind. Bitte melden Sie sich an um die Ressource zu verwenden.
+                Der Fehlercode besagt, dass sie nicht authentifiziert sind. Bitte melden Sie sich an um die Ressource zu
+                verwenden.
             </div>
             <div *ngIf="errorState == 403">
-                Der Fehlercode besagt, dass sie zwar authentifiziert aber nicht autorisiert sind. Überprüfen Sie ihre Rollenberechtigungen.
+                Der Fehlercode besagt, dass sie zwar authentifiziert aber nicht autorisiert sind. Überprüfen Sie ihre
+                Rollenberechtigungen.
             </div>
             <div *ngIf="errorState == 404">
-                Der Fehlercode besagt, dass die angefragte Ressource nicht zur Verfügung steht. Dies tritt z.B. auf, wenn kein Service mit den entsprechenden Eigenschaften existiert.
+                Der Fehlercode besagt, dass die angefragte Ressource nicht zur Verfügung steht. Dies tritt z.B. auf,
+                wenn kein Service mit den entsprechenden Eigenschaften existiert.
             </div>
         </div>
         <div *ngIf="errorInner != ''" style="text-align: center; margin: 10px 30vw; color: #2a5596;">

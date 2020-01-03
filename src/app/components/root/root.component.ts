@@ -153,8 +153,7 @@ export class RootComponent implements OnInit {
   /**
    * the method navigates to the use case selection view
    */
-  gotoUseCaseSelection(search: SearchVector) {
-    this.currentProject.searchVector = search;
+  gotoUseCaseSelection() {
     this.setState(globals.rootStates.USECASESELECTION);
   }
   /**
@@ -170,6 +169,12 @@ export class RootComponent implements OnInit {
   gotoProjectEditView(project: Project){
     this.currentProject = project;
     this.setState(globals.rootStates.PROJECTEDITVIEW);
+  }
+  /**
+   * the method navigates to the project detail view
+   */
+  gotoProjectOverview(){
+    this.setState(globals.rootStates.PROJECTOVERVIEW);
   }
   /**
    * the method navigates to the service preview

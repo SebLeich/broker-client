@@ -1,10 +1,12 @@
-import { IService, BlockStorageService, DirectAttachedService, ObjectStorageService, OnlineDriveStorageService, KeyValueStorageService, RelationalDatabaseService } from './service';
+import { IService, BlockStorageService, DirectAttachedService, ObjectStorageService, OnlineDriveStorageService, KeyValueStorageService, RelationalDatabaseService, Service } from './service';
 import { FormGroup } from '@angular/forms';
 
 export class MatchingResponse {
     public id: number;
-    public service: any;
-    public search: SearchVector;
+    public created: string;
+    public note: string;
+    public isFavored: boolean = false;
+    public service: Service;
     public projectId: number;
     public pointscategories: number = 0;
     public pointscertificates: number = 0;
@@ -21,64 +23,64 @@ export class MatchingResponse {
     public pointsHasDBMS: number = 0;
     public pointsHasFileVersioning: number = 0;
     public pointsHasAutomatedSynchronisation: number = 0;
-    public prioritycategories: number = 0;
-    public prioritycertificates: number = 0;
-    public prioritydatalocations: number = 0;
-    public prioritydeploymentinfos: number = 0;
-    public prioritymodels: number = 0;
-    public priorityproviders: number = 0;
-    public prioritystoragetype: number = 0;
-    public priorityHasFileEncryption: number = 0;
-    public priorityHasReplication: number = 0;
-    public priorityHasFilePermissions: number = 0;
-    public priorityHasFileLocking: number = 0;
-    public priorityHasFileCompression: number = 0;
-    public priorityHasDBMS: number = 0;
-    public priorityHasFileVersioning: number = 0;
-    public priorityHasAutomatedSynchronisation: number = 0;
-
-    constructor(match, content, search) {
-        this.service = content;
-        this.search = search;
-        if (match != null && typeof (match) != "undefined") {
-            this.id = match.id,
-            this.projectId = match.projectId;
-            this.pointscategories = match.pointscategories;
-            this.pointscertificates = match.pointscertificates;
-            this.pointsdatalocations = match.pointsdatalocations;
-            this.pointsdeploymentinfos = match.pointsdeploymentinfos;
-            this.pointsmodels = match.pointsmodels;
-            this.pointsproviders = match.pointsproviders;
-            this.pointsstoragetype = match.pointsstoragetype;
-            this.pointsHasFileEncryption = match.pointsHasFileEncryption;
-            this.pointsHasReplication = match.pointsHasReplication;
-            this.pointsHasFilePermissions = match.pointsHasFilePermissions;
-            this.pointsHasFileLocking = match.pointsHasFileLocking;
-            this.pointsHasFileCompression = match.pointsHasFileCompression;
-            this.pointsHasDBMS = match.pointsHasDBMS;
-            this.pointsHasFileVersioning = match.pointsHasFileVersioning;
-            this.pointsHasAutomatedSynchronisation = match.pointsHasAutomatedSynchronisation;
-            this.prioritycategories = match.prioritycategories;
-            this.prioritycertificates = match.prioritycertificates;
-            this.prioritydatalocations = match.prioritydatalocations;
-            this.prioritydeploymentinfos = match.prioritydeploymentinfos;
-            this.prioritymodels = match.prioritymodels;
-            this.priorityproviders = match.priorityproviders;
-            this.prioritystoragetype = match.prioritystoragetype;
-            this.priorityHasFileEncryption = match.priorityHasFileEncryption;
-            this.priorityHasReplication = match.priorityHasReplication;
-            this.priorityHasFilePermissions = match.priorityHasFilePermissions;
-            this.priorityHasFileLocking = match.priorityHasFileLocking;
-            this.priorityHasFileCompression = match.priorityHasFileCompression;
-            this.priorityHasDBMS = match.priorityHasDBMS;
-            this.priorityHasFileVersioning = match.priorityHasFileVersioning;
-            this.priorityHasAutomatedSynchronisation = match.priorityHasAutomatedSynchronisation;
+    public serviceType: string;
+    
+    constructor(object) {
+        if (object != null && typeof (object) != "undefined") {
+            this.id = object.id,
+                this.created = object.created;
+            this.note = object.note;
+            this.isFavored = object.isFavored;
+            this.projectId = object.projectId;
+            this.pointscategories = object.pointscategories;
+            this.pointscertificates = object.pointscertificates;
+            this.pointsdatalocations = object.pointsdatalocations;
+            this.pointsdeploymentinfos = object.pointsdeploymentinfos;
+            this.pointsmodels = object.pointsmodels;
+            this.pointsproviders = object.pointsproviders;
+            this.pointsstoragetype = object.pointsstoragetype;
+            this.pointsHasFileEncryption = object.pointsHasFileEncryption;
+            this.pointsHasReplication = object.pointsHasReplication;
+            this.pointsHasFilePermissions = object.pointsHasFilePermissions;
+            this.pointsHasFileLocking = object.pointsHasFileLocking;
+            this.pointsHasFileCompression = object.pointsHasFileCompression;
+            this.pointsHasDBMS = object.pointsHasDBMS;
+            this.pointsHasFileVersioning = object.pointsHasFileVersioning;
+            this.pointsHasAutomatedSynchronisation = object.pointsHasAutomatedSynchronisation;
+            this.initService(object.service, object.serviceType);
         }
     }
 
-    get percentage(): number {
-        if (this.total == 0) return 0;
-        return Math.round((this.points / this.total) * 100);
+    initService(service: any, type: string) {
+        switch (type) {
+            case "BlockStorageService":
+                this.serviceType = type;
+                this.service = new BlockStorageService(service);
+                break;
+            case "DirectAttachedStorageService":
+                this.serviceType = type;
+                this.service = new DirectAttachedService(service);
+                break;
+            case "KeyValueStorageService":
+                this.serviceType = type;
+                this.service = new KeyValueStorageService(service);
+                break;
+            case "ObjectStorageService":
+                this.serviceType = type;
+                this.service = new ObjectStorageService(service);
+                break;
+            case "OnlineDriveStorageService":
+                this.serviceType = type;
+                this.service = new OnlineDriveStorageService(service);
+                break;
+            case "RelationalDatabaseStorageService":
+                this.serviceType = type;
+                this.service = new RelationalDatabaseService(service);
+                break;
+            default:
+                console.log("unknown service type: " + type);
+                break;
+        }
     }
 
     get points(): number {
@@ -90,7 +92,7 @@ export class MatchingResponse {
             this.pointsmodels +
             this.pointsproviders +
             this.pointsstoragetype +
-            this.priorityHasAutomatedSynchronisation +
+            this.pointsHasAutomatedSynchronisation +
             this.pointsHasDBMS +
             this.pointsHasFileCompression +
             this.pointsHasFileEncryption +
@@ -101,24 +103,9 @@ export class MatchingResponse {
         );
     }
 
-    get total(): number {
-        return (
-            this.prioritycategories +
-            this.prioritycertificates +
-            this.prioritydatalocations +
-            this.prioritydeploymentinfos +
-            this.prioritymodels +
-            this.priorityproviders +
-            this.prioritystoragetype +
-            this.priorityHasAutomatedSynchronisation +
-            this.priorityHasDBMS +
-            this.priorityHasFileCompression +
-            this.priorityHasFileEncryption +
-            this.priorityHasFileLocking +
-            this.priorityHasFilePermissions +
-            this.priorityHasFileVersioning +
-            this.priorityHasReplication
-        );
+    get title() {
+        if (this.service == null) return "Eintrag ohne Service";
+        return this.service.toString();
     }
 
     toServerObject(): any {
@@ -131,29 +118,14 @@ export class MatchingResponse {
             "pointsmodels": this.pointsmodels,
             "pointsproviders": this.pointsproviders,
             "pointsstoragetype": this.pointsstoragetype,
-            "pointsHasFileEncryption": this.priorityHasFileEncryption,
-            "pointsHasReplication": this.priorityHasReplication,
+            "pointsHasFileEncryption": this.pointsHasFileEncryption,
+            "pointsHasReplication": this.pointsHasReplication,
             "pointsHasFilePermissions": this.pointsHasFilePermissions,
             "pointsHasFileLocking": this.pointsHasFileLocking,
             "pointsHasFileCompression": this.pointsHasFileCompression,
             "pointsHasDBMS": this.pointsHasDBMS,
             "pointsHasFileVersioning": this.pointsHasFileVersioning,
             "pointsHasAutomatedSynchronisation": this.pointsHasAutomatedSynchronisation,
-            "prioritycategories": this.prioritycategories,
-            "prioritycertificates": this.prioritycertificates,
-            "prioritydatalocations": this.prioritydatalocations,
-            "prioritydeploymentinfos": this.prioritydeploymentinfos,
-            "prioritymodels": this.prioritymodels,
-            "priorityproviders": this.priorityproviders,
-            "prioritystoragetype": this.prioritystoragetype,
-            "priorityHasFileEncryption": this.priorityHasFileEncryption,
-            "priorityHasReplication": this.priorityHasReplication,
-            "priorityHasFilePermissions": this.priorityHasFilePermissions,
-            "priorityHasFileLocking": this.priorityHasFileLocking,
-            "priorityHasFileCompression": this.priorityHasFileCompression,
-            "priorityHasDBMS": this.priorityHasDBMS,
-            "priorityHasFileVersioning": this.priorityHasFileVersioning,
-            "priorityHasAutomatedSynchronisation": this.priorityHasAutomatedSynchronisation,
             "projectId": this.projectId
         };
     }

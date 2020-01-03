@@ -10,7 +10,7 @@
     <div *ngIf="projects.length > 0; else noProjects">
         <div *ngFor="let project of projects; let i = index" class="project-tile" (click)="gotoProjectDetailView(project)">
             <div class="index">
-                {{ i }}
+                {{ i+1 }}
             </div>
             <div class="tile-content">
                 <span class="headline">

@@ -13,10 +13,32 @@
                     [(ngModel)]="currentProject.projectDescription"></textarea>
             </mat-form-field>
             <mat-icon class="icon">{{ currentProject.icon }}</mat-icon>
-            <button *ngIf="currentProject.created != null; else postProject" class="head-button" (click)="persistProject()">Änderungen speichern</button>
-            <ng-template #postProject>
-                <button class="head-button" (click)="persistProject()">Projekt anlegen</button>
-            </ng-template>
+            <div>
+                <button class="head-button" (click)="gotoProjectDetailView()">Zurück</button>
+                <button *ngIf="currentProject.created != null; else postProject" class="head-button" (click)="persistProject()">Änderungen speichern</button>
+                <ng-template #postProject>
+                    <button class="head-button" (click)="persistProject()">Projekt anlegen</button>
+                </ng-template>
+            </div>
         </section>
+        <div class="project-tile">
+            <div class="tile-content">
+                <span class="headline">Suchwerte</span>
+                <table mat-table [dataSource]="currentProject.valueMapping()" class="category-table">
+                    <ng-container matColumnDef="category">
+                      <th mat-header-cell *matHeaderCellDef>Kategorie</th>
+                      <td mat-cell *matCellDef="let element"> {{ element.category }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="value">
+                      <th mat-header-cell *matHeaderCellDef>Werte</th>
+                      <td mat-cell *matCellDef="let element">
+                          <span *ngFor="let value of element.value" class="value">{{value.toString()}}</span>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+                </table>
+            </div>
+        </div>
     </div>
 </form>
