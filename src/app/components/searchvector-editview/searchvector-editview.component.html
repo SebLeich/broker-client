@@ -28,6 +28,41 @@
                                     disabled={{!element.isActive}}></mat-checkbox>
                             </div>
                         </div>
+                        <div *ngIf="isMultipleSelectionOption(element) && element.condition(this)"
+                            class="option active-{{ element.isActive }}">
+                            <div class="stretch">
+                                <div *ngIf="element.desc != null" class="head-title">
+                                    {{ element.desc }}
+                                </div>
+                                <mat-form-field class="width multiple-selection-option">
+                                    <mat-label>{{ element.text }}</mat-label>
+                                    <mat-select formControlName={{element.id}} multiple>
+                                        <mat-option *ngFor="let option of element.list" [value]="option.id">{{ option }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="element.hasPriority" class="fixed-width">
+                                Gewichtung
+                                <mat-slider class="slider-width" [max]="3" [min]="0" [thumbLabel]=true
+                                    formControlName="{{element.id}}-prio"></mat-slider>
+                            </div>
+                        </div>
+                        <div *ngIf="isSelectionOption(element) && element.condition(this)"
+                            class="option active-{{ element.isActive }}">
+                            <div class="stretch">
+                                <div *ngIf="element.desc != null" class="head-title">
+                                    {{ element.desc }}
+                                </div>
+                                <mat-checkbox color="primary" class="option-label" formControlName={{element.id}}
+                                    disabled={{!element.isActive}}>{{ element.text }}</mat-checkbox>
+                            </div>
+                            <div *ngIf="element.hasPriority" class="fixed-width">
+                                Gewichtung
+                                <mat-slider class="slider-width" [max]="3" [min]="0" [thumbLabel]=true
+                                    formControlName="{{element.id}}-prio"></mat-slider>
+                            </div>
+                        </div>
                     </ng-container>
                 </form>
             </mat-step>
@@ -35,8 +70,9 @@
         <div class="project-tile-footer">
             <span style="flex: 1;"></span>
             <div *ngIf="canGoPrevious()" class="footer-btn warning" (click)="previous()">Zurück</div>
-            <div *ngIf="this.currentStep.fg.valid && canGoForward()" class="footer-btn default" (click)="next()">Weiter</div>
-            <div class="footer-btn success">Service suchen</div>
+            <div *ngIf="this.currentStep.fg.valid && canGoForward()" class="footer-btn default" (click)="next()">Weiter
+            </div>
+            <div *ngIf="this.isSearchable" class="footer-btn success">Service suchen</div>
         </div>
     </div>
 </div>

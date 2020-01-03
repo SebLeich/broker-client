@@ -9,10 +9,6 @@
 </app-startpage>
 <app-project-detailview *ngIf="state == 2" [currentProject]=currentProject (projectEmitter)="editProject($event)" (gotoOverviewEmitter)="gotoProjectOverview()">
 </app-project-detailview>
-<app-use-case-selection *ngIf="state == 100" (searchEmitter)="sendSearch($event)" [certificates]=certificates
-    [dataLocations]=dataLocations [deploymentInformation]=deploymentInformation [serviceCategories]=serviceCategories
-    [serviceModels]=serviceModels [serviceProviders]=serviceProviders>
-</app-use-case-selection>
 <app-searchvector-editview *ngIf="state == 1" (searchEmitter)="sendSearch($event)" [certificates]=certificates
 [dataLocations]=dataLocations [deploymentInformation]=deploymentInformation [serviceCategories]=serviceCategories
 [serviceModels]=serviceModels [serviceProviders]=serviceProviders></app-searchvector-editview>

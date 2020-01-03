@@ -34,7 +34,6 @@ import { BackEndService } from "./services/backend-service";
 import { RootComponent } from "./components/root/root.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { StartpageComponent } from "./components/startpage/startpage.component";
-import { UseCaseSelectionComponent } from "./components/use-case-selection/use-case-selection.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
 import { DetailviewComponent } from "./components/detailview/detailview.component";
@@ -57,7 +56,6 @@ import { SearchvectorEditviewComponent } from './components/searchvector-editvie
     RootComponent,
     NavbarComponent,
     StartpageComponent,
-    UseCaseSelectionComponent,
     RegisterComponent,
     LoginComponent,
     DetailviewComponent,
