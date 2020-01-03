@@ -34,7 +34,7 @@
     (gotoUseCaseEmitter)=gotoUseCaseSelection() (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
 <app-project-overview *ngIf="state == 12" [projects]=projects (projectEmitter)=gotoProjectDetailView($event)>
 </app-project-overview>
-<app-project-editview *ngIf="state == 13" [currentProject]=currentProject (projectEmitter)=persistProject($event) (gotoDetailViewEmitter)=gotoProjectDetailView($event)>
+<app-project-editview *ngIf="state == 13" [currentProject]=currentProject (projectEmitter)=persistProject($event) (gotoDetailViewEmitter)=gotoProjectDetailView($event) (deleteMatchingResponseEmitter)=deleteMatchingResponse($event)>
 </app-project-editview>
 
 <!-- HELPER AREAS -->

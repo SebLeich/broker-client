@@ -21,6 +21,10 @@ export class ProjectDetailviewComponent implements OnInit {
 
   constructor() { }
 
+  deleteMatchingResponse(response: MatchingResponse){
+    console.log(response);
+  }
+
   editProject(){
     this.projectEmitter.emit(this.currentProject);
   }

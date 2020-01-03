@@ -580,7 +580,7 @@ tr.mat-row:last-child td.mat-cell {
   background-color: #f8f8f8;
   color: #434343;
   border-radius: 5px;
-  margin-top: 5px;
+  margin-top: 7px;
   position: relative;
 }
 
@@ -609,13 +609,28 @@ tr.mat-row:last-child td.mat-cell {
   vertical-align: middle;
 }
 
-.project-tile .inner-tile .inner-tile-fav-icon {
+.project-tile .inner-tile .interaction-icon-container {
   position: absolute;
   right: 20px;
   top: calc(50% - 12px);
+}
+
+.project-tile .inner-tile .inner-tile-fav-icon {
   color: lightgrey;
 }
 
 .project-tile .inner-tile .inner-tile-fav-icon.favored {
   color: gold;
+}
+
+.project-tile .inner-tile .inner-tile-delete-icon {
+  color: rgb(153, 54, 54);
+}
+
+.project-tile .inner-tile .inner-tile-delete-icon:hover {
+  color: rgb(180, 93, 93);
+}
+
+.project-tile .interaction-icon-container .inner-tile.interaction-icon {
+  cursor: pointer;
 }

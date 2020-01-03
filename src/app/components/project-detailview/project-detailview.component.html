@@ -28,14 +28,14 @@
                 {{ log({ p: currentProject, v: currentProject.valueMapping() }) }}
                 <table mat-table [dataSource]="currentProject.valueMapping()" class="category-table">
                     <ng-container matColumnDef="category">
-                      <th mat-header-cell *matHeaderCellDef>Kategorie</th>
-                      <td mat-cell *matCellDef="let element"> {{ element.category }} </td>
+                        <th mat-header-cell *matHeaderCellDef>Kategorie</th>
+                        <td mat-cell *matCellDef="let element"> {{ element.category }} </td>
                     </ng-container>
                     <ng-container matColumnDef="value">
-                      <th mat-header-cell *matHeaderCellDef>Werte</th>
-                      <td mat-cell *matCellDef="let element">
-                          <span *ngFor="let value of element.value" class="value">{{value.toString()}}</span>
-                      </td>
+                        <th mat-header-cell *matHeaderCellDef>Werte</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span *ngFor="let value of element.value" class="value">{{value.toString()}}</span>
+                        </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="columns"></tr>
                     <tr mat-row *matRowDef="let row; columns: columns;"></tr>
@@ -75,14 +75,16 @@
                 <div class="inner-tile-footer">
                     Abgerufen: {{ response.created|date:'dd.MM.yyyy HH:mm' }}
                 </div>
-                <mat-icon *ngIf="response.isFavored; else notFavored" class="inner-tile-fav-icon favored">
-                    star
-                </mat-icon>
-                <ng-template #notFavored>
-                    <mat-icon class="inner-tile-fav-icon">
-                        star_border
+                <div class="interaction-icon-container">
+                    <mat-icon *ngIf="response.isFavored; else notFavored" class="inner-tile-fav-icon favored">
+                        star
                     </mat-icon>
-                </ng-template>
+                    <ng-template #notFavored>
+                        <mat-icon class="inner-tile-fav-icon">
+                            star_border
+                        </mat-icon>
+                    </ng-template>
+                </div>
             </div>
         </div>
     </div>
@@ -105,4 +107,23 @@
             </div>
         </div>
     </ng-template>
+    <div class="project-tile">
+        <div class="tile-content">
+            <span class="headline">Sonstige Einstellungen</span>
+            <div class="flex-box">
+                <div>Minimaler Matching Prozentsatz</div>
+                <div>
+                    <mat-slider disabled [max]=100 [min]=0 [step]=10 [thumbLabel]=true
+                        [(ngModel)]="currentProject.minMatchingPercentage" style="width: 100%;">
+                    </mat-slider>
+                </div>
+            </div>
+            <div class="flex-box">
+                <div>Alte Suchresultate löschen</div>
+                <div>
+                    <mat-checkbox disabled [(ngModel)]="currentProject.minMatchingPercentage"></mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

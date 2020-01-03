@@ -14,3 +14,16 @@
 .category-table td .value:not(:last-child)::after {
     content: ",";
 }
+
+.flex-box {
+    display: flex;
+    align-items: center;
+}
+
+.flex-box > :nth-child(1) {
+    margin-right: 10px;
+}
+
+.flex-box > :nth-child(2) {
+    flex: 1;
+}

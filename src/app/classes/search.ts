@@ -83,6 +83,10 @@ export class MatchingResponse {
         }
     }
 
+    static get location(): string {
+        return "api/matchingresponse";
+    }
+
     get points(): number {
         return (
             this.pointscategories +

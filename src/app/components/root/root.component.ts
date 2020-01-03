@@ -137,6 +137,18 @@ export class RootComponent implements OnInit {
     return this.projects.length;
   }
   /**
+   * the method removes a matching response from the database
+   */
+  deleteMatchingResponse(response: MatchingResponse){
+    this.service.delete(MatchingResponse.location + "/" + response.id).subscribe((result) => {
+      var p = this.projects.find(x => x.id == response.projectId);
+      if(p != null && typeof(p) != "undefined"){
+        var i = p.matchingResponse.indexOf(response);
+        if(i > -1) p.matchingResponse.splice(i, 1);
+      }
+    });
+  } 
+  /**
    * the method shows the service detail view
    */
   editService(service: Service) {

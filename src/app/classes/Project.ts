@@ -9,6 +9,8 @@ export class Project {
   created: string;
   lastModified: string;
   userId: string;
+  minMatchingPercentage: number = 50;
+  deleteOldSearches: boolean = true;
   matchingResponse: MatchingResponse[] = [];
   categories: ServiceCategory[] = [];
   certificates: Certificate[] = [];
@@ -54,6 +56,8 @@ export class Project {
       if(typeof(object.created) != "undefined" && object.created != null) this.created = object.created;
       if(typeof(object.lastModified) != "undefined" && object.lastModified != null) this.lastModified = object.lastModified;
       if(typeof(object.userId) != "undefined" && object.userId != null) this.userId = object.userId;
+      if(typeof(object.minMatchingPercentage) != "undefined" && object.minMatchingPercentage != null) this.minMatchingPercentage = object.minMatchingPercentage;
+      if(typeof(object.deleteOldSearches) != "undefined" && object.deleteOldSearches != null) this.deleteOldSearches = object.deleteOldSearches;
       if(typeof(object.color) != "undefined" && object.color != null) this.color = object.color;
       if(typeof(object.categoryPriority) != "undefined" && object.categoryPriority != null) this.categoryPriority = object.categoryPriority;
       if(typeof(object.certificatePriority) != "undefined" && object.certificatePriority != null) this.certificatePriority = object.certificatePriority;
