@@ -1,5 +1,5 @@
 import { SessionState } from './metadata';
-import { MatchingResponse } from './search';
+import { MatchingResponse, SearchVector } from './search';
 import { ServiceCategory, Certificate, ServiceModel, DataLocation, DeploymentInformation, StorageType, Provider } from './service';
 
 export class Project {
@@ -23,32 +23,30 @@ export class Project {
   sessionState: SessionState = new SessionState();
   icon: string = "layers";
   color: string = "grey";
-  categoryPriority: number;
-  certificatePriority: number;
-  dataLocationPriority: number;
-  deploymentInfoPriority: number;
-  modelPriority: number;
-  providerPriority: number;
-  storageTypePriority: number;
-  fileEncryptionPriority: number;
+  categoryPriority: number = 0;
+  certificatePriority: number = 0;
+  dataLocationPriority: number = 0;
+  deploymentInfoPriority: number = 0;
+  modelPriority: number = 0;
+  providerPriority: number = 0;
+  storageTypePriority: number = 0;
+  fileEncryptionPriority: number = 0;
   hasFileEncryption: boolean;
-  replicationPriority: number;
+  replicationPriority: number = 0;
   hasFileReplication: boolean;
-  filePermissionsPriority: number;
+  filePermissionsPriority: number = 0;
   hasFilePermissions: boolean;
-  fileLockingPriority: number;
+  fileLockingPriority: number = 0;
   hasFileLocking: boolean;
-  fileCompressionPriority: number;
+  fileCompressionPriority: number = 0;
   hasFileCompression: boolean;
-  dBMSPriority: number;
+  dBMSPriority: number = 0;
   hasDBMS: boolean;
-  fileVersioningPriority: number;
+  fileVersioningPriority: number = 0;
   hasFileVersioning: boolean;
-  automatedSynchronisationPriority: number;
+  automatedSynchronisationPriority: number = 0;
   hasAutomatedSynchronisation: boolean;
   constructor(object?) {
-    console.log(object);
-    this.matchingResponse = [];
     if (object != null && typeof (object) != "undefined") {
       if(typeof(object.projectId) != "undefined" && object.projectId != null) this.id = object.projectId;
       if(typeof(object.projectTitle) != "undefined" && object.projectTitle != null) this.projectTitle = object.projectTitle;
@@ -83,7 +81,6 @@ export class Project {
       if(typeof(object.hasFileVersioning) != "undefined" && object.hasFileVersioning != null) this.hasFileVersioning = object.hasFileVersioning;
       if(typeof(object.automatedSynchronisationPriority) != "undefined" && object.automatedSynchronisationPriority != null) this.automatedSynchronisationPriority = object.automatedSynchronisationPriority;
       if(typeof(object.hasAutomatedSynchronisation) != "undefined" && object.hasAutomatedSynchronisation != null) this.hasAutomatedSynchronisation = object.hasAutomatedSynchronisation;
-      this.sessionState.isNew = false;
       for (var index in object.matchingResponse) {
         var o = object.matchingResponse[index];
         this.matchingResponse.push(new MatchingResponse(o));
@@ -121,7 +118,93 @@ export class Project {
       this.sessionState.isNew = true;
     }
   }
-
+  /**
+   * the method overwrites the project priorities with the search vector values
+   */
+  applySearchVector(
+    searchVector: SearchVector,
+    categories: ServiceCategory[],
+    certificates: Certificate[],
+    dataLocations: DataLocation[],
+    deploymentInfos: DeploymentInformation[],
+    providers: Provider[],
+    storageTypes: StorageType[]
+  ){
+    if(searchVector.categories.isRelevant()){
+      this.categoryPriority = searchVector.categories.priority;
+      searchVector.categories.value.forEach((value) => {
+        var cat = categories.find(x => x.id == value);
+        if(cat != null && typeof(cat) != "undefined" && !this.categories.includes(cat)) this.categories.push(cat);
+      });
+    }
+    if(searchVector.certificates.isRelevant()){
+      this.certificatePriority = searchVector.certificates.priority;
+      searchVector.certificates.value.forEach((value) => {
+        var cert = certificates.find(x => x.id == value);
+        if(cert != null && typeof(cert) != "undefined" && !this.certificates.includes(cert)) this.certificates.push(cert);
+      });
+    }
+    if(searchVector.hasDBMS.isRelevant()){
+      this.dBMSPriority = searchVector.hasDBMS.priority;
+      this.hasDBMS = searchVector.hasDBMS.value;
+    }
+    if(searchVector.datalocations.isRelevant()){
+      this.dataLocationPriority = searchVector.datalocations.priority;
+      searchVector.datalocations.value.forEach((value) => {
+        var dl = dataLocations.find(x => x.id == value);
+        if(dl != null && typeof(dl) != "undefined" && !this.dataLocations.includes(dl)) this.dataLocations.push(dl);
+      });
+    }
+    if(searchVector.deploymentinfos.isRelevant()){
+      this.deploymentInfoPriority = searchVector.deploymentinfos.priority;
+      searchVector.deploymentinfos.value.forEach((value) => {
+        var di = deploymentInfos.find(x => x.id == value);
+        if(di != null && typeof(di) != "undefined" && !this.deploymentInfos.includes(di)) this.deploymentInfos.push(di);
+      });
+    }
+    if(searchVector.hasFileCompression.isRelevant()){
+      this.fileCompressionPriority = searchVector.hasFileCompression.priority;
+      this.hasFileCompression = searchVector.hasFileCompression.value;
+    }
+    if(searchVector.hasFileEncryption.isRelevant()){
+      this.fileEncryptionPriority = searchVector.hasFileEncryption.priority;
+      this.hasFileEncryption = searchVector.hasFileEncryption.value;
+    }
+    if(searchVector.hasFileLocking.isRelevant()){
+      this.fileLockingPriority = searchVector.hasFileLocking.priority;
+      this.hasFileLocking = searchVector.hasFileLocking.value;
+    }
+    if(searchVector.hasFilePermissions.isRelevant()){
+      this.filePermissionsPriority = searchVector.hasFilePermissions.priority;
+      this.hasFilePermissions = searchVector.hasFilePermissions.value;
+    }
+    if(searchVector.hasFileVersioning.isRelevant()){
+      this.fileVersioningPriority = searchVector.hasFileVersioning.priority;
+      this.hasFileVersioning = searchVector.hasFileVersioning.value;
+    }
+    if(searchVector.providers.isRelevant()){
+      this.providerPriority = searchVector.providers.priority;
+      searchVector.providers.value.forEach((value) => {
+        var p = providers.find(x => x.id == value);
+        if(p != null && typeof(p) != "undefined" && !this.providers.includes(p)) this.providers.push(p);
+      });
+    }
+    if(searchVector.hasReplication.isRelevant()){
+      this.replicationPriority = searchVector.hasReplication.priority;
+      this.hasFileReplication = searchVector.hasReplication.value;
+    }
+    if(searchVector.storageType.isRelevant()){
+      this.storageTypePriority = searchVector.storageType.priority;
+      searchVector.storageType.value.forEach((value) => {
+        var s = storageTypes.find(x => x.id == value);
+        if(s != null && typeof(s) != "undefined" && !this.storageTypes.includes(s)) this.storageTypes.push(s);
+      });
+    }
+    console.log(this.certificatePriority);
+  }
+  /**
+   * the method returns whether the instance has searchable attributes
+   */
   hasSearchValues(){
     if(this.automatedSynchronisationPriority > 0) return true;
     if(this.categoryPriority > 0) return true;
@@ -140,15 +223,21 @@ export class Project {
     if(this.storageTypePriority > 0) return true;
     return false;
   }
-
+  /**
+   * the method returns the server location
+   */
   get location(): string{
     return Project.location;
   }
-
+  /**
+   * the method returns the server location
+   */
   static get location(): string {
     return "api/project";
   }
-
+  /**
+   * the method returns the server location
+   */
   sortedValues(){
     var output = [];
     if(this.automatedSynchronisationPriority > 0) output.push({

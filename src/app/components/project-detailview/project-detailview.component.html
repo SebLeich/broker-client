@@ -25,7 +25,6 @@
         <div class="project-tile">
             <div class="tile-content">
                 <span class="headline">Suchwerte</span>
-                {{ log({ p: currentProject, v: currentProject.valueMapping() }) }}
                 <table mat-table [dataSource]="currentProject.valueMapping()" class="category-table">
                     <ng-container matColumnDef="category">
                         <th mat-header-cell *matHeaderCellDef>Kategorie</th>

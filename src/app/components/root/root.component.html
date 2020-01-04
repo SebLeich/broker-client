@@ -29,8 +29,9 @@
         (serviceEmitter)=editService($event) (servicePreviewEmitter)=showService($event)
         (stateEmitter)="setState($event)"></app-manage-services>
 </div>
-<app-service-preview *ngIf="state == 10" [project]=currentProject (editEmitter)=editService($event)
+<app-service-preview *ngIf="state == 100" [project]=currentProject (editEmitter)=editService($event)
     (gotoUseCaseEmitter)=gotoUseCaseSelection() (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
+<app-matchingresults-overview *ngIf="state == 10" [currentProject]=currentProject></app-matchingresults-overview>
 <app-project-overview *ngIf="state == 12" [projects]=projects (projectEmitter)=gotoProjectDetailView($event)>
 </app-project-overview>
 <app-project-editview *ngIf="state == 13" [currentProject]=currentProject (projectEmitter)=persistProject($event) (gotoDetailViewEmitter)=gotoProjectDetailView($event) (deleteMatchingResponseEmitter)=deleteMatchingResponse($event)>

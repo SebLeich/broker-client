@@ -542,22 +542,22 @@ export class SearchvectorEditviewComponent implements OnInit {
         "headline": "Welche Arten sind für Sie interessant?",
         "options": [
           new PreviewOption({
-            "id": "bls", "icon": "dns", "desc": "Ein Datenblock ist eine begrenzte, fallweise festgelegte Anzahl von Bits oder Bytes, die als Transporteinheit behandelt wird.", "text": "Block Storage Service", "isActive": true
+            "id": "bls", "icon": BlockStorageService.icon, "desc": "Ein Datenblock ist eine begrenzte, fallweise festgelegte Anzahl von Bits oder Bytes, die als Transporteinheit behandelt wird.", "text": "Block Storage Service", "isActive": true
           }),
           new PreviewOption({
-            "id": "das", "text": "Direct Attached Storage Service", "icon": "devices", "desc": "Ein Direct Attached Storage ist ein Speicherlaufwerk, das direkt mit einem Rechner verbunden ist. Es steht exklusive für diesen Rechner zur Verfügung und bietet hohe Datentransferleistung und kurze Zugriffszeiten.", "isActive": true
+            "id": "das", "text": "Direct Attached Storage Service", "icon": DirectAttachedService.icon, "desc": "Ein Direct Attached Storage ist ein Speicherlaufwerk, das direkt mit einem Rechner verbunden ist. Es steht exklusive für diesen Rechner zur Verfügung und bietet hohe Datentransferleistung und kurze Zugriffszeiten.", "isActive": true
           }),
           new PreviewOption({
-            "id": "kvs", "text": "Key Value Storage Service", "icon": "dvr", "desc": "Eine Schlüssel-Werte-Datenbank (auch Key Value Database oder Key Value Store) dient zur elektronischen Datenverwaltung in Computersystemen und basiert auf dem Schlüssel-Werte-Datenmodell, um assoziative Datenfelder zu speichern.", "isActive": true
+            "id": "kvs", "text": "Key Value Storage Service", "icon": KeyValueStorageService.icon, "desc": "Eine Schlüssel-Werte-Datenbank (auch Key Value Database oder Key Value Store) dient zur elektronischen Datenverwaltung in Computersystemen und basiert auf dem Schlüssel-Werte-Datenmodell, um assoziative Datenfelder zu speichern.", "isActive": true
           }),
           new PreviewOption({
-            "id": "obs", "text": "Object Storage Service", "icon": "memory", "desc": "Im Vergleich zum File-Storage wird bei Object Storage nicht nur die Datei, sondern auch die dazugehörigen Metadaten betrachtet, also das ganze Objekt. Das macht es einfacher Daten zu strukturieren.", "isActive": true
+            "id": "obs", "text": "Object Storage Service", "icon": ObjectStorageService.icon, "desc": "Im Vergleich zum File-Storage wird bei Object Storage nicht nur die Datei, sondern auch die dazugehörigen Metadaten betrachtet, also das ganze Objekt. Das macht es einfacher Daten zu strukturieren.", "isActive": true
           }),
           new PreviewOption({
-            "id": "ods", "text": "Online Drive Storage Service", "icon": "filter_drama", "desc": "Cloud-Speicher ist ein Modell für die Speicherung von Computerdaten, bei dem die digitalen Daten in logischen Pools gespeichert werden. Der physische Speicher erstreckt sich über mehrere Server, und die physische Umgebung gehört in der Regel einem Hosting-Unternehmen und wird von diesem verwaltet.", "isActive": true
+            "id": "ods", "text": "Online Drive Storage Service", "icon": OnlineDriveStorageService.icon, "desc": "Cloud-Speicher ist ein Modell für die Speicherung von Computerdaten, bei dem die digitalen Daten in logischen Pools gespeichert werden. Der physische Speicher erstreckt sich über mehrere Server, und die physische Umgebung gehört in der Regel einem Hosting-Unternehmen und wird von diesem verwaltet.", "isActive": true
           }),
           new PreviewOption({
-            "id": "rds", "text": "Relational Database Storage Service", "icon": "layers", "desc": "Eine relationale Datenbank ist eine Sammlung von Datenelementen mit vordefinierten Beziehungen. Diese Elemente sind als ein Satz von Tabellen mit Spalten und Zeilen angeordnet.", "isActive": true
+            "id": "rds", "text": "Relational Database Storage Service", "icon": RelationalDatabaseService.icon, "desc": "Eine relationale Datenbank ist eine Sammlung von Datenelementen mit vordefinierten Beziehungen. Diese Elemente sind als ein Satz von Tabellen mit Spalten und Zeilen angeordnet.", "isActive": true
           })
         ],
         "fg": tSFg

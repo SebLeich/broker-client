@@ -3,6 +3,7 @@ import { SessionState } from "../classes/metadata";
 export interface IService {
     new(object?): Service;
     location: string;
+    prettyName: string;
 }
 /**
  * the class contains a service preview
@@ -34,7 +35,7 @@ export abstract class Service {
     public serviceTitle: string;
     public serviceCompliance: string;
     public serviceAvailability: string;
-    public cloudServiceCategory: ServiceCategory;
+    public cloudServiceCategory: ServiceCategory = null;
     public cloudServiceCategoryId: number;
     public cloudServiceModel: ServiceModel = null;
     public cloudServiceModelId: number;
@@ -42,6 +43,7 @@ export abstract class Service {
     public provider: Provider = null;
     public pricing: Pricing[] = [];
     public deploymentInfo: DeploymentInformation = null;
+    public deploymentInfoId: number;
     public serviceCertificates: ServiceCertificate[] = [];
     public serviceDataLocations: ServiceDataLocation[] = [];
     public sessionState: SessionState = new SessionState();
@@ -60,6 +62,7 @@ export abstract class Service {
             this.serviceAvailability = object.serviceAvailability;
             this.cloudServiceCategoryId = object.cloudServiceCategoryId;
             this.cloudServiceModelId = object.cloudServiceModelId;
+            this.deploymentInfoId = object.deploymentInfoId;
             this.providerId = object.providerId;
             this.sessionState.isNew = false;
             if (typeof (object.cloudServiceCategory) != "undefined" && object.cloudServiceCategory != null) {
@@ -187,6 +190,12 @@ export class BlockStorageService extends Service {
         }
     }
     /**
+     * the method returns the classes default icon
+     */
+    static get icon(): string {
+        return "dns";
+    }
+    /**
      * the method returns the classes server endpoint
      */
     get location(): string {
@@ -197,6 +206,12 @@ export class BlockStorageService extends Service {
      */
     static get location(): string {
         return "api/blockstorageservice";
+    }
+    /**
+     * the method returns the pretty classes name
+     */
+    static get prettyName(): string {
+        return "Block Storage Service";
     }
     /**
      * the method creates the backend's interface
@@ -242,6 +257,12 @@ export class DirectAttachedService extends Service {
         }
     }
     /**
+     * the method returns the classes default icon
+     */
+    static get icon(): string {
+        return "devices";
+    }
+    /**
      * the method returns the classes server endpoint
      */
     get location(): string {
@@ -252,6 +273,12 @@ export class DirectAttachedService extends Service {
      */
     static get location(): string {
         return "api/directattachedstorageservice";
+    }
+    /**
+     * the method returns the pretty classes name
+     */
+    static get prettyName(): string {
+        return "Direct Attached Storage Service";
     }
     /**
      * the method creates the the classes object fitting the backend's interface
@@ -288,6 +315,12 @@ export class KeyValueStorageService extends Service {
         }
     }
     /**
+     * the method returns the classes default icon
+     */
+    static get icon(): string {
+        return "dvr";
+    }
+    /**
      * the method returns the classes server endpoint
      */
     get location(): string {
@@ -298,6 +331,12 @@ export class KeyValueStorageService extends Service {
      */
     static get location(): string {
         return "api/keyvaluestoreservice";
+    }
+    /**
+     * the method returns the pretty classes name
+     */
+    static get prettyName(): string {
+        return "Key Value Storage Service";
     }
     /**
      * the method creates the backend's interface
@@ -338,6 +377,12 @@ export class ObjectStorageService extends Service {
         }
     }
     /**
+     * the method returns the classes default icon
+     */
+    static get icon(): string {
+        return "memory";
+    }
+    /**
      * the method returns the classes server endpoint
      */
     get location(): string {
@@ -348,6 +393,12 @@ export class ObjectStorageService extends Service {
      */
     static get location(): string {
         return "api/objectstorageservice";
+    }
+    /**
+     * the method returns the pretty classes name
+     */
+    static get prettyName(): string {
+        return "Object Storage Service";
     }
     /**
      * the method creates the backend's interface
@@ -387,6 +438,12 @@ export class OnlineDriveStorageService extends Service {
         }
     }
     /**
+     * the method returns the classes default icon
+     */
+    static get icon(): string {
+        return "filter_drama";
+    }
+    /**
      * the method returns the classes server endpoint
      */
     get location(): string {
@@ -397,6 +454,12 @@ export class OnlineDriveStorageService extends Service {
      */
     static get location(): string {
         return "api/onlinedrivestorageservice";
+    }
+    /**
+     * the method returns the pretty classes name
+     */
+    static get prettyName(): string {
+        return "Online Drive Storage Service";
     }
 }
 
@@ -418,6 +481,12 @@ export class RelationalDatabaseService extends Service {
         }
     }
     /**
+     * the method returns the classes default icon
+     */
+    static get icon(): string {
+        return "layers";
+    }
+    /**
      * the method returns the classes server endpoint
      */
     get location(): string {
@@ -429,8 +498,13 @@ export class RelationalDatabaseService extends Service {
     static get location(): string {
         return "api/relationaldatabaseservice";
     }
+    /**
+     * the method returns the pretty classes name
+     */
+    static get prettyName(): string {
+        return "Relational Database Storage Service";
+    }
 }
-
 /**
  * the class contains a deployment information
  */

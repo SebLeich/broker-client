@@ -94,12 +94,12 @@ export class BackEndService {
      * the method sends the search request to the server
      */
     sendSearch(type: IService, input: SearchVector, successcallback, errorCallback) {
-        //if(!input.isSearchable()) return;
         return this.post(type.location + "/search", input).subscribe((result) => {
             var output = [];
             for (var index in result) {
-                var r = result[index];
-                output.push(new MatchingResponse(r.match));
+                var m = new MatchingResponse(result[index]);
+                m.sessionState.isNew = true;
+                output.push(m);
             }
             successcallback(output);
         }, (error) => {

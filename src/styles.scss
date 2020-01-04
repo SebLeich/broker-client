@@ -494,11 +494,13 @@ tr.mat-row:last-child td.mat-cell {
 .head-tile .date-container {
   margin-top: 5px;
 }
-.head-tile .date-container .date {
+.head-tile .date-container .date, .project-tile .tile-content .badge {
   background-color: #11488745;
   padding: 2px 4px;
   margin-top: 2px;
   border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 .project-tile {
   display: flex;
@@ -519,6 +521,12 @@ tr.mat-row:last-child td.mat-cell {
   display: table-cell;
   align-self: center;
   color: white;
+}
+.project-tile .index .index-icon {
+  font-size: 3rem;
+  height: auto;
+  vertical-align: middle;
+  width: auto;
 }
 .project-tile .tile-content {
   flex: 1;
@@ -561,7 +569,7 @@ tr.mat-row:last-child td.mat-cell {
 }
 .project-tile .tile-content .subtitle {
   display: block;
-  color: #114887;
+  color: #555555;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1rem;

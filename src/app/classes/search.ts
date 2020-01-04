@@ -1,5 +1,6 @@
 import { IService, BlockStorageService, DirectAttachedService, ObjectStorageService, OnlineDriveStorageService, KeyValueStorageService, RelationalDatabaseService, Service } from './service';
 import { FormGroup } from '@angular/forms';
+import { SessionState } from './metadata';
 
 export class MatchingResponse {
     public id: number;
@@ -24,11 +25,12 @@ export class MatchingResponse {
     public pointsHasFileVersioning: number = 0;
     public pointsHasAutomatedSynchronisation: number = 0;
     public serviceType: string;
+    public sessionState: SessionState = new SessionState();
     
     constructor(object) {
         if (object != null && typeof (object) != "undefined") {
             this.id = object.id,
-                this.created = object.created;
+            this.created = object.created;
             this.note = object.note;
             this.isFavored = object.isFavored;
             this.projectId = object.projectId;
@@ -51,7 +53,12 @@ export class MatchingResponse {
         }
     }
 
+    hasService(): boolean {
+        return (this.service != null);
+    }
+
     initService(service: any, type: string) {
+        console.log(service);
         switch (type) {
             case "BlockStorageService":
                 this.serviceType = type;
@@ -81,6 +88,18 @@ export class MatchingResponse {
                 console.log("unknown service type: " + type);
                 break;
         }
+    }
+
+    get localType(): IService {
+        switch(this.serviceType){
+            case "BlockStorageService": return BlockStorageService;
+            case "DirectAttachedStorageService": return DirectAttachedService;
+            case "KeyValueStorageService": return KeyValueStorageService;
+            case "ObjectStorageService": return ObjectStorageService;
+            case "OnlineDriveStorageService": return OnlineDriveStorageService;
+            case "RelationalDatabaseStorageService": return RelationalDatabaseService;
+        }
+        return null;
     }
 
     static get location(): string {
@@ -132,6 +151,11 @@ export class MatchingResponse {
             "pointsHasAutomatedSynchronisation": this.pointsHasAutomatedSynchronisation,
             "projectId": this.projectId
         };
+    }
+
+    toString(): string {
+        if(this.service == null) return "Match ohne Service vom " + this.created;
+        return this.service.toString();
     }
 }
 

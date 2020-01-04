@@ -5,10 +5,11 @@ import {
   Certificate,
   Service,
   ServiceCategory,
-  ServiceProvider,
+  Provider,
   DeploymentInformation,
   DataLocation,
-  ServiceModel
+  ServiceModel,
+  StorageType
 } from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
@@ -51,7 +52,8 @@ export class RootComponent implements OnInit {
   roleRights: RoleRight[] = [];
   serviceCategories: ServiceCategory[] = [];
   serviceModels: ServiceModel[] = [];
-  serviceProviders: ServiceProvider[] = [];
+  providers: Provider[] = [];
+  storageTypes: StorageType[] = [];
 
   public currentService: any;
 
@@ -131,6 +133,13 @@ export class RootComponent implements OnInit {
     this.projectPointer = project.id;
   }
   /**
+   * the method returns the current projects matching responses
+   */
+  get currentMatchingResponses(): MatchingResponse[] {
+    if (this.currentProject == null) return [];
+    return this.currentProject.matchingResponse;
+  }
+  /**
    * the method returns the current project counter
    */
   get projectCounter(): number {
@@ -139,15 +148,15 @@ export class RootComponent implements OnInit {
   /**
    * the method removes a matching response from the database
    */
-  deleteMatchingResponse(response: MatchingResponse){
+  deleteMatchingResponse(response: MatchingResponse) {
     this.service.delete(MatchingResponse.location + "/" + response.id).subscribe((result) => {
       var p = this.projects.find(x => x.id == response.projectId);
-      if(p != null && typeof(p) != "undefined"){
+      if (p != null && typeof (p) != "undefined") {
         var i = p.matchingResponse.indexOf(response);
-        if(i > -1) p.matchingResponse.splice(i, 1);
+        if (i > -1) p.matchingResponse.splice(i, 1);
       }
     });
-  } 
+  }
   /**
    * the method shows the service detail view
    */
@@ -171,21 +180,21 @@ export class RootComponent implements OnInit {
   /**
    * the method navigates to the project detail view
    */
-  gotoProjectDetailView(project: Project){
+  gotoProjectDetailView(project: Project) {
     this.currentProject = project;
     this.setState(globals.rootStates.PROJECTDETAILVIEW);
   }
   /**
    * the method navigates to the project detail view
    */
-  gotoProjectEditView(project: Project){
+  gotoProjectEditView(project: Project) {
     this.currentProject = project;
     this.setState(globals.rootStates.PROJECTEDITVIEW);
   }
   /**
    * the method navigates to the project detail view
    */
-  gotoProjectOverview(){
+  gotoProjectOverview() {
     this.setState(globals.rootStates.PROJECTOVERVIEW);
   }
   /**
@@ -276,8 +285,11 @@ export class RootComponent implements OnInit {
       .get(ServiceModel.location)
       .subscribe((o: Object) => this.setServiceModels(o));
     this.service
-      .get(ServiceProvider.location)
-      .subscribe((o: Object) => this.setServiceProviders(o));
+      .get(Provider.location)
+      .subscribe((o: Object) => this.setProviders(o));
+    this.service
+      .get(StorageType.location)
+      .subscribe((o: Object) => this.setStorageTypes(o));
     if (this.isLoggedIn) {
       this.service.get("api/account/current-rights").subscribe(
         result => {
@@ -298,20 +310,23 @@ export class RootComponent implements OnInit {
    */
   sendSearch(s: SearchVector) {
     this.state = globals.rootStates.WAITING;
+    var p = this.currentProject;
+    if (p == null) {
+      p = new Project();
+      p.applySearchVector(s, this.serviceCategories, this.certificates, this.dataLocations, this.deploymentInformation, this.providers, this.storageTypes);
+      p.sessionState.isNew = true;
+      this.projects.push(p);
+      this.projectPointer = p.id;
+    } else if(p.deleteOldSearches){
+      p.matchingResponse = [];
+    }
     for (var index in s.types) {
       var t = s.types[index];
       this.service.sendSearch(t, s,
         (result: MatchingResponse[]) => {
-          console.log(result);
           var p = this.currentProject;
-          if (p == null) {
-            p = new Project();
-            p.sessionState.isNew = true;
-            this.projects.push(p);
-            this.projectPointer = p.id;
-          }
           p.sessionState.isChanged = true;
-          p.matchingResponse.push.apply(p.matchingResponse, result);
+          Array.prototype.push.apply(p.matchingResponse, result);
           this.setState(globals.rootStates.SERVICEPREVIEW);
         },
         (error) => {
@@ -337,7 +352,7 @@ export class RootComponent implements OnInit {
   /**
    * the method sets the current users projects
    */
-  setCurrentProjects(o: Object){
+  setCurrentProjects(o: Object) {
     var array = [];
     for (var index in o) {
       array.push(new Project(o[index]));
@@ -395,14 +410,24 @@ export class RootComponent implements OnInit {
     this.serviceModels = array;
   }
   /**
-   * the method creates the service categories from the given array
+   * the method creates the providers from the given array
    */
-  setServiceProviders(o: Object) {
+  setProviders(o: Object) {
     var array = [];
     for (var index in o) {
-      array.push(new ServiceProvider(o[index]));
+      array.push(new Provider(o[index]));
     }
-    this.serviceProviders = array;
+    this.providers = array;
+  }
+  /**
+   * the method creates the storage types from the given array
+   */
+  setStorageTypes(o: Object) {
+    var array = [];
+    for (var index in o) {
+      array.push(new StorageType(o[index]));
+    }
+    this.storageTypes = array;
   }
   /**
    * the method sets the applications state

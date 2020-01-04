@@ -72,7 +72,7 @@
             <div *ngIf="canGoPrevious()" class="footer-btn warning" (click)="previous()">Zurück</div>
             <div *ngIf="this.currentStep.fg.valid && canGoForward()" class="footer-btn default" (click)="next()">Weiter
             </div>
-            <div *ngIf="this.isSearchable" class="footer-btn success">Service suchen</div>
+            <div *ngIf="this.isSearchable()" class="footer-btn success" (click)="sendSearch()">Service suchen</div>
         </div>
     </div>
 </div>

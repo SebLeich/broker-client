@@ -50,6 +50,7 @@ import { ProjectOverviewComponent } from './components/project-overview/project-
 import { ProjectDetailviewComponent } from './components/project-detailview/project-detailview.component';
 import { ProjectEditviewComponent } from './components/project-editview/project-editview.component';
 import { SearchvectorEditviewComponent } from './components/searchvector-editview/searchvector-editview.component';
+import { MatchingresultsOverviewComponent } from './components/matchingresults-overview/matchingresults-overview.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { SearchvectorEditviewComponent } from './components/searchvector-editvie
     ProjectOverviewComponent,
     ProjectDetailviewComponent,
     ProjectEditviewComponent,
-    SearchvectorEditviewComponent
+    SearchvectorEditviewComponent,
+    MatchingresultsOverviewComponent
   ],
   imports: [
     BrowserModule,

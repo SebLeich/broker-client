@@ -1,0 +1,42 @@
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container" style="height: calc(100% - 80px);">
+    <section class="head-tile">
+        <span class="super-section-header">Suchergebnisse</span>
+        <div style="padding-right: 30px;">Wir haben für Sie Services für einen Vergleich zusammengestellt. Klicken Sie auf einen Vorschlag um nährere Informationen zu erhalten.</div>
+        <mat-icon class="icon">search</mat-icon>
+        <button class="head-button" (click)="gotoSearchVectorEditView()">Suche anpassen</button>
+    </section>
+    <div *ngFor="let response of sortedMatchingResponses">
+        <div *ngIf="response.hasService()" class="project-tile">
+            <div class="tile-content">
+                <span class="badge">{{typeName(response)}}</span>
+                <div class="headline">{{ response.toString() }}</div>
+                <span class="subtitle" style="white-space: initial;">
+                    {{ response.service.serviceDescription }}
+                </span>
+                <div class="match-badge-container">
+                    <span *ngIf="matchesAssoz(response).matches.length > 0" class="match-badge">
+                        <span *ngFor="let match of matchesAssoz(response).matches" class="badge-label badge-success">
+                            <mat-icon class="badge-icon">done</mat-icon>
+                            <span class="badge-text">{{match}}</span>
+                        </span>
+                    </span>
+                    <span *ngIf="matchesAssoz(response).missing.length > 0" class="match-badge">
+                        <span *ngFor="let miss of matchesAssoz(response).missing" class="badge-label badge-danger">
+                            <mat-icon class="badge-icon">clear</mat-icon>
+                            <span class="badge-text">{{miss}}</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="matching-chart-container">
+                <div style="position: relative;">
+                    <div id="chart-parent-{{ response.service.id }}"></div>
+                    <div id="chart-parent-counter-{{ response.service.id }}" class="matching-counter">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
