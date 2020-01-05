@@ -1,0 +1,15 @@
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container" style="height: calc(100% - 80px);">
+    <section class="head-tile">
+        <span class="super-section-header">{{ currentMatchingResponse.toString() }}</span>
+        <div>Bei diesem Service handelt es sich um einen {{serviceType}}</div>
+        <mat-icon class="icon">search</mat-icon>
+    </section>
+    <app-service-detail-view 
+        [service]=currentService
+        [currentMatchingResponse]=currentMatchingResponse 
+        [currentProject]=currentProject
+    ></app-service-detail-view>
+</div>

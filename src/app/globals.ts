@@ -17,7 +17,8 @@ export const rootStates = {
   SERVICEPREVIEW: 10,
   HTTPLOGINERROR: 11,
   PROJECTOVERVIEW: 12,
-  PROJECTEDITVIEW: 13
+  PROJECTEDITVIEW: 13,
+  MATCHINGRESPONSEDETAILVIEW: 14
 };
 /**
  * the enumeration contains all entity framework service classes
@@ -75,3 +76,13 @@ export const designColors = [
   { full: "rgb(194, 19, 98)", med: "rgba(194, 19, 98, .6)", light: "rgba(194, 19, 98, .3)" },
   { full: "rgb(28, 189, 167)", med: "rgba(28, 189, 167, .6)", light: "rgba(28, 189, 167, .3)" }
 ];
+
+export class Guid {
+  static newGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+}

@@ -46,11 +46,20 @@
 </div>
 <app-service-preview *ngIf="state == 100" [project]=currentProject (editEmitter)=editService($event)
     (gotoUseCaseEmitter)=gotoUseCaseSelection() (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
-<app-matchingresults-overview *ngIf="state == 10" [currentProject]=currentProject></app-matchingresults-overview>
+<app-matchingresults-overview
+    *ngIf="state == 10" 
+    [currentProject]=currentProject
+    (matchingResponseEmitter)=gotoMatchingResponseDetailView($event)
+></app-matchingresults-overview>
 <app-project-overview *ngIf="state == 12" [projects]=projects (projectEmitter)=gotoProjectDetailView($event)>
 </app-project-overview>
 <app-project-editview *ngIf="state == 13" [currentProject]=currentProject (projectEmitter)=persistProject($event) (gotoDetailViewEmitter)=gotoProjectDetailView($event) (deleteMatchingResponseEmitter)=deleteMatchingResponse($event)>
 </app-project-editview>
+<app-matching-response-detail-view 
+    *ngIf="state == 14" 
+    [currentMatchingResponse]=currentMatchingResponse
+    [projects]=projects
+></app-matching-response-detail-view>
 
 <!-- HELPER AREAS -->
 <div *ngIf="state == 8" class="load-placeholder">

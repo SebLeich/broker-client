@@ -9,7 +9,7 @@
         <button class="head-button" (click)="gotoSearchVectorEditView()">Suche anpassen</button>
     </section>
     <div *ngFor="let response of sortedMatchingResponses">
-        <div *ngIf="response.hasService()" class="project-tile">
+        <div *ngIf="response.hasService()" class="project-tile" (click)="gotoMatchingResponseDetailView(response)">
             <div class="tile-content">
                 <span class="badge">{{typeName(response)}}</span>
                 <div class="headline">{{ response.toString() }}</div>

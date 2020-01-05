@@ -3,7 +3,7 @@ import { MatchingResponse, SearchVector } from './search';
 import { ServiceCategory, Certificate, ServiceModel, DataLocation, DeploymentInformation, StorageType, Provider } from './service';
 
 export class Project {
-  id: number;
+  id: number = 0;
   projectTitle: string;
   projectDescription: string;
   created: string;

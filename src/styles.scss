@@ -448,7 +448,7 @@ tr.mat-row:last-child td.mat-cell {
   height: 100%;
   width: 100%;
   z-index: -1;
-  background: #dbdbdb;
+  background: linear-gradient(180deg, #ffffff, #a8a8a8);
 }
 
 // NEW STYLE
@@ -457,7 +457,7 @@ tr.mat-row:last-child td.mat-cell {
   position: relative;
   padding: 40px 60px;
   background-color: white;
-  margin: 10px;
+  margin: 10px 10px 0px 0px;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   color: #404040;
 }
@@ -504,7 +504,7 @@ tr.mat-row:last-child td.mat-cell {
 }
 .project-tile {
   display: flex;
-  margin: 10px 10px;
+  margin: 10px 10px 0px 0px;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   background-color: #134a899c;
   cursor: pointer;

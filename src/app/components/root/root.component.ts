@@ -57,6 +57,8 @@ export class RootComponent implements OnInit {
   providers: Provider[] = [];
   storageTypes: StorageType[] = [];
 
+  currentMatchingResponse: MatchingResponse = null;
+
   public currentService: any;
 
   /**
@@ -184,6 +186,13 @@ export class RootComponent implements OnInit {
    */
   gotoUseCaseSelection() {
     this.setState(globals.rootStates.USECASESELECTION);
+  }
+  /**
+   * the method navigates to the matching response detail view
+   */
+  gotoMatchingResponseDetailView(matchingResponse: MatchingResponse){
+    this.currentMatchingResponse = matchingResponse;
+    this.setState(globals.rootStates.MATCHINGRESPONSEDETAILVIEW);
   }
   /**
    * the method navigates to the project detail view
@@ -394,7 +403,10 @@ export class RootComponent implements OnInit {
         (result: MatchingResponse[]) => {
           var p = this.currentProject;
           p.sessionState.isChanged = true;
-          Array.prototype.push.apply(p.matchingResponse, result);
+          for(let m of result){
+            m.projectId = p.id;
+            p.matchingResponse.push(m);
+          }
           this.setState(globals.rootStates.SERVICEPREVIEW);
         },
         (error) => {

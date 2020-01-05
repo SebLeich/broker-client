@@ -54,6 +54,8 @@ import { PopUpComponent } from './components/pop-up/pop-up.component';
 import { ServiceCreateViewComponent } from './components/service-create-view/service-create-view.component';
 import { ServiceEditViewComponent } from './components/service-edit-view/service-edit-view.component';
 import { ServiceEditViewInnerComponent } from './components/service-edit-view-inner/service-edit-view-inner.component';
+import { MatchingResponseDetailViewComponent } from './components/matching-response-detail-view/matching-response-detail-view.component';
+import { ServiceDetailViewComponent } from './components/service-detail-view/service-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { ServiceEditViewInnerComponent } from './components/service-edit-view-in
     PopUpComponent,
     ServiceCreateViewComponent,
     ServiceEditViewComponent,
-    ServiceEditViewInnerComponent
+    ServiceEditViewInnerComponent,
+    MatchingResponseDetailViewComponent,
+    ServiceDetailViewComponent
   ],
   imports: [
     BrowserModule,

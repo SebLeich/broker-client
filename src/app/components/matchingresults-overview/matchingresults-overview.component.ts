@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatchingResponse } from 'src/app/classes/search';
 import { Project } from 'src/app/classes/project';
 import { Chart } from 'chart.js';
@@ -16,11 +16,19 @@ export class MatchingresultsOverviewComponent implements OnInit {
     this._project = project;
   }
 
+  @Output() matchingResponseEmitter = new EventEmitter<MatchingResponse>();
+
   get currentProject(): Project {
     return this._project;
   }
 
   constructor() { }
+  /**
+   * the method navigates to the matching response detail view
+   */
+  gotoMatchingResponseDetailView(matchingResponse: MatchingResponse){
+    this.matchingResponseEmitter.emit(matchingResponse);
+  }
   /**
    * the method returns all matching responses
    */
