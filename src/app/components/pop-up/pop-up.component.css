@@ -1,0 +1,18 @@
+.parent {
+    display: flex;
+}
+.parent .message {
+    flex: 1;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.2rem;
+}
+.parent .icon {
+    vertical-align: middle;
+}
+.parent .icon.success {
+    color: greenyellow;
+}
+.parent .icon.danger {
+    color: orangered;
+}

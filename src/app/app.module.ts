@@ -26,7 +26,8 @@ import {
   MatSortModule,
   MatMenuModule,
   MatSliderModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatSnackBarModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -51,6 +52,8 @@ import { ProjectDetailviewComponent } from './components/project-detailview/proj
 import { ProjectEditviewComponent } from './components/project-editview/project-editview.component';
 import { SearchvectorEditviewComponent } from './components/searchvector-editview/searchvector-editview.component';
 import { MatchingresultsOverviewComponent } from './components/matchingresults-overview/matchingresults-overview.component';
+import { ServiceEditviewComponent } from './components/service-editview/service-editview.component';
+import { PopUpComponent } from './components/pop-up/pop-up.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,9 @@ import { MatchingresultsOverviewComponent } from './components/matchingresults-o
     ProjectDetailviewComponent,
     ProjectEditviewComponent,
     SearchvectorEditviewComponent,
-    MatchingresultsOverviewComponent
+    MatchingresultsOverviewComponent,
+    ServiceEditviewComponent,
+    PopUpComponent
   ],
   imports: [
     BrowserModule,
@@ -104,10 +109,11 @@ import { MatchingresultsOverviewComponent } from './components/matchingresults-o
     MatSortModule,
     MatMenuModule,
     MatSliderModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSnackBarModule
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],
-  entryComponents: [LoginComponent, RegisterComponent, UserDetailComponent]
+  entryComponents: [LoginComponent, PopUpComponent, RegisterComponent, UserDetailComponent]
 })
 export class AppModule {}

@@ -9,7 +9,7 @@
         <button class="head-button" (click)="gotoProjectOverview()">Einstellungen</button>
     </section>
     <div class="project-tile" style="min-height: calc(100% - 265px); padding-bottom: 45px;">
-        <mat-horizontal-stepper style="width: 100%;" [linear]="isLinear" #stepper>
+        <mat-horizontal-stepper style="width: 100%;" [linear]=true #stepper>
             <mat-step *ngFor="let step of steps" [stepControl]="step.fg" style="overflow: inherit;">
                 <form [formGroup]="step.fg">
                     <ng-template matStepLabel>{{ step.headline }}</ng-template>

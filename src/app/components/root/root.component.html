@@ -9,20 +9,39 @@
 </app-startpage>
 <app-project-detailview *ngIf="state == 2" [currentProject]=currentProject (projectEmitter)="editProject($event)" (gotoOverviewEmitter)="gotoProjectOverview()">
 </app-project-detailview>
-<app-searchvector-editview *ngIf="state == 1" (searchEmitter)="sendSearch($event)" [certificates]=certificates
-[dataLocations]=dataLocations [deploymentInformation]=deploymentInformation [serviceCategories]=serviceCategories
-[serviceModels]=serviceModels [serviceProviders]=serviceProviders></app-searchvector-editview>
-<app-detailview *ngIf="state == 4" [isLoggedIn]=isLoggedIn [currentService]=currentService
-    [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders (persistService)="persistService($event)">
-</app-detailview>
+<app-searchvector-editview 
+    *ngIf="state == 1" 
+    (searchEmitter)="sendSearch($event)" 
+    [certificates]=certificates
+    [dataLocations]=dataLocations 
+    [deploymentInformation]=deploymentInformation 
+    [serviceCategories]=serviceCategories
+    [serviceModels]=serviceModels 
+    [serviceProviders]=serviceProviders
+></app-searchvector-editview>
+<app-detailview
+    *ngIf="state == 4" 
+    [isLoggedIn]=isLoggedIn 
+    [currentService]=currentService
+    [serviceCategories]=serviceCategories 
+    [serviceProviders]=serviceProviders
+></app-detailview>
 <div *ngIf="state == 5">
     <app-administration *ngIf="canRegisterRoles; else noAccessRight" [currentUser]=username
         [canRegisterRoles]=canRegisterRoles [canEditSecurityGuidelines]=canEditSecurityGuidelines></app-administration>
 </div>
-<div *ngIf="state == 6">
+<div *ngIf="state == 60">
     <app-add-service *ngIf="canCreateServices; else noAccessRight" [isLoggedIn]=isLoggedIn
         [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders
         (persistService)="persistService($event)"></app-add-service>
+</div>
+<div *ngIf="state == 6">
+    <app-service-editview 
+        *ngIf="canCreateServices; else noAccessRight"
+        [serviceCategories]=serviceCategories 
+        [serviceProviders]=serviceProviders 
+        (serviceEmitter)=persistService($event)
+    ></app-service-editview>
 </div>
 <div *ngIf="state == 7">
     <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices

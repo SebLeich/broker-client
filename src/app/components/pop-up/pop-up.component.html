@@ -1,0 +1,7 @@
+<div class="parent">
+    <mat-icon *ngIf="hasIcon()" class="icon" [ngClass]="iconClass">{{icon}}</mat-icon>
+    <div class="message">
+        {{message}}
+    </div>
+    <mat-spinner *ngIf="showSpinner" diameter="25"></mat-spinner>
+</div>

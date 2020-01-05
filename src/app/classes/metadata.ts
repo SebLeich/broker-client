@@ -10,31 +10,52 @@ import {
 export class CloudServiceType {
     public name: string = "";
     public type: IService;
-    constructor(object){
+    constructor(object) {
         this.name = object.name;
         this.type = object.type;
     }
 }
 
-export const CustomValidator = (validator: ValidatorFn, controls: string[] = null) => (
-    group: FormGroup,
-): ValidationErrors | null => {
-    if (!controls) {
-        controls = Object.keys(group.controls)
-    }
-
-    const hasAtLeastOne = group && group.controls && controls
-        .some(k => !validator(group.controls[k]));
-
-    return hasAtLeastOne ? null : {
-        atLeastOne: true,
+export function atLeastOneValidator(): ValidatorFn {
+    return function validate(formGroup: FormGroup) {
+        var checked = 0;
+        Object.keys(formGroup.controls).forEach(key => {
+            const control = formGroup.controls[key];
+            if (control.value === true) {
+                checked++;
+            }
+        });
+        if (checked == 0) {
+            return {
+                requireCheckboxesToBeChecked: true
+            };
+        }
+        return null;
     };
-};
+}
+
+export function exactlyOneValidator(): ValidatorFn {
+    return function validate(formGroup: FormGroup) {
+        var checked = 0;
+        Object.keys(formGroup.controls).forEach(key => {
+            const control = formGroup.controls[key];
+            if (control.value === true) {
+                checked++;
+            }
+        });
+        if (checked != 1) {
+            return {
+                requireCheckboxesToBeChecked: true
+            };
+        }
+        return null;
+    };
+}
 
 export class SessionState {
     public isNew: boolean = true;
     public isChanged: boolean = false;
-    constructor(){
+    constructor() {
 
     }
 }
@@ -57,8 +78,8 @@ export class StartPageTile {
     /**
      * the constructor creates a new instance of a start page tile
      */
-    constructor(object?){
-        if(typeof(object) != "undefined" && object != null){
+    constructor(object?) {
+        if (typeof (object) != "undefined" && object != null) {
             this.cols = object.cols;
             this.rows = object.rows;
             this.bgColor = object.bgColor;
@@ -66,20 +87,20 @@ export class StartPageTile {
             this.text = object.text;
             this.subtitle = object.subtitle;
             this.click = object.click;
-            if(typeof(object.ngIf) == "function") this.condition = object.ngIf;
-            if(typeof(object.icon) != "undefined" && object.icon != null){
+            if (typeof (object.ngIf) == "function") this.condition = object.ngIf;
+            if (typeof (object.icon) != "undefined" && object.icon != null) {
                 this.icon = object.icon;
             }
-            if(typeof(object.class) != "undefined" && object.class != null){
+            if (typeof (object.class) != "undefined" && object.class != null) {
                 this.class = object.class;
             }
-            if(typeof(object.counter) != "undefined" && object.counter != null){
+            if (typeof (object.counter) != "undefined" && object.counter != null) {
                 this.counter = object.counter;
             }
         }
     }
-    ngIf(input: StartpageComponent){
-        if(this.condition == null) return true;
+    ngIf(input: StartpageComponent) {
+        if (this.condition == null) return true;
         else {
             return this.condition(input);
         }
@@ -91,11 +112,17 @@ export class UseCaseSelecionStep {
     public headline: string;
     public options: UseCaseSelectionOption[] = [];
     public fg: FormGroup;
-    constructor(object: any){
+    public isServiceEditComponent: boolean = false;
+    constructor(object: any) {
         this.id = object.id;
         this.headline = object.headline;
         this.options = object.options;
         this.fg = object.fg;
+        if(object != null && typeof(object) != "undefined"){
+            if(object.isServiceEditComponent != null && typeof(object.isServiceEditComponent) == "boolean"){
+                this.isServiceEditComponent = object.isServiceEditComponent;
+            }
+        }
     }
 }
 
@@ -105,42 +132,42 @@ export class SelectionComponent {
     public text: string;
     public desc: string;
     public isActive: boolean;
-    public condition: { (data: StartpageComponent): boolean; } = function(){
+    public condition: { (data: StartpageComponent): boolean; } = function () {
         return true;
     };
     public uC: UseCase = null;
     public hasPriority: boolean = false;
     public priority: number;
-    constructor(object: any){
+    constructor(object: any) {
         this.id = object.id;
         this.text = object.text;
         this.icon = object.icon;
         this.desc = object.desc;
         this.isActive = object.isActive;
         this.uC = object.uC;
-        if(typeof(object.ngIf) == "function") this.condition = object.ngIf;
-        if(typeof(object.hasPriority) == "boolean") this.hasPriority = object.hasPriority;
-        if(typeof(object.priority) == "number") this.priority = object.priority;
+        if (typeof (object.ngIf) == "function") this.condition = object.ngIf;
+        if (typeof (object.hasPriority) == "boolean") this.hasPriority = object.hasPriority;
+        if (typeof (object.priority) == "number") this.priority = object.priority;
     }
 }
 
 export class UseCaseMultipleSelectionOption extends SelectionComponent {
     public list;
-    constructor(object: any){
+    constructor(object: any) {
         super(object);
         this.list = object.list;
     }
 }
 
 export class UseCaseSelectionOption extends SelectionComponent {
-    constructor(object: any){
+    constructor(object: any) {
         super(object);
     }
 }
 
 
 export class PreviewOption extends SelectionComponent {
-    constructor(object: any){
+    constructor(object: any) {
         super(object);
     }
 }

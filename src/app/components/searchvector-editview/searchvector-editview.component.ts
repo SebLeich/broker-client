@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit, ViewChild, Provider } f
 import { FormBuilder, Validators } from '@angular/forms';
 import { SearchVector } from 'src/app/classes/search';
 import {
-  CustomValidator,
+  atLeastOneValidator,
   SelectionComponent,
   UseCaseSelecionStep, 
   UseCaseSelectionOption, 
@@ -27,12 +27,10 @@ import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, D
   styleUrls: ['./searchvector-editview.component.css']
 })
 export class SearchvectorEditviewComponent implements OnInit {
-
-  isLinear = true;
   /**
    * the step configuration
    */
-  steps: UseCaseSelecionStep[] = [];;
+  steps: UseCaseSelecionStep[] = [];
   /**
    * the internal project attribute
    */
@@ -505,7 +503,9 @@ export class SearchvectorEditviewComponent implements OnInit {
    * the method is called on component initalization
    */
   ngOnInit() {
-    var tSFg = this._formBuilder.group(this.currentTypeSelectionFg);
+    var tSFg = this._formBuilder.group(this.currentTypeSelectionFg, {
+      validators: atLeastOneValidator()
+    });
     tSFg.valueChanges.subscribe((values) => {
       this.searchVector.reset();
       for(var index in values){

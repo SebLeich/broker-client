@@ -1,0 +1,79 @@
+.preview-option {
+    padding: 10px;
+    display: flex;
+}
+
+.preview-option .preview-icon {
+    font-size: 2.2rem;
+    height: auto;
+    width: auto;
+    padding-right: 15px;
+    color: #114887;
+}
+
+.preview-option .headline {
+    border-bottom: 2px solid white;
+    font-size: 1.8rem;
+}
+
+.preview-option .description {
+    margin: 10px 0px;
+    color: rgb(61, 61, 61);
+}
+
+.preview-option .preview-selection-control {
+    align-self: center;
+    padding-left: 20px;
+}
+
+.preview-option:hover .headline {
+    border-color: #114887;
+    transition: all 1s;
+}
+
+.option {
+    display: flex;
+}
+
+.option .stretch {
+    flex: 1;
+    padding: 10px 20px;
+}
+
+.width {
+    width: calc(100% - 30px);
+}
+
+.option .fixed-width {
+    width: 200px;
+    padding: 10px 20px;
+    background-color: #1e88e50f;
+    overflow: hidden;
+    color: #595959;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: .9rem;
+    align-content: center;
+    display: grid;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.option .slider-width {
+    width: 100%;
+    overflow: unset;
+    min-height: 40px;
+}
+
+.multiple-selection-option {
+    margin-left: 10px;
+}
+
+.head-title {
+    color: #353638;
+    background-color: #f2f8fd;
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+}

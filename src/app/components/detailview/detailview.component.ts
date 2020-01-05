@@ -3,6 +3,7 @@ import { Certificate, Service, ServiceCategory, ServiceProvider, ServiceModel, S
 import { BackEndService } from "../../services/backend-service";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange, MatSlideToggleChange } from '@angular/material';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-detailview',
@@ -34,6 +35,8 @@ export class DetailviewComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  public fg: FormGroup;
+
   /**
    * the attribute contains whether the user is logged in or not
    */
@@ -47,7 +50,7 @@ export class DetailviewComponent implements OnInit {
   /**
    * the emitter for the state
    */
-  @Output() persistService = new EventEmitter();
+  //@Output() persistService = new EventEmitter();
   /**
    * the input value sets the service models
    */
@@ -75,7 +78,12 @@ export class DetailviewComponent implements OnInit {
   /**
    * the constructor creates a new instance of a detail view
    */
-  constructor(private service: BackEndService) { }
+  constructor(
+    private service: BackEndService,
+    private _formBuilder: FormBuilder
+  ) {
+
+  }
   /**
    * the method adds a new certificate
    */
@@ -345,12 +353,15 @@ export class DetailviewComponent implements OnInit {
    */
   saveChanges() {
     console.log(this.currentService);
-    this.persistService.emit(this.currentService);
+    //this.persistService.emit(this.currentService);
   }
   /**
    * the method is called on component initalization
    */
   ngOnInit() {
+    this.fg = this._formBuilder.group({
+      
+    });
     this.service.get(ServiceCategory.location).subscribe((o) => {
       var array = [];
       for (var index in o) {

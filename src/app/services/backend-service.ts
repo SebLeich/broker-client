@@ -57,23 +57,22 @@ export class BackEndService {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         };
         if (input.sessionState.isNew) {
-            return this.http.post<Service>(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
+            return this.http.post(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
         } else {
-            return this.http.put<Service>(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
+            return this.http.put(globals.serverLocation + "/" + input.location, input.toServerObject(), config);
         }
     }
     /**
      * the method persists a project
      */
-    persistProject(input: Project) {
-        console.log(input, input.toServerObject());
+    persistProject(input: Project): any {
         var config = {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         };
         if (input.sessionState.isNew) {
-            return this.http.post<Project>(globals.serverLocation + "/" + input.location + "/current", input.toServerObject(), config);
+            return this.http.post(globals.serverLocation + "/" + input.location + "/current", input.toServerObject(), config);
         } else {
-            return this.http.put<Project>(globals.serverLocation + "/" + input.location + "/current", input.toServerObject(), config);
+            return this.http.put(globals.serverLocation + "/" + input.location + "/current", input.toServerObject(), config);
         }
     }
     /**

@@ -239,8 +239,8 @@ export class DirectAttachedService extends Service {
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object) {
-        if (typeof (object) != "undefined") {
+    constructor(object?) {
+        if (object != null && typeof (object) != "undefined") {
             super(object);
             this.hasFileEncryption = object.hasFileEncryption;
             this.hasReplication = object.hasReplication;
@@ -303,8 +303,8 @@ export class KeyValueStorageService extends Service {
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object) {
-        if (typeof (object) != "undefined") {
+    constructor(object?) {
+        if (object != null && typeof (object) != "undefined") {
             super(object);
             this.hasDBMS = object.hasDBMS;
             this.hasReplication = object.hasReplication;
@@ -359,8 +359,8 @@ export class ObjectStorageService extends Service {
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object) {
-        if (typeof (object) != "undefined") {
+    constructor(object?) {
+        if (object != null && typeof (object) != "undefined") {
             super(object);
             this.hasFileEncryption = object.hasFileEncryption;
             this.hasFileLocking = object.hasFileLocking;
@@ -422,8 +422,8 @@ export class OnlineDriveStorageService extends Service {
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object) {
-        if (typeof (object) != "undefined") {
+    constructor(object?) {
+        if (object != null && typeof (object) != "undefined") {
             super(object);
             this.hasFileEncryption = object.hasFileEncryption;
             this.hasAutomatedSynchronisation = object.hasAutomatedSynchronisation;
@@ -469,8 +469,8 @@ export class RelationalDatabaseService extends Service {
     /**
      * the constructor creates a new instance of the class
      */
-    constructor(object) {
-        if (typeof (object) != "undefined") {
+    constructor(object?) {
+        if (object != null && typeof (object) != "undefined") {
             super(object);
             this.hasDBMS = object.hasDBMS;
             this.hasReplication = object.hasReplication;
