@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailviewComponent } from './detailview.component';
+import { ServiceEditViewComponent } from './service-edit-view.component';
 
-describe('DetailviewComponent', () => {
-  let component: DetailviewComponent;
-  let fixture: ComponentFixture<DetailviewComponent>;
+describe('ServiceEditViewComponent', () => {
+  let component: ServiceEditViewComponent;
+  let fixture: ComponentFixture<ServiceEditViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailviewComponent ]
+      declarations: [ ServiceEditViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DetailviewComponent);
+    fixture = TestBed.createComponent(ServiceEditViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

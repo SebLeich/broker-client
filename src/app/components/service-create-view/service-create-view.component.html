@@ -12,13 +12,13 @@
             <mat-step *ngFor="let step of steps" [stepControl]="step.fg" style="overflow: inherit;">
                 <ng-template matStepLabel>{{ step.headline }}</ng-template>
                 <div *ngIf="step.isServiceEditComponent; else noForeignComponent">
-                    <app-detailview
+                    <app-service-edit-view-inner
                         #editView
                         [currentService]=currentService
                         [serviceCategories]=serviceCategories 
                         [providers]=providers 
                         (messageEmitter)=showPopUpMessage($event)
-                    ></app-detailview>
+                    ></app-service-edit-view-inner>
                 </div>
                 <ng-template #noForeignComponent>
                     <form [formGroup]="step.fg">

@@ -1,0 +1,357 @@
+<mat-card *ngIf="currentService != null; else noService" class="main-content">
+    <form class="form">
+        <mat-form-field class="width">
+            <input matInput class="headline primary-color" placeholder="Bezeichnung" name="serviceName"
+                [(ngModel)]="currentService.serviceName">
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Titel" name="serviceTitle" [(ngModel)]="currentService.serviceTitle">
+        </mat-form-field>
+        <mat-form-field class="width">
+            <textarea matInput class="subtitle" placeholder="Beschreibung" name="serviceDescription"
+                [(ngModel)]="currentService.serviceDescription"></textarea>
+        </mat-form-field>
+        <mat-form-field class="width">
+            <input matInput placeholder="Verfügbarkeit" name="serviceAvailability"
+                [(ngModel)]="currentService.serviceAvailability">
+        </mat-form-field>
+        <mat-form-field class="width">
+            <mat-select [placeholder]=selectCategoryPlaceholder [ngModel]="currentService.cloudServiceCategoryId"
+                (ngModelChange)="currentService.cloudServiceCategoryId=$event" name="cloudServiceCategoryId">
+                <mat-option *ngFor="let c of serviceCategories" [value]="c.id">
+                    {{ c.cloudServiceCategoryName }}
+                </mat-option>
+                <mat-option (click)="showCategoryAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Kategorie anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showCategoryAdder" [formGroup]="serviceCategoryFg" class="adder-container">
+            <div class="adder-headline">
+                <span class="text">Neue Service Kategorie anlegen</span>
+                <mat-icon class="closer" (click)="showCategoryAdder=false">clear</mat-icon>
+            </div>
+            <div class="adder-content">
+                <div class="adder-content-left-column">
+                    <mat-form-field class="add-on">
+                        <input 
+                            matInput 
+                            formControlName="cloudServiceCategoryName" 
+                            placeholder="Name der Service Kategorie"
+                        />
+                        <mat-icon matPrefix class="prefix-icon">subject</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newServiceCategoryName.touched && newServiceCategoryName.invalid" class="alert alert-danger">
+                        <div *ngIf="newServiceCategoryName.errors.required">
+                            Die Service Kategorie braucht eine Bezeichnung
+                        </div>
+                    </div>
+                </div>
+                <div class="adder-content-right-column">
+                    <button 
+                        class="add-on-button" 
+                        mat-raised-button color="primary"
+                        (click)="addServiceCategory()"
+                        [disabled]="newServiceCategoryName.invalid"
+                    >Anlegen</button>
+                </div>
+            </div>
+        </div>
+        <!-- service model -->
+        <mat-form-field class="width">
+            <mat-select [placeholder]=selectServiceModelPlaceholder [ngModel]="currentService.cloudServiceModelId"
+                (ngModelChange)="currentService.cloudServiceModelId=$event" name="cloudServiceModelId">
+                <mat-option *ngFor="let m of serviceModels" [value]="m.id">
+                    {{ m.cloudServiceModelName }}
+                </mat-option>
+                <mat-option (click)="showServiceModelAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Service Modell anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showServiceModelAdder" [formGroup]="serviceModelFg" class="adder-container">
+            <div class="adder-headline">
+                <span class="text">Neues Service Modell anlegen</span>
+                <mat-icon class="closer" (click)="showServiceModelAdder=false">clear</mat-icon>
+            </div>
+            <div class="adder-content">
+                <div class="adder-content-left-column">
+                    <mat-form-field class="add-on">
+                        <input 
+                            matInput 
+                            formControlName="cloudServiceModelName" 
+                            placeholder="Name des Service Modells"
+                        />
+                        <mat-icon matPrefix class="prefix-icon">subject</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newServiceModelName.touched && newServiceModelName.invalid" class="alert alert-danger">
+                        <div *ngIf="newServiceModelName.errors.required">
+                            Das Service Modell braucht eine Bezeichnung
+                        </div>
+                    </div>
+                </div>
+                <div class="adder-content-right-column">
+                    <button 
+                        class="add-on-button" 
+                        mat-raised-button color="primary"
+                        (click)="addServiceModel()"
+                        [disabled]="newServiceModelName.invalid"
+                    >Anlegen</button>
+                </div>
+            </div>
+        </div>
+        <!-- datalocations -->
+        <mat-form-field class="width">
+            <mat-label>Lokalisation</mat-label>
+            <mat-select (selectionChange)="setDataLocations($event)" [value]="currentService.dataLocationIds" multiple>
+                <mat-option *ngFor="let l of dataLocations" [value]="l.id">{{l.toString()}}</mat-option>
+                <mat-option (click)="showDataLocationAdder = true" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Lokalisation anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showDataLocationAdder" [formGroup]="dataLocationFg" class="adder-container">
+            <div class="adder-headline">
+                <span class="text">Neue Lokalisation anlegen</span>
+                <mat-icon class="closer" (click)="showDataLocationAdder=false">clear</mat-icon>
+            </div>
+            <div class="adder-content">
+                <div class="adder-content-left-column">
+                    <mat-form-field class="add-on">
+                        <input 
+                            matInput 
+                            formControlName="dataLocationName" 
+                            placeholder="Name der Lokalisation"
+                        />
+                        <mat-icon matPrefix class="prefix-icon">location_on</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newDataLocationName.touched && newDataLocationName.invalid" class="alert alert-danger">
+                        <div *ngIf="newDataLocationName.errors.required">
+                            Die Lokalisation braucht eine Bezeichnung
+                        </div>
+                    </div>
+                    <mat-form-field class="add-on">
+                        <mat-label>Art der Lokalisation</mat-label>
+                        <mat-select formControlName="dataLocationType">
+                            <mat-option *ngFor="let t of dataLocationTypes" [value]="t.id">{{t.toString()}}</mat-option>
+                            <mat-option (click)="showDataLocationTypeAdder=true" class="mat-option-adder">
+                                <mat-icon class="icon">add</mat-icon>
+                                Art anlegen ...
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix class="prefix-icon">public</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newDataLocationType.touched && newDataLocationType.invalid" class="alert alert-danger">
+                        <div *ngIf="newDataLocationType.errors.required">
+                            Die Lokalisation braucht eine Art
+                        </div>
+                    </div>
+                    <div *ngIf="showDataLocationTypeAdder" [formGroup]="dataLocationTypeFg" class="adder-container inner-adder-container">
+                        <div class="adder-headline">
+                            <span class="text">Neue Lokalisationsart anlegen</span>
+                            <mat-icon class="closer" (click)="showDataLocationTypeAdder=false">clear</mat-icon>
+                        </div>
+                        <div class="adder-content">
+                            <div class="adder-content-left-column">
+                                <mat-form-field class="add-on">
+                                    <input 
+                                        matInput 
+                                        formControlName="typeName" 
+                                        placeholder="Name der Lokalisationsart"
+                                    />
+                                    <mat-icon matPrefix class="prefix-icon">public</mat-icon>
+                                </mat-form-field>
+                                <div *ngIf="newDataLocationTypeName.touched && newDataLocationTypeName.invalid" class="alert alert-danger">
+                                    <div *ngIf="newDataLocationTypeName.errors.required">
+                                        Die Lokalisationsart braucht eine Bezeichnung
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="adder-content-right-column">
+                                <button 
+                                    class="add-on-button" 
+                                    mat-raised-button color="primary"
+                                    (click)="addDataLocationType()"
+                                    [disabled]="newDataLocationTypeName.invalid || newDataLocationTypeName.invalid"
+                                >Anlegen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="adder-content-right-column">
+                    <button 
+                        class="add-on-button" 
+                        mat-raised-button color="primary"
+                        (click)="addDataLocation()"
+                        [disabled]="newDataLocationName.invalid || newDataLocationType.invalid"
+                    >Anlegen</button>
+                </div>
+            </div>
+        </div>
+        <!-- certificates -->
+        <mat-form-field class="width">
+            <mat-label>Zertifikate</mat-label>
+            <mat-select (selectionChange)="setCertificates($event)" [value]="currentService.certificateIds" multiple>
+                <mat-option *ngFor="let c of certificates" [value]="c.id">{{c.certificateName}}</mat-option>
+                <mat-option (click)="showCertAdder = true" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Zertifikat anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showCertAdder" [formGroup]="certificateFg" class="adder-container">
+            <div class="adder-headline">
+                <span class="text">Neues Zertifikat anlegen</span>
+                <mat-icon class="closer" (click)="showCertAdder=false">clear</mat-icon>
+            </div>
+            <div class="adder-content">
+                <div class="adder-content-left-column">
+                    <mat-form-field class="add-on">
+                        <input 
+                            matInput 
+                            formControlName="certificateName" 
+                            placeholder="Name des Zertifikates"
+                        />
+                        <mat-icon matPrefix class="prefix-icon">assessment</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newCertificateName.touched && newCertificateName.invalid" class="alert alert-danger">
+                        <div *ngIf="newCertificateName.errors.required">
+                            Das Zertifikat braucht eine Bezeichnung
+                        </div>
+                    </div>
+                </div>
+                <div class="adder-content-right-column">
+                    <button 
+                        class="add-on-button" 
+                        mat-raised-button color="primary"
+                        (click)="addCertificate()"
+                        [disabled]="newCertificateName.invalid"
+                    >Anlegen</button>
+                </div>
+            </div>
+        </div>
+        <!-- storage type -->
+        <mat-form-field *ngIf="displayStorageType" class="width">
+            <mat-select [placeholder]="selectStorageTypePlaceholder" [ngModel]="currentService.storageTypeId"
+                (ngModelChange)="currentService.storageTypeId=$event" name="storageTypeId">
+                <mat-option *ngFor="let t of storageTypes" [value]="t.id">
+                    {{ t.storageTypeDescription }}
+                </mat-option>
+                <mat-option (click)="showStorageTypeAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Speicherart anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showStorageTypeAdder" [formGroup]="storageTypeFg" class="adder-container">
+            <div class="adder-headline">
+                <span class="text">Neue Speicherart anlegen</span>
+                <mat-icon class="closer" (click)="showStorageTypeAdder=false">clear</mat-icon>
+            </div>
+            <div class="adder-content">
+                <div class="adder-content-left-column">
+                    <mat-form-field class="add-on">
+                        <input 
+                            matInput 
+                            formControlName="storageTypeDescription" 
+                            placeholder="Beschreibung der Speicherart"
+                        />
+                        <mat-icon matPrefix class="prefix-icon">devices</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newStorageTypeDescription.touched && newStorageTypeDescription.invalid" class="alert alert-danger">
+                        <div *ngIf="newStorageTypeDescription.errors.required">
+                            Die Speicherart braucht eine Beschreibung
+                        </div>
+                    </div>
+                </div>
+                <div class="adder-content-right-column">
+                    <button 
+                        class="add-on-button" 
+                        mat-raised-button color="primary"
+                        (click)="addStorageType()"
+                        [disabled]="newStorageTypeDescription.invalid"
+                    >Anlegen</button>
+                </div>
+            </div>
+        </div>
+        <!-- providers -->
+        <mat-form-field class="width">
+            <mat-select [placeholder]=selectProviderPlaceholder [ngModel]="currentService.providerId"
+                (ngModelChange)="currentService.providerId=$event" name="providerId">
+                <mat-option *ngFor="let p of providers" [value]="p.id">
+                    {{ p.providerName }}
+                </mat-option>
+                <mat-option (click)="showProviderAdder=true;" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    Provider anlegen ...
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <form *ngIf="showProviderAdder" [formGroup]="providerFg" class="adder-container">
+            <div class="adder-headline">
+                <span class="text">Neuen Anbieter anlegen</span>
+                <mat-icon class="closer" (click)="showProviderAdder=false">clear</mat-icon>
+            </div>
+            <div class="adder-content">
+                <div class="adder-content-left-column">
+                    <mat-form-field class="add-on">
+                        <input 
+                            matInput 
+                            formControlName="providerName" 
+                            placeholder="Name des Anbieters"
+                        />
+                        <mat-icon matPrefix class="prefix-icon">domain</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newProviderName.touched && newProviderName.invalid" class="alert alert-danger">
+                        <div *ngIf="newProviderName.errors.required">
+                            Der Anbieter braucht eine Bezeichnung
+                        </div>
+                    </div>
+                    <mat-form-field class="add-on">
+                        <input 
+                            matInput 
+                            formControlName="providerUrl" 
+                            placeholder="URL zur Webseite"
+                        />
+                        <mat-icon matPrefix class="prefix-icon">call_split</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="adder-content-right-column">
+                    <button 
+                        class="add-on-button" 
+                        mat-raised-button color="primary"
+                        (click)="addProvider()"
+                        [disabled]="newProviderName.invalid"
+                    >Anlegen</button>
+                </div>
+            </div>
+        </form>
+        <mat-slide-toggle *ngIf="displayFileEncryption" class="bool-slider" (change)="fileEncryption=$event"
+            [checked]=currentService.hasFileEncryption>Unterstützt der Service File-Encryption?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFileLocking" class="bool-slider" (change)="fileLocking=$event"
+            [checked]=currentService.hasFileLocking>Unterstützt der Service File-Locking?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFilePermissions" class="bool-slider" (change)="filePermissions=$event"
+            [checked]=currentService.hasFilePermissions>Unterstützt der Service File-Permissions?</mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFileVersioning" class="bool-slider" (change)="fileVersioning=$event"
+            [checked]=currentService.hasFileVersioning>
+            Unterstützt der Service File-Versioning?
+        </mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayReplication" class="bool-slider" (change)="fileReplication=$event"
+            [checked]=currentService.hasReplication>
+            Unterstützt der Service Replication?
+        </mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayFileCompression" class="bool-slider" (change)="fileCompression=$event"
+            [checked]=currentService.hasFileCompression>
+            Unterstützt der Service File Compression?
+        </mat-slide-toggle>
+        <mat-slide-toggle *ngIf="displayDBMS" class="bool-slider" (change)="dbms=$event"
+            [checked]=currentService.hasDBMS>Beinhaltet der Service ein Datenbankmanagmentsystem (DBMS)?
+        </mat-slide-toggle>
+    </form>
+</mat-card>
+<ng-template #noService>
+    FEHLER
+</ng-template>

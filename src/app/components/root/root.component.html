@@ -19,14 +19,13 @@
     [serviceModels]=serviceModels 
     [providers]=providers
 ></app-searchvector-editview>
-<app-detailview
+<app-service-edit-view
     *ngIf="state == 4" 
-    [isLoggedIn]=isLoggedIn 
     [currentService]=currentService
     [serviceCategories]=serviceCategories 
     [providers]=providers 
     (messageEmitter)=showPopUpMessage($event)
-></app-detailview>
+></app-service-edit-view>
 <div *ngIf="state == 5">
     <app-administration *ngIf="canRegisterRoles; else noAccessRight" [currentUser]=username
         [canRegisterRoles]=canRegisterRoles [canEditSecurityGuidelines]=canEditSecurityGuidelines></app-administration>

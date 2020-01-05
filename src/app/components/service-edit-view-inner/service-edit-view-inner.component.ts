@@ -1,23 +1,25 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopUpData } from "src/app/components/pop-up/pop-up.component";
-import { Certificate, ServiceCategory, ServiceModel, ServiceCertificate, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, ServiceDataLocation, Provider } from "../../classes/service";
+import { Certificate, ServiceCategory, ServiceModel, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, Provider, DataLocationType } from "../../classes/service";
 import { BackEndService } from "../../services/backend-service";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange, MatSlideToggleChange } from '@angular/material';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-detailview',
-  templateUrl: './detailview.component.html',
-  styleUrls: ['./detailview.component.css']
+  selector: 'app-service-edit-view-inner',
+  templateUrl: './service-edit-view-inner.component.html',
+  styleUrls: ['./service-edit-view-inner.component.css']
 })
-export class DetailviewComponent implements OnInit {
+export class ServiceEditViewInnerComponent implements OnInit {
+
   private _serCats: ServiceCategory[] = [];
   private _serMods: ServiceModel[] = [];
   private _providers: Provider[] = [];
   private _serCert: Certificate[] = [];
   private _sTypes: StorageType[] = [];
   private _dataLocations: DataLocation[] = [];
+  private _dataLocationTypes: DataLocationType[] = [];
 
   public selectCategoryPlaceholder: string = "Service Kategorie";
   public selectProviderPlaceholder: string = "Anbieter";
@@ -26,6 +28,7 @@ export class DetailviewComponent implements OnInit {
   public selectDataLocationPlaceholder: string = "Lokalisierung";
   public showCategoryAdder: boolean = false;
   public showDataLocationAdder: boolean = false;
+  public showDataLocationTypeAdder: boolean = false;
   public showProviderAdder: boolean = false;
   public showServiceModelAdder: boolean = false;
   public showCertAdder: boolean = false;
@@ -39,10 +42,6 @@ export class DetailviewComponent implements OnInit {
    * the components current service
    */
   @Input() public currentService: any;
-  /**
-   * the attribute contains whether the user is logged in or not
-   */
-  @Input() isLoggedIn;
   /**
    * the input value sets the service categories
    */
@@ -90,23 +89,52 @@ export class DetailviewComponent implements OnInit {
     private service: BackEndService,
     private _formBuilder: FormBuilder
   ) {
-
+    this.certificateFg = _formBuilder.group({
+      "certificateName": ['', Validators.required]
+    });
+    this.dataLocationFg = _formBuilder.group({
+      "dataLocationName": ['', Validators.required],
+      "dataLocationType": ['', Validators.required]
+    });
+    this.dataLocationTypeFg = _formBuilder.group({
+      "typeName": ['', Validators.required]
+    });
+    this.providerFg = _formBuilder.group({
+      "providerName": ['', Validators.required],
+      "providerUrl": ['']
+    });
+    this.serviceCategoryFg = _formBuilder.group({
+      "cloudServiceCategoryName": ['', Validators.required]
+    });
+    this.serviceModelFg = _formBuilder.group({
+      "cloudServiceModelName": ['', Validators.required]
+    })
+    this.storageTypeFg = _formBuilder.group({
+      "storageTypeDescription": ['', Validators.required]
+    });
   }
   /**
    * the method adds a new certificate
    */
-  addCertificate(name: string) {
+  addCertificate() {
+    if(this.certificateFg.invalid) this.messageEmitter.emit({
+      message: "Zertifikat kann nicht angelegt werden",
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
     this.messageEmitter.emit({
       message: "Zertifikat wird angelegt",
       icon: null,
       iconClass: null,
       showSpinner: true
     });
-    var c = new Certificate({ "certificateName": name });
+    var c = new Certificate({ "certificateName": this.certificateFg.get("certificateName").value });
     this.service.post(Certificate.location, c).subscribe((result) => {
       c = new Certificate(result);
       this._serCert.push(c);
       this.showCertAdder = false;
+      this.certificateFg.reset();
       this.messageEmitter.emit({
         message: "Zertifikat wurde angelegt",
         icon: "done",
@@ -118,20 +146,60 @@ export class DetailviewComponent implements OnInit {
   /**
    * the method adds a new data location
    */
-  addDataLocation(name: string) {
+  addDataLocation() {
+    if(this.dataLocationFg.invalid) this.messageEmitter.emit({
+      message: "Lokalisation kann nicht angelegt werden",
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
     this.messageEmitter.emit({
-      message: "Standort wird angelegt",
+      message: "Lokalisation wird angelegt",
       icon: null,
       iconClass: null,
       showSpinner: true
     });
-    var l = new DataLocation({ "dataLocationName": name });
+    var l = new DataLocation({
+      "dataLocationName": this.dataLocationFg.get("dataLocationName").value,
+      "dataLocationType": this._dataLocationTypes.find(x => x.id == this.dataLocationFg.get("dataLocationType").value)
+    });
     this.service.post(DataLocation.location, l).subscribe((result) => {
       l = new DataLocation(result);
       this._dataLocations.push(l);
       this.showDataLocationAdder = false;
+      this.dataLocationFg.reset();
       this.messageEmitter.emit({
-        message: "Standort wurde angelegt",
+        message: "Lokalisation wurde angelegt",
+        icon: "done",
+        iconClass: "success",
+        showSpinner: false
+      });
+    });
+  }
+  /**
+   * the method adds a new data location type
+   */
+  addDataLocationType() {
+    if(this.dataLocationTypeFg.invalid) this.messageEmitter.emit({
+      message: "Lokalisationsart kann nicht angelegt werden",
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
+    this.messageEmitter.emit({
+      message: "Lokalisationsart wird angelegt",
+      icon: null,
+      iconClass: null,
+      showSpinner: true
+    });
+    var t = new DataLocationType({ "typeName": this.dataLocationTypeFg.get("typeName").value });
+    this.service.post(DataLocationType.location, t).subscribe((result) => {
+      t = new DataLocationType(result);
+      this._dataLocationTypes.push(t);
+      this.showDataLocationTypeAdder = false;
+      this.dataLocationTypeFg.reset();
+      this.messageEmitter.emit({
+        message: "Lokalisationsart wurde angelegt",
         icon: "done",
         iconClass: "success",
         showSpinner: false
@@ -141,18 +209,25 @@ export class DetailviewComponent implements OnInit {
   /**
    * the method adds a new cloud service category
    */
-  addServiceCategory(name: string) {
+  addServiceCategory() {
+    if(this.dataLocationTypeFg.invalid) this.messageEmitter.emit({
+      message: "Kategorie kann nicht angelegt werden",
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
     this.messageEmitter.emit({
       message: "Kategorie wird angelegt",
       icon: null,
       iconClass: null,
       showSpinner: true
     });
-    var c = new ServiceCategory({ "cloudServiceCategoryName": name });
+    var c = new ServiceCategory({ "cloudServiceCategoryName": this.serviceCategoryFg.get("cloudServiceCategoryName").value });
     this.service.post(ServiceCategory.location, c).subscribe((result) => {
       c = new ServiceCategory(result);
       this._serCats.push(c);
       this.showCategoryAdder = false;
+      this.serviceCategoryFg.reset();
       this.messageEmitter.emit({
         message: "Kategorie wurde angelegt",
         icon: "done",
@@ -164,18 +239,25 @@ export class DetailviewComponent implements OnInit {
   /**
    * the method adds a new service model
    */
-  addServiceModel(name: string) {
+  addServiceModel() {
+    if(this.serviceModelFg.invalid) this.messageEmitter.emit({
+      message: "Service Modell kann nicht angelegt werden",
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
     this.messageEmitter.emit({
       message: "Servicemodell wird angelegt",
       icon: null,
       iconClass: null,
       showSpinner: true
     });
-    var m = new ServiceModel({ "cloudServiceModelName": name });
+    var m = new ServiceModel({ "cloudServiceModelName": this.serviceModelFg.get("cloudServiceModelName").value });
     this.service.post(ServiceModel.location, m).subscribe((result) => {
       m = new ServiceModel(result);
       this._serMods.push(m);
       this.showServiceModelAdder = false;
+      this.serviceModelFg.reset();
       this.messageEmitter.emit({
         message: "Servicemodell wurde angelegt",
         icon: "done",
@@ -187,18 +269,28 @@ export class DetailviewComponent implements OnInit {
   /**
    * the method adds a new service provider
    */
-  addServiceProvider(name: string) {
+  addProvider() {
+    if(this.providerFg.invalid) this.messageEmitter.emit({
+      message: "Anbieter kann nicht angelegt werden",
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
     this.messageEmitter.emit({
       message: "Anbieter wird angelegt",
       icon: null,
       iconClass: null,
       showSpinner: true
     });
-    var p = new Provider({ "providerName": name });
+    var p = new Provider({
+      "providerName": this.providerFg.get("providerName").value,
+      "url": this.providerFg.get("providerUrl").value
+    });
     this.service.post(Provider.location, p).subscribe((result) => {
       p = new Provider(result);
       this._providers.push(p);
       this.showProviderAdder = false;
+      this.providerFg.reset();
       this.messageEmitter.emit({
         message: "Anbieter wurde angelegt",
         icon: "done",
@@ -210,18 +302,25 @@ export class DetailviewComponent implements OnInit {
   /**
    * the method adds a new storage type
    */
-  addStorageType(desc: string){
+  addStorageType(){
+    if(this.storageTypeFg.invalid) this.messageEmitter.emit({
+      message: "Speicherart kann nicht angelegt werden",
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
     this.messageEmitter.emit({
       message: "Speicherart wird angelegt",
       icon: null,
       iconClass: null,
       showSpinner: true
     });
-    var t = new StorageType({ "storageTypeDescription": desc });
+    var t = new StorageType({ "storageTypeDescription": this.storageTypeFg.get("storageTypeDescription").value });
     this.service.post(StorageType.location, t).subscribe((result) => {
       t = new StorageType(result);
       this._sTypes.push(t);
       this.showStorageTypeAdder = false;
+      this.storageTypeFg.reset();
       this.messageEmitter.emit({
         message: "Speicherart wurde angelegt",
         icon: "done",
@@ -231,16 +330,28 @@ export class DetailviewComponent implements OnInit {
     });
   }
   /**
-   * the method returns the current service
+   * the method returns all data locations
    */
   get dataLocations(): DataLocation[] {
     return this._dataLocations;
   }
   /**
-   * the method sets the current service
+   * the method sets all data locations
    */
   set dataLocations(dataLocations: DataLocation[]) {
     this._dataLocations = dataLocations;
+  }
+  /**
+   * the method returns all data location types
+   */
+  get dataLocationTypes(): DataLocationType[] {
+    return this._dataLocationTypes;
+  }
+  /**
+   * the method sets all data location types
+   */
+  set dataLocationTypes(dataLocationTypes: DataLocationType[]) {
+    this._dataLocationTypes = dataLocationTypes;
   }
   /**
    * the method returns all service categories
@@ -391,36 +502,28 @@ export class DetailviewComponent implements OnInit {
    */
   setCertificates(input: MatSelectChange) {
     var v = input.value;
-    var a: ServiceCertificate[] = [];
+    var a: Certificate[] = [];
     for (var index in v) {
       if (typeof (v[index]) == "undefined") continue;
       var c = this.certificates.find(x => x.id == v[index]);
       if (typeof (c) == "undefined") continue;
-      a.push(new ServiceCertificate({
-        "serviceId": this.currentService.id,
-        "certificateId": c.id,
-        "certificate": c
-      }));
+      a.push(c);
     }
-    this.currentService.serviceCertificates = a;
+    this.currentService.certificates = a;
   }
   /**
    * the method sets the current service's certificates array
    */
   setDataLocations(input: MatSelectChange) {
     var v = input.value;
-    var a: ServiceDataLocation[] = [];
+    var a: DataLocation[] = [];
     for (var index in v) {
       if (typeof (v[index]) == "undefined") continue;
       var l = this.dataLocations.find(x => x.id == v[index]);
       if (typeof (l) == "undefined") continue;
-      a.push(new ServiceDataLocation({
-        "serviceId": this.currentService.id,
-        "dataLocationId": l.id,
-        "dataLocation": l
-      }));
+      a.push(l);
     }
-    this.currentService.serviceDataLocations = a;
+    this.currentService.dataLocations = a;
   }
   /**
    * the method persists current changes
@@ -464,6 +567,13 @@ export class DetailviewComponent implements OnInit {
       }
       this.dataLocations = array;
     });
+    this.service.get(DataLocationType.location).subscribe((o) => {
+      var array = [];
+      for (var index in o) {
+        array.push(new DataLocationType(o[index]));
+      }
+      this.dataLocationTypes = array;
+    });
     if(this.displayStorageType){
       this.service.get(StorageType.location).subscribe((o) => {
         var array = [];
@@ -474,10 +584,47 @@ export class DetailviewComponent implements OnInit {
       });
     }
   }
-  /**
-   * the method logs the component in the console
-   */
-  log(){
-    console.log(this);
+
+  // AFTER THIS: new object creation attributes & functions
+
+  public certificateFg: FormGroup;
+  public dataLocationFg: FormGroup;
+  public dataLocationTypeFg: FormGroup;
+  public providerFg: FormGroup;
+  public serviceCategoryFg: FormGroup;
+  public serviceModelFg: FormGroup;
+  public storageTypeFg: FormGroup;
+
+  get newCertificateName(){
+    return this.certificateFg.get("certificateName");
   }
+
+  get newDataLocationName(){
+    return this.dataLocationFg.get("dataLocationName");
+  }
+
+  get newDataLocationType(){
+    return this.dataLocationFg.get("dataLocationType");
+  }
+
+  get newDataLocationTypeName(){
+    return this.dataLocationTypeFg.get("typeName");
+  }
+
+  get newProviderName(){
+    return this.providerFg.get("providerName");
+  }
+
+  get newServiceModelName(){
+    return this.serviceModelFg.get("cloudServiceModelName");
+  }
+
+  get newServiceCategoryName(){
+    return this.serviceCategoryFg.get("cloudServiceCategoryName");
+  }
+
+  get newStorageTypeDescription(){
+    return this.storageTypeFg.get("storageTypeDescription");
+  }
+
 }

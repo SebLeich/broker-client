@@ -11,7 +11,7 @@ import {
 } from 'src/app/classes/metadata';
 import { MatStepper } from '@angular/material/stepper';
 import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
-import { DetailviewComponent } from '../detailview/detailview.component';
+import { ServiceEditViewInnerComponent } from '../service-edit-view-inner/service-edit-view-inner.component';
 
 @Component({
   selector: 'app-service-create-view',
@@ -79,7 +79,7 @@ export class ServiceCreateViewComponent implements OnInit {
   /**
    * the service edit view reference
    */
-  @ViewChild(DetailviewComponent, { static: true }) editView: DetailviewComponent;
+  @ViewChild(ServiceEditViewInnerComponent, { static: true }) editView: ServiceEditViewInnerComponent;
   /**
    * the constructor creates a new instance of the component
    */

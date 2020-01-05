@@ -1,0 +1,128 @@
+.super-headline {
+    display: flex;
+    padding: 10px;
+}
+.super-headline .spacer {
+    flex: 1;
+}
+.headline {
+    font-size: 2rem;
+}
+.width {
+    width: 100%;
+}
+.add-on {
+    position: relative;
+    left: 20px;
+    width: calc(100% - 20px);
+}
+.mat-option-adder {
+    border-top: 1px solid grey;
+}
+.mat-option-adder .icon {
+    vertical-align: sub;
+    margin-right: 0px;
+    color: green;
+}
+.subtitle {
+    font-size: 1rem;
+}
+.option-row {
+    display: block;
+}
+.form {
+    padding: 0px 10px 0px 10px;
+}
+::ng-deep .mat-option.mat-option-adder .mat-pseudo-checkbox{ display: none; }
+
+.bool-slider {
+    display: block;
+    padding: 10px 0px;
+}
+
+.bool-slider .mat-slide-toggle-content {
+    padding-left: 5px;
+}
+
+.select-option-text {
+    vertical-align: middle;
+}
+
+.select-option-text.remove {
+    color: red;
+    cursor: pointer;
+}
+
+.select-option-text.remove:hover {
+    color: rgba(255, 0, 0, 0.479);
+    cursor: pointer;
+}
+
+.main-content {
+    padding: 16px 10%;
+}
+
+.adder-container {
+    margin: -20px 0px 10px 0px;
+    background-color: #f2f2f2;
+    border-radius: 0px 0px 10px 10px;
+    border: 1px solid #b8b8b8;
+    border-top: none;
+}
+
+.adder-container .adder-headline {
+    padding: 20px 20px 10px 20px;
+    display: flex;
+}
+
+.adder-container .adder-headline .text {
+    flex: 1;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: #4d4d4d;
+}
+
+.adder-container .adder-headline .closer {
+    color: rgb(175, 60, 60);
+    cursor: pointer;
+}
+
+.adder-container .adder-headline .closer:hover {
+    color: rgb(202, 124, 124);
+}
+
+.inner-adder-container {
+    border: none;
+    background-color: #fff7cc;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.prefix-icon {
+    vertical-align: bottom;
+    margin-right: 5px;
+    color: #114887;
+}
+.alert {
+    padding-bottom: 10px;
+    margin-top: -20px;
+    margin: -20px 40px 0px 20px;
+    font-size: .7rem;
+    padding-left: 29px;
+    padding-top: 2px;
+}
+.alert-danger {
+    color: #e12c5d;
+}
+.adder-content {
+    display: flex;
+}
+.adder-content .adder-content-left-column {
+    flex: 1;
+}
+.adder-content .adder-content-right-column {
+    text-align: center;
+    padding: 20px 15px;
+    align-self: flex-end;
+}

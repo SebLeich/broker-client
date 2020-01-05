@@ -1,0 +1,25 @@
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container" style="height: calc(100% - 80px);">
+    <section class="head-tile">
+        <span class="super-section-header">{{currentService.toString()}} bearbeiten</span>
+        <div>Bearbeiten Sie den Service.</div>
+        <mat-icon class="icon">edit</mat-icon>
+    </section>
+    <div class="project-tile" style="min-height: calc(100% - 265px); padding-bottom: 45px;">
+        <div class="edit-view-inner-wrapper">
+            <app-service-edit-view-inner
+            #editView
+            [currentService]=currentService
+            [serviceCategories]=serviceCategories 
+            [providers]=providers 
+            (messageEmitter)=showPopUpMessage($event)
+        ></app-service-edit-view-inner>
+        <div class="project-tile-footer">
+            <span style="flex: 1;"></span>
+            <div *ngIf="isPersistable()" class="footer-btn success" (click)="saveService()">Service speichern</div>
+        </div>
+        </div>
+    </div>
+</div>

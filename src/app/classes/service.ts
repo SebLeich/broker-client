@@ -1,5 +1,7 @@
 import { SessionState } from "../classes/metadata";
-
+/**
+ * the generic service interface
+ */
 export interface IService {
     new(object?): Service;
     location: string;
@@ -44,8 +46,8 @@ export abstract class Service {
     public pricing: Pricing[] = [];
     public deploymentInfo: DeploymentInformation = null;
     public deploymentInfoId: number;
-    public serviceCertificates: ServiceCertificate[] = [];
-    public serviceDataLocations: ServiceDataLocation[] = [];
+    public certificates: Certificate[] = [];
+    public dataLocations: DataLocation[] = [];
     public sessionState: SessionState = new SessionState();
     public creation: string;
     public lastModified: string;
@@ -78,20 +80,12 @@ export abstract class Service {
             }
             if (Array.isArray(object.certificates)) {
                 for (var index in object.certificates) {
-                    this.serviceCertificates.push(new ServiceCertificate({
-                        serviceId: object.id,
-                        certificateId: object.certificates[index].id,
-                        certificate: new Certificate(object.certificates[index])
-                    }));
+                    this.certificates.push(new Certificate(object.certificates[index]));
                 }
             }
             if (Array.isArray(object.dataLocations)) {
                 for (var index in object.dataLocations) {
-                    this.serviceDataLocations.push(new ServiceDataLocation({
-                        serviceId: object.id,
-                        dataLocationId: object.dataLocations[index].id,
-                        dataLocation: new DataLocation(object.dataLocations[index])
-                    }));
+                    this.dataLocations.push(new DataLocation(object.dataLocations[index]));
                 }
             }
             if (typeof (object.deploymentInfo) != "undefined" && object.deploymentInfo != null) {
@@ -105,28 +99,16 @@ export abstract class Service {
         }
     }
     /**
-     * the method returns all certificates linked to the service
-     */
-    get certificates(): Certificate[] {
-        return this.serviceCertificates.map(x => x.certificate);
-    }
-    /**
-     * the method returns all certificate ids linked to the service
+     * the method returns all certificate ids
      */
     get certificateIds(): number[] {
-        return this.serviceCertificates.map(x => x.certificate.id);
+        return this.certificates.map(x => x.id);
     }
     /**
-     * the method returns all datalocations linked to the service
-     */
-    get dataLocations(): DataLocation[] {
-        return this.serviceDataLocations.map(x => x.dataLocation);
-    }
-    /**
-     * the method returns all certificate ids linked to the service
+     * the method returns all data location ids
      */
     get dataLocationIds(): number[] {
-        return this.serviceDataLocations.map(x => x.dataLocation.id);
+        return this.dataLocations.map(x => x.id);
     }
     /**
      * the method returns the classe's icon
@@ -673,6 +655,18 @@ export class Provider {
         return "api/provider";
     }
     /**
+     * the method returns the provider's server object
+     */
+    toServerObject(): any {
+        return {
+            "id": this.id,
+            "providerName": this.providerName,
+            "url": this.url,
+            "revision": this.revision,
+            "verified": this.verified
+        };
+    }
+    /**
      * the method returns a string representation of the instance
      */
     toString(): string {
@@ -735,38 +729,6 @@ export class ServiceCategory {
      */
     toString(): string {
         return this.cloudServiceCategoryName;
-    }
-}
-/**
- * the class contains the service certificate n:m
- */
-export class ServiceCertificate {
-    public serviceId: number;
-    public certificateId: number;
-    public certificate: Certificate;
-    /**
-     * the constructor creates a new instance of a service category
-     */
-    constructor(object) {
-        this.serviceId = object.serviceId;
-        this.certificateId = object.certificateId;
-        this.certificate = new Certificate(object.certificate);
-    }
-}
-/**
- * the class contains the service datalocation n:m
- */
-export class ServiceDataLocation {
-    public serviceId: number;
-    public dataLocationId: number;
-    public dataLocation: DataLocation;
-    /**
-     * the constructor creates a new instance of a service category
-     */
-    constructor(object) {
-        this.serviceId = object.serviceId;
-        this.dataLocationId = object.dataLocationId;
-        this.dataLocation = new DataLocation(object.dataLocation);
     }
 }
 /**

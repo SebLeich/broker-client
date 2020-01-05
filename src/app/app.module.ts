@@ -37,7 +37,6 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { StartpageComponent } from "./components/startpage/startpage.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
-import { DetailviewComponent } from "./components/detailview/detailview.component";
 import { UserDetailComponent } from "./components/user-detail/user-detail.component";
 import { AdministrationComponent } from "./components/administration/administration.component";
 import { ServiceCategoryPipe } from "./pipes/servicecategory.pipe";
@@ -53,6 +52,8 @@ import { SearchvectorEditviewComponent } from './components/searchvector-editvie
 import { MatchingresultsOverviewComponent } from './components/matchingresults-overview/matchingresults-overview.component';
 import { PopUpComponent } from './components/pop-up/pop-up.component';
 import { ServiceCreateViewComponent } from './components/service-create-view/service-create-view.component';
+import { ServiceEditViewComponent } from './components/service-edit-view/service-edit-view.component';
+import { ServiceEditViewInnerComponent } from './components/service-edit-view-inner/service-edit-view-inner.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,6 @@ import { ServiceCreateViewComponent } from './components/service-create-view/ser
     StartpageComponent,
     RegisterComponent,
     LoginComponent,
-    DetailviewComponent,
     UserDetailComponent,
     AdministrationComponent,
     ServiceCategoryPipe,
@@ -75,7 +75,9 @@ import { ServiceCreateViewComponent } from './components/service-create-view/ser
     SearchvectorEditviewComponent,
     MatchingresultsOverviewComponent,
     PopUpComponent,
-    ServiceCreateViewComponent
+    ServiceCreateViewComponent,
+    ServiceEditViewComponent,
+    ServiceEditViewInnerComponent
   ],
   imports: [
     BrowserModule,
