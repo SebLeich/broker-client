@@ -254,7 +254,8 @@ export class RootComponent implements OnInit {
           showSpinner: false
         };
       } else {
-        this._service.post(Project.location + "/matchingResponses/" + result.projectId, project.matchingResponse).subscribe((result2) => {
+        for(var element of project.matchingResponse) element.projectId = result.projectId;
+        this._service.post(Project.location + "/matchingresponses", project.matchingResponse).subscribe((result2) => {
           console.log(result2);
           project = new Project(result2);
           this.popUp = {
