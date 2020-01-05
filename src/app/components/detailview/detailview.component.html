@@ -119,7 +119,7 @@
         <mat-form-field class="width">
             <mat-select [placeholder]=selectProviderPlaceholder [ngModel]="currentService.providerId"
                 (ngModelChange)="currentService.providerId=$event" name="providerId">
-                <mat-option *ngFor="let p of serviceProviders" [value]="p.id">
+                <mat-option *ngFor="let p of providers" [value]="p.id">
                     {{ p.providerName }}
                 </mat-option>
                 <mat-option (click)="showProviderAdder=true;" class="mat-option-adder">

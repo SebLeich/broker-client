@@ -126,7 +126,7 @@ export class SearchvectorEditviewComponent implements OnInit {
   /**
    * the input value sets the internal service category list
    */
-  @Input() set serviceProviders(prov: Provider[]) {
+  @Input() set providers(prov: Provider[]) {
     this._prov = prov;
   }
   /**
@@ -156,7 +156,7 @@ export class SearchvectorEditviewComponent implements OnInit {
   /**
    * the input value returns the internal service category list
    */
-  get serviceProviders() : Provider[] {
+  get providers() : Provider[] {
     return this._prov;
   }
   /**
@@ -240,10 +240,10 @@ export class SearchvectorEditviewComponent implements OnInit {
     if(this.searchVector.providers.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "providers",
-        "text": "Serviceprovider", 
-        "desc": "Welche Serviceprovider kommen für Sie in Frage?", 
+        "text": "Anbieter", 
+        "desc": "Welche Anbieter kommen für Sie in Frage?", 
         "isActive": true,
-        "list": this.serviceProviders,
+        "list": this.providers,
         "hasPriority": true,
         "priority": this.searchVector.providers.priority
       }));

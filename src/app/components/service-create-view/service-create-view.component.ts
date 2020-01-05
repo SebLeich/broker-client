@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, Provider, ViewChild } from '@angular/core';
 import { Service, ServiceCategory } from "../../classes/service";
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { PopUpData } from "src/app/components/pop-up/pop-up.component";
 import {
   exactlyOneValidator,
   UseCaseSelecionStep,
@@ -13,11 +14,11 @@ import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, D
 import { DetailviewComponent } from '../detailview/detailview.component';
 
 @Component({
-  selector: 'app-service-editview',
-  templateUrl: './service-editview.component.html',
-  styleUrls: ['./service-editview.component.css']
+  selector: 'app-service-create-view',
+  templateUrl: './service-create-view.component.html',
+  styleUrls: ['./service-create-view.component.css']
 })
-export class ServiceEditviewComponent implements OnInit {
+export class ServiceCreateViewComponent implements OnInit {
   /**
    * available service categories
    */
@@ -25,7 +26,11 @@ export class ServiceEditviewComponent implements OnInit {
   /**
    * all available providers
    */
-  @Input() serviceProviders: Provider[];
+  @Input() providers: Provider[];
+  /**
+   * the emitter sends the state messages to the root component
+   */
+  @Output() messageEmitter = new EventEmitter<PopUpData>();
   /**
    * the emitter sends the current service to the root component
    */
@@ -205,5 +210,11 @@ export class ServiceEditviewComponent implements OnInit {
   saveService(){
     this.serviceEmitter.emit(this.currentService);
   }
-
+  /**
+   * the method sets the pop up message
+   */
+  showPopUpMessage(data: PopUpData){
+    this.messageEmitter.emit(data);
+  }
+  
 }

@@ -40,7 +40,6 @@ import { LoginComponent } from "./components/login/login.component";
 import { DetailviewComponent } from "./components/detailview/detailview.component";
 import { UserDetailComponent } from "./components/user-detail/user-detail.component";
 import { AdministrationComponent } from "./components/administration/administration.component";
-import { AddServiceComponent } from "./components/add-service/add-service.component";
 import { ServiceCategoryPipe } from "./pipes/servicecategory.pipe";
 import { ServiceProviderPipe } from "./pipes/serviceprovider.pipe";
 import { ServiceModelPipe } from "./pipes/servicemodel.pipe";
@@ -52,8 +51,8 @@ import { ProjectDetailviewComponent } from './components/project-detailview/proj
 import { ProjectEditviewComponent } from './components/project-editview/project-editview.component';
 import { SearchvectorEditviewComponent } from './components/searchvector-editview/searchvector-editview.component';
 import { MatchingresultsOverviewComponent } from './components/matchingresults-overview/matchingresults-overview.component';
-import { ServiceEditviewComponent } from './components/service-editview/service-editview.component';
 import { PopUpComponent } from './components/pop-up/pop-up.component';
+import { ServiceCreateViewComponent } from './components/service-create-view/service-create-view.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +64,6 @@ import { PopUpComponent } from './components/pop-up/pop-up.component';
     DetailviewComponent,
     UserDetailComponent,
     AdministrationComponent,
-    AddServiceComponent,
     ServiceCategoryPipe,
     ServiceProviderPipe,
     ServiceModelPipe,
@@ -76,8 +74,8 @@ import { PopUpComponent } from './components/pop-up/pop-up.component';
     ProjectEditviewComponent,
     SearchvectorEditviewComponent,
     MatchingresultsOverviewComponent,
-    ServiceEditviewComponent,
-    PopUpComponent
+    PopUpComponent,
+    ServiceCreateViewComponent
   ],
   imports: [
     BrowserModule,

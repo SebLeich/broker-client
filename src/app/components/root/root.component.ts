@@ -306,10 +306,19 @@ export class RootComponent implements OnInit {
       },
       error => {
         if (error.status == 401) {
-          this.logout();
+          this.autoLogout();
         }
       }
     );
+  }
+  /**
+   * the method logs the current user out caused by token expiration
+   */
+  autoLogout() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("username");
+    this.roleRights = [];
+    this.popUp = { message: "Logout wegen Zeitüberschreitung", icon: null, iconClass: null, showSpinner: false };
   }
   /**
    * the method logs the current user out
@@ -493,6 +502,12 @@ export class RootComponent implements OnInit {
    */
   setState(state: number) {
     this.state = state;
+  }
+  /**
+   * the method sets the pop up message
+   */
+  showPopUpMessage(data: PopUpData){
+    this.popUp = data;
   }
   /**
    * the method returns the current access token

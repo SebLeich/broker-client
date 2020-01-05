@@ -17,31 +17,28 @@
     [deploymentInformation]=deploymentInformation 
     [serviceCategories]=serviceCategories
     [serviceModels]=serviceModels 
-    [serviceProviders]=serviceProviders
+    [providers]=providers
 ></app-searchvector-editview>
 <app-detailview
     *ngIf="state == 4" 
     [isLoggedIn]=isLoggedIn 
     [currentService]=currentService
     [serviceCategories]=serviceCategories 
-    [serviceProviders]=serviceProviders
+    [providers]=providers 
+    (messageEmitter)=showPopUpMessage($event)
 ></app-detailview>
 <div *ngIf="state == 5">
     <app-administration *ngIf="canRegisterRoles; else noAccessRight" [currentUser]=username
         [canRegisterRoles]=canRegisterRoles [canEditSecurityGuidelines]=canEditSecurityGuidelines></app-administration>
 </div>
-<div *ngIf="state == 60">
-    <app-add-service *ngIf="canCreateServices; else noAccessRight" [isLoggedIn]=isLoggedIn
-        [serviceCategories]=serviceCategories [serviceProviders]=serviceProviders
-        (persistService)="persistService($event)"></app-add-service>
-</div>
 <div *ngIf="state == 6">
-    <app-service-editview 
+    <app-service-create-view 
         *ngIf="canCreateServices; else noAccessRight"
         [serviceCategories]=serviceCategories 
-        [serviceProviders]=serviceProviders 
-        (serviceEmitter)=persistService($event)
-    ></app-service-editview>
+        [providers]=providers 
+        (serviceEmitter)=persistService($event) 
+        (messageEmitter)=showPopUpMessage($event)
+    ></app-service-create-view>
 </div>
 <div *ngIf="state == 7">
     <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices

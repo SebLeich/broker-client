@@ -36,4 +36,13 @@ export class PopUpData {
   public icon: string = null;
   public showSpinner: boolean = false;
   public iconClass: string = "";
+
+  constructor(object?){
+    if(object != null && typeof(object) != "undefined"){
+      this.message = object.message;
+      this.icon = object.icon;
+      this.showSpinner = object.showSpinner;
+      this.iconClass = object.iconClass;
+    }
+  }
 }

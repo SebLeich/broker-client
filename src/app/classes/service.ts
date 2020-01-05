@@ -348,7 +348,9 @@ export class KeyValueStorageService extends Service {
         return o;
     }
 }
-
+/**
+ * the class contains object storage services
+ */
 export class ObjectStorageService extends Service {
     public hasFileEncryption: boolean;
     public hasFileLocking: boolean;
@@ -413,7 +415,9 @@ export class ObjectStorageService extends Service {
         return o;
     }
 }
-
+/**
+ * the class contains online drive storage services
+ */
 export class OnlineDriveStorageService extends Service {
     public hasFileEncryption: boolean;
     public hasAutomatedSynchronisation: boolean;
@@ -462,7 +466,9 @@ export class OnlineDriveStorageService extends Service {
         return "Online Drive Storage Service";
     }
 }
-
+/**
+ * the class contains relataional database storage services
+ */
 export class RelationalDatabaseService extends Service {
     public hasDBMS: boolean;
     public hasReplication: boolean;
