@@ -237,13 +237,22 @@ export class RootComponent implements OnInit {
       iconClass: null,
       showSpinner: true
     };
-    this._service.persistService(service).subscribe((result) => {
-      this.popUp = {
-        message: "Der Service wurde angelegt",
-        icon: "done",
-        iconClass: "success",
-        showSpinner: false
-      };
+    this._service.persistService(service).subscribe((result: any) => {
+      if(service.sessionState.isNew){
+        this.popUp = {
+          message: "Der Service wurde angelegt",
+          icon: "done",
+          iconClass: "success",
+          showSpinner: false
+        };
+      } else {
+        this.popUp = {
+          message: "Die Änderungen wurden gespeichert",
+          icon: "done",
+          iconClass: "success",
+          showSpinner: false
+        };
+      }
       this.currentService = new service.constructor(result);
       this.setState(globals.rootStates.SERVICEDETAILVIEW);
     });

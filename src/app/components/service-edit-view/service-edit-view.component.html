@@ -18,6 +18,9 @@
         ></app-service-edit-view-inner>
         <div class="project-tile-footer">
             <span style="flex: 1;"></span>
+            <div *ngIf="isPersisted()" class="footer-btn danger">
+                <mat-icon class="icon">delete_forever</mat-icon>
+            </div>
             <div *ngIf="isPersistable()" class="footer-btn success" (click)="saveService()">Service speichern</div>
         </div>
         </div>

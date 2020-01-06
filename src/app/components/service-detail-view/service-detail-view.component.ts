@@ -147,9 +147,9 @@ export class ServiceDetailViewComponent implements OnInit {
       data: {
         datasets: [{
           data: [percentage, (100 - percentage)],
-          backgroundColor: ["rgba(102, 174, 19, 0.55)", "#dfdfdf"],
-          borderColor: ["rgb(255,255,255)", "rgb(255,255,255)"],
-          borderWidth: 5
+          backgroundColor: ["#114887b8", "#dfdfdf"], // "rgba(102, 174, 19, 0.55)"
+          borderColor: ["#3d76b8", "rgba(255,255,255,0)"],
+          borderWidth: 1
         }],
         labels: [
           "Übereinstimmung",
@@ -188,12 +188,16 @@ export class ServiceDetailViewComponent implements OnInit {
     var data: ChartDataSets[] = [
       {
         data: [],
-        label: "Gewichtung"
+        label: "Gewichtung",
+        backgroundColor: "rgba(255, 255, 255, .1)"
       }, {
         data: [],
-        borderColor: "rgb(32, 153, 64)",
-        backgroundColor: "rgba(32, 153, 64, .2)",
-        label: "Erfüllungsgrad Suchanfrage"
+        borderColor: "rgba(32, 153, 64, 0)",
+        backgroundColor: "#114887b8", //"rgba(32, 153, 64, .2)"
+        label: "Erfüllungsgrad Suchanfrage",
+        pointBackgroundColor: "rgba(255, 255, 255, 0)",
+        pointBorderColor: "#3d76b8",
+        pointBorderWidth: 1
       }
     ];
     if(this.currentProject.categoryPriority > 0){
@@ -293,7 +297,17 @@ export class ServiceDetailViewComponent implements OnInit {
         scale: {
           ticks: {
             min: 0,
-            max: 3
+            max: 3,
+            stepSize: 1,
+            fontColor: "rgb(255, 255, 255)",
+            showLabelBackdrop: false,
+            padding: 10
+          },
+          pointLabels: {
+            fontColor: "rgb(255, 255, 255)"
+          },
+          gridLines: {
+            color: "rgba(255, 255, 255, .4)"
           }
         },
         responsive: true

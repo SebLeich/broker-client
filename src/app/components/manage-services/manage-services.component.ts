@@ -61,7 +61,8 @@ export class ManageServicesComponent implements OnInit {
         break;
     }
     this.service.get(url + "/" + o.id).subscribe((result) => {
-      this.servicePreviewEmitter.emit(new t(result));
+      console.log(new t(result));
+      //this.servicePreviewEmitter.emit(new t(result));
     });
   }
 

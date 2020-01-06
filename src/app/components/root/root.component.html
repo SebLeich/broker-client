@@ -26,31 +26,58 @@
     [storageTypes]=storageTypes
     [providers]=providers
 ></app-searchvector-editview>
-<app-service-edit-view
-    *ngIf="state == 4" 
-    [currentService]=currentService
-    [serviceCategories]=serviceCategories 
-    [providers]=providers 
-    (messageEmitter)=showPopUpMessage($event)
-></app-service-edit-view>
+
+<!-- service edit view -->
+<div *ngIf="state == 4">
+    <div *ngIf="isLoggedIn; else notLoggedIn">
+        <app-service-edit-view
+            [currentService]=currentService
+            [serviceCategories]=serviceCategories 
+            [providers]=providers 
+            (messageEmitter)=showPopUpMessage($event) 
+            (serviceEmitter)=persistService($event)
+        ></app-service-edit-view>
+    </div>
+</div>
+
+<!-- administrations view -->
 <div *ngIf="state == 5">
-    <app-administration *ngIf="canRegisterRoles; else noAccessRight" [currentUser]=username
-        [canRegisterRoles]=canRegisterRoles [canEditSecurityGuidelines]=canEditSecurityGuidelines></app-administration>
+    <div *ngIf="isLoggedIn; else notLoggedIn">
+        <app-administration 
+            *ngIf="canRegisterRoles; else noRoleRight" 
+            [currentUser]=username
+            [canRegisterRoles]=canRegisterRoles 
+            [canEditSecurityGuidelines]=canEditSecurityGuidelines
+        ></app-administration>
+    </div>
 </div>
+
+<!-- create services view -->
 <div *ngIf="state == 6">
-    <app-service-create-view 
-        *ngIf="canCreateServices; else noAccessRight"
-        [serviceCategories]=serviceCategories 
-        [providers]=providers 
-        (serviceEmitter)=persistService($event) 
-        (messageEmitter)=showPopUpMessage($event)
-    ></app-service-create-view>
+    <div *ngIf="isLoggedIn; else notLoggedIn">
+        <app-service-create-view 
+            *ngIf="canCreateServices; else noRoleRight"
+            [serviceCategories]=serviceCategories 
+            [providers]=providers 
+            (serviceEmitter)=persistService($event) 
+            (messageEmitter)=showPopUpMessage($event)
+        ></app-service-create-view>
+    </div>
 </div>
+
+<!-- manage services view -->
 <div *ngIf="state == 7">
-    <app-manage-services *ngIf="canCreateServices; else noAccessRight" [canDeleteServices]=canDeleteServices
-        (serviceEmitter)=editService($event) (servicePreviewEmitter)=showService($event)
-        (stateEmitter)="setState($event)"></app-manage-services>
+    <div *ngIf="isLoggedIn; else notLoggedIn">
+        <app-manage-services 
+            *ngIf="canCreateServices; else noRoleRight" 
+            [canDeleteServices]=canDeleteServices
+            (serviceEmitter)=editService($event) 
+            (servicePreviewEmitter)=showService($event)
+            (stateEmitter)="setState($event)"
+        ></app-manage-services>
+    </div>
 </div>
+
 <app-service-preview *ngIf="state == 100" [project]=currentProject (editEmitter)=editService($event)
     (gotoUseCaseEmitter)=gotoUseCaseSelection() (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
 <app-matchingresults-overview
@@ -110,15 +137,40 @@
         </div>
     </div>
 </div>
-<ng-template #noAccessRight>
-    <div>
-        <div style="display: block; text-align: center; margin-top: 25vh;">
-            <mat-icon style="font-size: 5rem; width: auto; height: auto; color: rgb(199, 36, 36);">lock</mat-icon>
+
+<!-- login error hint - only if the user is not logged in! not for 403 Forbidden - no role rights! -->
+<ng-template #notLoggedIn>
+    <div style="height: calc(100% - 80px);">
+        <div class="component-background">
+            <div class="component-background-limiter"></div>
         </div>
-        <h1 style="text-align: center;">Geschützter Bereich</h1>
-        <div style="text-align: center; margin: 0 30vw; color: grey;">
-            Dieser Bereich ist nur für Nutzer mit erweiterten Nutzungsrechten zugänglich. Melden Sie sich an oder
-            verwenden Sie einen anderen Account für die Nutzung.
+        <div class="centered-box">
+            <div style="display: block; text-align: center;">
+                <mat-icon style="font-size: 5rem; width: auto; height: auto; color: rgb(199, 36, 36);">lock</mat-icon>
+            </div>
+            <h1 style="text-align: center;">Geschützter Bereich</h1>
+            <div style="text-align: center; color: grey;">
+                Dieser Bereich ist nur für angemeldete Nutzer zugänglich. Melden Sie sich an bevor Sie fortfahren.
+            </div>
+            <div class="default-primary-control-button" (click)=openLoginDialog()>Login</div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- no role right error hint - only if the user has no role rights (HTTP 403 Forbidden)! -->
+<ng-template #noRoleRight>
+    <div style="height: calc(100% - 80px);">
+        <div class="component-background">
+            <div class="component-background-limiter"></div>
+        </div>
+        <div class="centered-box">
+            <div style="display: block; text-align: center;">
+                <mat-icon style="font-size: 5rem; width: auto; height: auto; color: rgb(199, 36, 36);">lock</mat-icon>
+            </div>
+            <h1 style="text-align: center;">Geschützter Bereich</h1>
+            <div style="text-align: center; color: grey;">
+                Dieser Bereich ist nur für Nutzer mit erweiterten Nutzungsrechten zugänglich. Melden Sie sich entweder mit einem anderen Account an oder wenden Sie sich an einen Administrator.
+            </div>
         </div>
     </div>
 </ng-template>

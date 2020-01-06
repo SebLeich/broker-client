@@ -448,7 +448,9 @@ tr.mat-row:last-child td.mat-cell {
   height: 100%;
   width: 100%;
   z-index: -1;
-  background: linear-gradient(180deg, #ffffff, #a8a8a8);
+  //background: linear-gradient(180deg, #ffffff, #a8a8a8);
+  background-image: url(./assets/bg.jpg);
+  background-size: cover;
 }
 
 // NEW STYLE
@@ -481,6 +483,22 @@ tr.mat-row:last-child td.mat-cell {
   border-radius: 2px;
   cursor: pointer;
   margin-right: 3px;
+}
+.default-primary-control-button {
+  margin-top: 15px;
+  background-color: #114887;
+  color: white;
+  padding: 8px 14px;
+  border: 0px;
+  font-size: 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 3px;
+  display: inline-block;
+}
+.head-tile .head-button:hover, .default-primary-control-button:hover {
+  background-color: #587ca5;
+  transition: background-color .5s;
 }
 .head-tile .head-button.icon-button {
   vertical-align: top;
@@ -648,9 +666,10 @@ tr.mat-row:last-child td.mat-cell {
   position: absolute;
   bottom: 0px;
   left: 0px;
-  background-color: white;
+  background-color: #e5e5e5;
   display: flex;
   padding-right: 5px;
+  padding-top: 5px;
 }
 .project-tile-footer .footer-btn {
   height: 40px;
@@ -662,6 +681,9 @@ tr.mat-row:last-child td.mat-cell {
   border-radius: 3px;
   font-size: 1rem;
 }
+.project-tile-footer .footer-btn .icon {
+  padding: 7px 0px;
+}
 .project-tile-footer .footer-btn.success {
   background-color: #5a9542;
 }
@@ -671,6 +693,9 @@ tr.mat-row:last-child td.mat-cell {
 .project-tile-footer .footer-btn.warning {
   background-color: #ffae00;
 }
+.project-tile-footer .footer-btn.danger {
+  background-color: #c41919;
+}
 .project-tile-footer .footer-btn.success:hover {
   background-color: #85b472;
 }
@@ -679,4 +704,20 @@ tr.mat-row:last-child td.mat-cell {
 }
 .project-tile-footer .footer-btn.warning:hover {
   background-color: #ffcb5c;
+}
+.project-tile-footer .footer-btn.danger:hover {
+  background-color: #d86666;
+}
+.centered-box {
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #ffffffdb;
+  padding: 50px 20px;
+  border-radius: 10px;
+  border: 3px solid white;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }

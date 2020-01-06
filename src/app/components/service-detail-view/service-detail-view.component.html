@@ -1,5 +1,67 @@
-<div *ngIf="hasMatchingResponse() && hasProject(); else noMatchingResponseOne" style="display: flex;">
-    <div style="flex: 1;">
+<div class="global">
+    <div *ngIf="hasMatchingResponse() && hasProject(); else noMatchingResponseOne" style="display: flex;">
+        <div style="flex: 1;">
+            <div class="project-tile">
+                <div class="icon-container">
+                    <mat-icon class="icon">subject</mat-icon>
+                </div>
+                <div>
+                    <div *ngIf="service.serviceTitle != null || service.serviceDescription != null; else noMetadata"
+                        class="content">
+                        <span class="subtitle">Details von {{ service.serviceName }}</span>
+                        <div>
+                            <span *ngIf="service.serviceTitle != null"
+                            class="title">{{ service.serviceTitle }}</span>
+                            <span *ngIf="service.serviceDescription != null"
+                            class="small-title">{{ service.serviceDescription }}</span>
+                        </div>
+                    </div>
+                    <ng-template #noMetadata>
+                        <div class="content">
+                            <span class="subtitle">Weitere Details</span>
+                            <div>
+                                <span class="title empty-title">Keine Details hinterlegt</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="project-tile">
+                <div class="content">
+                    <span class="subtitle">Kategorie</span>
+                    <div>
+                        <span *ngIf="categorySetted(); else noCategory" class="title">
+                            {{ service.cloudServiceCategory.cloudServiceCategoryName }}
+                        </span>
+                        <ng-template #noCategory>
+                            <span class="title notSetted">Keine Kategorie angegeben</span>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="project-tile">
+                <div class="content">
+                    <span class="subtitle">Servicemodell</span>
+                    <div>
+                        <span *ngIf="modelSetted(); else noModel" class="title">
+                            {{ service.cloudServiceModel.cloudServiceModelName }}
+                        </span>
+                        <ng-template #noModel>
+                            <span class="title notSetted">Kein Servicemodell angegeben</span>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 1; background-color: #000000ad;" class="project-tile">
+            <div id="fulfillment-dough-parent" style="height: 100%; width: 100%;"></div>
+            <div class="dough-counter">
+                <div class="text" id="fulfillment-dough-counter"></div>
+                <div class="subtitle">Übereinstimmung</div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noMatchingResponseOne>
         <div class="project-tile">
             <div class="icon-container">
                 <mat-icon class="icon">subject</mat-icon>
@@ -9,10 +71,8 @@
                     class="content">
                     <span class="subtitle">Details von {{ service.serviceName }}</span>
                     <div>
-                        <span *ngIf="service.serviceTitle != null"
-                        class="title">{{ service.serviceTitle }}</span>
-                        <span *ngIf="service.serviceDescription != null"
-                        class="small-title">{{ service.serviceDescription }}</span>
+                        <span *ngIf="service.serviceTitle != null" class="title">{{ service.serviceTitle }}</span>
+                        <span *ngIf="service.serviceDescription != null" class="small-title">{{ service.serviceDescription }}</span>
                     </div>
                 </div>
                 <ng-template #noMetadata>
@@ -51,68 +111,66 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div style="flex: 1;" class="project-tile">
-        <div id="fulfillment-dough-parent" style="height: 100%; width: 100%; background-color: white;"></div>
-        <div class="dough-counter">
-            <div class="text" id="fulfillment-dough-counter"></div>
-            <div class="subtitle">Übereinstimmung</div>
-        </div>
-    </div>
-</div>
-<ng-template #noMatchingResponseOne>
-    <div class="project-tile">
-        <div class="icon-container">
-            <mat-icon class="icon">subject</mat-icon>
-        </div>
-        <div>
-            <div *ngIf="service.serviceTitle != null || service.serviceDescription != null; else noMetadata"
-                class="content">
-                <span class="subtitle">Details von {{ service.serviceName }}</span>
-                <div>
-                    <span *ngIf="service.serviceTitle != null" class="title">{{ service.serviceTitle }}</span>
-                    <span *ngIf="service.serviceDescription != null" class="small-title">{{ service.serviceDescription }}</span>
-                </div>
-            </div>
-            <ng-template #noMetadata>
+    </ng-template>
+    <div *ngIf="hasMatchingResponse() && hasProject(); else noMatchingResponseSec" style="display: flex;">
+        <div style="flex: 1;">
+            <div class="project-tile">
                 <div class="content">
-                    <span class="subtitle">Weitere Details</span>
+                    <span class="subtitle">Informationen des Anbieters</span>
                     <div>
-                        <span class="title empty-title">Keine Details hinterlegt</span>
+                        <span *ngIf="providerSetted(); else noProvider" class="title">
+                            {{ service.provider.providerName }}
+                            <mat-icon *ngIf="service.provider.verified; else notVerified"
+                                class="veri-icon verified" matTooltip="Verifizierter Anbieter">verified_user
+                            </mat-icon>
+                            <ng-template #notVerified>
+                                <mat-icon class="veri-icon not-verified"
+                                    matTooltip="Nicht verifizierter Anbieter">
+                                    security</mat-icon>
+                            </ng-template>
+                        </span>
+                        <ng-template #noProvider>
+                            <span class="title notSetted">Keine Speichertechnologie angegeben</span>
+                        </ng-template>
                     </div>
                 </div>
-            </ng-template>
-        </div>
-    </div>
-    <div class="project-tile">
-        <div class="content">
-            <span class="subtitle">Kategorie</span>
-            <div>
-                <span *ngIf="categorySetted(); else noCategory" class="title">
-                    {{ service.cloudServiceCategory.cloudServiceCategoryName }}
-                </span>
-                <ng-template #noCategory>
-                    <span class="title notSetted">Keine Kategorie angegeben</span>
-                </ng-template>
+            </div>
+            <div class="project-tile">
+                <div class="content">
+                    <span class="subtitle">Lokalisierung</span>
+                    <div>
+                        <div *ngIf="service.dataLocations.length > 0; else noDataLocations">
+                            <div *ngFor="let element of service.dataLocations">
+                                <span class="title">{{ element.toString() }}</span>
+                            </div>
+                        </div>
+                        <ng-template #noDataLocations>
+                            <span class="title empty-title">Keine Lokalisierungen hinterlegt</span>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="project-tile">
+                <div class="content">
+                    <span class="subtitle">Zertifizierungen</span>
+                    <div>
+                        <div *ngIf="service.certificates.length > 0; else noCertificates">
+                            <div *ngFor="let certificate of service.certificates">
+                                <span class="title">{{ certificate.certificateName }}</span>
+                            </div>
+                        </div>
+                        <ng-template #noCertificates>
+                            <span class="title empty-title">Keine Zertifikate hinterlegt</span>
+                        </ng-template>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="project-tile">
-        <div class="content">
-            <span class="subtitle">Servicemodell</span>
-            <div>
-                <span *ngIf="modelSetted(); else noModel" class="title">
-                    {{ service.cloudServiceModel.cloudServiceModelName }}
-                </span>
-                <ng-template #noModel>
-                    <span class="title notSetted">Kein Servicemodell angegeben</span>
-                </ng-template>
-            </div>
+        <div style="flex: 1; background-color: #000000ad;" class="project-tile">
+            <div id="fulfillment-net-parent" style="height: 100%; width: 100%;"></div>
         </div>
     </div>
-</ng-template>
-<div *ngIf="hasMatchingResponse() && hasProject(); else noMatchingResponseSec" style="display: flex;">
-    <div style="flex: 1;">
+    <ng-template #noMatchingResponseSec>
         <div class="project-tile">
             <div class="content">
                 <span class="subtitle">Informationen des Anbieters</span>
@@ -164,135 +222,79 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div style="flex: 1;" class="project-tile">
-        <div id="fulfillment-net-parent" style="height: 100%; width: 100%; background-color: white;"></div>
-    </div>
-</div>
-<ng-template #noMatchingResponseSec>
-    <div class="project-tile">
+    </ng-template>
+    <div *ngIf="hasStorageType()" class="project-tile">
         <div class="content">
-            <span class="subtitle">Informationen des Anbieters</span>
+            <span class="subtitle">Speichertechnologie</span>
             <div>
-                <span *ngIf="providerSetted(); else noProvider" class="title">
-                    {{ service.provider.providerName }}
-                    <mat-icon *ngIf="service.provider.verified; else notVerified"
-                        class="veri-icon verified" matTooltip="Verifizierter Anbieter">verified_user
-                    </mat-icon>
-                    <ng-template #notVerified>
-                        <mat-icon class="veri-icon not-verified"
-                            matTooltip="Nicht verifizierter Anbieter">
-                            security</mat-icon>
-                    </ng-template>
+                <span *ngIf="storageTypeSetted(); else noStorageType" class="title">
+                    {{ service.storageType.storageTypeDescription }}
                 </span>
-                <ng-template #noProvider>
+                <ng-template #noStorageType>
                     <span class="title notSetted">Keine Speichertechnologie angegeben</span>
                 </ng-template>
             </div>
         </div>
     </div>
-    <div class="project-tile">
+    <div class="project-tile" style="margin-bottom: 80px;">
         <div class="content">
-            <span class="subtitle">Lokalisierung</span>
-            <div>
-                <div *ngIf="service.dataLocations.length > 0; else noDataLocations">
-                    <div *ngFor="let element of service.dataLocations">
-                        <span class="title">{{ element.toString() }}</span>
-                    </div>
-                </div>
-                <ng-template #noDataLocations>
-                    <span class="title empty-title">Keine Lokalisierungen hinterlegt</span>
+            <span class="subtitle">Weitere Eigenschaften</span>
+            <div *ngIf="hasFileEncryption()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasFileEncryption; else noFileEncryption" class="icon success">done</mat-icon>
+                <ng-template #noFileEncryption>
+                    <mat-icon class="icon danger">clear</mat-icon>
                 </ng-template>
+                <span>Dateiverschlüsselung</span>
             </div>
-        </div>
-    </div>
-    <div class="project-tile">
-        <div class="content">
-            <span class="subtitle">Zertifizierungen</span>
-            <div>
-                <div *ngIf="service.certificates.length > 0; else noCertificates">
-                    <div *ngFor="let certificate of service.certificates">
-                        <span class="title">{{ certificate.certificateName }}</span>
-                    </div>
-                </div>
-                <ng-template #noCertificates>
-                    <span class="title empty-title">Keine Zertifikate hinterlegt</span>
+            <div *ngIf="hasReplication()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasReplication; else noReplication" class="icon success">done</mat-icon>
+                <ng-template #noReplication>
+                    <mat-icon class="icon danger">clear</mat-icon>
                 </ng-template>
+                <span>Replikation</span>
             </div>
-        </div>
-    </div>
-</ng-template>
-<div *ngIf="hasStorageType()" class="project-tile">
-    <div class="content">
-        <span class="subtitle">Speichertechnologie</span>
-        <div>
-            <span *ngIf="storageTypeSetted(); else noStorageType" class="title">
-                {{ service.storageType.storageTypeDescription }}
-            </span>
-            <ng-template #noStorageType>
-                <span class="title notSetted">Keine Speichertechnologie angegeben</span>
-            </ng-template>
-        </div>
-    </div>
-</div>
-<div class="project-tile">
-    <div class="content">
-        <span class="subtitle">Weitere Eigenschaften</span>
-        <div *ngIf="hasFileEncryption()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasFileEncryption; else noFileEncryption" class="icon success">done</mat-icon>
-            <ng-template #noFileEncryption>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Dateiverschlüsselung</span>
-        </div>
-        <div *ngIf="hasReplication()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasReplication; else noReplication" class="icon success">done</mat-icon>
-            <ng-template #noReplication>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Replikation</span>
-        </div>
-        <div *ngIf="hasFileCompression()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasFileCompression; else noFileCompression" class="icon success">done</mat-icon>
-            <ng-template #noFileCompression>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Dateikomprimierung</span>
-        </div>
-        <div *ngIf="hasFilePermissions()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasFilePermissions; else noFilePermissions" class="icon success">done</mat-icon>
-            <ng-template #noFilePermissions>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Dateiberechtigungen</span>
-        </div>
-        <div *ngIf="hasFileLocking()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasFileLocking; else noFileLocking" class="icon success">done</mat-icon>
-            <ng-template #noFileLocking>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Filelocking</span>
-        </div>
-        <div *ngIf="hasDBMS()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasDBMS; else noDBMS" class="icon success">done</mat-icon>
-            <ng-template #noDBMS>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Datenbankmanagementsystem</span>
-        </div>
-        <div *ngIf="hasFileVersioning()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasFileVersioning; else noFileVersioning" class="icon success">done</mat-icon>
-            <ng-template #noFileVersioning>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Dateiversionierung</span>
-        </div>
-        <div *ngIf="hasAutomatedSynchronisation()" class="boolean-entry">
-            <mat-icon *ngIf="service.hasAutomatedSynchronisation; else noAutomatedSync" class="icon success">done</mat-icon>
-            <ng-template #noAutomatedSync>
-                <mat-icon class="icon danger">clear</mat-icon>
-            </ng-template>
-            <span>Automatische Synchronisation</span>
+            <div *ngIf="hasFileCompression()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasFileCompression; else noFileCompression" class="icon success">done</mat-icon>
+                <ng-template #noFileCompression>
+                    <mat-icon class="icon danger">clear</mat-icon>
+                </ng-template>
+                <span>Dateikomprimierung</span>
+            </div>
+            <div *ngIf="hasFilePermissions()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasFilePermissions; else noFilePermissions" class="icon success">done</mat-icon>
+                <ng-template #noFilePermissions>
+                    <mat-icon class="icon danger">clear</mat-icon>
+                </ng-template>
+                <span>Dateiberechtigungen</span>
+            </div>
+            <div *ngIf="hasFileLocking()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasFileLocking; else noFileLocking" class="icon success">done</mat-icon>
+                <ng-template #noFileLocking>
+                    <mat-icon class="icon danger">clear</mat-icon>
+                </ng-template>
+                <span>Filelocking</span>
+            </div>
+            <div *ngIf="hasDBMS()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasDBMS; else noDBMS" class="icon success">done</mat-icon>
+                <ng-template #noDBMS>
+                    <mat-icon class="icon danger">clear</mat-icon>
+                </ng-template>
+                <span>Datenbankmanagementsystem</span>
+            </div>
+            <div *ngIf="hasFileVersioning()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasFileVersioning; else noFileVersioning" class="icon success">done</mat-icon>
+                <ng-template #noFileVersioning>
+                    <mat-icon class="icon danger">clear</mat-icon>
+                </ng-template>
+                <span>Dateiversionierung</span>
+            </div>
+            <div *ngIf="hasAutomatedSynchronisation()" class="boolean-entry">
+                <mat-icon *ngIf="service.hasAutomatedSynchronisation; else noAutomatedSync" class="icon success">done</mat-icon>
+                <ng-template #noAutomatedSync>
+                    <mat-icon class="icon danger">clear</mat-icon>
+                </ng-template>
+                <span>Automatische Synchronisation</span>
+            </div>
         </div>
     </div>
 </div>

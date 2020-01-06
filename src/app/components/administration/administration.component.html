@@ -1,92 +1,105 @@
-<section class="section l-primary-bg" style="color: white;">
-    <span class="super-section-header">Verwaltung</span>
-    <div style="padding-bottom: 20px;">Auf dieser Seite können Sie die Einstellungen des Cloud Brokers anpassen,
-        Rollenberechtigungen editieren und ähnliches.</div>
-</section>
-<section class="section content-section" *ngIf="canRegisterRoles">
-    <span class="section-header">
-        Rollen
-        <span class="sub">Welche Rollen existieren im Cloud Broker?</span>
-    </span>
-    <div *ngIf="roleState == 2; else loader">
-        <mat-form-field class="example-chip-list">
-            <mat-chip-list #roleList aria-label="Rollen bearbeiten">
-                <mat-chip *ngFor="let r of roles" [selectable]="selectable" [removable]="removable"
-                    (removed)="removeRole(r)">
-                    {{ r.roleName }}
-                    <mat-icon matChipRemove *ngIf="removable control-red">cancel</mat-icon>
-                </mat-chip>
-                <input
-                    [matChipInputFor]="roleList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="addRole($event)">
-            </mat-chip-list>
-        </mat-form-field>
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container" style="height: calc(100% - 80px);">
+    <section class="head-tile">
+        <span class="super-section-header">Verwaltung</span>
+        <div style="padding-right: 30px;">Auf dieser Seite können Sie die Einstellungen des Cloud Brokers anpassen und
+            Rollenberechtigungen editieren.</div>
+        <mat-icon class="icon">security</mat-icon>
+    </section>
+    <div class="project-tile">
+        <section class="section content-section" *ngIf="canRegisterRoles">
+            <span class="section-header">
+                Rollen
+                <span class="sub">Welche Rollen existieren im Cloud Broker?</span>
+            </span>
+            <div *ngIf="roleState == 2; else loader" style="width: 100%;">
+                <mat-form-field class="example-chip-list">
+                    <mat-chip-list #roleList aria-label="Rollen bearbeiten">
+                        <mat-chip *ngFor="let r of roles" [selectable]="selectable" [removable]="removable"
+                            (removed)="removeRole(r)">
+                            {{ r.roleName }}
+                            <mat-icon matChipRemove *ngIf="removable control-red">cancel</mat-icon>
+                        </mat-chip>
+                        <input
+                            [matChipInputFor]="roleList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addRole($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+            </div>
+        </section>
     </div>
-</section>
-<section class="section content-section" *ngIf="canEditSecurityGuidelines">
-    <span class="section-header">
-        Rollenberechtigungen
-        <span class="sub">Welche Rollen dürfen welche Aktionen ausführen?</span>
-    </span>
-    <div *ngIf="currentRole != null; else loader">
-        <mat-select class="selector" [placeholder]=selectRolePlaceholder [value]=currentRole.roleName
-            (selectionChange)=selectRole($event)>
-            <mat-option *ngFor="let r of roles" [value]="r.roleName">
-                {{ r.roleName }}
-            </mat-option>
-        </mat-select>
-        <div *ngIf="roleRightState == 2; else loader">
-            <table mat-table [dataSource]="currentRights" style="width: 100%;">
-                <ng-container matColumnDef="isAllowed">
-                    <th mat-header-cell *matHeaderCellDef>Ist erlaubt</th>
-                    <td mat-cell *matCellDef="let element" class="small-cell">
-                        <mat-slide-toggle [checked]="element.isAllowed" (change)="persistRoleRight(element)">
-                        </mat-slide-toggle>
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="rule">
-                    <th mat-header-cell *matHeaderCellDef>Regel</th>
-                    <td mat-cell *matCellDef="let element"> {{ element.rule.ruleTitle }} </td>
-                </ng-container>
-                <tr mat-row *matRowDef="let row; columns: ruleCols;"></tr>
-            </table>
-        </div>
+    <div class="project-tile">
+        <section class="section content-section" *ngIf="canEditSecurityGuidelines">
+            <span class="section-header">
+                Nutzer-Rollen Zuweisungen
+                <span class="sub">Welche Nutzer sind welchen Rollen zugeordnet?</span>
+            </span>
+            <div *ngIf="userState == 2 && roleState == 2; else loader" style="width: 100%;">
+                <table mat-table [dataSource]="users" style="width: 100%;">
+                    <ng-container matColumnDef="icon">
+                        <td mat-cell *matCellDef="let element" class="small-cell">
+                            <mat-icon *ngIf="element.username == currentUser" class="primary-color" matTooltip="Ihr Account">person</mat-icon>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                        <td mat-cell *matCellDef="let element" class="small-cell">
+                            {{ element.username }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="roles">
+                        <td mat-cell *matCellDef="let element">
+                            <mat-select multiple [ngModel]="element.roles" (selectionChange)=selectRoleForUser(element,$event)>
+                                <mat-option *ngFor="let role of roles" [value]="role.roleName"> {{ role.roleName }} </mat-option>
+                            </mat-select>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="options">
+                        <td mat-cell *matCellDef="let element" class="small-cell options-cell">
+                            <mat-icon (click)=deleteUser(element) class="control control-red" matTooltip="{{ element.username }} löschen">delete_forever</mat-icon>
+                        </td>
+                    </ng-container>
+                    <tr mat-row *matRowDef="let row; columns: uRCols;"></tr>
+                </table>
+            </div>
+        </section>
     </div>
-</section>
-<section class="section content-section" *ngIf="canEditSecurityGuidelines">
-    <span class="section-header">
-        Nutzer-Rollen Zuweisungen
-        <span class="sub">Welche Nutzer sind welchen Rollen zugeordnet?</span>
-    </span>
-    <div *ngIf="userState == 2 && roleState == 2; else loader">
-        <table mat-table [dataSource]="users" style="width: 100%;">
-            <ng-container matColumnDef="icon">
-                <td mat-cell *matCellDef="let element" class="small-cell">
-                    <mat-icon *ngIf="element.username == currentUser" class="primary-color" matTooltip="Ihr Account">person</mat-icon>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="user">
-                <td mat-cell *matCellDef="let element" class="small-cell">
-                    {{ element.username }}
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="roles">
-                <td mat-cell *matCellDef="let element">
-                    <mat-select multiple [ngModel]="element.roles" (selectionChange)=selectRoleForUser(element,$event)>
-                        <mat-option *ngFor="let role of roles" [value]="role.roleName"> {{ role.roleName }} </mat-option>
-                    </mat-select>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="options">
-                <td mat-cell *matCellDef="let element" class="small-cell options-cell">
-                    <mat-icon (click)=deleteUser(element) class="control control-red" matTooltip="{{ element.username }} löschen">delete_forever</mat-icon>
-                </td>
-            </ng-container>
-            <tr mat-row *matRowDef="let row; columns: uRCols;"></tr>
-        </table>
+    <div class="project-tile" style="margin-bottom: 60px;">
+        <section class="section content-section" *ngIf="canEditSecurityGuidelines">
+            <span class="section-header">
+                Rollenberechtigungen
+                <span class="sub">Welche Rollen dürfen welche Aktionen ausführen?</span>
+            </span>
+            <div *ngIf="currentRole != null; else loader" style="width: 100%;">
+                <mat-label>Rolle selektieren</mat-label>
+                <mat-select class="selector" [placeholder]=selectRolePlaceholder [value]=currentRole.roleName
+                    (selectionChange)=selectRole($event)>
+                    <mat-option *ngFor="let r of roles" [value]="r.roleName">
+                        {{ r.roleName }}
+                    </mat-option>
+                </mat-select>
+                <div *ngIf="roleRightState == 2; else loader">
+                    <table mat-table [dataSource]="currentRights" style="width: 100%;">
+                        <ng-container matColumnDef="isAllowed">
+                            <th mat-header-cell *matHeaderCellDef>Ist erlaubt</th>
+                            <td mat-cell *matCellDef="let element" class="small-cell">
+                                <mat-slide-toggle [checked]="element.isAllowed" (change)="persistRoleRight(element)">
+                                </mat-slide-toggle>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="rule">
+                            <th mat-header-cell *matHeaderCellDef>Regel</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.rule.ruleTitle }} </td>
+                        </ng-container>
+                        <tr mat-row *matRowDef="let row; columns: ruleCols;"></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
     </div>
-</section>
+</div>
 <ng-template #loader>
     <mat-spinner diameter="50" color="primary"></mat-spinner>
 </ng-template>

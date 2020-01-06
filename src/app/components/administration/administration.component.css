@@ -14,6 +14,7 @@
 
 .section {
     padding: 20px;
+    width: 100%;
 }
 
 .content-section {
@@ -46,4 +47,8 @@
 
 .control {
     cursor: pointer;
+}
+
+.project-tile {
+    background-color: white;
 }

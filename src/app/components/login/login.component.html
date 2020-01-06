@@ -14,7 +14,14 @@
             <input matInput placeholder="Benutzername" name="username" [(ngModel)]="user.username">
         </mat-form-field>
         <mat-form-field class="width">
-            <input matInput placeholder="Passwort" name="password" type="password" [(ngModel)]="user.password">
+            <input 
+                matInput 
+                (keyup.enter)=loginUser()
+                placeholder="Passwort" 
+                name="password" 
+                type="password" 
+                [(ngModel)]="user.password"
+            />
         </mat-form-field>
     <div *ngIf="hasError == true" class="hasError">{{loginErrorMsg}}</div>
     </mat-dialog-content>

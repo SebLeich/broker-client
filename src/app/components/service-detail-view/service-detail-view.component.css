@@ -60,7 +60,7 @@
 
 .project-tile {
     padding: 20px;
-    background-color: white;
+    background-color: #ffffffe0;
 }
 
 .tile {
@@ -200,7 +200,7 @@ super-section-header {
 
 .dough-counter .text {
     font-size: 2.5rem;
-    color: #454545;
+    color: #ffffff;
 }
 
 .dough-counter .subtitle {

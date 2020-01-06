@@ -41,6 +41,13 @@ export class ServiceEditViewComponent implements OnInit {
     return true;
   }
   /**
+   * the method returns whether the current service is persisted or not
+   */
+  isPersisted(): boolean {
+    console.log(this.currentService.sessionState.isNew);
+    return !this.currentService.sessionState.isNew;
+  }
+  /**
    * the method is called on component initalization
    */
   ngOnInit(){
@@ -49,8 +56,8 @@ export class ServiceEditViewComponent implements OnInit {
   /**
    * the method saves the current service to the database
    */
-  saveService(service: Service){
-    console.log(service);
+  saveService(){
+    this.serviceEmitter.emit(this.currentService);
   }
   /**
    * the method sets the pop up message
