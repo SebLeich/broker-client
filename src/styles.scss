@@ -24,8 +24,8 @@ body {
 @media (max-width: 1200px) {
 
   .responsive-container {
-      width: 100% !important;
-      margin: 0px !important;
+      width: calc(100% - 10px) !important;
+      margin: 0px 0px 0px 10px !important;
   }
 }
 
@@ -458,7 +458,8 @@ tr.mat-row:last-child td.mat-cell {
 .head-tile {
   position: relative;
   padding: 40px 60px;
-  background-color: white;
+  //background-color: white;
+  background: linear-gradient(160deg, white, #ffffff73);
   margin: 10px 10px 0px 0px;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   color: #404040;
@@ -471,7 +472,7 @@ tr.mat-row:last-child td.mat-cell {
   font-size: 6rem;
   bottom: 20px;
   right: 20px;
-  color: #dfdfdf;
+  color: #5c5c5c;
 }
 .head-tile .head-button {
   margin-top: 15px;
@@ -707,6 +708,13 @@ tr.mat-row:last-child td.mat-cell {
 }
 .project-tile-footer .footer-btn.danger:hover {
   background-color: #d86666;
+}
+.left-centered {
+  position: relative;
+  left: 30px;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: calc(100% - 100px);
 }
 .centered-box {
   position: absolute;

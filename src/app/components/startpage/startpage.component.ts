@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { StartPageTile } from 'src/app/classes/metadata';
+import { StartPageTile, MetaData } from 'src/app/classes/metadata';
 import * as globals from "../../globals";
+import { Project } from 'src/app/classes/project';
 
 @Component({
   selector: "app-startpage",
@@ -11,6 +12,10 @@ import * as globals from "../../globals";
  * the class contains the startpage
  */
 export class StartpageComponent implements OnInit {
+  /**
+   * the current server metadata
+   */
+  @Input() metaData: MetaData = null;
   /**
    * the option tiles on the startpage
    */
@@ -215,10 +220,20 @@ export class StartpageComponent implements OnInit {
    */
   @Output() userDialogEmitter = new EventEmitter();
   /**
+   * the method emits a project
+   */
+  @Output() projectEmitter = new EventEmitter();
+  /**
    * the constructor creates a new instance of the component
    */
   constructor() {
 
+  }
+  /**
+   * the method creates a new project and navigates to the project edit view
+   */
+  createProject(){
+    this.projectEmitter.emit(new Project());
   }
   /**
    * the method initiates the logout event

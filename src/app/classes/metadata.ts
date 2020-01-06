@@ -16,6 +16,30 @@ export class CloudServiceType {
     }
 }
 
+/**
+ * the class contains the servers meta data object
+ */
+export class MetaData {
+
+    public serviceCount: number;
+    public providerCount: number;
+    public userCount: number;
+    public searchCount: number;
+    public time: number;
+
+    constructor(object){
+        this.serviceCount = object.serviceCount;
+        this.searchCount = object.searchCount;
+        this.providerCount = object.providerCount;
+        this.userCount = object.userCount;
+        this.time = object.time;
+    }
+
+    static get location(): string {
+        return "api/metadata";
+    }
+}
+
 export function atLeastOneValidator(): ValidatorFn {
     return function validate(formGroup: FormGroup) {
         var checked = 0;

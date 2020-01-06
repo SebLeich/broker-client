@@ -21,6 +21,7 @@ import { RoleRight, User } from "src/app/classes/account";
 import { UserDetailComponent } from "../user-detail/user-detail.component";
 import { SearchVector, MatchingResponse } from "src/app/classes/search";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MetaData } from 'src/app/classes/metadata';
 
 @Component({
   selector: "app-root",
@@ -34,6 +35,7 @@ export class RootComponent implements OnInit {
   errorMsg: string = "";
   errorInner: string = "";
   errorState: number = 0;
+  metaData: MetaData = null;
   /**
    * the attribute contains the current application state
    */
@@ -359,6 +361,9 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this._service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
     this._service
+      .get(MetaData.location)
+      .subscribe((o: Object) => this.setMetaData(o));
+    this._service
       .get(Certificate.location)
       .subscribe((o: Object) => this.setCertificates(o));
     this._service
@@ -483,6 +488,13 @@ export class RootComponent implements OnInit {
       array.push(new DeploymentInformation(o[index]));
     }
     this.deploymentInformation = array;
+  }
+  /**
+   * the method sets the current servers meta data
+   */
+  setMetaData(o: Object) {
+    console.log(o);
+    this.metaData = new MetaData(o);
   }
   /**
    * the method creates the use cases from the given array

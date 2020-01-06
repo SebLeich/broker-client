@@ -43,7 +43,6 @@ import { ServiceCategoryPipe } from "./pipes/servicecategory.pipe";
 import { ServiceProviderPipe } from "./pipes/serviceprovider.pipe";
 import { ServiceModelPipe } from "./pipes/servicemodel.pipe";
 import { ManageServicesComponent } from "./components/manage-services/manage-services.component";
-import { ServicePreviewComponent } from "./components/service-preview/service-preview.component";
 import { ChartsModule } from "ng2-charts";
 import { ProjectOverviewComponent } from './components/project-overview/project-overview.component';
 import { ProjectDetailviewComponent } from './components/project-detailview/project-detailview.component';
@@ -70,7 +69,6 @@ import { ServiceDetailViewComponent } from './components/service-detail-view/ser
     ServiceProviderPipe,
     ServiceModelPipe,
     ManageServicesComponent,
-    ServicePreviewComponent,
     ProjectOverviewComponent,
     ProjectDetailviewComponent,
     ProjectEditviewComponent,

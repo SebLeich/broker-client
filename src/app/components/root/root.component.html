@@ -2,11 +2,20 @@
     [canRegisterRoles]="canRegisterRoles" (loginDialogEmitter)="openLoginDialog()"
     (userDialogEmitter)="openUserDetailDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
 </app-navbar>
-<app-startpage *ngIf="state == 0" [isLoggedIn]="isLoggedIn" [canAdministrate]="canAdministrate"
-    [canCreateServices]="canCreateServices" (logoutEmitter)="logout()" (stateEmitter)="setState($event)"
-    (loginDialogEmitter)="openLoginDialog()" (registerDialogEmitter)="openRegisterDialog()"
-    (userDialogEmitter)="openUserDetailDialog()" [projectCounter]="projectCounter">
-</app-startpage>
+<app-startpage 
+    *ngIf="state == 0" 
+    [isLoggedIn]="isLoggedIn" 
+    [canAdministrate]="canAdministrate"
+    [canCreateServices]="canCreateServices" 
+    [metaData]=metaData
+    (logoutEmitter)="logout()" 
+    (stateEmitter)="setState($event)"
+    (loginDialogEmitter)="openLoginDialog()" 
+    (registerDialogEmitter)="openRegisterDialog()"
+    (userDialogEmitter)="openUserDetailDialog()" 
+    (projectEmitter)="gotoProjectDetailView($event)" 
+    [projectCounter]="projectCounter"
+></app-startpage>
 <app-project-detailview 
     *ngIf="state == 2" 
     [currentProject]=currentProject 
@@ -78,8 +87,6 @@
     </div>
 </div>
 
-<app-service-preview *ngIf="state == 100" [project]=currentProject (editEmitter)=editService($event)
-    (gotoUseCaseEmitter)=gotoUseCaseSelection() (projectEmitter)=gotoProjectEditView($event)></app-service-preview>
 <app-matchingresults-overview
     *ngIf="state == 10" 
     [currentProject]=currentProject

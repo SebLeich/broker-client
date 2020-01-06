@@ -1,3 +1,103 @@
+<div class="component-background">
+  <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container">
+  <section class="head-tile">
+    <span class="super-section-header" style="color: #404040; font-size: 4rem !important;">Cloud Broker</span>
+    <div class="startpage-subtitle">Willkommen beim Cloud Broker, ihrem Matchmaker für Cloud Services.</div>
+    <mat-icon class="icon" style="color: #404040;">filter_drama</mat-icon>
+    <div *ngIf="metaData != null">
+      <table class="metadata-table">
+        <tbody>
+          <tr>
+            <td>
+              <div class="count-badge">{{metaData.userCount}}</div>
+            </td>
+            <td>
+              <span class="count-text">Nutzer vertrauen dem Cloud Broker</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="count-badge">{{metaData.providerCount}}</div>
+            </td>
+            <td>
+              <span class="count-text">Anbieter stellen sich dem Vergleich</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="count-badge">{{metaData.serviceCount}}</div>
+            </td>
+            <td>
+              <span class="count-text">Dienste werden verglichen</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="count-badge">{{metaData.searchCount}}</div>
+            </td>
+            <td>
+              <span class="count-text">mal wurde bereits nach Lösungen gesucht</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <div style="display: flex;">
+    <div class="project-tile" style="flex: 2;" (click)="setState(1)">
+      <div class="left-centered">
+        <div class="headline" style="font-size: 3rem;">
+          Service suchen
+        </div>
+        <div class="subtitle">
+          Finden Sie jetzt ihren passenden Service
+        </div>
+      </div>
+      <mat-icon class="bg-icon">search</mat-icon>
+    </div>
+    <div style="flex: 1;">
+      <div *ngIf="!isLoggedIn" class="project-tile" (click)="openLoginDialog()">
+        <div class="headline">
+          Einloggen
+        </div>
+        <div class="subtitle">
+          Loggen Sie sich ein um alle Funktionen zu nutzen
+        </div>
+      </div>
+      <div *ngIf="isLoggedIn" class="project-tile" (click)="setState(12)">
+        <div class="headline">
+          Projekte verwalten
+        </div>
+        <div class="subtitle">
+          Verwalten Sie ihre Projekte
+        </div>
+      </div>
+      <div class="project-tile" (click)="createProject()">
+        <div class="headline">
+          Projekt anlegen
+        </div>
+        <div class="subtitle">
+          Legen Sie ein neues Projekt an
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex;">
+    <div class="project-tile footer">
+      <div class="left-centered">
+        <div class="headline" style="color: white;">
+          Was ist der Cloud Broker?
+        </div>
+        <div class="subtitle" style="color: white;">
+          Der Cloud Broker ist eine Platform für den Vergleich von verschiedenen Cloud Services und für das Matching eben dieser mit Ihren Anforderungen.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
 <section class="section gradient-bg" style="color: white; position: relative; min-height: calc(100% - 104px);">
   <mat-icon class="bg-icon">filter_drama</mat-icon>
   <span class="responsive-container super-section-header" style="padding-bottom: 50px; font-size: 4rem;">Cloud Broker</span>
@@ -19,3 +119,4 @@
     </div>
   </mat-grid-list>
 </section>
+-->
