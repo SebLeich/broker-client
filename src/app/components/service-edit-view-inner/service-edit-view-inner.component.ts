@@ -443,10 +443,12 @@ export class ServiceEditViewInnerComponent implements OnInit {
    * the method returns whether storage type slider is visible
    */
   get displayStorageType(): boolean {
-    if (
-      this.currentService instanceof DirectAttachedService
-      || this.currentService instanceof BlockStorageService
-    ) return true;
+    if(this.currentService == null) return false;
+    switch(this.currentService.constructor){
+      case DirectAttachedService:
+      case BlockStorageService:
+        return true;
+    }
     return false;
   }
   /**
@@ -574,15 +576,13 @@ export class ServiceEditViewInnerComponent implements OnInit {
       }
       this.dataLocationTypes = array;
     });
-    if(this.displayStorageType){
-      this.service.get(StorageType.location).subscribe((o) => {
-        var array = [];
-        for (var index in o) {
-          array.push(new StorageType(o[index]));
-        }
-        this.storageTypes = array;
-      });
-    }
+    this.service.get(StorageType.location).subscribe((o) => {
+      var array = [];
+      for (var index in o) {
+        array.push(new StorageType(o[index]));
+      }
+      this.storageTypes = array;
+    });
   }
 
   // AFTER THIS: new object creation attributes & functions

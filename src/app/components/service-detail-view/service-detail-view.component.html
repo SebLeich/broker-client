@@ -8,15 +8,19 @@
                 <div *ngIf="service.serviceTitle != null || service.serviceDescription != null; else noMetadata"
                     class="content">
                     <span class="subtitle">Details von {{ service.serviceName }}</span>
-                    <span *ngIf="service.serviceTitle != null"
+                    <div>
+                        <span *ngIf="service.serviceTitle != null"
                         class="title">{{ service.serviceTitle }}</span>
-                    <span *ngIf="service.serviceDescription != null"
+                        <span *ngIf="service.serviceDescription != null"
                         class="small-title">{{ service.serviceDescription }}</span>
+                    </div>
                 </div>
                 <ng-template #noMetadata>
                     <div class="content">
                         <span class="subtitle">Weitere Details</span>
-                        <span class="title empty-title">Keine Details hinterlegt</span>
+                        <div>
+                            <span class="title empty-title">Keine Details hinterlegt</span>
+                        </div>
                     </div>
                 </ng-template>
             </div>
@@ -24,23 +28,27 @@
         <div class="project-tile">
             <div class="content">
                 <span class="subtitle">Kategorie</span>
-                <span *ngIf="categorySetted(); else noCategory" class="title">
-                    {{ service.cloudServiceCategory.cloudServiceCategoryName }}
-                </span>
-                <ng-template #noCategory>
-                    <span class="title notSetted">Keine Kategorie angegeben</span>
-                </ng-template>
+                <div>
+                    <span *ngIf="categorySetted(); else noCategory" class="title">
+                        {{ service.cloudServiceCategory.cloudServiceCategoryName }}
+                    </span>
+                    <ng-template #noCategory>
+                        <span class="title notSetted">Keine Kategorie angegeben</span>
+                    </ng-template>
+                </div>
             </div>
         </div>
         <div class="project-tile">
             <div class="content">
                 <span class="subtitle">Servicemodell</span>
-                <span *ngIf="modelSetted(); else noModel" class="title">
-                    {{ service.cloudServiceModel.cloudServiceModelName }}
-                </span>
-                <ng-template #noModel>
-                    <span class="title notSetted">Kein Servicemodell angegeben</span>
-                </ng-template>
+                <div>
+                    <span *ngIf="modelSetted(); else noModel" class="title">
+                        {{ service.cloudServiceModel.cloudServiceModelName }}
+                    </span>
+                    <ng-template #noModel>
+                        <span class="title notSetted">Kein Servicemodell angegeben</span>
+                    </ng-template>
+                </div>
             </div>
         </div>
     </div>
@@ -61,15 +69,17 @@
             <div *ngIf="service.serviceTitle != null || service.serviceDescription != null; else noMetadata"
                 class="content">
                 <span class="subtitle">Details von {{ service.serviceName }}</span>
-                <span *ngIf="service.serviceTitle != null"
-                    class="title">{{ service.serviceTitle }}</span>
-                <span *ngIf="service.serviceDescription != null"
-                    class="small-title">{{ service.serviceDescription }}</span>
+                <div>
+                    <span *ngIf="service.serviceTitle != null" class="title">{{ service.serviceTitle }}</span>
+                    <span *ngIf="service.serviceDescription != null" class="small-title">{{ service.serviceDescription }}</span>
+                </div>
             </div>
             <ng-template #noMetadata>
                 <div class="content">
                     <span class="subtitle">Weitere Details</span>
-                    <span class="title empty-title">Keine Details hinterlegt</span>
+                    <div>
+                        <span class="title empty-title">Keine Details hinterlegt</span>
+                    </div>
                 </div>
             </ng-template>
         </div>
@@ -77,23 +87,27 @@
     <div class="project-tile">
         <div class="content">
             <span class="subtitle">Kategorie</span>
-            <span *ngIf="categorySetted(); else noCategory" class="title">
-                {{ service.cloudServiceCategory.cloudServiceCategoryName }}
-            </span>
-            <ng-template #noCategory>
-                <span class="title notSetted">Keine Kategorie angegeben</span>
-            </ng-template>
+            <div>
+                <span *ngIf="categorySetted(); else noCategory" class="title">
+                    {{ service.cloudServiceCategory.cloudServiceCategoryName }}
+                </span>
+                <ng-template #noCategory>
+                    <span class="title notSetted">Keine Kategorie angegeben</span>
+                </ng-template>
+            </div>
         </div>
     </div>
     <div class="project-tile">
         <div class="content">
             <span class="subtitle">Servicemodell</span>
-            <span *ngIf="modelSetted(); else noModel" class="title">
-                {{ service.cloudServiceModel.cloudServiceModelName }}
-            </span>
-            <ng-template #noModel>
-                <span class="title notSetted">Kein Servicemodell angegeben</span>
-            </ng-template>
+            <div>
+                <span *ngIf="modelSetted(); else noModel" class="title">
+                    {{ service.cloudServiceModel.cloudServiceModelName }}
+                </span>
+                <ng-template #noModel>
+                    <span class="title notSetted">Kein Servicemodell angegeben</span>
+                </ng-template>
+            </div>
         </div>
     </div>
 </ng-template>
@@ -102,6 +116,64 @@
         <div class="project-tile">
             <div class="content">
                 <span class="subtitle">Informationen des Anbieters</span>
+                <div>
+                    <span *ngIf="providerSetted(); else noProvider" class="title">
+                        {{ service.provider.providerName }}
+                        <mat-icon *ngIf="service.provider.verified; else notVerified"
+                            class="veri-icon verified" matTooltip="Verifizierter Anbieter">verified_user
+                        </mat-icon>
+                        <ng-template #notVerified>
+                            <mat-icon class="veri-icon not-verified"
+                                matTooltip="Nicht verifizierter Anbieter">
+                                security</mat-icon>
+                        </ng-template>
+                    </span>
+                    <ng-template #noProvider>
+                        <span class="title notSetted">Keine Speichertechnologie angegeben</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="project-tile">
+            <div class="content">
+                <span class="subtitle">Lokalisierung</span>
+                <div>
+                    <div *ngIf="service.dataLocations.length > 0; else noDataLocations">
+                        <div *ngFor="let element of service.dataLocations">
+                            <span class="title">{{ element.toString() }}</span>
+                        </div>
+                    </div>
+                    <ng-template #noDataLocations>
+                        <span class="title empty-title">Keine Lokalisierungen hinterlegt</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="project-tile">
+            <div class="content">
+                <span class="subtitle">Zertifizierungen</span>
+                <div>
+                    <div *ngIf="service.certificates.length > 0; else noCertificates">
+                        <div *ngFor="let certificate of service.certificates">
+                            <span class="title">{{ certificate.certificateName }}</span>
+                        </div>
+                    </div>
+                    <ng-template #noCertificates>
+                        <span class="title empty-title">Keine Zertifikate hinterlegt</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="flex: 1;" class="project-tile">
+        <div id="fulfillment-net-parent" style="height: 100%; width: 100%; background-color: white;"></div>
+    </div>
+</div>
+<ng-template #noMatchingResponseSec>
+    <div class="project-tile">
+        <div class="content">
+            <span class="subtitle">Informationen des Anbieters</span>
+            <div>
                 <span *ngIf="providerSetted(); else noProvider" class="title">
                     {{ service.provider.providerName }}
                     <mat-icon *ngIf="service.provider.verified; else notVerified"
@@ -118,11 +190,13 @@
                 </ng-template>
             </div>
         </div>
-        <div class="project-tile">
-            <div class="content">
-                <span class="subtitle">Lokalisierung</span>
-                <div *ngIf="dataLocations > 0; else noDataLocations">
-                    <div *ngFor="let element of dataLocations">
+    </div>
+    <div class="project-tile">
+        <div class="content">
+            <span class="subtitle">Lokalisierung</span>
+            <div>
+                <div *ngIf="service.dataLocations.length > 0; else noDataLocations">
+                    <div *ngFor="let element of service.dataLocations">
                         <span class="title">{{ element.toString() }}</span>
                     </div>
                 </div>
@@ -131,9 +205,11 @@
                 </ng-template>
             </div>
         </div>
-        <div class="project-tile">
-            <div class="content">
-                <span class="subtitle">Zertifizierungen</span>
+    </div>
+    <div class="project-tile">
+        <div class="content">
+            <span class="subtitle">Zertifizierungen</span>
+            <div>
                 <div *ngIf="service.certificates.length > 0; else noCertificates">
                     <div *ngFor="let certificate of service.certificates">
                         <span class="title">{{ certificate.certificateName }}</span>
@@ -145,66 +221,18 @@
             </div>
         </div>
     </div>
-    <div style="flex: 1;" class="project-tile">
-        <div id="fulfillment-net-parent" style="height: 100%; width: 100%; background-color: white;"></div>
-    </div>
-</div>
-<ng-template #noMatchingResponseSec>
-    <div class="project-tile">
-        <div class="content">
-            <span class="subtitle">Informationen des Anbieters</span>
-            <span *ngIf="providerSetted(); else noProvider" class="title">
-                {{ service.provider.providerName }}
-                <mat-icon *ngIf="service.provider.verified; else notVerified"
-                    class="veri-icon verified" matTooltip="Verifizierter Anbieter">verified_user
-                </mat-icon>
-                <ng-template #notVerified>
-                    <mat-icon class="veri-icon not-verified"
-                        matTooltip="Nicht verifizierter Anbieter">
-                        security</mat-icon>
-                </ng-template>
-            </span>
-            <ng-template #noProvider>
-                <span class="title notSetted">Keine Speichertechnologie angegeben</span>
-            </ng-template>
-        </div>
-    </div>
-    <div class="project-tile">
-        <div class="content">
-            <span class="subtitle">Lokalisierung</span>
-            <div *ngIf="dataLocations > 0; else noDataLocations">
-                <div *ngFor="let element of dataLocations">
-                    <span class="title">{{ element.toString() }}</span>
-                </div>
-            </div>
-            <ng-template #noDataLocations>
-                <span class="title empty-title">Keine Lokalisierungen hinterlegt</span>
-            </ng-template>
-        </div>
-    </div>
-    <div class="project-tile">
-        <div class="content">
-            <span class="subtitle">Zertifizierungen</span>
-            <div *ngIf="service.certificates.length > 0; else noCertificates">
-                <div *ngFor="let certificate of service.certificates">
-                    <span class="title">{{ certificate.certificateName }}</span>
-                </div>
-            </div>
-            <ng-template #noCertificates>
-                <span class="title empty-title">Keine Zertifikate hinterlegt</span>
-            </ng-template>
-        </div>
-    </div>
 </ng-template>
 <div *ngIf="hasStorageType()" class="project-tile">
     <div class="content">
         <span class="subtitle">Speichertechnologie</span>
-        <span *ngIf="storageTypeSetted(); else noStorageType" class="title">
-            {{ service.storageType.storageTypeDescription }}
-        </span>
-        <ng-template #noStorageType>
-            <span class="title notSetted">Keine Speichertechnologie angegeben</span>
-        </ng-template>
+        <div>
+            <span *ngIf="storageTypeSetted(); else noStorageType" class="title">
+                {{ service.storageType.storageTypeDescription }}
+            </span>
+            <ng-template #noStorageType>
+                <span class="title notSetted">Keine Speichertechnologie angegeben</span>
+            </ng-template>
+        </div>
     </div>
 </div>
 <div class="project-tile">

@@ -7,7 +7,7 @@ export class MatchingResponse {
     public created: string;
     public note: string;
     public isFavored: boolean = false;
-    public service: Service;
+    public service: any;
     public projectId: number;
     public pointscategories: number = 0;
     public pointscertificates: number = 0;
@@ -58,7 +58,6 @@ export class MatchingResponse {
     }
 
     initService(service: any, type: string) {
-        console.log(service);
         switch (type) {
             case "BlockStorageService":
                 this.serviceType = type;

@@ -7,7 +7,13 @@
     (loginDialogEmitter)="openLoginDialog()" (registerDialogEmitter)="openRegisterDialog()"
     (userDialogEmitter)="openUserDetailDialog()" [projectCounter]="projectCounter">
 </app-startpage>
-<app-project-detailview *ngIf="state == 2" [currentProject]=currentProject (projectEmitter)="editProject($event)" (gotoOverviewEmitter)="gotoProjectOverview()">
+<app-project-detailview 
+    *ngIf="state == 2" 
+    [currentProject]=currentProject 
+    (projectEmitter)="editProject($event)" 
+    (gotoOverviewEmitter)="gotoProjectOverview()" 
+    (gotoMatchingResponseDetailViewEmitter)="gotoMatchingResponseDetailView($event)"
+>
 </app-project-detailview>
 <app-searchvector-editview 
     *ngIf="state == 1" 
@@ -17,6 +23,7 @@
     [deploymentInformation]=deploymentInformation 
     [serviceCategories]=serviceCategories
     [serviceModels]=serviceModels 
+    [storageTypes]=storageTypes
     [providers]=providers
 ></app-searchvector-editview>
 <app-service-edit-view
@@ -58,7 +65,8 @@
 <app-matching-response-detail-view 
     *ngIf="state == 14" 
     [currentMatchingResponse]=currentMatchingResponse
-    [projects]=projects
+    [projects]=projects 
+    (projectEmitter)=gotoMatchingResponseOverView($event)
 ></app-matching-response-detail-view>
 
 <!-- HELPER AREAS -->

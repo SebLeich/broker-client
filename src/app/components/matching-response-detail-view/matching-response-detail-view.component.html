@@ -5,6 +5,7 @@
     <section class="head-tile">
         <span class="super-section-header">{{ currentMatchingResponse.toString() }}</span>
         <div>Bei diesem Service handelt es sich um einen {{serviceType}}</div>
+        <button class="head-button" (click)="gotoMatchingResultsOverview()">Zurück zur Übersicht</button>
         <mat-icon class="icon">search</mat-icon>
     </section>
     <app-service-detail-view 

@@ -59,7 +59,7 @@
                 Suchresultate
                 <span class="counter count-matching-responses">0</span>
             </span>
-            <div *ngFor="let response of sortedMatchingResponses" class="inner-tile">
+            <div *ngFor="let response of sortedMatchingResponses" class="inner-tile" (click)="gotoMatchingResponseDetailView(response)">
                 <div class="inner-tile-headline">
                     {{ response.title }}
                 </div>

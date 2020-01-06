@@ -195,6 +195,12 @@ export class RootComponent implements OnInit {
     this.setState(globals.rootStates.MATCHINGRESPONSEDETAILVIEW);
   }
   /**
+   * the method navigates to the matching response overview
+   */
+  gotoMatchingResponseOverView(){
+    this.setState(globals.rootStates.MATCHINGRESPONSEOVERVIEW);
+  }
+  /**
    * the method navigates to the project detail view
    */
   gotoProjectDetailView(project: Project) {
@@ -219,7 +225,7 @@ export class RootComponent implements OnInit {
    */
   showService(service: Service) {
     this.services = [service];
-    this.setState(globals.rootStates.SERVICEPREVIEW);
+    this.setState(globals.rootStates.MATCHINGRESPONSEOVERVIEW);
   }
   /**
    * the method persists a given service
@@ -390,13 +396,23 @@ export class RootComponent implements OnInit {
     var p = this.currentProject;
     if (p == null) {
       p = new Project();
-      p.applySearchVector(s, this.serviceCategories, this.certificates, this.dataLocations, this.deploymentInformation, this.providers, this.storageTypes);
+      p.applySearchVector(
+        s, 
+        this.serviceCategories, 
+        this.certificates, 
+        this.dataLocations, 
+        this.deploymentInformation, 
+        this.providers, 
+        this.storageTypes, 
+        this.serviceModels
+      );
       p.sessionState.isNew = true;
       this.projects.push(p);
       this.projectPointer = p.id;
     } else if(p.deleteOldSearches){
       p.matchingResponse = [];
     }
+    console.log(p);
     for (var index in s.types) {
       var t = s.types[index];
       this._service.sendSearch(t, s,
@@ -407,7 +423,7 @@ export class RootComponent implements OnInit {
             m.projectId = p.id;
             p.matchingResponse.push(m);
           }
-          this.setState(globals.rootStates.SERVICEPREVIEW);
+          this.setState(globals.rootStates.MATCHINGRESPONSEOVERVIEW);
         },
         (error) => {
           console.log(error);

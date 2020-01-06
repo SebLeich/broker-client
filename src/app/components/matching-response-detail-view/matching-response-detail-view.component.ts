@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { MatchingResponse } from 'src/app/classes/search';
 import { Project } from 'src/app/classes/project';
 import { 
@@ -26,6 +26,10 @@ export class MatchingResponseDetailViewComponent implements OnInit {
    */
   @Input() projects: Project[];
   /**
+   * the navigation object emitter
+   */
+  @Output() projectEmitter = new EventEmitter();
+  /**
    * the constructor creates a new instance of the component
    */
   constructor() {
@@ -42,6 +46,12 @@ export class MatchingResponseDetailViewComponent implements OnInit {
    */
   get currentService(): any {
     return this.currentMatchingResponse.service;
+  }
+  /**
+   * the method navigates to the matching results overview
+   */
+  gotoMatchingResultsOverview(){
+    this.projectEmitter.emit(this.currentProject);
   }
   /**
    * the method is called on component initalization

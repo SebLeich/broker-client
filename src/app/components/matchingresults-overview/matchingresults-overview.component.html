@@ -11,24 +11,34 @@
     <div *ngFor="let response of sortedMatchingResponses">
         <div *ngIf="response.hasService()" class="project-tile" (click)="gotoMatchingResponseDetailView(response)">
             <div class="tile-content">
-                <span class="badge">{{typeName(response)}}</span>
-                <div class="headline">{{ response.toString() }}</div>
-                <span class="subtitle" style="white-space: initial;">
-                    {{ response.service.serviceDescription }}
-                </span>
-                <div class="match-badge-container">
-                    <span *ngIf="matchesAssoz(response).matches.length > 0" class="match-badge">
-                        <span *ngFor="let match of matchesAssoz(response).matches" class="badge-label badge-success">
-                            <mat-icon class="badge-icon">done</mat-icon>
-                            <span class="badge-text">{{match}}</span>
+                <div style="display: flex;">
+                    <div style="padding-right: 20px;">
+                        <img 
+                            width=100 
+                            src="../../../assets/{{response.service.logo}}"
+                        />
+                    </div>
+                    <div style="flex: 1">
+                        <span class="badge">{{typeName(response)}}</span>
+                        <div class="headline">{{ response.toString() }}</div>
+                        <span class="subtitle" style="white-space: initial;">
+                            {{ response.service.serviceDescription }}
                         </span>
-                    </span>
-                    <span *ngIf="matchesAssoz(response).missing.length > 0" class="match-badge">
-                        <span *ngFor="let miss of matchesAssoz(response).missing" class="badge-label badge-danger">
-                            <mat-icon class="badge-icon">clear</mat-icon>
-                            <span class="badge-text">{{miss}}</span>
-                        </span>
-                    </span>
+                        <div class="match-badge-container">
+                            <span *ngIf="matchesAssoz(response).matches.length > 0" class="match-badge">
+                                <span *ngFor="let match of matchesAssoz(response).matches" class="badge-label badge-success">
+                                    <mat-icon class="badge-icon">done</mat-icon>
+                                    <span class="badge-text">{{match}}</span>
+                                </span>
+                            </span>
+                            <span *ngIf="matchesAssoz(response).missing.length > 0" class="match-badge">
+                                <span *ngFor="let miss of matchesAssoz(response).missing" class="badge-label badge-danger">
+                                    <mat-icon class="badge-icon">clear</mat-icon>
+                                    <span class="badge-text">{{miss}}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="matching-chart-container">

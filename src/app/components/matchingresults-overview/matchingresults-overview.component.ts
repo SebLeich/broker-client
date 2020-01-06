@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatchingResponse } from 'src/app/classes/search';
 import { Project } from 'src/app/classes/project';
 import { Chart } from 'chart.js';
+import { BlockStorageService, DirectAttachedService } from 'src/app/classes/service';
 
 @Component({
   selector: 'app-matchingresults-overview',
@@ -85,8 +86,8 @@ export class MatchingresultsOverviewComponent implements OnInit {
       else output.missing.push("Replikation");
     }
     if(this.currentProject.categoryPriority > 0){
-      output.matches.push.apply(this.currentProject.categories.filter(x => matchingResponse.service.cloudServiceCategoryId == x.id).map(x => x.toString()));
-      output.missing.push.apply(this.currentProject.categories.filter(x => matchingResponse.service.cloudServiceCategoryId != x.id).map(x => x.toString()));
+      Array.prototype.push.apply(output.matches, this.currentProject.categories.filter(x => matchingResponse.service.cloudServiceCategoryId == x.id).map(x => x.toString()));
+      Array.prototype.push.apply(output.missing, this.currentProject.categories.filter(x => matchingResponse.service.cloudServiceCategoryId != x.id).map(x => x.toString()));
     }
     if(this.currentProject.certificatePriority > 0){
       Array.prototype.push.apply(output.matches, this.currentProject.certificates.filter(x => typeof(matchingResponse.service.certificates.find(y => y.id == x.id)) != "undefined").map(x => x.toString()));
@@ -97,14 +98,21 @@ export class MatchingresultsOverviewComponent implements OnInit {
       Array.prototype.push.apply(output.missing, this.currentProject.dataLocations.filter(x => typeof(matchingResponse.service.dataLocations.find(y => y.id == x.id)) == "undefined").map(x => x.toString()));
     }
     if(this.currentProject.deploymentInfoPriority > 0){
-      output.matches.push.apply(this.currentProject.deploymentInfos.filter(x => matchingResponse.service.deploymentInfoId == x.id).map(x => "Deployment: " + x.toString()));
-      output.missing.push.apply(this.currentProject.deploymentInfos.filter(x => matchingResponse.service.deploymentInfoId != x.id).map(x => "Deployment: " + x.toString()));
+      Array.prototype.push.apply(output.matches, this.currentProject.deploymentInfos.filter(x => matchingResponse.service.deploymentInfoId == x.id).map(x => "Deployment: " + x.toString()));
+      Array.prototype.push.apply(output.missing, this.currentProject.deploymentInfos.filter(x => matchingResponse.service.deploymentInfoId != x.id).map(x => "Deployment: " + x.toString()));
     }
     if(this.currentProject.providerPriority > 0){
-      output.matches.push.apply(this.currentProject.providers.filter(x => matchingResponse.service.providerId == x.id).map(x => "Anbieter: " + x.toString()));
-      output.missing.push.apply(this.currentProject.providers.filter(x => matchingResponse.service.providerId != x.id).map(x => "Anbieter: " + x.toString()));
+      Array.prototype.push.apply(output.matches, this.currentProject.providers.filter(x => matchingResponse.service.providerId == x.id).map(x => "Anbieter: " + x.toString()));
+      Array.prototype.push.apply(output.missing, this.currentProject.providers.filter(x => matchingResponse.service.providerId != x.id).map(x => "Anbieter: " + x.toString()));
     }
-
+    if(this.currentProject.modelPriority > 0){
+      Array.prototype.push.apply(output.matches, this.currentProject.serviceModels.filter(x => matchingResponse.service.cloudServiceModelId == x.id).map(x => "Modell: " + x.toString()));
+      Array.prototype.push.apply(output.missing, this.currentProject.serviceModels.filter(x => matchingResponse.service.cloudServiceModelId != x.id).map(x => "Modell: " + x.toString()));
+    }
+    if(this.currentProject.storageTypePriority > 0){
+      Array.prototype.push.apply(output.matches, this.currentProject.storageTypes.filter(x => matchingResponse.service.storageTypeId == x.id).map(x => "Speichertart: " + x.toString()));
+      Array.prototype.push.apply(output.missing, this.currentProject.storageTypes.filter(x => matchingResponse.service.storageTypeId != x.id).map(x => "Speichertart: " + x.toString()));
+    }
     return output;
   }
 
@@ -130,7 +138,6 @@ export class MatchingresultsOverviewComponent implements OnInit {
    * the method renders a dough nut chart to the matching response tile
    */
   renderDough(matchingResponse: MatchingResponse){
-    console.log(matchingResponse);
     var parent = document.getElementById("chart-parent-" + matchingResponse.service.id);
     if (parent == null) return;
     parent.innerHTML = "";

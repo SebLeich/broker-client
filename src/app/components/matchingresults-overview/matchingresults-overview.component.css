@@ -24,10 +24,12 @@
     padding: 2px 7px;
     border-radius: 3px;
     margin-right: 2px;
+    margin-top: 2px;
 }
 .tile-content .match-badge {
     font-size: 1rem;
     vertical-align: middle;
+    white-space: initial;
 }
 .tile-content .badge-success {
     background-color: #e1e9d8;

@@ -17,6 +17,8 @@ export class ProjectDetailviewComponent implements OnInit {
 
   @Output() gotoOverviewEmitter = new EventEmitter();
 
+  @Output() gotoMatchingResponseDetailViewEmitter = new EventEmitter();
+
   columns: string[] = ["category", "value"];
 
   constructor() { }
@@ -31,6 +33,10 @@ export class ProjectDetailviewComponent implements OnInit {
 
   gotoProjectOverview(){
     this.gotoOverviewEmitter.emit();
+  }
+
+  gotoMatchingResponseDetailView(matchingResponse: MatchingResponse){
+    this.gotoMatchingResponseDetailViewEmitter.emit(matchingResponse);
   }
 
   log(o){

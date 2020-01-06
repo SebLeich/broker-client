@@ -51,6 +51,7 @@ export abstract class Service {
     public sessionState: SessionState = new SessionState();
     public creation: string;
     public lastModified: string;
+    public logo: string = "msa.png";
     /**
      * the constructor creates a new instance of a service
      */
@@ -67,6 +68,9 @@ export abstract class Service {
             this.deploymentInfoId = object.deploymentInfoId;
             this.providerId = object.providerId;
             this.sessionState.isNew = false;
+            if (typeof (object.logo) != "undefined" && object.logo != null) {
+                this.logo = object.logo;
+            }
             if (typeof (object.cloudServiceCategory) != "undefined" && object.cloudServiceCategory != null) {
                 this.cloudServiceCategory = new ServiceCategory(object.cloudServiceCategory);
             }

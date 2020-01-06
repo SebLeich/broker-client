@@ -128,8 +128,10 @@ export class Project {
     dataLocations: DataLocation[],
     deploymentInfos: DeploymentInformation[],
     providers: Provider[],
-    storageTypes: StorageType[]
+    storageTypes: StorageType[],
+    serviceModels: ServiceModel[]
   ){
+    console.log(searchVector, storageTypes);
     if(searchVector.categories.isRelevant()){
       this.categoryPriority = searchVector.categories.priority;
       searchVector.categories.value.forEach((value) => {
@@ -200,7 +202,13 @@ export class Project {
         if(s != null && typeof(s) != "undefined" && !this.storageTypes.includes(s)) this.storageTypes.push(s);
       });
     }
-    console.log(this.certificatePriority);
+    if(searchVector.models.isRelevant()){
+      this.modelPriority = searchVector.models.priority;
+      searchVector.models.value.forEach((value) => {
+        var m = serviceModels.find(x => x.id == value);
+        if(m != null && typeof(m) != "undefined" && !this.serviceModels.includes(m)) this.serviceModels.push(m);
+      });
+    }
   }
   /**
    * the method returns whether the instance has searchable attributes
