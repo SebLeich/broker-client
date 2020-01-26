@@ -1,0 +1,31 @@
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
+.use-case-management {
+    width: 100%;
+    background-color: white;
+}
+
+.table {
+    width: 100%;
+}
+
+.width {
+    width: calc(100% - 40px);
+    padding: 10px 20px;
+}
+
+.small-cell {
+    width: 50px;
+}
+
+.button {
+    background-color: #114887;
+    color: white;
+    padding: 5px 10px;
+    border: 0px;
+    font-size: 1rem;
+    border-radius: 2px;
+    cursor: pointer;
+}

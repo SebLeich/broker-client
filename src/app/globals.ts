@@ -18,7 +18,8 @@ export const rootStates = {
   HTTPLOGINERROR: 11,
   PROJECTOVERVIEW: 12,
   PROJECTEDITVIEW: 13,
-  MATCHINGRESPONSEDETAILVIEW: 14
+  MATCHINGRESPONSEDETAILVIEW: 14,
+  MANAGEUSECASES: 15
 };
 /**
  * the enumeration contains all entity framework service classes
@@ -62,9 +63,9 @@ export const viewStates = {
 /**
  * the backend's server location
  */
-export const serverLocation = "https://vibros.isih.wiwi.tu-dresden.de:444"; // LIVE VERSION
+//export const serverLocation = "https://vibros.isih.wiwi.tu-dresden.de:444"; // LIVE VERSION
 
-//export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING
+export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING
 
 export const designColors = [
   { full: "rgb(186, 6, 48)", med: "rgba(186, 6, 48, .6)", light: "rgba(186, 6, 48, .3)" },

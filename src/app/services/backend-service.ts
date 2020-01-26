@@ -34,12 +34,6 @@ export class BackEndService {
         });
     }
     /**
-     * the method returns all use-cases from the configuration file
-     */
-    getUseCases() {
-        return this.http.get("./assets/usecases.json");
-    }
-    /**
      * the method logs an user in
      */
     loginUser(credentials: User) {
@@ -79,6 +73,14 @@ export class BackEndService {
      */
     post(url, data) {
         return this.http.post(globals.serverLocation + "/" + url, data, {
+            headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
+        });
+    }
+    /**
+     * the method initiates a post request to the backend
+     */
+    put(url, data) {
+        return this.http.put(globals.serverLocation + "/" + url, data, {
             headers: new HttpHeaders().set("Authorization", "Bearer " + this.token)
         });
     }

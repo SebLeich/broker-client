@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
+import { QuillModule } from "ngx-quill";
 import {
   MatDialogModule,
   MatIconModule,
@@ -27,7 +28,8 @@ import {
   MatMenuModule,
   MatSliderModule,
   MatSidenavModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTabsModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -55,6 +57,7 @@ import { ServiceEditViewComponent } from './components/service-edit-view/service
 import { ServiceEditViewInnerComponent } from './components/service-edit-view-inner/service-edit-view-inner.component';
 import { MatchingResponseDetailViewComponent } from './components/matching-response-detail-view/matching-response-detail-view.component';
 import { ServiceDetailViewComponent } from './components/service-detail-view/service-detail-view.component';
+import { UseCaseManagementViewComponent } from './components/use-case-management-view/use-case-management-view.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +82,8 @@ import { ServiceDetailViewComponent } from './components/service-detail-view/ser
     ServiceEditViewComponent,
     ServiceEditViewInnerComponent,
     MatchingResponseDetailViewComponent,
-    ServiceDetailViewComponent
+    ServiceDetailViewComponent,
+    UseCaseManagementViewComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +116,9 @@ import { ServiceDetailViewComponent } from './components/service-detail-view/ser
     MatMenuModule,
     MatSliderModule,
     MatSidenavModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    QuillModule.forRoot()
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],

@@ -936,6 +936,40 @@ export class StorageType {
         return this.storageTypeDescription;
     }
 }
+/**
+ * the method contains the service types
+ */
+export class ServiceType {
+    public id: number;
+    public name: string;
+    public desc: string;
+    constructor(object: any){
+        if(object != null && typeof(object) != "undefined"){
+            if(object.id != null && typeof(object.id) != "undefined"){
+                this.id = object.id;
+            }
+            if(object.name != null && typeof(object.name) != "undefined"){
+                this.name = object.name;
+            }
+            if(object != null && typeof(object) != "undefined"){
+                this.desc = object.description;
+            }
+        }
+    }
+    /**
+     * the method returns the classes server location
+     */
+    static get location(): string {
+        return "api/service/classes";
+    }
+    /**
+     * the method returns all available service types
+     */
+    toString(): string {
+        if(this.desc == null || typeof(this.desc) == "undefined" || this.desc == "") return this.name;
+        return this.desc;
+    }
+}
 
 export const serviceMapping = {
     "bls": BlockStorageService,

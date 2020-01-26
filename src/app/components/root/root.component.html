@@ -87,6 +87,16 @@
     </div>
 </div>
 
+<!-- manage usecases view -->
+<div *ngIf="state == 15">
+    <div *ngIf="isLoggedIn; else notLoggedIn">
+        <app-use-case-management-view 
+            [useCases]=useCases 
+            [serviceTypes]=serviceTypes
+        ></app-use-case-management-view>
+    </div>
+</div>
+
 <app-matchingresults-overview
     *ngIf="state == 10" 
     [currentProject]=currentProject

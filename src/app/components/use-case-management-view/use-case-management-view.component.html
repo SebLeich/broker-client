@@ -1,0 +1,87 @@
+<div class="component-background">
+    <div class="component-background-limiter"></div>
+</div>
+<div class="content responsive-container" (dblclick)="log()">
+    <section class="head-tile">
+        <span class="super-section-header">Use-Cases verwalten</span>
+        <div>Erstellen, bearbeiten oder löschen Sie Use-Cases der Datenbank</div>
+        <mat-icon class="icon">list</mat-icon>
+    </section>
+    <div class="project-tile">
+        <mat-tab-group [(selectedIndex)]="pageIndex" (selectedTabChange)="validateTabs($event)" class="use-case-management">
+            <mat-tab label="Übersicht">
+                <table mat-table matSort [dataSource]="dataSource" class="table">
+                    <ng-container matColumnDef="options">
+                        <th mat-header-cell *matHeaderCellDef class="centered-content control-cell">Optionen</th>
+                        <td mat-cell *matCellDef="let element" class="centered-content control-cell">
+                            <mat-icon 
+                                class="control control-blue control-blue-hov" 
+                                (click)=editUseCase(element)
+                                matTooltip="Use-Case bearbeiten"
+                            >edit</mat-icon>
+                            <mat-icon
+                                class="control control-red control-red-hov"
+                                (click)=deleteUseCase(element)
+                                matTooltip="Use-Case löschen"
+                            >delete_forever</mat-icon>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.id}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+                    </ng-container>
+            
+                    <ng-container matColumnDef="creation">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Erstellt </th>
+                        <td mat-cell *matCellDef="let element" class="cell">
+                            <span class="main"> {{ element.creation|date:'dd.MM.yyyy' }} </span>
+                            <span class="subtitle"> {{ element.creation|date:'h:mm a' }} </span>
+                        </td>
+                    </ng-container>
+                                
+                    <tr mat-header-row *matHeaderRowDef="uCMgmCols"></tr>
+                    <tr mat-row *matRowDef="let row; columns: uCMgmCols;" class="clickable-row"></tr>
+                </table>
+            </mat-tab>
+            <mat-tab label="Anlegen und Bearbeiten">
+                <mat-form-field class="width">
+                    <input matInput placeholder="Titel" [(ngModel)]="currentUseCase.title" style="font-size: 1.5rem;">
+                    <mat-icon matSuffix style="color: #114887;">edit</mat-icon>
+                </mat-form-field>
+                <div style="height: 500px; padding: 0px 20px;">
+                    <quill-editor 
+                        [(ngModel)]="currentUseCase.desc"
+                        placeholder="Text eingeben"
+                        [modules]="quillConfig"
+                    ></quill-editor>
+                </div>
+                <table mat-table [dataSource]="serviceTypes" class="table">
+                    <ng-container matColumnDef="isRelated">
+                        <th mat-header-cell *matHeaderCellDef>Wird gemappt</th>
+                        <td mat-cell *matCellDef="let element" class="small-cell">
+                            <mat-slide-toggle 
+                                [checked]="isRelated(element)" 
+                                (change)="validateUseCaseServiceTypeMapping(element)"
+                            ></mat-slide-toggle>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="text">
+                        <th mat-header-cell *matHeaderCellDef>Servicetyp</th>
+                        <td mat-cell *matCellDef="let element"> {{ element.toString() }} </td>
+                    </ng-container>
+                    <tr mat-row *matRowDef="let row; columns: useCaseServiceTypeColumns;"></tr>
+                </table>
+                <div style="padding: 10px; text-align: right;">
+                    <button class="button" (click)="persistCurrentUseCase()">
+                        Speichern
+                    </button>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

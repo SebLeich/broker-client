@@ -9,7 +9,8 @@ import {
   DeploymentInformation,
   DataLocation,
   ServiceModel,
-  StorageType
+  StorageType,
+  ServiceType
 } from "../../classes/service";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { RegisterComponent } from "../register/register.component";
@@ -53,6 +54,7 @@ export class RootComponent implements OnInit {
   projects: Project[] = [];
   useCases: UseCase[] = [];
   services: Service[] = [];
+  serviceTypes: ServiceType[] = [];
   roleRights: RoleRight[] = [];
   serviceCategories: ServiceCategory[] = [];
   serviceModels: ServiceModel[] = [];
@@ -359,7 +361,12 @@ export class RootComponent implements OnInit {
    * the method is called on component initalization
    */
   ngOnInit() {
-    this._service.getUseCases().subscribe((o: Object) => this.setUseCases(o));
+    this._service
+      .get(UseCase.location)
+      .subscribe((o: Object) => this.setUseCases(o));
+    this._service
+      .get(ServiceType.location)
+      .subscribe((o: Object) => this.setServiceTypes(o));
     this._service
       .get(MetaData.location)
       .subscribe((o: Object) => this.setMetaData(o));
@@ -499,10 +506,22 @@ export class RootComponent implements OnInit {
   /**
    * the method creates the use cases from the given array
    */
+  setServiceTypes(o: Object) {
+    var array = [];
+    for (var index in o) {
+      array.push(new ServiceType(o[index]));
+    }
+    this.serviceTypes = array;
+  }
+  /**
+   * the method creates the use cases from the given array
+   */
   setUseCases(o: Object) {
     var array = [];
     for (var index in o) {
-      array.push(new UseCase(o[index]));
+      var u = new UseCase(o[index]);
+      u.isNew = false;
+      array.push(u);
     }
     this.useCases = array;
   }
