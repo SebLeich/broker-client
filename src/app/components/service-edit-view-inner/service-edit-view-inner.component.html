@@ -15,49 +15,6 @@
             <input matInput placeholder="Verfügbarkeit" name="serviceAvailability"
                 [(ngModel)]="currentService.serviceAvailability">
         </mat-form-field>
-        <mat-form-field class="width">
-            <mat-select [placeholder]=selectCategoryPlaceholder [ngModel]="currentService.cloudServiceCategoryId"
-                (ngModelChange)="currentService.cloudServiceCategoryId=$event" name="cloudServiceCategoryId">
-                <mat-option *ngFor="let c of serviceCategories" [value]="c.id">
-                    {{ c.cloudServiceCategoryName }}
-                </mat-option>
-                <mat-option (click)="showCategoryAdder=true;" class="mat-option-adder">
-                    <mat-icon class="icon">add</mat-icon>
-                    Kategorie anlegen ...
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div *ngIf="showCategoryAdder" [formGroup]="serviceCategoryFg" class="adder-container">
-            <div class="adder-headline">
-                <span class="text">Neue Service Kategorie anlegen</span>
-                <mat-icon class="closer" (click)="showCategoryAdder=false">clear</mat-icon>
-            </div>
-            <div class="adder-content">
-                <div class="adder-content-left-column">
-                    <mat-form-field class="add-on">
-                        <input 
-                            matInput 
-                            formControlName="cloudServiceCategoryName" 
-                            placeholder="Name der Service Kategorie"
-                        />
-                        <mat-icon matPrefix class="prefix-icon">subject</mat-icon>
-                    </mat-form-field>
-                    <div *ngIf="newServiceCategoryName.touched && newServiceCategoryName.invalid" class="alert alert-danger">
-                        <div *ngIf="newServiceCategoryName.errors.required">
-                            Die Service Kategorie braucht eine Bezeichnung
-                        </div>
-                    </div>
-                </div>
-                <div class="adder-content-right-column">
-                    <button 
-                        class="add-on-button" 
-                        mat-raised-button color="primary"
-                        (click)="addServiceCategory()"
-                        [disabled]="newServiceCategoryName.invalid"
-                    >Anlegen</button>
-                </div>
-            </div>
-        </div>
         <!-- service model -->
         <mat-form-field class="width">
             <mat-select [placeholder]=selectServiceModelPlaceholder [ngModel]="currentService.cloudServiceModelId"

@@ -13,7 +13,6 @@ import {
   Certificate,
   DataLocation,
   DeploymentInformation,
-  ServiceCategory, 
   ServiceModel,
   serviceMapping,
   StorageType
@@ -71,10 +70,6 @@ export class SearchvectorEditviewComponent implements OnInit {
    */
   private _dl: DataLocation[] = [];
   /**
-   * a set of all available service categories
-   */
-  private _sc: ServiceCategory[] = [];
-  /**
    * a set of all available service models
    */
   private _sm: ServiceModel[] = [];
@@ -121,12 +116,6 @@ export class SearchvectorEditviewComponent implements OnInit {
   /**
    * the input value sets the internal service category list
    */
-  @Input() set serviceCategories(sc: ServiceCategory[]) {
-    this._sc = sc;
-  }
-  /**
-   * the input value sets the internal service category list
-   */
   @Input() set deploymentInformation(di: DeploymentInformation[]) {
     this._di = di;
   }
@@ -157,12 +146,6 @@ export class SearchvectorEditviewComponent implements OnInit {
    */
   get dataLocations() : DataLocation[] {
     return this._dl;
-  }
-  /**
-   * the input value returns the internal service category list
-   */
-  get serviceCategories() : ServiceCategory[] {
-    return this._sc;
   }
   /**
    * the input value returns the internal service model list
@@ -199,17 +182,6 @@ export class SearchvectorEditviewComponent implements OnInit {
    */
   get currentOptions() : SelectionComponent[]{
     var output = [];
-    if(this.searchVector.categories.isSearchable){
-      output.push(new UseCaseMultipleSelectionOption({
-        "id": "categories",
-        "text": "Servicekategorien", 
-        "desc": "Welche Servicekategorien kommen für Sie in Frage?", 
-        "isActive": true,
-        "list": this.serviceCategories,
-        "hasPriority": true,
-        "priority": this.searchVector.categories.priority
-      }));
-    }
     if(this.searchVector.certificates.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "certificates",
@@ -363,10 +335,6 @@ export class SearchvectorEditviewComponent implements OnInit {
    */
   get currentOptionFg() {
     var output = {};
-    if(this.searchVector.categories.isSearchable){
-      output["categories"] = this.searchVector.categories.value;
-      output["categories-prio"] = this.searchVector.categories.priority;
-    }
     if(this.searchVector.certificates.isSearchable){
       output["certificates"] = this.searchVector.certificates.value;
       output["certificates-prio"] = this.searchVector.certificates.priority;

@@ -31,7 +31,6 @@
     [certificates]=certificates
     [dataLocations]=dataLocations 
     [deploymentInformation]=deploymentInformation 
-    [serviceCategories]=serviceCategories
     [serviceModels]=serviceModels 
     [storageTypes]=storageTypes
     [providers]=providers
@@ -42,7 +41,6 @@
     <div *ngIf="isLoggedIn; else notLoggedIn">
         <app-service-edit-view
             [currentService]=currentService
-            [serviceCategories]=serviceCategories 
             [providers]=providers 
             (messageEmitter)=showPopUpMessage($event) 
             (serviceEmitter)=persistService($event)
@@ -67,7 +65,6 @@
     <div *ngIf="isLoggedIn; else notLoggedIn">
         <app-service-create-view 
             *ngIf="canCreateServices; else noRoleRight"
-            [serviceCategories]=serviceCategories 
             [providers]=providers 
             (serviceEmitter)=persistService($event) 
             (messageEmitter)=showPopUpMessage($event)

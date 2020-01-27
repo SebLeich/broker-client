@@ -1,6 +1,13 @@
 import { SessionState } from './metadata';
 import { MatchingResponse, SearchVector } from './search';
-import { ServiceCategory, Certificate, ServiceModel, DataLocation, DeploymentInformation, StorageType, Provider } from './service';
+import {
+  Certificate, 
+  ServiceModel, 
+  DataLocation, 
+  DeploymentInformation, 
+  StorageType, 
+  Provider
+} from './service';
 
 export class Project {
   id: number = 0;
@@ -12,7 +19,6 @@ export class Project {
   minMatchingPercentage: number = 50;
   deleteOldSearches: boolean = true;
   matchingResponse: MatchingResponse[] = [];
-  categories: ServiceCategory[] = [];
   certificates: Certificate[] = [];
   serviceModels: ServiceModel[] = [];
   dataLocations: DataLocation[] = [];
@@ -85,10 +91,6 @@ export class Project {
         var o = object.matchingResponse[index];
         this.matchingResponse.push(new MatchingResponse(o));
       }
-      for (var index in object.categories) {
-        var o = object.categories[index];
-        this.categories.push(new ServiceCategory(o));
-      }
       for (var index in object.certificates) {
         var o = object.certificates[index];
         this.certificates.push(new Certificate(o));
@@ -123,7 +125,6 @@ export class Project {
    */
   applySearchVector(
     searchVector: SearchVector,
-    categories: ServiceCategory[],
     certificates: Certificate[],
     dataLocations: DataLocation[],
     deploymentInfos: DeploymentInformation[],
@@ -131,14 +132,6 @@ export class Project {
     storageTypes: StorageType[],
     serviceModels: ServiceModel[]
   ){
-    console.log(searchVector, storageTypes);
-    if(searchVector.categories.isRelevant()){
-      this.categoryPriority = searchVector.categories.priority;
-      searchVector.categories.value.forEach((value) => {
-        var cat = categories.find(x => x.id == value);
-        if(cat != null && typeof(cat) != "undefined" && !this.categories.includes(cat)) this.categories.push(cat);
-      });
-    }
     if(searchVector.certificates.isRelevant()){
       this.certificatePriority = searchVector.certificates.priority;
       searchVector.certificates.value.forEach((value) => {
@@ -340,7 +333,6 @@ export class Project {
       "dbmsPriority": this.dBMSPriority,
       "fileVersioningPriority": this.fileVersioningPriority,
       "automatedSynchronisationPriority": this.automatedSynchronisationPriority,
-      "categories": this.categories,
       "certificates": this.certificates,
       "cloudServiceModels": this.serviceModels,
       "dataLocations": this.dataLocations,
@@ -372,7 +364,6 @@ export class Project {
 
   valueMapping(){
     var output = [];
-    if(this.categories.length > 0) output.push({ "category": "Kategorien", "value": this.categories });
     if(this.certificates.length > 0) output.push({ "category": "Zertifikate", "value": this.certificates });
     if(this.dataLocations.length > 0) output.push({ "category": "Lokalisierungen", "value": this.dataLocations });
     if(this.deploymentInfos.length > 0) output.push({ "category": "Deployment", "value": this.deploymentInfos });

@@ -37,8 +37,6 @@ export abstract class Service {
     public serviceTitle: string;
     public serviceCompliance: string;
     public serviceAvailability: string;
-    public cloudServiceCategory: ServiceCategory = null;
-    public cloudServiceCategoryId: number;
     public cloudServiceModel: ServiceModel = null;
     public cloudServiceModelId: number;
     public providerId: number;
@@ -63,16 +61,12 @@ export abstract class Service {
             this.serviceCompliance = object.serviceCompliance;
             this.serviceTitle = object.serviceTitle;
             this.serviceAvailability = object.serviceAvailability;
-            this.cloudServiceCategoryId = object.cloudServiceCategoryId;
             this.cloudServiceModelId = object.cloudServiceModelId;
             this.deploymentInfoId = object.deploymentInfoId;
             this.providerId = object.providerId;
             this.sessionState.isNew = false;
             if (typeof (object.logo) != "undefined" && object.logo != null) {
                 this.logo = object.logo;
-            }
-            if (typeof (object.cloudServiceCategory) != "undefined" && object.cloudServiceCategory != null) {
-                this.cloudServiceCategory = new ServiceCategory(object.cloudServiceCategory);
             }
             if (typeof (object.cloudServiceModel) != "undefined" && object.cloudServiceModel != null) {
                 this.cloudServiceModel = new ServiceModel(object.cloudServiceModel);
@@ -134,7 +128,6 @@ export abstract class Service {
             "serviceDescription": this.serviceDescription,
             "serviceTitle": this.serviceTitle,
             "serviceAvailability": this.serviceAvailability,
-            "cloudServiceCategoryId": this.cloudServiceCategoryId,
             "cloudServiceModelId": this.cloudServiceModelId,
             "providerId": this.providerId,
             "certificates": this.certificates,
@@ -701,38 +694,6 @@ export class Payment {
      */
     static get location(): string {
         return "api/payment";
-    }
-}
-/**
- * the class contains a service category
- */
-export class ServiceCategory {
-    public id: number;
-    public cloudServiceCategoryName: string;
-    /**
-     * the constructor creates a new instance of a service category
-     */
-    constructor(object) {
-        this.id = object.id;
-        this.cloudServiceCategoryName = object.cloudServiceCategoryName;
-    }
-    /**
-     * the method returns the classes server endpoint
-     */
-    get location(): string {
-        return ServiceCategory.location;
-    }
-    /**
-     * the method returns the classes server endpoint
-     */
-    static get location(): string {
-        return "api/cloudservicecategory";
-    }
-    /**
-     * the method returns a string representation of the instance
-     */
-    toString(): string {
-        return this.cloudServiceCategoryName;
     }
 }
 /**

@@ -41,7 +41,6 @@ import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
 import { UserDetailComponent } from "./components/user-detail/user-detail.component";
 import { AdministrationComponent } from "./components/administration/administration.component";
-import { ServiceCategoryPipe } from "./pipes/servicecategory.pipe";
 import { ServiceProviderPipe } from "./pipes/serviceprovider.pipe";
 import { ServiceModelPipe } from "./pipes/servicemodel.pipe";
 import { ManageServicesComponent } from "./components/manage-services/manage-services.component";
@@ -68,7 +67,6 @@ import { UseCaseManagementViewComponent } from './components/use-case-management
     LoginComponent,
     UserDetailComponent,
     AdministrationComponent,
-    ServiceCategoryPipe,
     ServiceProviderPipe,
     ServiceModelPipe,
     ManageServicesComponent,

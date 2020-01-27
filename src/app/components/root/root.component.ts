@@ -4,7 +4,6 @@ import { Project } from "../../classes/project";
 import {
   Certificate,
   Service,
-  ServiceCategory,
   Provider,
   DeploymentInformation,
   DataLocation,
@@ -56,7 +55,6 @@ export class RootComponent implements OnInit {
   services: Service[] = [];
   serviceTypes: ServiceType[] = [];
   roleRights: RoleRight[] = [];
-  serviceCategories: ServiceCategory[] = [];
   serviceModels: ServiceModel[] = [];
   providers: Provider[] = [];
   storageTypes: StorageType[] = [];
@@ -362,9 +360,6 @@ export class RootComponent implements OnInit {
       .get(DeploymentInformation.location)
       .subscribe((o: Object) => this.setDeploymentInformation(o));
     this._service
-      .get(ServiceCategory.location)
-      .subscribe((o: Object) => this.setServiceCategories(o));
-    this._service
       .get(ServiceModel.location)
       .subscribe((o: Object) => this.setServiceModels(o));
     this._service
@@ -413,7 +408,6 @@ export class RootComponent implements OnInit {
       p = new Project();
       p.applySearchVector(
         s,
-        this.serviceCategories,
         this.certificates,
         this.dataLocations,
         this.deploymentInformation,
@@ -518,16 +512,6 @@ export class RootComponent implements OnInit {
       array.push(u);
     }
     this.useCases = array;
-  }
-  /**
-   * the method creates the service categories from the given array
-   */
-  setServiceCategories(o: Object) {
-    var array = [];
-    for (var index in o) {
-      array.push(new ServiceCategory(o[index]));
-    }
-    this.serviceCategories = array;
   }
   /**
    * the method sets the service models

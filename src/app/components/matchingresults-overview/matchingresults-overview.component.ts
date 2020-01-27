@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatchingResponse } from 'src/app/classes/search';
 import { Project } from 'src/app/classes/project';
 import { Chart } from 'chart.js';
-import { BlockStorageService, DirectAttachedService } from 'src/app/classes/service';
 
 @Component({
   selector: 'app-matchingresults-overview',
@@ -84,10 +83,6 @@ export class MatchingresultsOverviewComponent implements OnInit {
     if(this.currentProject.replicationPriority > 0){
       if(matchingResponse.pointsHasReplication) output.matches.push("Replikation");
       else output.missing.push("Replikation");
-    }
-    if(this.currentProject.categoryPriority > 0){
-      Array.prototype.push.apply(output.matches, this.currentProject.categories.filter(x => matchingResponse.service.cloudServiceCategoryId == x.id).map(x => x.toString()));
-      Array.prototype.push.apply(output.missing, this.currentProject.categories.filter(x => matchingResponse.service.cloudServiceCategoryId != x.id).map(x => x.toString()));
     }
     if(this.currentProject.certificatePriority > 0){
       Array.prototype.push.apply(output.matches, this.currentProject.certificates.filter(x => typeof(matchingResponse.service.certificates.find(y => y.id == x.id)) != "undefined").map(x => x.toString()));

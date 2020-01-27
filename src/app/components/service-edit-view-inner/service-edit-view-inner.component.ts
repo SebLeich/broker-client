@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopUpData } from "src/app/components/pop-up/pop-up.component";
-import { Certificate, ServiceCategory, ServiceModel, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, Provider, DataLocationType } from "../../classes/service";
+import { Certificate, ServiceModel, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, Provider, DataLocationType } from "../../classes/service";
 import { BackEndService } from "../../services/backend-service";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange, MatSlideToggleChange } from '@angular/material';
@@ -12,8 +12,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./service-edit-view-inner.component.css']
 })
 export class ServiceEditViewInnerComponent implements OnInit {
-
-  private _serCats: ServiceCategory[] = [];
   private _serMods: ServiceModel[] = [];
   private _providers: Provider[] = [];
   private _serCert: Certificate[] = [];
@@ -21,12 +19,10 @@ export class ServiceEditViewInnerComponent implements OnInit {
   private _dataLocations: DataLocation[] = [];
   private _dataLocationTypes: DataLocationType[] = [];
 
-  public selectCategoryPlaceholder: string = "Service Kategorie";
   public selectProviderPlaceholder: string = "Anbieter";
   public selectServiceModelPlaceholder: string = "Service Modell";
   public selectStorageTypePlaceholder: string = "Speicherart";
   public selectDataLocationPlaceholder: string = "Lokalisierung";
-  public showCategoryAdder: boolean = false;
   public showDataLocationAdder: boolean = false;
   public showDataLocationTypeAdder: boolean = false;
   public showProviderAdder: boolean = false;
@@ -42,12 +38,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
    * the components current service
    */
   @Input() public currentService: any;
-  /**
-   * the input value sets the service categories
-   */
-  @Input() set serviceCategories(categories: ServiceCategory[]) {
-    this._serCats = categories;
-  }
   /**
    * the emitter for the state
    */
@@ -102,9 +92,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
     this.providerFg = _formBuilder.group({
       "providerName": ['', Validators.required],
       "providerUrl": ['']
-    });
-    this.serviceCategoryFg = _formBuilder.group({
-      "cloudServiceCategoryName": ['', Validators.required]
     });
     this.serviceModelFg = _formBuilder.group({
       "cloudServiceModelName": ['', Validators.required]
@@ -200,36 +187,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.dataLocationTypeFg.reset();
       this.messageEmitter.emit({
         message: "Lokalisationsart wurde angelegt",
-        icon: "done",
-        iconClass: "success",
-        showSpinner: false
-      });
-    });
-  }
-  /**
-   * the method adds a new cloud service category
-   */
-  addServiceCategory() {
-    if(this.dataLocationTypeFg.invalid) this.messageEmitter.emit({
-      message: "Kategorie kann nicht angelegt werden",
-      icon: "clear",
-      iconClass: "danger",
-      showSpinner: false
-    });
-    this.messageEmitter.emit({
-      message: "Kategorie wird angelegt",
-      icon: null,
-      iconClass: null,
-      showSpinner: true
-    });
-    var c = new ServiceCategory({ "cloudServiceCategoryName": this.serviceCategoryFg.get("cloudServiceCategoryName").value });
-    this.service.post(ServiceCategory.location, c).subscribe((result) => {
-      c = new ServiceCategory(result);
-      this._serCats.push(c);
-      this.showCategoryAdder = false;
-      this.serviceCategoryFg.reset();
-      this.messageEmitter.emit({
-        message: "Kategorie wurde angelegt",
         icon: "done",
         iconClass: "success",
         showSpinner: false
@@ -352,12 +309,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
    */
   set dataLocationTypes(dataLocationTypes: DataLocationType[]) {
     this._dataLocationTypes = dataLocationTypes;
-  }
-  /**
-   * the method returns all service categories
-   */
-  get serviceCategories(): ServiceCategory[] {
-    return this._serCats;
   }
   /**
    * the method returns all storage types
@@ -541,13 +492,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
     this.fg = this._formBuilder.group({
       
     });
-    this.service.get(ServiceCategory.location).subscribe((o) => {
-      var array = [];
-      for (var index in o) {
-        array.push(new ServiceCategory(o[index]));
-      }
-      this.serviceCategories = array;
-    });
     this.service.get(ServiceModel.location).subscribe((o) => {
       var array = [];
       for (var index in o) {
@@ -591,7 +535,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
   public dataLocationFg: FormGroup;
   public dataLocationTypeFg: FormGroup;
   public providerFg: FormGroup;
-  public serviceCategoryFg: FormGroup;
   public serviceModelFg: FormGroup;
   public storageTypeFg: FormGroup;
 
@@ -617,10 +560,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
 
   get newServiceModelName(){
     return this.serviceModelFg.get("cloudServiceModelName");
-  }
-
-  get newServiceCategoryName(){
-    return this.serviceCategoryFg.get("cloudServiceCategoryName");
   }
 
   get newStorageTypeDescription(){

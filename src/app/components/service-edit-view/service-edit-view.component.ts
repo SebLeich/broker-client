@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, Provider, ViewChild } from '@angular/core';
-import { Service, ServiceCategory } from "../../classes/service";
+import { Service } from "../../classes/service";
 import { PopUpData } from "src/app/components/pop-up/pop-up.component";
 import { ServiceEditViewInnerComponent } from '../service-edit-view-inner/service-edit-view-inner.component';
 
@@ -9,11 +9,6 @@ import { ServiceEditViewInnerComponent } from '../service-edit-view-inner/servic
   styleUrls: ['./service-edit-view.component.css']
 })
 export class ServiceEditViewComponent implements OnInit {
-
-  /**
-   * available service categories
-   */
-  @Input() serviceCategories: ServiceCategory[];
   /**
    * all available providers
    */

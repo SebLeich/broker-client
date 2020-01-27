@@ -163,7 +163,6 @@ export class MatchingResponse {
  */
 export class SearchVector {
 
-    public categories: SearchVectorListEntry;
     public certificates: SearchVectorListEntry;
     public datalocations: SearchVectorListEntry;
     public deploymentinfos: SearchVectorListEntry;
@@ -182,7 +181,6 @@ export class SearchVector {
     public minFulfillmentPercentage: number;
 
     constructor() {
-        this.categories = new SearchVectorListEntry();
         this.certificates = new SearchVectorListEntry();
         this.datalocations = new SearchVectorListEntry();
         this.deploymentinfos = new SearchVectorListEntry();
@@ -206,7 +204,6 @@ export class SearchVector {
         this.types.push(type);
         switch (type) {
             case BlockStorageService:
-                this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
                 this.datalocations.isSearchable = true;
                 this.deploymentinfos.isSearchable = true;
@@ -217,7 +214,6 @@ export class SearchVector {
                 this.storageType.isSearchable = true;
                 break;
             case DirectAttachedService:
-                this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
                 this.datalocations.isSearchable = true;
                 this.deploymentinfos.isSearchable = true;
@@ -232,7 +228,6 @@ export class SearchVector {
                 break;
             case KeyValueStorageService:
             case RelationalDatabaseService:
-                this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
                 this.datalocations.isSearchable = true;
                 this.deploymentinfos.isSearchable = true;
@@ -242,7 +237,6 @@ export class SearchVector {
                 this.hasReplication.isSearchable = true;
                 break;
             case ObjectStorageService:
-                this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
                 this.datalocations.isSearchable = true;
                 this.deploymentinfos.isSearchable = true;
@@ -255,7 +249,6 @@ export class SearchVector {
                 this.hasReplication.isSearchable = true;
                 break;
             case OnlineDriveStorageService:
-                this.categories.isSearchable = true;
                 this.certificates.isSearchable = true;
                 this.datalocations.isSearchable = true;
                 this.deploymentinfos.isSearchable = true;
@@ -287,7 +280,6 @@ export class SearchVector {
 
     isSearchable(): boolean {
         if (this.types.length == 0) return false;
-        if (this.categories.isRelevant()) return true;
         if (this.certificates.isRelevant()) return true;
         if (this.datalocations.isRelevant()) return true;
         if (this.deploymentinfos.isRelevant()) return true;
@@ -306,7 +298,6 @@ export class SearchVector {
     }
 
     reset() {
-        this.categories.isSearchable = false;
         this.certificates.isSearchable = false;
         this.datalocations.isSearchable = false;
         this.deploymentinfos.isSearchable = false;
