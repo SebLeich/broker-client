@@ -20,6 +20,7 @@ import {
 } from '../../classes/service';
 import { MatStepper } from '@angular/material/stepper';
 import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
+import { UseCase } from 'src/app/classes/use-case';
 
 @Component({
   selector: 'app-searchvector-editview',
@@ -42,11 +43,23 @@ export class SearchvectorEditviewComponent implements OnInit {
     return this.steps[this.stepper.selectedIndex];
   }
   /**
+   * the components cloud service selection value
+   */
+  private cloudServiceSelectionValue: boolean = null;
+  /**
    * the method returns whether the stepper can go back
    */
   canGoPrevious(): boolean {
     return this.stepper.selectedIndex > 0;
   }
+  /**
+   * the show settings flag
+   */
+  public showSettings: boolean = false;
+  /**
+   * the show settings flag
+   */
+  public useCaseSelectionEnabled: boolean = true;
   /**
    * the method returns whether the stepper can go forward
    */
@@ -135,6 +148,10 @@ export class SearchvectorEditviewComponent implements OnInit {
   @Input() set storageTypes(stty: StorageType[]) {
     this._storageTypes = stty;
   }
+  /**
+   * the input contains all use cases
+   */
+  @Input() useCases: UseCase[];
   /**
    * the input value returns the internal data location list
    */
@@ -488,6 +505,12 @@ export class SearchvectorEditviewComponent implements OnInit {
     return this.searchVector.isSearchable();
   }
   /**
+   * the method loggs an object to the console
+   */
+  log(o){
+    console.log(o);
+  }
+  /**
    * the method initiates the page change of the stepper
    */
   previous() {
@@ -503,22 +526,33 @@ export class SearchvectorEditviewComponent implements OnInit {
    * the method is called on component initalization
    */
   ngOnInit() {
-    var tSFg = this._formBuilder.group(this.currentTypeSelectionFg, {
-      validators: atLeastOneValidator()
+    this.validateSteps();
+  }
+  /**
+   * the method sends the current search to the server
+   */
+  sendSearch() {
+    this.searchVector.applyForm(this.steps[2].fg);
+    this.searchEmitter.emit(this.searchVector);
+  }
+  /**
+   * the method toggles the search input mode
+   */
+  toggleInputMode(value){
+    this.useCaseSelectionEnabled = value;
+    this.validateSteps();
+  }
+  /**
+   * the method validates the current steps
+   */
+  validateSteps(){
+    this.steps = [];
+    var cSFg = this._formBuilder.group({
+      1: [this.cloudServiceSelectionValue, Validators.requiredTrue],
+      2: [false, Validators.required]
     });
-    tSFg.valueChanges.subscribe((values) => {
-      this.searchVector.reset();
-      for(var index in values){
-        if(values[index] == true){
-          this.searchVector.addType(serviceMapping[index]);
-        }
-      }
-      this.steps[2] = new UseCaseSelecionStep({
-        "id": 3,
-        "headline": "Welche Anforderungen haben sie?",
-        "options": this.currentOptions,
-        "fg": this._formBuilder.group(this.currentOptionFg)
-      });
+    cSFg.valueChanges.subscribe((values) => {
+      this.cloudServiceSelectionValue = values[1];
     });
     this.steps.push(
       new UseCaseSelecionStep({
@@ -532,36 +566,98 @@ export class SearchvectorEditviewComponent implements OnInit {
             "id": 2, "text": "Online Collaboration", "icon": "supervised_user_circle", "desc": "Online Collaboration umfasst Tools für die Zusammenarbeit mit anderen Nutzern über Netzwerke, meistens über das Internet.", "isActive": false
           })
         ],
-        "fg": this._formBuilder.group({
-          1: [null, Validators.requiredTrue],
-          2: [false, Validators.required]
+        "fg": cSFg
+      })
+    );
+    if(this.useCaseSelectionEnabled){
+      var options: PreviewOption[] = [];
+      var fgConfig = { };
+      var index = 1;
+      for(let useCase of this.useCases){
+        options.push(new PreviewOption({
+          "id": useCase.id,
+          "icon": null,
+          "text": useCase.title, 
+          "isActive": true,
+          "customClass": "use-case",
+          "index": index
+        }));
+        fgConfig[useCase.id] = false;
+        index++;
+      }
+      var tSFg = this._formBuilder.group(fgConfig, {
+        validators: atLeastOneValidator()
+      });
+      tSFg.valueChanges.subscribe((values) => {
+        this.searchVector.reset();
+        for(var index in values){
+          if(values[index] == true){
+            var useCase = this.useCases.find(x => x.id == parseInt(index));
+            for(let type of useCase.serviceClasses) this.searchVector.addType(serviceMapping[type.name]);
+          }
+        }
+        this.steps[2] = new UseCaseSelecionStep({
+          "id": 3,
+          "headline": "Welche Anforderungen haben sie?",
+          "options": this.currentOptions,
+          "fg": this._formBuilder.group(this.currentOptionFg)
+        });
+      });
+      this.steps.push(
+        new UseCaseSelecionStep({
+          "id": 2,
+          "headline": "Welchen Aussagen stimmen Sie zu?",
+          "options": options,
+          "fg": tSFg
         })
-      }),
-      new UseCaseSelecionStep({
-        "id": 2,
-        "headline": "Welche Arten sind für Sie interessant?",
-        "options": [
-          new PreviewOption({
-            "id": "bls", "icon": BlockStorageService.icon, "desc": "Ein Datenblock ist eine begrenzte, fallweise festgelegte Anzahl von Bits oder Bytes, die als Transporteinheit behandelt wird.", "text": "Block Storage Service", "isActive": true
-          }),
-          new PreviewOption({
-            "id": "das", "text": "Direct Attached Storage Service", "icon": DirectAttachedService.icon, "desc": "Ein Direct Attached Storage ist ein Speicherlaufwerk, das direkt mit einem Rechner verbunden ist. Es steht exklusive für diesen Rechner zur Verfügung und bietet hohe Datentransferleistung und kurze Zugriffszeiten.", "isActive": true
-          }),
-          new PreviewOption({
-            "id": "kvs", "text": "Key Value Storage Service", "icon": KeyValueStorageService.icon, "desc": "Eine Schlüssel-Werte-Datenbank (auch Key Value Database oder Key Value Store) dient zur elektronischen Datenverwaltung in Computersystemen und basiert auf dem Schlüssel-Werte-Datenmodell, um assoziative Datenfelder zu speichern.", "isActive": true
-          }),
-          new PreviewOption({
-            "id": "obs", "text": "Object Storage Service", "icon": ObjectStorageService.icon, "desc": "Im Vergleich zum File-Storage wird bei Object Storage nicht nur die Datei, sondern auch die dazugehörigen Metadaten betrachtet, also das ganze Objekt. Das macht es einfacher Daten zu strukturieren.", "isActive": true
-          }),
-          new PreviewOption({
-            "id": "ods", "text": "Online Drive Storage Service", "icon": OnlineDriveStorageService.icon, "desc": "Cloud-Speicher ist ein Modell für die Speicherung von Computerdaten, bei dem die digitalen Daten in logischen Pools gespeichert werden. Der physische Speicher erstreckt sich über mehrere Server, und die physische Umgebung gehört in der Regel einem Hosting-Unternehmen und wird von diesem verwaltet.", "isActive": true
-          }),
-          new PreviewOption({
-            "id": "rds", "text": "Relational Database Storage Service", "icon": RelationalDatabaseService.icon, "desc": "Eine relationale Datenbank ist eine Sammlung von Datenelementen mit vordefinierten Beziehungen. Diese Elemente sind als ein Satz von Tabellen mit Spalten und Zeilen angeordnet.", "isActive": true
-          })
-        ],
-        "fg": tSFg
-      }),
+      );
+    } else {
+      var tSFg = this._formBuilder.group(this.currentTypeSelectionFg, {
+        validators: atLeastOneValidator()
+      });
+      tSFg.valueChanges.subscribe((values) => {
+        this.searchVector.reset();
+        for(var index in values){
+          if(values[index] == true){
+            this.searchVector.addType(serviceMapping[index]);
+          }
+        }
+        this.steps[2] = new UseCaseSelecionStep({
+          "id": 3,
+          "headline": "Welche Anforderungen haben sie?",
+          "options": this.currentOptions,
+          "fg": this._formBuilder.group(this.currentOptionFg)
+        });
+      });
+      this.steps.push(
+        new UseCaseSelecionStep({
+          "id": 2,
+          "headline": "Welche Arten sind für Sie interessant?",
+          "options": [
+            new PreviewOption({
+              "id": "bls", "icon": BlockStorageService.icon, "desc": "Ein Datenblock ist eine begrenzte, fallweise festgelegte Anzahl von Bits oder Bytes, die als Transporteinheit behandelt wird.", "text": "Block Storage Service", "isActive": true
+            }),
+            new PreviewOption({
+              "id": "das", "text": "Direct Attached Storage Service", "icon": DirectAttachedService.icon, "desc": "Ein Direct Attached Storage ist ein Speicherlaufwerk, das direkt mit einem Rechner verbunden ist. Es steht exklusive für diesen Rechner zur Verfügung und bietet hohe Datentransferleistung und kurze Zugriffszeiten.", "isActive": true
+            }),
+            new PreviewOption({
+              "id": "kvs", "text": "Key Value Storage Service", "icon": KeyValueStorageService.icon, "desc": "Eine Schlüssel-Werte-Datenbank (auch Key Value Database oder Key Value Store) dient zur elektronischen Datenverwaltung in Computersystemen und basiert auf dem Schlüssel-Werte-Datenmodell, um assoziative Datenfelder zu speichern.", "isActive": true
+            }),
+            new PreviewOption({
+              "id": "obs", "text": "Object Storage Service", "icon": ObjectStorageService.icon, "desc": "Im Vergleich zum File-Storage wird bei Object Storage nicht nur die Datei, sondern auch die dazugehörigen Metadaten betrachtet, also das ganze Objekt. Das macht es einfacher Daten zu strukturieren.", "isActive": true
+            }),
+            new PreviewOption({
+              "id": "ods", "text": "Online Drive Storage Service", "icon": OnlineDriveStorageService.icon, "desc": "Cloud-Speicher ist ein Modell für die Speicherung von Computerdaten, bei dem die digitalen Daten in logischen Pools gespeichert werden. Der physische Speicher erstreckt sich über mehrere Server, und die physische Umgebung gehört in der Regel einem Hosting-Unternehmen und wird von diesem verwaltet.", "isActive": true
+            }),
+            new PreviewOption({
+              "id": "rds", "text": "Relational Database Storage Service", "icon": RelationalDatabaseService.icon, "desc": "Eine relationale Datenbank ist eine Sammlung von Datenelementen mit vordefinierten Beziehungen. Diese Elemente sind als ein Satz von Tabellen mit Spalten und Zeilen angeordnet.", "isActive": true
+            })
+          ],
+          "fg": tSFg
+        })
+      );
+    }
+    this.steps.push(
       new UseCaseSelecionStep({
         "id": 3,
         "headline": "Welche Anforderungen haben sie?",
@@ -570,12 +666,4 @@ export class SearchvectorEditviewComponent implements OnInit {
       })
     );
   }
-  /**
-   * the method sends the current search to the server
-   */
-  sendSearch() {
-    this.searchVector.applyForm(this.steps[2].fg);
-    this.searchEmitter.emit(this.searchVector);
-  }
-
 }

@@ -202,6 +202,7 @@ export class SearchVector {
     }
 
     addType(type: IService) {
+        if(this.types.includes(type)) return;
         this.types.push(type);
         switch (type) {
             case BlockStorageService:

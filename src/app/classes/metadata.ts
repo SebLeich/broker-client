@@ -152,6 +152,7 @@ export class UseCaseSelecionStep {
 
 export class SelectionComponent {
     public id: number;
+    public index: number;
     public icon: string;
     public text: string;
     public desc: string;
@@ -164,6 +165,7 @@ export class SelectionComponent {
     public priority: number;
     constructor(object: any) {
         this.id = object.id;
+        this.index = object.index;
         this.text = object.text;
         this.icon = object.icon;
         this.desc = object.desc;
@@ -191,7 +193,10 @@ export class UseCaseSelectionOption extends SelectionComponent {
 
 
 export class PreviewOption extends SelectionComponent {
+    customClass: string;
     constructor(object: any) {
         super(object);
+        this.customClass = "";
+        if(typeof(object.customClass) == "string") this.customClass = object.customClass;
     }
 }

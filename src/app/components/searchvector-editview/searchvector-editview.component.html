@@ -1,13 +1,21 @@
 <div class="component-background">
     <div class="component-background-limiter"></div>
 </div>
-<div class="content responsive-container" style="height: calc(100% - 80px);">
+<div class="content responsive-container" style="height: calc(100% - 80px);" (dblclick)="log(this)">
     <section class="head-tile">
         <span class="super-section-header">Service suchen</span>
         <div>Finden Sie ihren passenden Cloud Storage Service</div>
         <mat-icon class="icon">filter_drama</mat-icon>
-        <button class="head-button" (click)="gotoProjectOverview()">Einstellungen</button>
+        <button class="head-button" (click)="showSettings = true">Einstellungen</button>
     </section>
+    <div *ngIf="showSettings" class="project-tile settings-tile">
+        <div *ngIf="useCaseSelectionEnabled" (click)="toggleInputMode(false)">
+            Direkt nach Cloud Service Arten suchen (ohne Use-Cases)
+        </div>
+        <div *ngIf="!useCaseSelectionEnabled" (click)="toggleInputMode(true)">
+            Mittels Use-Cases nach Cloud Services suchen
+        </div>
+    </div>
     <div class="project-tile" style="min-height: calc(100% - 265px); padding-bottom: 45px;">
         <mat-horizontal-stepper style="width: 100%;" [linear]=true #stepper>
             <mat-step *ngFor="let step of steps" [stepControl]="step.fg" style="overflow: inherit;">
@@ -15,8 +23,8 @@
                     <ng-template matStepLabel>{{ step.headline }}</ng-template>
                     <ng-container *ngFor="let element of step.options" class="selection-parent">
                         <div *ngIf="isPreviewElement(element) && element.condition(this)"
-                            class="preview-option active-{{ element.isActive }}">
-                            <div>
+                            class="preview-option active-{{ element.isActive }} {{ element.customClass }}">
+                            <div *ngIf="element.icon != null">
                                 <mat-icon class="preview-icon">{{ element.icon }}</mat-icon>
                             </div>
                             <div style="flex: 1;">

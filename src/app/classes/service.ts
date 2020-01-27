@@ -983,5 +983,11 @@ export const serviceMapping = {
     ObjectStorageService: "obs",
     OnlineDriveStorageService: "ods",
     KeyValueStorageService: "kvs",
-    RelationalDatabaseService: "rds"
+    RelationalDatabaseService: "rds",
+    "BLOCKSTORAGESERVICE": BlockStorageService,
+    "DIRECTATTACHEDSTORAGESERVICE": DirectAttachedService,
+    "KEYVALUESTORAGESERVICE": KeyValueStorageService,
+    "OBJECTSTORAGESERVICE": ObjectStorageService,
+    "ONLINEDRIVESTORAGESERVICE": OnlineDriveStorageService,
+    "RELATIONALDATABASESTORAGESERVICE": RelationalDatabaseService
 }

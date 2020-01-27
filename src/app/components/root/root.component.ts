@@ -69,7 +69,7 @@ export class RootComponent implements OnInit {
    * the constructor creates a new instance of the component
    */
   constructor(
-    private _dialog: MatDialog, 
+    private _dialog: MatDialog,
     private _service: BackEndService,
     private _snackBar: MatSnackBar
   ) {
@@ -194,14 +194,14 @@ export class RootComponent implements OnInit {
   /**
    * the method navigates to the matching response detail view
    */
-  gotoMatchingResponseDetailView(matchingResponse: MatchingResponse){
+  gotoMatchingResponseDetailView(matchingResponse: MatchingResponse) {
     this.currentMatchingResponse = matchingResponse;
     this.setState(globals.rootStates.MATCHINGRESPONSEDETAILVIEW);
   }
   /**
    * the method navigates to the matching response overview
    */
-  gotoMatchingResponseOverView(){
+  gotoMatchingResponseOverView() {
     this.setState(globals.rootStates.MATCHINGRESPONSEOVERVIEW);
   }
   /**
@@ -242,7 +242,7 @@ export class RootComponent implements OnInit {
       showSpinner: true
     };
     this._service.persistService(service).subscribe((result: any) => {
-      if(service.sessionState.isNew){
+      if (service.sessionState.isNew) {
         this.popUp = {
           message: "Der Service wurde angelegt",
           icon: "done",
@@ -273,7 +273,7 @@ export class RootComponent implements OnInit {
     };
     this._service.persistProject(project).subscribe((result) => {
       console.log(result);
-      if(project.matchingResponse.length == 0){
+      if (project.matchingResponse.length == 0) {
         project = new Project(result);
         this.popUp = {
           message: "Das Projekt wurde angelegt",
@@ -282,7 +282,7 @@ export class RootComponent implements OnInit {
           showSpinner: false
         };
       } else {
-        for(var element of project.matchingResponse) element.projectId = result.projectId;
+        for (var element of project.matchingResponse) element.projectId = result.projectId;
         this._service.post(Project.location + "/matchingresponses", project.matchingResponse).subscribe((result2) => {
           console.log(result2);
           project = new Project(result2);
@@ -299,7 +299,7 @@ export class RootComponent implements OnInit {
   /**
    * the method sets the pop up data
    */
-  set popUp(data: PopUpData){
+  set popUp(data: PopUpData) {
     this._snackBar.openFromComponent(PopUpComponent, {
       duration: 2000,
       data: data
@@ -325,19 +325,7 @@ export class RootComponent implements OnInit {
       iconClass: "success",
       showSpinner: false
     };
-    this._service.get("api/account/current-rights").subscribe(
-      result => {
-        this.roleRights = [];
-        for (var index in result) {
-          this.roleRights.push(new RoleRight(result[index]));
-        }
-      },
-      error => {
-        if (error.status == 401) {
-          this.autoLogout();
-        }
-      }
-    );
+    this.loadData();
   }
   /**
    * the method logs the current user out caused by token expiration
@@ -349,18 +337,9 @@ export class RootComponent implements OnInit {
     this.popUp = { message: "Logout wegen Zeitüberschreitung", icon: null, iconClass: null, showSpinner: false };
   }
   /**
-   * the method logs the current user out
+   * the method loads all datasets of the database
    */
-  logout() {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("username");
-    this.roleRights = [];
-    this.popUp = { message: "Sie wurden ausgeloggt", icon: "done", iconClass: "success", showSpinner: false };
-  }
-  /**
-   * the method is called on component initalization
-   */
-  ngOnInit() {
+  loadData() {
     this._service
       .get(UseCase.location)
       .subscribe((o: Object) => this.setUseCases(o));
@@ -410,6 +389,21 @@ export class RootComponent implements OnInit {
     }
   }
   /**
+   * the method logs the current user out
+   */
+  logout() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("username");
+    this.roleRights = [];
+    this.popUp = { message: "Sie wurden ausgeloggt", icon: "done", iconClass: "success", showSpinner: false };
+  }
+  /**
+   * the method is called on component initalization
+   */
+  ngOnInit() {
+    this.loadData();
+  }
+  /**
    * the method is called when the user sends his use case search
    */
   sendSearch(s: SearchVector) {
@@ -418,19 +412,19 @@ export class RootComponent implements OnInit {
     if (p == null) {
       p = new Project();
       p.applySearchVector(
-        s, 
-        this.serviceCategories, 
-        this.certificates, 
-        this.dataLocations, 
-        this.deploymentInformation, 
-        this.providers, 
-        this.storageTypes, 
+        s,
+        this.serviceCategories,
+        this.certificates,
+        this.dataLocations,
+        this.deploymentInformation,
+        this.providers,
+        this.storageTypes,
         this.serviceModels
       );
       p.sessionState.isNew = true;
       this.projects.push(p);
       this.projectPointer = p.id;
-    } else if(p.deleteOldSearches){
+    } else if (p.deleteOldSearches) {
       p.matchingResponse = [];
     }
     console.log(p);
@@ -440,7 +434,7 @@ export class RootComponent implements OnInit {
         (result: MatchingResponse[]) => {
           var p = this.currentProject;
           p.sessionState.isChanged = true;
-          for(let m of result){
+          for (let m of result) {
             m.projectId = p.id;
             p.matchingResponse.push(m);
           }
@@ -574,7 +568,7 @@ export class RootComponent implements OnInit {
   /**
    * the method sets the pop up message
    */
-  showPopUpMessage(data: PopUpData){
+  showPopUpMessage(data: PopUpData) {
     this.popUp = data;
   }
   /**

@@ -27,6 +27,7 @@
 <app-searchvector-editview 
     *ngIf="state == 1" 
     (searchEmitter)="sendSearch($event)" 
+    [useCases]="useCases"
     [certificates]=certificates
     [dataLocations]=dataLocations 
     [deploymentInformation]=deploymentInformation 
