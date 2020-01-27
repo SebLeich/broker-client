@@ -233,6 +233,7 @@ export class RootComponent implements OnInit {
    * the method persists a given service
    */
   persistService(service: any) {
+    console.log(service, service.toServerObject());
     this.popUp = {
       message: "Der Service wird gespeichert",
       icon: null,
@@ -240,6 +241,7 @@ export class RootComponent implements OnInit {
       showSpinner: true
     };
     this._service.persistService(service).subscribe((result: any) => {
+      console.log(result);
       if (service.sessionState.isNew) {
         this.popUp = {
           message: "Der Service wurde angelegt",

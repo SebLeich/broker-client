@@ -45,6 +45,7 @@
                                 <mat-form-field class="width multiple-selection-option">
                                     <mat-label>{{ element.text }}</mat-label>
                                     <mat-select formControlName={{element.id}} multiple>
+                                        <mat-option (click)="noSelection(element)" class="unselect-all-option">Keine Auswahl</mat-option>
                                         <mat-option *ngFor="let option of element.list" [value]="option.id">{{ option }}
                                         </mat-option>
                                     </mat-select>

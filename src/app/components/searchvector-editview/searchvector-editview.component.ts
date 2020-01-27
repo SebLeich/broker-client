@@ -497,6 +497,12 @@ export class SearchvectorEditviewComponent implements OnInit {
     this.validateSteps();
   }
   /**
+   * the method unselects all options of the current search list
+   */
+  noSelection(element){
+    this.steps[2].fg.controls[element.id].setValue([]);
+  }
+  /**
    * the method sends the current search to the server
    */
   sendSearch() {
