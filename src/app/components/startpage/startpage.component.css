@@ -173,9 +173,9 @@
     height: 0;
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
-    border-left: 30px solid #535353;
+    border-left: 20px solid #535353;
     content: "";
-    right: -34px;
+    right: -24px;
     top: 10px;
     position: absolute;
     z-index: 1;

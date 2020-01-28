@@ -58,6 +58,7 @@ import { MatchingResponseDetailViewComponent } from './components/matching-respo
 import { ServiceDetailViewComponent } from './components/service-detail-view/service-detail-view.component';
 import { UseCaseManagementViewComponent } from './components/use-case-management-view/use-case-management-view.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
+import { ImageSelectionComponent } from './components/image-selection/image-selection.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { ImprintComponent } from './components/imprint/imprint.component';
     MatchingResponseDetailViewComponent,
     ServiceDetailViewComponent,
     UseCaseManagementViewComponent,
-    ImprintComponent
+    ImprintComponent,
+    ImageSelectionComponent
   ],
   imports: [
     BrowserModule,
@@ -122,6 +124,6 @@ import { ImprintComponent } from './components/imprint/imprint.component';
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],
-  entryComponents: [LoginComponent, PopUpComponent, RegisterComponent, UserDetailComponent]
+  entryComponents: [LoginComponent, PopUpComponent, RegisterComponent, UserDetailComponent, ImageSelectionComponent]
 })
 export class AppModule {}

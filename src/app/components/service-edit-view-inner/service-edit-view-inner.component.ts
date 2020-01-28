@@ -3,8 +3,9 @@ import { PopUpData } from "src/app/components/pop-up/pop-up.component";
 import { Certificate, ServiceModel, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, Provider, DataLocationType } from "../../classes/service";
 import { BackEndService } from "../../services/backend-service";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatSelectChange, MatSlideToggleChange } from '@angular/material';
+import { MatSelectChange, MatSlideToggleChange, MatDialog, MatDialogConfig } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageSelectionComponent } from '../image-selection/image-selection.component';
 
 @Component({
   selector: 'app-service-edit-view-inner',
@@ -77,7 +78,8 @@ export class ServiceEditViewInnerComponent implements OnInit {
    */
   constructor(
     private service: BackEndService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _dialog: MatDialog
   ) {
     this.certificateFg = _formBuilder.group({
       "certificateName": ['', Validators.required]
@@ -564,6 +566,26 @@ export class ServiceEditViewInnerComponent implements OnInit {
 
   get newStorageTypeDescription(){
     return this.storageTypeFg.get("storageTypeDescription");
+  }
+
+  /**
+   * the method starts the register dialog
+   */
+  openImageSelection() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      logo: this.currentService.logo
+    };
+    const dialogRef = this._dialog.open(ImageSelectionComponent, dialogConfig);
+    dialogRef.componentInstance.logoEmitter.subscribe((result) => {
+      dialogRef.close();
+      this.currentService.logo = result;
+    });
+    dialogRef.componentInstance.closeEmitter.subscribe((result) => {
+      dialogRef.close();
+    });
   }
 
 }

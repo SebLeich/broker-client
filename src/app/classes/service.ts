@@ -49,7 +49,7 @@ export abstract class Service {
     public sessionState: SessionState = new SessionState();
     public creation: string;
     public lastModified: string;
-    public logo: string = "msa.png";
+    public logo: string = null;
     /**
      * the constructor creates a new instance of a service
      */
@@ -131,7 +131,8 @@ export abstract class Service {
             "cloudServiceModelId": this.cloudServiceModelId,
             "providerId": this.providerId,
             "certificates": this.certificates,
-            "dataLocations": this.dataLocations
+            "dataLocations": this.dataLocations,
+            "logo": this.logo
         };
     }
     /**

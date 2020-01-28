@@ -1,0 +1,16 @@
+<div class="image-grid">
+    <div *ngFor="let image of images" style="display: inline-block;" (click)="setImage(image)">
+        <img *ngIf="image == currentSelection; else unselected" src={{image}} class="image selected">
+        <ng-template #unselected style="display: inline-block;">
+            <img src={{image}} class="image unselected">
+        </ng-template>
+    </div>
+</div>
+<div style="text-align: center; padding-top: 10px; border-top: 2px solid #eeeeee;">
+    <mat-icon *ngIf="selected != null" class="confirm" (click)=confirm()>
+        done
+    </mat-icon>
+    <mat-icon class="cancel" (click)=cancel()>
+        clear
+    </mat-icon>
+</div>

@@ -54,6 +54,12 @@ export const loginStates = {
   FORGOTPASSWORD: 3
 };
 /**
+ * all images
+ */
+export const images = [
+  "aebs.svg", "aws.svg", "azure.svg", "db.svg", "google.svg", "hetzner.svg", "ibm.svg", "onedrive.svg", "strato.svg"
+]
+/**
  * the enumeration contains all detailview states
  */
 export const viewStates = {

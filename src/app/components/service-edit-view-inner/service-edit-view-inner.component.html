@@ -308,6 +308,38 @@
             [checked]=currentService.hasDBMS>Beinhaltet der Service ein Datenbankmanagmentsystem (DBMS)?
         </mat-slide-toggle>
     </form>
+    <div style="display: flex">
+        <img *ngIf="currentService.logo != null; else nologo" style="width: 200px; height: 200px;" src={{currentService.logo}}>
+        <ng-template #nologo>
+            <div class="no-image">
+                <mat-icon class="icon">
+                    contact_support
+                </mat-icon>
+            </div>
+        </ng-template>
+        <div style="flex: 1; align-self: center; padding-left: 10px; cursor: pointer;" (click)="openImageSelection()">
+            <span *ngIf="currentService.logo != null; else nologotext" style="
+                font-size: 2rem;
+                display: block;
+                color: #114887;
+                margin-bottom: 10px;
+            ">
+                {{currentService.logo}}
+            </span>
+            <ng-template #nologotext>
+                <span style="
+                    font-size: 2rem;
+                    display: block;
+                    color: #afafaf;
+                    margin-bottom: 10px;
+                    font-style: italic;
+                ">
+                    Kein Bild ausgewählt
+                </span>
+            </ng-template>
+            Bild auswählen
+        </div>
+    </div>
 </mat-card>
 <ng-template #noService>
     FEHLER

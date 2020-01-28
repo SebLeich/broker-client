@@ -1,0 +1,46 @@
+.image-grid {
+    text-align: center;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.image-grid .image {
+    width: 200px;
+    height: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 5px solid white;
+    cursor: pointer;
+}
+
+.image-grid .image:hover {
+    border-color: #13377c;
+}
+
+.image-grid .image.selected {
+    border-color: #76b54d;
+}
+
+.confirm {
+    padding: 5px;
+    font-size: 3rem;
+    height: auto;
+    width: auto;
+    color: #76b54d;
+    border: 2px solid;
+    border-radius: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.cancel {
+    padding: 5px;
+    font-size: 3rem;
+    height: auto;
+    width: auto;
+    color: #b43939;
+    border: 2px solid;
+    border-radius: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+}
