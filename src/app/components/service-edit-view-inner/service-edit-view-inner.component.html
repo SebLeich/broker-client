@@ -309,7 +309,7 @@
         </mat-slide-toggle>
     </form>
     <div style="display: flex">
-        <img *ngIf="currentService.logo != null; else nologo" style="width: 200px; height: 200px;" src={{currentService.logo}}>
+        <img *ngIf="currentService.logo != null; else nologo" style="width: 200px; height: 200px;" src="../../../assets/{{currentService.logo}}">
         <ng-template #nologo>
             <div class="no-image">
                 <mat-icon class="icon">

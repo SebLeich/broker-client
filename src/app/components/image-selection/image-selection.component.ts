@@ -25,17 +25,13 @@ export class ImageSelectionComponent implements OnInit {
      */
     private dialogRef: MatDialogRef<ImageSelectionComponent>
   ) {
-
+    this.selected = data.logo;
   }
   /**
    * the method returns the current selection value
    */
   get currentSelection(){
-    if(this.selected == null){
-      return this.data.logo;
-    } else {
-      return this.selected;
-    }
+    return this.selected;
   }
   /**
    * the method confirms the selection
@@ -60,6 +56,7 @@ export class ImageSelectionComponent implements OnInit {
    */
   setImage(image){
     this.selected = image;
+    console.log(this.selected, this.currentSelection);
   }
   /**
    * the method is called on component initalization
