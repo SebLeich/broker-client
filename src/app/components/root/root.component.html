@@ -1,5 +1,5 @@
 <app-navbar [isLoggedIn]="isLoggedIn" [username]="username" [canCreateServices]="canCreateServices"
-    [canRegisterRoles]="canRegisterRoles" (loginDialogEmitter)="openLoginDialog()"
+    [canRegisterRoles]="canRegisterRoles" (loginDialogEmitter)="openLoginDialog()" (registerDialogEmitter)="openRegisterDialog()"
     (userDialogEmitter)="openUserDetailDialog()" (logoutEmitter)="logout()" (stateEmitter)="setState($event)">
 </app-navbar>
 <app-startpage 

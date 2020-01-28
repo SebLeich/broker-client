@@ -84,8 +84,58 @@
       </div>
     </div>
   </div>
-  <div class="project-tile" (click)="setState(16)">
-    Über den Cloud Broker
+  <div class="project-tile unhoverable" style="display: flex; background-color: white;">
+    <div style="flex: 1; align-self: center;">
+      <div class="headline" style="font-size: 2rem;">Was ist der Cloud Broker?</div>
+      <div class="body">
+        Der Cloud-Broker verbindet alle Akteure miteinander. In wenigen Minuten finden Sie den passenden Cloud-Service für Ihre Anforderungen.
+      </div>
+    </div>
+    <div style="flex: 1; padding: 20px; background-color: white;">
+      <img src="../../../assets/vision.jpg" style="width: 100%; height: auto;">
+    </div>
+  </div>
+  <div class="option-tile-container">
+    <div class="project-tile unhoverable arrow-right-after">
+      <mat-icon class="preview-icon" style="color: #ff9900;">contact_support</mat-icon>
+      <span class="head">
+        Fragen beantworten
+      </span>
+      <p>
+        Anhand von Fragen bestimmen wir innerhalb weniger Minuten, welche Art von Services für Sie in Frage kommen.
+      </p>
+      <div class="footer-control" (click)="setState(1)" style="background-color: #ff9900;">
+        <span>Jetzt suchen</span>
+        <mat-icon class="icon">chevron_right</mat-icon>
+      </div>
+    </div>
+    <div class="project-tile unhoverable arrow-right-after">
+      <mat-icon class="preview-icon" style="color: #76b54d;">announcement</mat-icon>
+      <span class="head">
+        Aussagen treffen
+      </span>
+      <p>
+        Treffen Sie Aussagen über gewünschte Features und gewichten Sie diese nach Ihren Präferenzen.
+      </p>
+    </div>
+    <div class="project-tile unhoverable arrow-right-after">
+      <mat-icon class="preview-icon" style="color: #114887;">cloud_queue</mat-icon>
+      <span class="head">
+        Service finden
+      </span>
+      <p>
+        Durch unser Matchmaking erhalten Sie als Anwender vorgeschlagene Dienste und detaillierte Service-Beschreibungen.
+      </p>
+    </div>
+    <div class="project-tile unhoverable">
+      <mat-icon class="preview-icon" style="color: #ff005f;">headset_mic</mat-icon>
+      <span class="head">
+        In Kontakt treten
+      </span>
+      <p>
+        Sie benötigen für Ihre Entscheidung noch weitere Informationen? Treten Sie als Anwender mit dem Anbieter oder einem Broker in Kontakt, um Details zu erfahren.
+      </p>
+    </div>
   </div>
   <div class="project-tile unhoverable imprint">
     <span>2020</span>

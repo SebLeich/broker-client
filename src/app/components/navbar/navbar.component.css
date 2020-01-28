@@ -68,3 +68,10 @@
     height: auto;
     background-color: #00000059;
 }
+
+.small-element.register {
+    padding: 17px;
+    font-size: 30px;
+    width: auto;
+    height: auto;
+}

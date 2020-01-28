@@ -1,10 +1,13 @@
 .project-tile {
-    cursor: pointer;
     border: 4px solid #ffffff1f;
     padding: 20px;
     background-color: #ffffffc9;
     display: block;
     position: relative;
+}
+
+.project-tile:not(.unhoverable) {
+    cursor: pointer;
 }
 
 .project-tile:not(.unhoverable):hover {
@@ -114,4 +117,66 @@
     color: white !important;
     font-size: 1.2rem;
     border: none;
+}
+
+.body {
+    margin-top: 10px;
+    color: #707070;
+    font-size: 1.3rem;
+}
+
+.option-tile-container {
+    display: flex;
+}
+
+.option-tile-container .project-tile {
+    flex: 1;
+    text-align: center;
+}
+
+.option-tile-container .project-tile .preview-icon {
+    font-size: 4rem;
+    width: auto;
+    height: auto;
+    color: grey;
+}
+
+.option-tile-container .project-tile .head {
+    font-size: 1.2rem;
+    display: block;
+    font-weight: bold;
+    color: #545454;
+}
+
+.option-tile-container .project-tile .footer-control {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    background-color: #ff9900;
+    color: white;
+    padding: 5px 0px;
+    border-radius: 5px;
+}
+
+.option-tile-container .project-tile .footer-control > * {
+    vertical-align: middle;
+}
+
+.option-tile-container .project-tile .footer-control > .icon {
+    height: auto;
+    width: auto;
+}
+
+.arrow-right-after::after {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 30px solid #535353;
+    content: "";
+    right: -34px;
+    top: 10px;
+    position: absolute;
+    z-index: 1;
 }

@@ -54,7 +54,7 @@ export class User {
           A minimum length of 8.
          */
   public passWordrequirements =
-    "^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$";
+    "^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%+-@#£€*?&]{8,}$";
   public minPasswordlenght = 8;
   public minUsernamelenght = 4;
   /**

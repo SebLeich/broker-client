@@ -30,6 +30,10 @@ export class NavbarComponent implements OnInit {
    */
   @Output() loginDialogEmitter = new EventEmitter();
   /**
+   * the method emits the register dialog invoke
+   */
+  @Output() registerDialogEmitter = new EventEmitter();
+  /**
    * the method emits the user details dialog invoke
    */
   @Output() userDialogEmitter = new EventEmitter();
@@ -64,6 +68,12 @@ export class NavbarComponent implements OnInit {
    */
   openLoginDialog(){
     this.loginDialogEmitter.emit();
+  }
+  /**
+   * the method invokes the register dialog
+   */
+  openRegisterDialog(){
+    this.registerDialogEmitter.emit();
   }
   /**
    * the method invokes the user detail dialog

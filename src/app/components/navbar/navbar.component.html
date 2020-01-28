@@ -34,11 +34,15 @@
     </div>
     <ng-template #login>
       <mat-icon
+        (click)="openRegisterDialog()"
+        class="element small-element register"
+        matTooltip="Registrieren"
+      >person_add</mat-icon>
+      <mat-icon
         (click)="openLoginDialog()"
         class="element small-element login"
         matTooltip="Anmelden"
-        >person</mat-icon
-      >
+      >person</mat-icon>
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
