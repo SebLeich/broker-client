@@ -153,6 +153,8 @@
     </div>
 </div>
 
+<app-imprint *ngIf="state == 16"></app-imprint>
+
 <!-- login error hint - only if the user is not logged in! not for 403 Forbidden - no role rights! -->
 <ng-template #notLoggedIn>
     <div style="height: calc(100% - 80px);">

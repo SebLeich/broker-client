@@ -340,6 +340,7 @@ export class RootComponent implements OnInit {
    * the method loads all datasets of the database
    */
   loadData() {
+    console.log("load data called");
     this._service
       .get(UseCase.location)
       .subscribe((o: Object) => this.setUseCases(o));
@@ -455,6 +456,7 @@ export class RootComponent implements OnInit {
       array.push(new Certificate(o[index]));
     }
     this.certificates = array;
+    console.log(this.certificates);
   }
   /**
    * the method sets the current users projects

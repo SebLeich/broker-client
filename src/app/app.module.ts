@@ -57,6 +57,7 @@ import { ServiceEditViewInnerComponent } from './components/service-edit-view-in
 import { MatchingResponseDetailViewComponent } from './components/matching-response-detail-view/matching-response-detail-view.component';
 import { ServiceDetailViewComponent } from './components/service-detail-view/service-detail-view.component';
 import { UseCaseManagementViewComponent } from './components/use-case-management-view/use-case-management-view.component';
+import { ImprintComponent } from './components/imprint/imprint.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { UseCaseManagementViewComponent } from './components/use-case-management
     ServiceEditViewInnerComponent,
     MatchingResponseDetailViewComponent,
     ServiceDetailViewComponent,
-    UseCaseManagementViewComponent
+    UseCaseManagementViewComponent,
+    ImprintComponent
   ],
   imports: [
     BrowserModule,

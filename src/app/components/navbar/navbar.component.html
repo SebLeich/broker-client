@@ -1,5 +1,5 @@
-<mat-toolbar #navbar style="background-color: #114887; color: white;" class="navbar">
-  <mat-toolbar-row>
+<mat-toolbar #navbar style="background-color: #114887; color: white; overflow: hidden;" class="navbar">
+  <mat-toolbar-row style="padding-right: 0px;">
     <span class="label" (click)="setState(0)">
       <mat-icon class="icon" matTooltip="Zur Startseite">cloud</mat-icon>
     </span>
@@ -20,13 +20,11 @@
     <span class="spacer"></span>
 
     <div *ngIf="isLoggedIn; else login">
-      <span
-        class="small"
+      <div
+        class="small username"
         id="current-username"
-        style="vertical-align: text-bottom;"
         (click)="openUserDetailDialog()"
-        >{{ username }}</span
-      >
+      >{{ username }}</div>
       <mat-icon
         (click)="logout()"
         class="element small-element logout"

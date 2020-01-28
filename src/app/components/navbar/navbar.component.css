@@ -44,3 +44,27 @@
     vertical-align: baseline;
     font-size: 1.4rem;
 }
+
+.username {
+    vertical-align: bottom;
+    display: inline-block;
+    padding: 16px 20px;
+    background-color: #00000036;
+    font-size: 18px;
+}
+
+.small-element.logout {
+    padding: 17px;
+    font-size: 30px;
+    width: auto;
+    height: auto;
+    background-color: #ab3636;
+}
+
+.small-element.login {
+    padding: 17px;
+    font-size: 30px;
+    width: auto;
+    height: auto;
+    background-color: #00000059;
+}

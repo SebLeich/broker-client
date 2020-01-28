@@ -7,7 +7,7 @@
     position: relative;
 }
 
-.project-tile:hover {
+.project-tile:not(.unhoverable):hover {
     border-color: #114887bf;
 }
 
@@ -90,4 +90,28 @@
     color: white;
     border-color: white;
     text-align: left;
+}
+
+.seperator {
+    font-size: 10px;
+    width: auto;
+    height: auto;
+    margin: 0px 10px;
+}
+
+.link {
+    cursor: pointer;
+    color: white;
+}
+
+.link:hover {
+    color: rgb(201, 201, 201);
+}
+
+.project-tile.imprint {
+    text-align: center;
+    background-color: #161616b3;
+    color: white !important;
+    font-size: 1.2rem;
+    border: none;
 }

@@ -19,7 +19,8 @@ export const rootStates = {
   PROJECTOVERVIEW: 12,
   PROJECTEDITVIEW: 13,
   MATCHINGRESPONSEDETAILVIEW: 14,
-  MANAGEUSECASES: 15
+  MANAGEUSECASES: 15,
+  IMPRINT: 16
 };
 /**
  * the enumeration contains all entity framework service classes
