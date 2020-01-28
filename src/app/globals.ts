@@ -57,7 +57,16 @@ export const loginStates = {
  * all images
  */
 export const images = [
-  "aebs.svg", "aws.svg", "azure.svg", "db.svg", "google.svg", "hetzner.svg", "ibm.svg", "onedrive.svg", "strato.svg"
+  "aebs.svg", 
+  "aws.svg", 
+  "azure.svg", 
+  "db.svg", 
+  "google.svg", 
+  "hetzner.svg", 
+  "ibm.svg", 
+  "onedrive.svg", 
+  "strato.svg",
+  "digiocean.svg"
 ]
 /**
  * the enumeration contains all detailview states

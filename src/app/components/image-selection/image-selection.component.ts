@@ -42,7 +42,7 @@ export class ImageSelectionComponent implements OnInit {
   /**
    * the method emits the close event
    */
-  close(){
+  cancel(){
     this.closeEmitter.emit();
   }
   /**
