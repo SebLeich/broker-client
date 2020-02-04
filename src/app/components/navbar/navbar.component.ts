@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -48,8 +49,10 @@ export class NavbarComponent implements OnInit {
   /**
    * the constructor creates a new instance of a navigation bar
    */
-  constructor(){
-
+  constructor(
+    private translate: TranslateService
+  ){
+    
   }
   /**
    * the method logs the current user out
@@ -86,5 +89,11 @@ export class NavbarComponent implements OnInit {
    */
   setState(state: number){
     this.stateEmitter.emit(state);
+  }
+  /**
+   * the method sets the current language translation
+   */
+  useLanguage(language: string) {
+    this.translate.use(language);
   }
 }

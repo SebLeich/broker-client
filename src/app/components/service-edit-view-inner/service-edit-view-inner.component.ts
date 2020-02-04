@@ -108,12 +108,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
   addCertificate() {
     if(this.certificateFg.invalid) this.messageEmitter.emit({
       message: "Zertifikat kann nicht angelegt werden",
+      param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
       message: "Zertifikat wird angelegt",
+      param: { },
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -126,6 +128,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.certificateFg.reset();
       this.messageEmitter.emit({
         message: "Zertifikat wurde angelegt",
+        param: { },
         icon: "done",
         iconClass: "success",
         showSpinner: false
@@ -138,12 +141,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
   addDataLocation() {
     if(this.dataLocationFg.invalid) this.messageEmitter.emit({
       message: "Lokalisation kann nicht angelegt werden",
+      param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
       message: "Lokalisation wird angelegt",
+      param: { },
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -159,6 +164,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.dataLocationFg.reset();
       this.messageEmitter.emit({
         message: "Lokalisation wurde angelegt",
+        param: { },
         icon: "done",
         iconClass: "success",
         showSpinner: false
@@ -171,12 +177,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
   addDataLocationType() {
     if(this.dataLocationTypeFg.invalid) this.messageEmitter.emit({
       message: "Lokalisationsart kann nicht angelegt werden",
+      param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
       message: "Lokalisationsart wird angelegt",
+      param: { },
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -189,6 +197,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.dataLocationTypeFg.reset();
       this.messageEmitter.emit({
         message: "Lokalisationsart wurde angelegt",
+        param: { },
         icon: "done",
         iconClass: "success",
         showSpinner: false
@@ -201,12 +210,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
   addServiceModel() {
     if(this.serviceModelFg.invalid) this.messageEmitter.emit({
       message: "Service Modell kann nicht angelegt werden",
+      param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
       message: "Servicemodell wird angelegt",
+      param: { },
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -219,6 +230,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.serviceModelFg.reset();
       this.messageEmitter.emit({
         message: "Servicemodell wurde angelegt",
+        param: { },
         icon: "done",
         iconClass: "success",
         showSpinner: false
@@ -231,12 +243,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
   addProvider() {
     if(this.providerFg.invalid) this.messageEmitter.emit({
       message: "Anbieter kann nicht angelegt werden",
+      param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
       message: "Anbieter wird angelegt",
+      param: { },
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -252,6 +266,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.providerFg.reset();
       this.messageEmitter.emit({
         message: "Anbieter wurde angelegt",
+        param: { },
         icon: "done",
         iconClass: "success",
         showSpinner: false
@@ -264,12 +279,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
   addStorageType(){
     if(this.storageTypeFg.invalid) this.messageEmitter.emit({
       message: "Speicherart kann nicht angelegt werden",
+      param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
       message: "Speicherart wird angelegt",
+      param: { },
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -282,6 +299,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.storageTypeFg.reset();
       this.messageEmitter.emit({
         message: "Speicherart wurde angelegt",
+        param: { },
         icon: "done",
         iconClass: "success",
         showSpinner: false

@@ -42,6 +42,18 @@ export class SearchvectorEditviewComponent implements OnInit {
     return this.steps[this.stepper.selectedIndex];
   }
   /**
+   * the method returns the current search vector minimum percentage
+   */
+  get minFulfillmentPercentage(): number {
+    return this._searchVector.minFulfillmentPercentage;
+  }
+  /**
+   * the method sets the current search vector minimum percentage
+   */
+  set minFulfillmentPercentage(value: number){
+    this._searchVector.minFulfillmentPercentage = value;
+  }
+  /**
    * the components cloud service selection value
    */
   private cloudServiceSelectionValue: boolean = null;

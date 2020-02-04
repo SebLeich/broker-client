@@ -1,0 +1,60 @@
+{
+    "startpage": {
+        "headline": "Cloud Broker",
+        "subtitle": "Welcome to Cloud Broker.",
+        "usercount": "users",
+        "providercount": "providers",
+        "servicecount": "services",
+        "searchcount": "searches",
+        "searchserviceheadline": "Search service",
+        "searchservicesubtitle": "Find your suitable service",
+        "loginheadline": "Login",
+        "loginsubtitle": "Log in for more functions",
+        "createprojectheadline": "Create project",
+        "createprojectsubtitle": "Create complex search projects",
+        "manageprojectheadline": "Manage projects",
+        "manageprojectsubtitle": "Manage your created projects",
+        "aboutheadline": "About Cloud Broker",
+        "aboutsubtitle": "The Cloud Broker connects all actors. It takes only a few minutes to find your suitable service.",
+        "firststepheadline": "Answer questions",
+        "firststepsubtitle": "Based on your answers we find your required service types.",
+        "firststepfooter": "Start search",
+        "secondstepheadline": "Make decissions",
+        "secondstepsubtitle": "Make decissions and weight the priorities.",
+        "thirdstepheadline": "Find services",
+        "thirdstepsubtitle": "Based on our matchmaking you will get detailed information about services.",
+        "fourthstepheadline": "Contact",
+        "fourthstepsubtitle": "You require further information about services? Contact brokers and providers!",
+        "imprint": "Imprint",
+        "professorship": "Professorship"
+    },
+    "searchvectoreditview": {
+        "headline": "Search Service",
+        "subtitle": "Find your suitable cloud service.",
+        "settingsheadline": "Search configuration",
+        "switchtousecasesearch": "Use usecases for service type selection",
+        "switchtotypesearch": "Choose service types on your own",
+        "minsearchpercentage": "Minimum matching percentage"
+    },
+    "navbar": {
+        "gotodashboard": "Goto dashboard",
+        "searchservice": "Search service",
+        "createservice": "Create service",
+        "manage": "Management",
+        "manageservices": "Manage services",
+        "manageusecases": "Manage usecases",
+        "management": "Further options"
+    },
+    "global": {
+        "settings": "Configuration",
+        "login": "Login",
+        "register": "Register",
+        "language": "Language",
+        "de": "German",
+        "en": "English"
+    },
+    "popupmessages": {
+        "logout": "You have been successfully logged out",
+        "welcome": "Welcome, {{name}}!"
+    }
+}

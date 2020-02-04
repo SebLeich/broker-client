@@ -22,6 +22,7 @@ import { UserDetailComponent } from "../user-detail/user-detail.component";
 import { SearchVector, MatchingResponse } from "src/app/classes/search";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetaData } from 'src/app/classes/metadata';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-root",
@@ -71,7 +72,7 @@ export class RootComponent implements OnInit {
     private _service: BackEndService,
     private _snackBar: MatSnackBar
   ) {
-
+    
   }
   /**
    * the attribute returns whether the current user is allowed to create services
@@ -236,6 +237,7 @@ export class RootComponent implements OnInit {
     console.log(service, service.toServerObject());
     this.popUp = {
       message: "Der Service wird gespeichert",
+      param: {},
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -245,6 +247,7 @@ export class RootComponent implements OnInit {
       if (service.sessionState.isNew) {
         this.popUp = {
           message: "Der Service wurde angelegt",
+          param: {},
           icon: "done",
           iconClass: "success",
           showSpinner: false
@@ -252,6 +255,7 @@ export class RootComponent implements OnInit {
       } else {
         this.popUp = {
           message: "Die Änderungen wurden gespeichert",
+          param: {},
           icon: "done",
           iconClass: "success",
           showSpinner: false
@@ -267,6 +271,7 @@ export class RootComponent implements OnInit {
   persistProject(project: Project) {
     this.popUp = {
       message: "Das Projekt wird gespeichert",
+      param: { },
       icon: null,
       iconClass: null,
       showSpinner: true
@@ -277,6 +282,7 @@ export class RootComponent implements OnInit {
         project = new Project(result);
         this.popUp = {
           message: "Das Projekt wurde angelegt",
+          param: { },
           icon: "done",
           iconClass: "success",
           showSpinner: false
@@ -288,6 +294,7 @@ export class RootComponent implements OnInit {
           project = new Project(result2);
           this.popUp = {
             message: "Das Projekt wurde angelegt",
+            param: { },
             icon: "done",
             iconClass: "success",
             showSpinner: false
@@ -320,7 +327,10 @@ export class RootComponent implements OnInit {
     this.token = result.access_token;
     this.username = result.userName;
     this.popUp = {
-      message: "Willkommen " + result.userName,
+      message: "welcome",
+      param: {
+        "name": result.userName
+      },
       icon: "done",
       iconClass: "success",
       showSpinner: false
@@ -334,7 +344,13 @@ export class RootComponent implements OnInit {
     localStorage.removeItem("access_token");
     localStorage.removeItem("username");
     this.roleRights = [];
-    this.popUp = { message: "Logout wegen Zeitüberschreitung", icon: null, iconClass: null, showSpinner: false };
+    this.popUp = {
+      message: "Logout wegen Zeitüberschreitung",
+      param: { },
+      icon: null,
+      iconClass: null,
+      showSpinner: false
+    };
   }
   /**
    * the method loads all datasets of the database
@@ -393,7 +409,13 @@ export class RootComponent implements OnInit {
     localStorage.removeItem("access_token");
     localStorage.removeItem("username");
     this.roleRights = [];
-    this.popUp = { message: "Sie wurden ausgeloggt", icon: "done", iconClass: "success", showSpinner: false };
+    this.popUp = {
+      message: "logout",
+      param: { },
+      icon: "done",
+      iconClass: "success",
+      showSpinner: false
+    };
   }
   /**
    * the method is called on component initalization

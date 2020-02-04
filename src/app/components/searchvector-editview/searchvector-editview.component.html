@@ -3,17 +3,61 @@
 </div>
 <div class="content responsive-container" style="height: calc(100% - 80px);" (dblclick)="log(this)">
     <section class="head-tile">
-        <span class="super-section-header">Service suchen</span>
-        <div>Finden Sie ihren passenden Cloud Storage Service</div>
+        <span class="super-section-header">
+            {{ 'searchvectoreditview.headline' | translate }}
+        </span>
+        <div>
+            {{ 'searchvectoreditview.subtitle' | translate }}
+        </div>
         <mat-icon class="icon">filter_drama</mat-icon>
-        <button class="head-button" (click)="showSettings = true">Einstellungen</button>
+        <button class="head-button" (click)="showSettings = true">
+            {{ 'global.settings' | translate }}
+        </button>
     </section>
     <div *ngIf="showSettings" class="project-tile settings-tile">
-        <div *ngIf="useCaseSelectionEnabled" (click)="toggleInputMode(false)">
-            Direkt nach Cloud Service Arten suchen (ohne Use-Cases)
+        <mat-icon (click)="showSettings = false" class="closer">
+            close
+        </mat-icon>
+        <div class="headline">
+            <mat-icon 
+                class="icon"
+            >build</mat-icon>
+            <span class="text">
+                {{ 'searchvectoreditview.settingsheadline' | translate }}
+            </span>
         </div>
-        <div *ngIf="!useCaseSelectionEnabled" (click)="toggleInputMode(true)">
-            Mittels Use-Cases nach Cloud Services suchen
+        <div *ngIf="useCaseSelectionEnabled" class="option" (click)="toggleInputMode(false)">
+            <mat-icon 
+                class="icon"
+            >done</mat-icon>
+            <span class="text">
+                {{ 'searchvectoreditview.switchtotypesearch' | translate }}
+            </span>
+        </div>
+        <div *ngIf="!useCaseSelectionEnabled" class="option" (click)="toggleInputMode(true)">
+            <mat-icon 
+                class="icon"
+            >done</mat-icon>
+            <span class="text">
+                {{ 'searchvectoreditview.switchtousecasesearch' | translate }}
+            </span>
+        </div>
+        <div class="option unhoverable">
+            <mat-icon 
+                class="icon"
+            >tune</mat-icon>
+            <span class="text">
+                {{ 'searchvectoreditview.minsearchpercentage' | translate }}
+            </span>
+            <mat-slider
+                class="slider"
+                [max]=100
+                [min]=0
+                [step]=5
+                [thumbLabel]=true
+                [tickInterval]=5
+                [(ngModel)]="minFulfillmentPercentage"
+            ></mat-slider>
         </div>
     </div>
     <div class="project-tile" style="min-height: calc(100% - 265px); padding-bottom: 45px;">

@@ -1,24 +1,25 @@
 <mat-toolbar #navbar style="background-color: #114887; color: white; overflow: hidden;" class="navbar">
   <mat-toolbar-row style="padding-right: 0px;">
     <span class="label" (click)="setState(0)">
-      <mat-icon class="icon" matTooltip="Zur Startseite">cloud</mat-icon>
+      <mat-icon class="icon" matTooltip="{{ 'navbar.gotodashboard' | translate }}">
+        cloud
+      </mat-icon>
     </span>
-    <span class="small" (click)="setState(1)">Service suchen</span>
-    <span *ngIf="canCreateServices" class="small" (click)="setState(6)"
-      >Service anlegen</span
-    >
-    <mat-menu #appMenu="matMenu">
-      <button mat-menu-item (click)="setState(7)">Services Verwalten</button>
-      <button mat-menu-item (click)="setState(15)">Use-Cases Verwalten</button>
-      <button mat-menu-item (click)="setState(5)">Verwaltung</button>
-    </mat-menu>
-
-    <span class="small" [matMenuTriggerFor]="appMenu" *ngIf="canCreateServices"
-      >Verwalten</span
-    >
-
+    <span class="small" (click)="setState(1)">
+      {{ 'navbar.searchservice' | translate }}
+    </span>
+    <span *ngIf="canCreateServices" class="small" (click)="setState(6)">
+      {{ 'navbar.createservice' | translate }}
+    </span>
+    <span class="small" [matMenuTriggerFor]="managementSelection" *ngIf="canCreateServices">
+      {{ 'navbar.manage' | translate }}
+    </span>
     <span class="spacer"></span>
-
+    <mat-icon
+      class="element small-element language"
+      matTooltip="{{ 'global.language' | translate }}"
+      [matMenuTriggerFor]="languageSelection"
+  >language</mat-icon>
     <div *ngIf="isLoggedIn; else login">
       <div
         class="small username"
@@ -36,13 +37,32 @@
       <mat-icon
         (click)="openRegisterDialog()"
         class="element small-element register"
-        matTooltip="Registrieren"
+        matTooltip="{{ 'global.register' | translate }}"
       >person_add</mat-icon>
       <mat-icon
         (click)="openLoginDialog()"
         class="element small-element login"
-        matTooltip="Anmelden"
+        matTooltip="{{ 'global.login' | translate }}"
       >person</mat-icon>
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
+<mat-menu #managementSelection="matMenu">
+  <button mat-menu-item (click)="setState(7)">
+    {{ 'navbar.manageservices' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(15)">
+    {{ 'navbar.manageusecases' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(5)">
+    {{ 'navbar.management' | translate }}
+  </button>
+</mat-menu>
+<mat-menu #languageSelection="matMenu">
+  <button mat-menu-item (click)="useLanguage('de')">
+    {{ 'global.de' | translate }}
+  </button>
+  <button mat-menu-item (click)="useLanguage('en')">
+    {{ 'global.en' | translate }}
+  </button>
+</mat-menu>

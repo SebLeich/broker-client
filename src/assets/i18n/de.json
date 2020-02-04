@@ -1,0 +1,71 @@
+{
+    "startpage": {
+        "headline": "Cloud Broker",
+        "subtitle": "Willkommen beim Cloud Broker, ihrem Matchmaker für Cloud Services.",
+        "usercount": "Nutzer vertrauen dem Cloud Broker",
+        "providercount": "Anbieter stellen sich dem Vergleich",
+        "servicecount": "Dienste werden verglichen",
+        "searchcount": "mal wurde bereits nach Lösungen gesucht",
+        "searchserviceheadline": "Service suchen",
+        "searchservicesubtitle": "Finden Sie jetzt ihren passenden Service",
+        "loginheadline": "Einloggen",
+        "loginsubtitle": "Loggen Sie sich ein um alle Funktionen zu nutzen",
+        "createprojectheadline": "Projekt anlegen",
+        "createprojectsubtitle": "Legen Sie ein neues Projekt an",
+        "manageprojectheadline": "Projekte verwalten",
+        "manageprojectsubtitle": "Verwalten Sie Ihre Projekte",
+        "aboutheadline": "Was ist der Cloud Broker",
+        "aboutsubtitle": "Der Cloud Broker verbindet alle Aktuere miteinander. In wenigen Minuten finden Sie den passenden Cloud Service für ihre Anforderungen.",
+        "firststepheadline": "Fragen beantworten",
+        "firststepsubtitle": "Anhand von Fragen bestimmen wir innerhalb weniger Minuten, welche Art von Services für Sie in Frage kommen.",
+        "firststepfooter": "Jetzt suchen",
+        "secondstepheadline": "Aussagen treffen",
+        "secondstepsubtitle": "Treffen Sie Aussagen über gewünschte Features und gewichten Sie diese nach Ihren Präferenzen.",
+        "thirdstepheadline": "Service finden",
+        "thirdstepsubtitle": "Durch unser Matchmaking erhalten Sie als Anwender vorgeschlagene Dienste und detaillierte Servicebeschreibungen.",
+        "fourthstepheadline": "In Kontakt treten",
+        "fourthstepsubtitle": "Sie benötigen für Ihre Entscheidung noch weitere Informationen? Treten Sie als Anwender mit dem Anbieter oder einem Broker in Kontakt, um Details zu erfahren.",
+        "imprint": "Impressum",
+        "professorship": "Professur"
+    },
+    "searchvectoreditview": {
+        "headline": "Service suchen",
+        "subtitle": "Finden Sie ihren passenden Cloud Storage Service",
+        "steponelabel": "Welche Klasse von Cloud Services suchen Sie?",
+        "steptwolabel": "Welchen Aussagen stimmen Sie zu?",
+        "stepthreelabel": "Welche Anforderungen haben Sie?",
+        "cloudstoragelabel": "",
+        "cloudstoragesubtitle": "",
+        "onlinecollaborationlabel": "",
+        "onlinecollaborationsubtitle": "",
+        "settingsheadline": "Weitere Einstellungen",
+        "switchtousecasesearch": "Services unter Nutzung von Use-Cases suchen",
+        "switchtotypesearch": "Direkt nach Cloud Services suchen (ohne Use-Cases)",
+        "minsearchpercentage": "Minimaler Matching-Prozentsatz",
+        "minmatchingpercentage": "Minimaler Prozentsatz für Matching",
+        "certificateheadline": "Welche Zertifikate sollte ein Service vorweisen?",
+        "datalocationheadline": "Welche Standorte kommen für Sie in Frage?",
+        "deploymentheadline": "Welche Veröffentlichungsinformationen sind Ihnen wichtig?"
+    },
+    "navbar": {
+        "gotodashboard": "Zur Startseite",
+        "searchservice": "Service suchen",
+        "createservice": "Service anlegen",
+        "manage": "Verwalten",
+        "manageservices": "Services verwalten",
+        "manageusecases": "Use-Cases verwalten",
+        "management": "Weitere Verwaltungsoptionen"
+    },
+    "global": {
+        "settings": "Einstellungen",
+        "login": "Einloggen",
+        "register": "Registrieren",
+        "language": "Sprache ändern",
+        "de": "Deutsch",
+        "en": "Englisch"
+    },
+    "popupmessages": {
+        "logout": "Sie wurden erfolgreich abgemeldet.",
+        "welcome": "Willkommen, {{name}}!"
+    }
+}

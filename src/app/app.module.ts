@@ -1,8 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
-import { ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { QuillModule } from "ngx-quill";
 import {
   MatDialogModule,
@@ -59,6 +58,9 @@ import { ServiceDetailViewComponent } from './components/service-detail-view/ser
 import { UseCaseManagementViewComponent } from './components/use-case-management-view/use-case-management-view.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { ImageSelectionComponent } from './components/image-selection/image-selection.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -120,10 +122,22 @@ import { ImageSelectionComponent } from './components/image-selection/image-sele
     MatSidenavModule,
     MatSnackBarModule,
     MatTabsModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    BrowserModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],
   entryComponents: [LoginComponent, PopUpComponent, RegisterComponent, UserDetailComponent, ImageSelectionComponent]
 })
 export class AppModule {}
+
+export function HttpLoaderFactory(http: HttpClient){
+  return new TranslateHttpLoader(http);
+}

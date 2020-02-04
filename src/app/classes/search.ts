@@ -196,7 +196,7 @@ export class SearchVector {
         this.hasDBMS = new SearchVectorBooleanEntry();
         this.hasFileVersioning = new SearchVectorBooleanEntry();
         this.hasAutomatedSynchronisation = new SearchVectorBooleanEntry();
-        this.minFulfillmentPercentage = 0;
+        this.minFulfillmentPercentage = 50;
     }
 
     addType(type: IService) {

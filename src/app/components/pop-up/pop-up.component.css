@@ -9,6 +9,7 @@
 }
 .parent .icon {
     vertical-align: middle;
+    margin-right: 10px;
 }
 .parent .icon.success {
     color: greenyellow;

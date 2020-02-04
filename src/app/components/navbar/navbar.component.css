@@ -75,3 +75,10 @@
     width: auto;
     height: auto;
 }
+
+.small-element.language {
+    padding: 17px;
+    font-size: 30px;
+    width: auto;
+    height: auto;
+}

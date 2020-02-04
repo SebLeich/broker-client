@@ -84,12 +84,72 @@
 }
 
 .project-tile.settings-tile {
-    background-color: #101b52;
-    color: white;
-    padding: 20px;
+    padding: 10px;
+    cursor: default;
+    background-color: white;
+    display: block;
+}
+
+.project-tile.settings-tile .headline {
+    padding: 5px;
+}
+
+.project-tile.settings-tile .headline .icon {
+    height: auto;
+    width: auto;
+    vertical-align: middle;
+    color: grey;
+}
+
+.project-tile.settings-tile .headline .text {
+    font-size: 1.7rem;
+    vertical-align: middle;
+}
+
+.project-tile.settings-tile .option {
+    padding: 10px;
+    width: 100%;
+    font-size: 1.2rem;
+    display: block;
+}
+
+.project-tile.settings-tile .option:not(.unhoverable) {
+    cursor: pointer;
+}
+
+.project-tile.settings-tile .option .icon {
+    vertical-align: middle;
+    margin-right: 5px;
+    color: #114887;
+}
+
+.project-tile.settings-tile .option .text {
+    vertical-align: middle;
+    color: #303030;
+}
+
+.project-tile.settings-tile .option:not(.unhoverable):hover .text {
+    color: blue;
 }
 
 .unselect-all-option {
     color: #000000;
     background-color: #f5d0d0;
+}
+
+.slider {
+    display: block;
+    margin: 0px 30px;
+    width: calc(100% - 60px);
+}
+
+.closer {
+    position: absolute;
+    right: 20px;
+    font-size: 2rem;
+    top: 10px;
+    height: auto;
+    width: auto;
+    color: #c94848;
+    cursor: pointer;
 }

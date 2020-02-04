@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { StartPageTile, MetaData } from 'src/app/classes/metadata';
 import * as globals from "../../globals";
 import { Project } from 'src/app/classes/project';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-startpage",
@@ -226,8 +227,10 @@ export class StartpageComponent implements OnInit {
   /**
    * the constructor creates a new instance of the component
    */
-  constructor() {
-
+  constructor(
+    private translate: TranslateService
+  ) {
+    translate.setDefaultLang("de");
   }
   /**
    * the method creates a new project and navigates to the project edit view
