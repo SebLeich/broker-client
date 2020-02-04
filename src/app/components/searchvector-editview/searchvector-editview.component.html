@@ -64,7 +64,9 @@
         <mat-horizontal-stepper style="width: 100%;" [linear]=true #stepper>
             <mat-step *ngFor="let step of steps" [stepControl]="step.fg" style="overflow: inherit;">
                 <form [formGroup]="step.fg">
-                    <ng-template matStepLabel>{{ step.headline }}</ng-template>
+                    <ng-template matStepLabel>
+                        {{ 'searchvectoreditview.' + step.headline | translate }}
+                    </ng-template>
                     <ng-container *ngFor="let element of step.options" class="selection-parent">
                         <div *ngIf="isPreviewElement(element) && element.condition(this)"
                             class="preview-option active-{{ element.isActive }} {{ element.customClass }}">
@@ -84,10 +86,10 @@
                             class="option active-{{ element.isActive }}">
                             <div class="stretch">
                                 <div *ngIf="element.desc != null" class="head-title">
-                                    {{ element.desc }}
+                                    {{ 'searchvectoreditview.' + element.desc | translate }}
                                 </div>
                                 <mat-form-field class="width multiple-selection-option">
-                                    <mat-label>{{ element.text }}</mat-label>
+                                    <mat-label>{{ 'global.' + element.text | translate }}</mat-label>
                                     <mat-select formControlName={{element.id}} multiple>
                                         <mat-option (click)="noSelection(element)" class="unselect-all-option">Keine Auswahl</mat-option>
                                         <mat-option *ngFor="let option of element.list" [value]="option.id">{{ option }}
@@ -96,7 +98,7 @@
                                 </mat-form-field>
                             </div>
                             <div *ngIf="element.hasPriority" class="fixed-width">
-                                Gewichtung
+                                {{ 'global.weight' | translate }}
                                 <mat-slider class="slider-width" [max]="3" [min]="0" [thumbLabel]=true
                                     formControlName="{{element.id}}-prio"></mat-slider>
                             </div>
@@ -105,7 +107,7 @@
                             class="option active-{{ element.isActive }}">
                             <div class="stretch">
                                 <div *ngIf="element.desc != null" class="head-title">
-                                    {{ element.desc }}
+                                    {{ 'searchvectoreditview.' + element.desc | translate }}
                                 </div>
                                 <mat-checkbox color="primary" class="option-label" formControlName={{element.id}}
                                     disabled={{!element.isActive}}>{{ element.text }}</mat-checkbox>

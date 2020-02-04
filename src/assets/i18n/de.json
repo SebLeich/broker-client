@@ -32,7 +32,8 @@
         "headline": "Service suchen",
         "subtitle": "Finden Sie ihren passenden Cloud Storage Service",
         "steponelabel": "Welche Klasse von Cloud Services suchen Sie?",
-        "steptwolabel": "Welchen Aussagen stimmen Sie zu?",
+        "steptwolabelusecases": "Welchen Aussagen stimmen Sie zu?",
+        "steptwolabeltypes": "Welche Servicearten suchen Sie?",
         "stepthreelabel": "Welche Anforderungen haben Sie?",
         "cloudstoragelabel": "",
         "cloudstoragesubtitle": "",
@@ -45,7 +46,10 @@
         "minmatchingpercentage": "Minimaler Prozentsatz für Matching",
         "certificateheadline": "Welche Zertifikate sollte ein Service vorweisen?",
         "datalocationheadline": "Welche Standorte kommen für Sie in Frage?",
-        "deploymentheadline": "Welche Veröffentlichungsinformationen sind Ihnen wichtig?"
+        "deploymentheadline": "Welche Veröffentlichungsinformationen sind Ihnen wichtig?",
+        "servicemodelheadline": "Welche Servicemodelle kommen für Sie in Frage?",
+        "providerheadline": "Welche Anbieter kommen für Sie in Frage?",
+        "storagetypeheadline": "Welche Speicherart wünschen Sie?"
     },
     "navbar": {
         "gotodashboard": "Zur Startseite",
@@ -54,6 +58,12 @@
         "manage": "Verwalten",
         "manageservices": "Services verwalten",
         "manageusecases": "Use-Cases verwalten",
+        "managedatalocations": "Datenspeicherorte verwalten",
+        "managecertificates": "Zertifikate verwalten",
+        "managedeploymentinfos": "Veröffentlichungsinformationen verwalten",
+        "manageservicemodels": "Servicemodelle verwalten",
+        "manageproviders": "Anbieter verwalten",
+        "managestoragetypes": "Speicherarten verwalten",
         "management": "Weitere Verwaltungsoptionen"
     },
     "global": {
@@ -62,7 +72,14 @@
         "register": "Registrieren",
         "language": "Sprache ändern",
         "de": "Deutsch",
-        "en": "Englisch"
+        "en": "Englisch",
+        "weight": "Gewichtung",
+        "certificates": "Zertifikate",
+        "datalocations": "Datenspeicherorte",
+        "deploymentinfos": "Veröffentlichungsinformationen",
+        "servicemodels": "Servicemodelle",
+        "providers": "Anbieter",
+        "storagetypes": "Storage types"
     },
     "popupmessages": {
         "logout": "Sie wurden erfolgreich abgemeldet.",

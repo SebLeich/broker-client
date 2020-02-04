@@ -197,8 +197,8 @@ export class SearchvectorEditviewComponent implements OnInit {
     if(this.searchVector.certificates.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "certificates",
-        "text": "Zertifikate", 
-        "desc": "Welche Zertifikate kommen sollte ein Service vorweisen?", 
+        "text": "certificates", 
+        "desc": "certificateheadline", 
         "isActive": true,
         "list": this.certificates,
         "hasPriority": true,
@@ -208,8 +208,8 @@ export class SearchvectorEditviewComponent implements OnInit {
     if(this.searchVector.datalocations.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "datalocations",
-        "text": "Datenspeicherorte", 
-        "desc": "Welche Standorte kommen für Sie in Frage?", 
+        "text": "datalocations", 
+        "desc": "datalocationheadline", 
         "isActive": true,
         "list": this.dataLocations,
         "hasPriority": true,
@@ -219,8 +219,8 @@ export class SearchvectorEditviewComponent implements OnInit {
     if(this.searchVector.deploymentinfos.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "deploymentinfos",
-        "text": "Veröffentlichungsinformationen", 
-        "desc": "Welche Veröffentlichungsinformationen sind Ihnen wichtig?", 
+        "text": "deploymentinfos", 
+        "desc": "deploymentheadline", 
         "isActive": true,
         "list": this.deploymentInformation,
         "hasPriority": true,
@@ -230,8 +230,8 @@ export class SearchvectorEditviewComponent implements OnInit {
     if(this.searchVector.models.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "models",
-        "text": "Servicemodelle", 
-        "desc": "Welche Servicemodelle kommen für Sie in Frage?", 
+        "text": "servicemodels", 
+        "desc": "servicemodelheadline", 
         "isActive": true,
         "list": this.serviceModels,
         "hasPriority": true,
@@ -241,8 +241,8 @@ export class SearchvectorEditviewComponent implements OnInit {
     if(this.searchVector.providers.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "providers",
-        "text": "Anbieter", 
-        "desc": "Welche Anbieter kommen für Sie in Frage?", 
+        "text": "providers", 
+        "desc": "providerheadline", 
         "isActive": true,
         "list": this.providers,
         "hasPriority": true,
@@ -252,8 +252,8 @@ export class SearchvectorEditviewComponent implements OnInit {
     if(this.searchVector.storageType.isSearchable){
       output.push(new UseCaseMultipleSelectionOption({
         "id": "storageType",
-        "text": "Speicherart", 
-        "desc": "Welche Speicherart wünschen Sie?", 
+        "text": "storagetypes", 
+        "desc": "storagetypeheadline", 
         "isActive": true,
         "list": this.storageTypes,
         "hasPriority": true,
@@ -543,7 +543,7 @@ export class SearchvectorEditviewComponent implements OnInit {
     this.steps.push(
       new UseCaseSelecionStep({
         "id": 1,
-        "headline": "Welche Klasse von Cloud Services suchen Sie?",
+        "headline": "steponelabel",
         "options": [
           new PreviewOption({
             "id": 1, "text": "Cloud Storage", "icon": "filter_drama", "desc": "Cloud-Storage ist ein Servicemodell, in dem Daten an einem Remote-Standort gepflegt, verwaltet, gesichert und Benutzern über ein Netzwerk (meist das Internet) zur Verfügung gestellt werden.", "isActive": true
@@ -584,7 +584,7 @@ export class SearchvectorEditviewComponent implements OnInit {
         }
         this.steps[2] = new UseCaseSelecionStep({
           "id": 3,
-          "headline": "Welche Anforderungen haben sie?",
+          "headline": "stepthreelabel",
           "options": this.currentOptions,
           "fg": this._formBuilder.group(this.currentOptionFg)
         });
@@ -592,7 +592,7 @@ export class SearchvectorEditviewComponent implements OnInit {
       this.steps.push(
         new UseCaseSelecionStep({
           "id": 2,
-          "headline": "Welchen Aussagen stimmen Sie zu?",
+          "headline": "steptwolabelusecases",
           "options": options,
           "fg": tSFg
         })
@@ -610,7 +610,7 @@ export class SearchvectorEditviewComponent implements OnInit {
         }
         this.steps[2] = new UseCaseSelecionStep({
           "id": 3,
-          "headline": "Welche Anforderungen haben sie?",
+          "headline": "stepthreelabel",
           "options": this.currentOptions,
           "fg": this._formBuilder.group(this.currentOptionFg)
         });
@@ -618,7 +618,7 @@ export class SearchvectorEditviewComponent implements OnInit {
       this.steps.push(
         new UseCaseSelecionStep({
           "id": 2,
-          "headline": "Welche Arten sind für Sie interessant?",
+          "headline": "steptwolabeltypes",
           "options": [
             new PreviewOption({
               "id": "bls", "icon": BlockStorageService.icon, "desc": "Ein Datenblock ist eine begrenzte, fallweise festgelegte Anzahl von Bits oder Bytes, die als Transporteinheit behandelt wird.", "text": "Block Storage Service", "isActive": true
@@ -646,7 +646,7 @@ export class SearchvectorEditviewComponent implements OnInit {
     this.steps.push(
       new UseCaseSelecionStep({
         "id": 3,
-        "headline": "Welche Anforderungen haben sie?",
+        "headline": "stepthreelabel",
         "options": this.currentOptions,
         "fg": this._formBuilder.group(this.currentOptionFg)
       })

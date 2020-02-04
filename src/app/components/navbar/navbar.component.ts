@@ -55,6 +55,16 @@ export class NavbarComponent implements OnInit {
     
   }
   /**
+   * the method returns the current language flag code
+   */
+  get currentLanguageFlag(): string {
+    switch(this.translate.currentLang){
+      case "en":
+        return "flag-icon-us";
+    }
+    return "flag-icon-de";
+  }
+  /**
    * the method logs the current user out
    */
   logout(){

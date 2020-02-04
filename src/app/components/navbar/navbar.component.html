@@ -15,11 +15,21 @@
       {{ 'navbar.manage' | translate }}
     </span>
     <span class="spacer"></span>
-    <mat-icon
-      class="element small-element language"
-      matTooltip="{{ 'global.language' | translate }}"
-      [matMenuTriggerFor]="languageSelection"
-  >language</mat-icon>
+    <div style="position: relative;">
+      <mat-icon
+        class="element small-element language"
+        matTooltip="{{ 'global.language' | translate }}"
+        [matMenuTriggerFor]="languageSelection"
+      >language</mat-icon>
+      <span class="flag-icon {{ currentLanguageFlag }}" style="
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        border-radius: 100px;
+        overflow: hidden;
+        width: 19px;"
+      ></span>
+    </div>
     <div *ngIf="isLoggedIn; else login">
       <div
         class="small username"
@@ -54,15 +64,35 @@
   <button mat-menu-item (click)="setState(15)">
     {{ 'navbar.manageusecases' | translate }}
   </button>
-  <button mat-menu-item (click)="setState(5)">
-    {{ 'navbar.management' | translate }}
+  <button mat-menu-item (click)="setState(1)">
+    {{ 'navbar.managedatalocations' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(1)">
+    {{ 'navbar.managecertificates' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(1)">
+    {{ 'navbar.managedeploymentinfos' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(1)">
+    {{ 'navbar.manageservicemodels' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(1)">
+    {{ 'navbar.managedatalocations' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(1)">
+    {{ 'navbar.manageproviders' | translate }}
+  </button>
+  <button mat-menu-item (click)="setState(1)">
+    {{ 'navbar.managestoragetypes' | translate }}
   </button>
 </mat-menu>
 <mat-menu #languageSelection="matMenu">
   <button mat-menu-item (click)="useLanguage('de')">
+    <span class="flag-icon flag-icon-de"></span>
     {{ 'global.de' | translate }}
   </button>
   <button mat-menu-item (click)="useLanguage('en')">
+    <span class="flag-icon flag-icon-us"></span>
     {{ 'global.en' | translate }}
   </button>
 </mat-menu>

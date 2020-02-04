@@ -31,10 +31,19 @@
     "searchvectoreditview": {
         "headline": "Search Service",
         "subtitle": "Find your suitable cloud service.",
+        "steponelabel": "Which classes of cloud services you are looking for?",
+        "steptwolabelusecases": "Which statements do you agree with?",
+        "steptwolabeltypes": "Which types of services you are looking for?",
+        "stepthreelabel": "Which requirements you've got?",
         "settingsheadline": "Search configuration",
         "switchtousecasesearch": "Use usecases for service type selection",
         "switchtotypesearch": "Choose service types on your own",
-        "minsearchpercentage": "Minimum matching percentage"
+        "minsearchpercentage": "Minimum matching percentage",
+        "certificateheadline": "Which certifications should be fulfilled?",
+        "datalocationheadline": "Which data locations are acceptable?",
+        "deploymentheadline": "Which deployment information?",
+        "servicemodelheadline": "Which service modells?",
+        "providerheadline": "Which providers?"
     },
     "navbar": {
         "gotodashboard": "Goto dashboard",
@@ -43,6 +52,12 @@
         "manage": "Management",
         "manageservices": "Manage services",
         "manageusecases": "Manage usecases",
+        "managedatalocations": "Manage data locations",
+        "managecertificates": "Manage certificates",
+        "managedeploymentinfos": "Manage deployment information",
+        "manageservicemodels": "Manage service models",
+        "manageproviders": "Manage providers",
+        "managestoragetypes": "Manage storage types",
         "management": "Further options"
     },
     "global": {
@@ -51,7 +66,14 @@
         "register": "Register",
         "language": "Language",
         "de": "German",
-        "en": "English"
+        "en": "English",
+        "weight": "Weight",
+        "certificates": "Certificates",
+        "datalocations": "Data locations",
+        "deploymentinfos": "Deployment information",
+        "servicemodels": "Service models",
+        "providers": "Providers",
+        "storagetypes": "Storage types"
     },
     "popupmessages": {
         "logout": "You have been successfully logged out",
