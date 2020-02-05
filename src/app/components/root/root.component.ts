@@ -70,9 +70,10 @@ export class RootComponent implements OnInit {
   constructor(
     private _dialog: MatDialog,
     private _service: BackEndService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private translate: TranslateService
   ) {
-    
+    translate.setDefaultLang("de");
   }
   /**
    * the attribute returns whether the current user is allowed to create services

@@ -79,10 +79,15 @@
         "deploymentinfos": "Veröffentlichungsinformationen",
         "servicemodels": "Servicemodelle",
         "providers": "Anbieter",
-        "storagetypes": "Storage types"
+        "storagetypes": "Storage types",
+        "loading": "Lädt Daten"
     },
     "popupmessages": {
         "logout": "Sie wurden erfolgreich abgemeldet.",
         "welcome": "Willkommen, {{name}}!"
+    },
+    "error": {
+        "protectedareaheadline": "Geschützter Bereich",
+        "protectedareasubtitle": "Dieser Bereich ist nur für angemeldete Nutzer zugänglich. Melden Sie sich an bevor Sie fortfahren."
     }
 }

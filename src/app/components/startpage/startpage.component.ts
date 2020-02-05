@@ -230,7 +230,7 @@ export class StartpageComponent implements OnInit {
   constructor(
     private translate: TranslateService
   ) {
-    translate.setDefaultLang("de");
+    
   }
   /**
    * the method creates a new project and navigates to the project edit view

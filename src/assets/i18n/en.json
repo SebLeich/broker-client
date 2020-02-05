@@ -73,10 +73,15 @@
         "deploymentinfos": "Deployment information",
         "servicemodels": "Service models",
         "providers": "Providers",
-        "storagetypes": "Storage types"
+        "storagetypes": "Storage types",
+        "loading": "Loading"
     },
     "popupmessages": {
         "logout": "You have been successfully logged out",
         "welcome": "Welcome, {{name}}!"
+    },
+    "error": {
+        "protectedareaheadline": "Protected area",
+        "protectedareasubtitle": "This area is only available for authorized user's. Please login with your account."
     }
 }
