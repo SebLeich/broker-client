@@ -1,4 +1,5 @@
 import { SessionState } from "../classes/metadata";
+import { Feature } from './feature';
 /**
  * the generic service interface
  */
@@ -33,8 +34,12 @@ export class ServicePreview {
 export abstract class Service {
     public id: number;
     public serviceName: string;
-    public serviceDescription: string;
-    public serviceTitle: string;
+    public serviceDescriptionDE: string;
+    public serviceDescriptionEN: string;
+    public serviceDescriptionES: string;
+    public serviceTitleDE: string;
+    public serviceTitleEN: string;
+    public serviceTitleES: string;
     public serviceCompliance: string;
     public serviceAvailability: string;
     public cloudServiceModel: ServiceModel = null;
@@ -42,6 +47,7 @@ export abstract class Service {
     public providerId: number;
     public provider: Provider = null;
     public pricing: Pricing[] = [];
+    public features: Feature[] = [];
     public deploymentInfo: DeploymentInformation = null;
     public deploymentInfoId: number;
     public certificates: Certificate[] = [];
@@ -50,24 +56,27 @@ export abstract class Service {
     public creation: string;
     public lastModified: string;
     public logo: string = null;
+    public banner: string = null;
     /**
      * the constructor creates a new instance of a service
      */
     constructor(object?) {
+        console.log(object);
         if (typeof (object) != "undefined" && object != null) {
             this.id = object.id;
             this.serviceName = object.serviceName;
-            this.serviceDescription = object.serviceDescription;
+            this.serviceDescriptionDE = object.serviceDescriptionDE;
+            this.serviceDescriptionEN = object.serviceDescriptionEN;
+            this.serviceDescriptionES = object.serviceDescriptionES;
             this.serviceCompliance = object.serviceCompliance;
-            this.serviceTitle = object.serviceTitle;
+            this.serviceTitleDE = object.serviceTitleDE;
+            this.serviceTitleEN = object.serviceTitleEN;
+            this.serviceTitleES = object.serviceTitleES;
             this.serviceAvailability = object.serviceAvailability;
             this.cloudServiceModelId = object.cloudServiceModelId;
             this.deploymentInfoId = object.deploymentInfoId;
             this.providerId = object.providerId;
             this.sessionState.isNew = false;
-            if (typeof (object.logo) != "undefined" && object.logo != null) {
-                this.logo = object.logo;
-            }
             if (typeof (object.cloudServiceModel) != "undefined" && object.cloudServiceModel != null) {
                 this.cloudServiceModel = new ServiceModel(object.cloudServiceModel);
             }
@@ -84,6 +93,11 @@ export abstract class Service {
             if (Array.isArray(object.dataLocations)) {
                 for (var index in object.dataLocations) {
                     this.dataLocations.push(new DataLocation(object.dataLocations[index]));
+                }
+            }
+            if (Array.isArray(object.features)) {
+                for (var index in object.features) {
+                    this.features.push(new Feature(object.features[index]));
                 }
             }
             if (typeof (object.deploymentInfo) != "undefined" && object.deploymentInfo != null) {
@@ -109,6 +123,12 @@ export abstract class Service {
         return this.dataLocations.map(x => x.id);
     }
     /**
+     * the method returns all feature ids
+     */
+    get featureIds(): number[] {
+        return this.features.map(x => x.id);
+    }
+    /**
      * the method returns the classe's icon
      */
     static get icon(){
@@ -125,13 +145,18 @@ export abstract class Service {
         return {
             "id": this.id,
             "serviceName": this.serviceName,
-            "serviceDescription": this.serviceDescription,
-            "serviceTitle": this.serviceTitle,
+            "serviceDescriptionDE": this.serviceDescriptionDE,
+            "serviceDescriptionEN": this.serviceDescriptionEN,
+            "serviceDescriptionES": this.serviceDescriptionES,
+            "serviceTitleDE": this.serviceTitleDE,
+            "serviceTitleEN": this.serviceTitleEN,
+            "serviceTitleES": this.serviceTitleES,
             "serviceAvailability": this.serviceAvailability,
             "cloudServiceModelId": this.cloudServiceModelId,
             "providerId": this.providerId,
             "certificates": this.certificates,
             "dataLocations": this.dataLocations,
+            "features": this.features,
             "logo": this.logo
         };
     }
@@ -734,7 +759,9 @@ export class Certificate {
  */
 export class DataLocation {
     public id: number;
-    public dataLocationName: string;
+    public dataLocationNameDE: string;
+    public dataLocationNameEN: string;
+    public dataLocationNameES: string;
     public dataLocationType: DataLocationType = null;
     /**
      * the constructor creates a new instance of a service category
@@ -742,7 +769,9 @@ export class DataLocation {
     constructor(object) {
         if (object != null && typeof (object) != undefined) {
             this.id = object.id;
-            this.dataLocationName = object.dataLocationName;
+            this.dataLocationNameDE = object.dataLocationNameDE;
+            this.dataLocationNameEN = object.dataLocationNameEN;
+            this.dataLocationNameES = object.dataLocationNameES;
             if (object.dataLocationType != null && typeof (object.dataLocationType) != undefined) {
                 this.dataLocationType = new DataLocationType(object.dataLocationType);
             }
@@ -764,8 +793,8 @@ export class DataLocation {
      * the method returns a string representation of the instance
      */
     toString(): string {
-        if (this.dataLocationType == null) return this.dataLocationName;
-        return this.dataLocationType + ": " + this.dataLocationName;
+        if (this.dataLocationType == null) return this.dataLocationNameDE;
+        return this.dataLocationType + ": " + this.dataLocationNameDE;
     }
 }
 /**
@@ -773,14 +802,18 @@ export class DataLocation {
  */
 export class DataLocationType {
     public id: number;
-    public typeName: string;
+    public typeNameDE: string;
+    public typeNameEN: string;
+    public typeNameES: string;
     /**
      * the constructor creates a new instance of a data location type
      */
     constructor(object) {
         if (object != null && typeof (object) != undefined) {
             this.id = object.id;
-            this.typeName = object.typeName;
+            this.typeNameDE = object.typeNameDE;
+            this.typeNameEN = object.typeNameEN;
+            this.typeNameES = object.typeNameES;
         }
     }
     /**
@@ -799,7 +832,7 @@ export class DataLocationType {
      * the method returns a string representation of the instance
      */
     toString(): string {
-        return this.typeName;
+        return this.typeNameDE;
     }
 }
 /**

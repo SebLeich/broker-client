@@ -16,14 +16,7 @@ export class MatchingResponse {
     public pointsmodels: number = 0;
     public pointsproviders: number = 0;
     public pointsstoragetype: number = 0;
-    public pointsHasFileEncryption: number = 0;
-    public pointsHasReplication: number = 0;
-    public pointsHasFilePermissions: number = 0;
-    public pointsHasFileLocking: number = 0;
-    public pointsHasFileCompression: number = 0;
-    public pointsHasDBMS: number = 0;
-    public pointsHasFileVersioning: number = 0;
-    public pointsHasAutomatedSynchronisation: number = 0;
+    public pointsfeatures: number = 0;
     public serviceType: string;
     public sessionState: SessionState = new SessionState();
     
@@ -41,14 +34,7 @@ export class MatchingResponse {
             this.pointsmodels = object.pointsmodels;
             this.pointsproviders = object.pointsproviders;
             this.pointsstoragetype = object.pointsstoragetype;
-            this.pointsHasFileEncryption = object.pointsHasFileEncryption;
-            this.pointsHasReplication = object.pointsHasReplication;
-            this.pointsHasFilePermissions = object.pointsHasFilePermissions;
-            this.pointsHasFileLocking = object.pointsHasFileLocking;
-            this.pointsHasFileCompression = object.pointsHasFileCompression;
-            this.pointsHasDBMS = object.pointsHasDBMS;
-            this.pointsHasFileVersioning = object.pointsHasFileVersioning;
-            this.pointsHasAutomatedSynchronisation = object.pointsHasAutomatedSynchronisation;
+            this.pointsfeatures = object.pointsfeatures;
             this.initService(object.service, object.serviceType);
         }
     }
@@ -114,14 +100,7 @@ export class MatchingResponse {
             this.pointsmodels +
             this.pointsproviders +
             this.pointsstoragetype +
-            this.pointsHasAutomatedSynchronisation +
-            this.pointsHasDBMS +
-            this.pointsHasFileCompression +
-            this.pointsHasFileEncryption +
-            this.pointsHasFileLocking +
-            this.pointsHasFilePermissions +
-            this.pointsHasFileVersioning +
-            this.pointsHasReplication
+            this.pointsfeatures
         );
     }
 
@@ -140,14 +119,7 @@ export class MatchingResponse {
             "pointsmodels": this.pointsmodels,
             "pointsproviders": this.pointsproviders,
             "pointsstoragetype": this.pointsstoragetype,
-            "pointsHasFileEncryption": this.pointsHasFileEncryption,
-            "pointsHasReplication": this.pointsHasReplication,
-            "pointsHasFilePermissions": this.pointsHasFilePermissions,
-            "pointsHasFileLocking": this.pointsHasFileLocking,
-            "pointsHasFileCompression": this.pointsHasFileCompression,
-            "pointsHasDBMS": this.pointsHasDBMS,
-            "pointsHasFileVersioning": this.pointsHasFileVersioning,
-            "pointsHasAutomatedSynchronisation": this.pointsHasAutomatedSynchronisation,
+            "pointsfeatures": this.pointsfeatures,
             "projectId": this.projectId
         };
     }
@@ -168,96 +140,36 @@ export class SearchVector {
     public deploymentinfos: SearchVectorListEntry;
     public models: SearchVectorListEntry;
     public providers: SearchVectorListEntry;
+    public features: SearchVectorListEntry;
     public types: IService[];
-    public hasFileEncryption: SearchVectorBooleanEntry;
-    public hasReplication: SearchVectorBooleanEntry;
     public storageType: SearchVectorListEntry;
-    public hasFileCompression: SearchVectorBooleanEntry;
-    public hasFilePermissions: SearchVectorBooleanEntry;
-    public hasFileLocking: SearchVectorBooleanEntry;
-    public hasDBMS: SearchVectorBooleanEntry;
-    public hasFileVersioning: SearchVectorBooleanEntry;
-    public hasAutomatedSynchronisation: SearchVectorBooleanEntry;
     public minFulfillmentPercentage: number;
 
     constructor() {
         this.certificates = new SearchVectorListEntry();
         this.datalocations = new SearchVectorListEntry();
         this.deploymentinfos = new SearchVectorListEntry();
+        this.features = new SearchVectorListEntry();
         this.models = new SearchVectorListEntry();
         this.providers = new SearchVectorListEntry();
         this.types = [];
-        this.hasFileEncryption = new SearchVectorBooleanEntry();
-        this.hasReplication = new SearchVectorBooleanEntry();
         this.storageType = new SearchVectorListEntry();
-        this.hasFileCompression = new SearchVectorBooleanEntry();
-        this.hasFilePermissions = new SearchVectorBooleanEntry();
-        this.hasFileLocking = new SearchVectorBooleanEntry();
-        this.hasDBMS = new SearchVectorBooleanEntry();
-        this.hasFileVersioning = new SearchVectorBooleanEntry();
-        this.hasAutomatedSynchronisation = new SearchVectorBooleanEntry();
-        this.minFulfillmentPercentage = 50;
+        this.minFulfillmentPercentage = 0;
     }
 
     addType(type: IService) {
         if(this.types.includes(type)) return;
         this.types.push(type);
+        this.certificates.isSearchable = true;
+        this.datalocations.isSearchable = true;
+        this.deploymentinfos.isSearchable = true;
+        this.models.isSearchable = true;
+        this.providers.isSearchable = true;
+        this.features.isSearchable = true;
         switch (type) {
             case BlockStorageService:
-                this.certificates.isSearchable = true;
-                this.datalocations.isSearchable = true;
-                this.deploymentinfos.isSearchable = true;
-                this.models.isSearchable = true;
-                this.providers.isSearchable = true;
-                this.hasFileEncryption.isSearchable = true;
-                this.hasReplication.isSearchable = true;
-                this.storageType.isSearchable = true;
-                break;
             case DirectAttachedService:
-                this.certificates.isSearchable = true;
-                this.datalocations.isSearchable = true;
-                this.deploymentinfos.isSearchable = true;
-                this.models.isSearchable = true;
-                this.providers.isSearchable = true;
-                this.hasFileEncryption.isSearchable = true;
-                this.hasReplication.isSearchable = true;
                 this.storageType.isSearchable = true;
-                this.hasFileCompression.isSearchable = true;
-                this.hasFileLocking.isSearchable = true;
-                this.hasFilePermissions.isSearchable = true;
-                break;
-            case KeyValueStorageService:
-            case RelationalDatabaseService:
-                this.certificates.isSearchable = true;
-                this.datalocations.isSearchable = true;
-                this.deploymentinfos.isSearchable = true;
-                this.models.isSearchable = true;
-                this.providers.isSearchable = true;
-                this.hasDBMS.isSearchable = true;
-                this.hasReplication.isSearchable = true;
-                break;
-            case ObjectStorageService:
-                this.certificates.isSearchable = true;
-                this.datalocations.isSearchable = true;
-                this.deploymentinfos.isSearchable = true;
-                this.models.isSearchable = true;
-                this.providers.isSearchable = true;
-                this.hasFileEncryption.isSearchable = true;
-                this.hasFileLocking.isSearchable = true;
-                this.hasFilePermissions.isSearchable = true;
-                this.hasFileVersioning.isSearchable = true;
-                this.hasReplication.isSearchable = true;
-                break;
-            case OnlineDriveStorageService:
-                this.certificates.isSearchable = true;
-                this.datalocations.isSearchable = true;
-                this.deploymentinfos.isSearchable = true;
-                this.models.isSearchable = true;
-                this.providers.isSearchable = true;
-                this.hasFileEncryption.isSearchable = true;
-                this.hasFileVersioning.isSearchable = true;
-                this.hasFilePermissions.isSearchable = true;
-                this.hasAutomatedSynchronisation.isSearchable = true;
                 break;
         }
     }
@@ -286,14 +198,7 @@ export class SearchVector {
         if (this.models.isRelevant()) return true;
         if (this.providers.isRelevant()) return true;
         if (this.storageType.isRelevant()) return true;
-        if (this.hasAutomatedSynchronisation.isRelevant()) return true;
-        if (this.hasDBMS.isRelevant()) return true;
-        if (this.hasFileCompression.isRelevant()) return true;
-        if (this.hasFileEncryption.isRelevant()) return true;
-        if (this.hasFileLocking.isRelevant()) return true;
-        if (this.hasFilePermissions.isRelevant()) return true;
-        if (this.hasFileVersioning.isRelevant()) return true;
-        if (this.hasReplication.isRelevant()) return true;
+        if (this.features.isRelevant()) return true;
         return false;
     }
 
@@ -305,47 +210,9 @@ export class SearchVector {
         this.providers.isSearchable = false;
         this.types = [];
         this.storageType.isSearchable = false;
-        this.hasAutomatedSynchronisation.isSearchable = false;
-        this.hasDBMS.isSearchable = false;
-        this.hasFileCompression.isSearchable = false;
-        this.hasFileEncryption.isSearchable = false;
-        this.hasFileLocking.isSearchable = false;
-        this.hasFilePermissions.isSearchable = false;
-        this.hasFileVersioning.isSearchable = false;
-        this.hasReplication.isSearchable = false;
+        this.features.isSearchable = false;
     }
 }
-
-
-export class SearchVectorBooleanEntry {
-
-    public isSearchable: boolean;
-    public value: boolean;
-    public priority: number;
-
-    constructor(object?) {
-        this.isSearchable = false;
-        this.value = false;
-        this.priority = 0;
-        if (typeof (object) != "undefined" && object != null) {
-            if (typeof (object.isSearchable) == "boolean") {
-                this.isSearchable = object.isSearchable;
-            }
-            if (typeof (object.value) == "boolean") {
-                this.value = object.value;
-            }
-            if (typeof (object.priority) == "number") {
-                this.priority = object.priority;
-            }
-        }
-    }
-
-    isRelevant(): boolean {
-        if (this.isSearchable && this.value && this.priority > 0) return true;
-        return false;
-    }
-}
-
 
 export class SearchVectorListEntry {
 

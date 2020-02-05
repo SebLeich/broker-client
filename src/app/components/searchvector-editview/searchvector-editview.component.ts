@@ -20,6 +20,8 @@ import {
 import { MatStepper } from '@angular/material/stepper';
 import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
 import { UseCase } from 'src/app/classes/use-case';
+import { Feature } from 'src/app/classes/feature';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-searchvector-editview',
@@ -94,6 +96,10 @@ export class SearchvectorEditviewComponent implements OnInit {
    */
   private _cert: Certificate[] = [];
   /**
+   * a set of all available features
+   */
+  private _feat: Feature[] = [];
+  /**
    * a set of all available deployment informations
    */
   private _di: DeploymentInformation[] = [];
@@ -130,6 +136,12 @@ export class SearchvectorEditviewComponent implements OnInit {
    */
   @Input() set deploymentInformation(di: DeploymentInformation[]) {
     this._di = di;
+  }
+  /**
+   * the input value sets the internal feature list
+   */
+  @Input() set features(feat: Feature[]) {
+    this._feat = feat;
   }
   /**
    * the input value sets the internal service model list
@@ -176,6 +188,12 @@ export class SearchvectorEditviewComponent implements OnInit {
    */
   get certificates() : Certificate[] {
     return this._cert;
+  }
+  /**
+   * the input value returns the internal feature list
+   */
+  get features() : Feature[] {
+    return this._feat;
   }
   /**
    * the input value returns the internal service category list
@@ -260,84 +278,15 @@ export class SearchvectorEditviewComponent implements OnInit {
         "priority": this.searchVector.storageType.priority
       }));
     }
-    if(this.searchVector.hasFileEncryption.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasFileEncryption",
-        "text": "Dateiverschlüsselung", 
-        "desc": "Wünschen Sie Dateiverschlüsselung?", 
+    if(this.searchVector.features.isSearchable){
+      output.push(new UseCaseMultipleSelectionOption({
+        "id": "features",
+        "text": "features", 
+        "desc": "featuresheadline", 
         "isActive": true,
+        "list": this.features,
         "hasPriority": true,
-        "priority": this.searchVector.hasFileEncryption.priority
-      }));
-    }
-    if(this.searchVector.hasReplication.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasReplication",
-        "text": "File Replication", 
-        "desc": "Wünschen Sie File Replication?", 
-        "isActive": true,
-        "hasPriority": true,
-        "priority": this.searchVector.hasReplication.priority
-      }));
-    }
-    if(this.searchVector.hasAutomatedSynchronisation.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasAutomatedSynchronisation",
-        "text": "Automatische Synchronisation", 
-        "desc": "Wünschen Sie automatische Synchronisation?", 
-        "isActive": true,
-        "hasPriority": true,
-        "priority": this.searchVector.hasAutomatedSynchronisation.priority
-      }));
-    }
-    if(this.searchVector.hasDBMS.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasDBMS",
-        "text": "Datenbankmanagementsystem", 
-        "desc": "Wünschen Sie ein Datenbankmanagementsystem?", 
-        "isActive": true,
-        "hasPriority": true,
-        "priority": this.searchVector.hasDBMS.priority
-      }));
-    }
-    if(this.searchVector.hasFileCompression.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasFileCompression",
-        "text": "Dateikomprimierung", 
-        "desc": "Wünschen Sie Dateikomprimierung?", 
-        "isActive": true,
-        "hasPriority": true,
-        "priority": this.searchVector.hasFileCompression.priority
-      }));
-    }
-    if(this.searchVector.hasFileLocking.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasFileLocking",
-        "text": "Filelocking", 
-        "desc": "Wünschen Sie Filelocking?", 
-        "isActive": true,
-        "hasPriority": true,
-        "priority": this.searchVector.hasFileLocking.priority
-      }));
-    }
-    if(this.searchVector.hasFilePermissions.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasFilePermissions",
-        "text": "Berechtigungssystem", 
-        "desc": "Wünschen Sie ein Berechtigungssystem?", 
-        "isActive": true,
-        "hasPriority": true,
-        "priority": this.searchVector.hasFilePermissions.priority
-      }));
-    }
-    if(this.searchVector.hasFileVersioning.isSearchable){
-      output.push(new UseCaseSelectionOption({
-        "id": "hasFileVersioning",
-        "text": "Dateiversionierung", 
-        "desc": "Wünschen Sie Dateiversionierung?", 
-        "isActive": true,
-        "hasPriority": true,
-        "priority": this.searchVector.hasFileVersioning.priority
+        "priority": this.searchVector.features.priority
       }));
     }
     return output;
@@ -371,37 +320,9 @@ export class SearchvectorEditviewComponent implements OnInit {
       output["storageType"] = this.searchVector.storageType.value;
       output["storageType-prio"] = this.searchVector.storageType.priority;
     }
-    if(this.searchVector.hasFileEncryption.isSearchable){
-      output["hasFileEncryption"] = this.searchVector.hasFileEncryption.value;
-      output["hasFileEncryption-prio"] = this.searchVector.hasFileEncryption.priority;
-    }
-    if(this.searchVector.hasReplication.isSearchable){
-      output["hasReplication"] = this.searchVector.hasReplication.value;
-      output["hasReplication-prio"] = this.searchVector.hasReplication.priority;
-    }
-    if(this.searchVector.hasAutomatedSynchronisation.isSearchable){
-      output["hasAutomatedSynchronisation"] = this.searchVector.hasAutomatedSynchronisation.value;
-      output["hasAutomatedSynchronisation-prio"] = this.searchVector.hasAutomatedSynchronisation.priority;
-    }
-    if(this.searchVector.hasDBMS.isSearchable){
-      output["hasDBMS"] = this.searchVector.hasDBMS.value;
-      output["hasDBMS-prio"] = this.searchVector.hasDBMS.priority;
-    }
-    if(this.searchVector.hasFileCompression.isSearchable){
-      output["hasFileCompression"] = this.searchVector.hasFileCompression.value;
-      output["hasFileCompression-prio"] = this.searchVector.hasFileCompression.priority;
-    }
-    if(this.searchVector.hasFileLocking.isSearchable){
-      output["hasFileLocking"] = this.searchVector.hasFileLocking.value;
-      output["hasFileLocking-prio"] = this.searchVector.hasFileLocking.priority;
-    }
-    if(this.searchVector.hasFilePermissions.isSearchable){
-      output["hasFilePermissions"] = this.searchVector.hasFilePermissions.value;
-      output["hasFilePermissions-prio"] = this.searchVector.hasFilePermissions.priority;
-    }
-    if(this.searchVector.hasFileVersioning.isSearchable){
-      output["hasFileVersioning"] = this.searchVector.hasFileVersioning.value;
-      output["hasFileVersioning-prio"] = this.searchVector.hasFileVersioning.priority;
+    if(this.searchVector.features.isSearchable){
+      output["features"] = this.searchVector.features.value;
+      output["features-prio"] = this.searchVector.features.priority;
     }
     return output;
   }
@@ -454,7 +375,8 @@ export class SearchvectorEditviewComponent implements OnInit {
    * the construtor creates a new instance of the component
    */
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private translate: TranslateService
   ) {
 
   }
@@ -532,6 +454,7 @@ export class SearchvectorEditviewComponent implements OnInit {
    * the method validates the current steps
    */
   validateSteps(){
+    
     this.steps = [];
     var cSFg = this._formBuilder.group({
       1: [this.cloudServiceSelectionValue, Validators.requiredTrue],
@@ -556,14 +479,25 @@ export class SearchvectorEditviewComponent implements OnInit {
       })
     );
     if(this.useCaseSelectionEnabled){
+      var useCaseTextLang = "titleDE";
+      switch(this.translate.currentLang){
+        case "en":
+          useCaseTextLang = "titleEN";
+          break;
+        case "es":
+          useCaseTextLang = "titleES";
+          break;
+      }
       var options: PreviewOption[] = [];
       var fgConfig = { };
       var index = 1;
       for(let useCase of this.useCases){
+        var text = useCase.titleDE;
+        if(useCase[useCaseTextLang] != "" && useCase[useCaseTextLang] != null && typeof(useCase[useCaseTextLang]) != "undefined") text = useCase[useCaseTextLang];
         options.push(new PreviewOption({
           "id": useCase.id,
           "icon": null,
-          "text": useCase.title, 
+          "text": text, 
           "isActive": true,
           "customClass": "use-case",
           "index": index

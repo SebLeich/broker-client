@@ -49,7 +49,8 @@
         "deploymentheadline": "Welche Veröffentlichungsinformationen sind Ihnen wichtig?",
         "servicemodelheadline": "Welche Servicemodelle kommen für Sie in Frage?",
         "providerheadline": "Welche Anbieter kommen für Sie in Frage?",
-        "storagetypeheadline": "Welche Speicherart wünschen Sie?"
+        "storagetypeheadline": "Welche Speicherart wünschen Sie?",
+        "featuresheadline": "Welche zusätzlichen Features wünschen Sie?"
     },
     "navbar": {
         "gotodashboard": "Zur Startseite",
@@ -68,18 +69,26 @@
     },
     "global": {
         "settings": "Einstellungen",
+        "create": "Anlegen",
         "login": "Einloggen",
         "register": "Registrieren",
         "language": "Sprache ändern",
         "de": "Deutsch",
         "en": "Englisch",
         "weight": "Gewichtung",
+        "certificate": "Zertifikat",
         "certificates": "Zertifikate",
+        "datalocation": "Datenspeicherort",
         "datalocations": "Datenspeicherorte",
+        "datalocationtypename": "Name der Datenspeicherortart",
         "deploymentinfos": "Veröffentlichungsinformationen",
+        "features": "Features",
+        "servicemodel": "Servicemodell",
         "servicemodels": "Servicemodelle",
+        "provider": "Anbieter",
         "providers": "Anbieter",
-        "storagetypes": "Storage types",
+        "storagetype": "Speicherart",
+        "storagetypes": "Speicherarten",
         "loading": "Lädt Daten"
     },
     "popupmessages": {
@@ -89,5 +98,39 @@
     "error": {
         "protectedareaheadline": "Geschützter Bereich",
         "protectedareasubtitle": "Dieser Bereich ist nur für angemeldete Nutzer zugänglich. Melden Sie sich an bevor Sie fortfahren."
+    },
+    "seviceEditViewInner": {
+        "name": "Bezeichnung",
+        "titleDE": "Titel (deutsch)",
+        "titleEN": "Titel (englisch)",
+        "titleES": "Titel (spanisch)",
+        "descriptionDE": "Beschreibung (deutsch)",
+        "descriptionEN": "Beschreibung (englisch)",
+        "descriptionES": "Beschreibung (spanisch)",
+        "availability": "Verfügbarkeit",
+        "addservicemodel": "Neues Servicemodell anlegen",
+        "servicemodelname": "Name des Servicemodells",
+        "servicemodelnamerequired": "Das neue Servicemodell braucht einen Namen um gespeichert werden zu können",
+        "adddatalocation": "Neuen Datenspeicherort anlegen",
+        "datalocationnameDE": "Name des Datenspeicherorts (deutsch)",
+        "datalocationnameEN": "Name des Datenspeicherorts (englisch)",
+        "datalocationnameES": "Name des Datenspeicherorts (spanisch)",
+        "datalocationnamerequired": "Der neue Datenspeicherort braucht eine deutsche Bezeichnung um gespeichert werden zu können",
+        "datalocationtyperequired": "Der neue Datenspeicherort braucht eine Art um gespeichert werden zu können",
+        "adddatalocationtype": "Neue Datenspeicherortart anlegen",
+        "datalocationtypenameDE": "Name der Datenspeicherortart (deutsch)",
+        "datalocationtypenameEN": "Name der Datenspeicherortart (englisch)",
+        "datalocationtypenameES": "Name der Datenspeicherortart (spanisch)",
+        "datalocationtypenamerequired": "Die neue Art von Datenspeicherorten braucht eine deutsche Bezeichnung um gespeichert werden zu können",
+        "addcertificate": "Neues Zertifikat anlegen",
+        "certificatename": "Name des Zertifikats",
+        "certificatenamerequired": "Das neue Zertifikat braucht einen Namen um gespeichert werden zu können",
+        "addstoragetype": "Neue Speicherart anlegen",
+        "storagetypedescription": "Bezeichnung der Speicherart",
+        "storagetypedescriptionrequired": "Es wird eine Bezeichnung für die Speicherart benötigt um diese zu speichern",
+        "addprovider": "Neuen Anbieter anlegen",
+        "providername": "Name des Anbieters",
+        "providerurl": "URL zur Webseite des Anbieters",
+        "providernamerequired": "Es muss ein Name für den neuen Anbieter vergeben werden um diesen zu speichern"
     }
 }

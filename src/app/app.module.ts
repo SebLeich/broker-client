@@ -57,10 +57,8 @@ import { MatchingResponseDetailViewComponent } from './components/matching-respo
 import { ServiceDetailViewComponent } from './components/service-detail-view/service-detail-view.component';
 import { UseCaseManagementViewComponent } from './components/use-case-management-view/use-case-management-view.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
-import { ImageSelectionComponent } from './components/image-selection/image-selection.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -86,8 +84,7 @@ import { from } from 'rxjs';
     MatchingResponseDetailViewComponent,
     ServiceDetailViewComponent,
     UseCaseManagementViewComponent,
-    ImprintComponent,
-    ImageSelectionComponent
+    ImprintComponent
   ],
   imports: [
     BrowserModule,
@@ -134,7 +131,7 @@ import { from } from 'rxjs';
   ],
   providers: [BackEndService],
   bootstrap: [RootComponent],
-  entryComponents: [LoginComponent, PopUpComponent, RegisterComponent, UserDetailComponent, ImageSelectionComponent]
+  entryComponents: [LoginComponent, PopUpComponent, RegisterComponent, UserDetailComponent]
 })
 export class AppModule {}
 

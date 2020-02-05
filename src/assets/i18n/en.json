@@ -43,7 +43,8 @@
         "datalocationheadline": "Which data locations are acceptable?",
         "deploymentheadline": "Which deployment information?",
         "servicemodelheadline": "Which service modells?",
-        "providerheadline": "Which providers?"
+        "providerheadline": "Which providers?",
+        "featuresheadline": "Which additional features do you require?"
     },
     "navbar": {
         "gotodashboard": "Goto dashboard",
@@ -71,6 +72,7 @@
         "certificates": "Certificates",
         "datalocations": "Data locations",
         "deploymentinfos": "Deployment information",
+        "features": "Features",
         "servicemodels": "Service models",
         "providers": "Providers",
         "storagetypes": "Storage types",

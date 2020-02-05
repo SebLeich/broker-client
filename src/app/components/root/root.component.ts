@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as globals from "../../globals";
 import { Project } from "../../classes/project";
+import { Feature } from "../../classes/feature";
 import {
   Certificate,
   Service,
@@ -48,6 +49,7 @@ export class RootComponent implements OnInit {
 
   projectPointer: number = 0;
 
+  features: Feature[] = [];
   certificates: Certificate[] = [];
   dataLocations: DataLocation[] = [];
   deploymentInformation: DeploymentInformation[] = [];
@@ -357,10 +359,12 @@ export class RootComponent implements OnInit {
    * the method loads all datasets of the database
    */
   loadData() {
-    console.log("load data called");
     this._service
       .get(UseCase.location)
       .subscribe((o: Object) => this.setUseCases(o));
+    this._service
+      .get(Feature.location)
+      .subscribe((o: Object) => this.setFeatures(o), (error) => console.log(error));
     this._service
       .get(ServiceType.location)
       .subscribe((o: Object) => this.setServiceTypes(o));
@@ -437,6 +441,7 @@ export class RootComponent implements OnInit {
         this.certificates,
         this.dataLocations,
         this.deploymentInformation,
+        this.features,
         this.providers,
         this.storageTypes,
         this.serviceModels
@@ -479,7 +484,6 @@ export class RootComponent implements OnInit {
       array.push(new Certificate(o[index]));
     }
     this.certificates = array;
-    console.log(this.certificates);
   }
   /**
    * the method sets the current users projects
@@ -510,6 +514,19 @@ export class RootComponent implements OnInit {
       array.push(new DeploymentInformation(o[index]));
     }
     this.deploymentInformation = array;
+  }
+  /**
+   * the method creates the features from the given array
+   */
+  setFeatures(o: Object) {
+    var array = [];
+    for (var index in o) {
+      var u = new Feature(o[index]);
+      u.isNew = false;
+      array.push(u);
+    }
+    this.features = array;
+    console.log(array, o);
   }
   /**
    * the method sets the current servers meta data

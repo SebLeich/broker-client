@@ -52,38 +52,6 @@ export class MatchingresultsOverviewComponent implements OnInit {
    */
   matchesAssoz(matchingResponse: MatchingResponse): any{
     var output = { matches: [], missing: [] };
-    if(this.currentProject.automatedSynchronisationPriority > 0){
-      if(matchingResponse.pointsHasAutomatedSynchronisation) output.matches.push("Automatische Synchronisation");
-      else output.missing.push("Automatische Synchronisation");
-    }
-    if(this.currentProject.dBMSPriority > 0){
-      if(matchingResponse.pointsHasDBMS) output.matches.push("Datenbankmanagementsystem");
-      else output.missing.push("Datenbankmanagementsystem");
-    }
-    if(this.currentProject.fileCompressionPriority > 0){
-      if(matchingResponse.pointsHasFileCompression) output.matches.push("Dateikomprimierung");
-      else output.missing.push("Dateikomprimierung");
-    }
-    if(this.currentProject.fileEncryptionPriority > 0){
-      if(matchingResponse.pointsHasFileEncryption) output.matches.push("Dateiverschlüsselung");
-      else output.missing.push("Dateiverschlüsselung");
-    }
-    if(this.currentProject.fileLockingPriority > 0){
-      if(matchingResponse.pointsHasFileLocking) output.matches.push("Filelocking");
-      else output.missing.push("Filelocking");
-    }
-    if(this.currentProject.filePermissionsPriority > 0){
-      if(matchingResponse.pointsHasFilePermissions) output.matches.push("Dateiberechtigungen");
-      else output.missing.push("Dateiberechtigungen");
-    }
-    if(this.currentProject.fileVersioningPriority > 0){
-      if(matchingResponse.pointsHasFileVersioning) output.matches.push("Dateiversionierung");
-      else output.missing.push("Dateiversionierung");
-    }
-    if(this.currentProject.replicationPriority > 0){
-      if(matchingResponse.pointsHasReplication) output.matches.push("Replikation");
-      else output.missing.push("Replikation");
-    }
     if(this.currentProject.certificatePriority > 0){
       Array.prototype.push.apply(output.matches, this.currentProject.certificates.filter(x => typeof(matchingResponse.service.certificates.find(y => y.id == x.id)) != "undefined").map(x => x.toString()));
       Array.prototype.push.apply(output.missing, this.currentProject.certificates.filter(x => typeof(matchingResponse.service.certificates.find(y => y.id == x.id)) == "undefined").map(x => x.toString()));
@@ -91,6 +59,10 @@ export class MatchingresultsOverviewComponent implements OnInit {
     if(this.currentProject.dataLocationPriority > 0){
       Array.prototype.push.apply(output.matches, this.currentProject.dataLocations.filter(x => typeof(matchingResponse.service.dataLocations.find(y => y.id == x.id)) != "undefined").map(x => x.toString()));
       Array.prototype.push.apply(output.missing, this.currentProject.dataLocations.filter(x => typeof(matchingResponse.service.dataLocations.find(y => y.id == x.id)) == "undefined").map(x => x.toString()));
+    }
+    if(this.currentProject.featurePriority > 0){
+      Array.prototype.push.apply(output.matches, this.currentProject.features.filter(x => typeof(matchingResponse.service.features.find(y => y.id == x.id)) != "undefined").map(x => x.toString()));
+      Array.prototype.push.apply(output.missing, this.currentProject.features.filter(x => typeof(matchingResponse.service.features.find(y => y.id == x.id)) == "undefined").map(x => x.toString()));
     }
     if(this.currentProject.deploymentInfoPriority > 0){
       Array.prototype.push.apply(output.matches, this.currentProject.deploymentInfos.filter(x => matchingResponse.service.deploymentInfoId == x.id).map(x => "Deployment: " + x.toString()));
@@ -121,6 +93,7 @@ export class MatchingresultsOverviewComponent implements OnInit {
         if(!element.hasService()) continue;
         this.renderDough(element);
       }
+      console.log(this);
     }, 200);
   }
   /**

@@ -8,6 +8,7 @@ import {
   StorageType, 
   Provider
 } from './service';
+import { Feature } from './feature';
 
 export class Project {
   id: number = 0;
@@ -20,6 +21,7 @@ export class Project {
   deleteOldSearches: boolean = true;
   matchingResponse: MatchingResponse[] = [];
   certificates: Certificate[] = [];
+  features: Feature[] = [];
   serviceModels: ServiceModel[] = [];
   dataLocations: DataLocation[] = [];
   deploymentInfos: DeploymentInformation[] = [];
@@ -33,25 +35,10 @@ export class Project {
   certificatePriority: number = 0;
   dataLocationPriority: number = 0;
   deploymentInfoPriority: number = 0;
+  featurePriority: number = 0;
   modelPriority: number = 0;
   providerPriority: number = 0;
   storageTypePriority: number = 0;
-  fileEncryptionPriority: number = 0;
-  hasFileEncryption: boolean;
-  replicationPriority: number = 0;
-  hasFileReplication: boolean;
-  filePermissionsPriority: number = 0;
-  hasFilePermissions: boolean;
-  fileLockingPriority: number = 0;
-  hasFileLocking: boolean;
-  fileCompressionPriority: number = 0;
-  hasFileCompression: boolean;
-  dBMSPriority: number = 0;
-  hasDBMS: boolean;
-  fileVersioningPriority: number = 0;
-  hasFileVersioning: boolean;
-  automatedSynchronisationPriority: number = 0;
-  hasAutomatedSynchronisation: boolean;
   constructor(object?) {
     if (object != null && typeof (object) != "undefined") {
       if(typeof(object.projectId) != "undefined" && object.projectId != null) this.id = object.projectId;
@@ -69,24 +56,8 @@ export class Project {
       if(typeof(object.deploymentInfoPriority) != "undefined" && object.deploymentInfoPriority != null) this.deploymentInfoPriority = object.deploymentInfoPriority;
       if(typeof(object.modelPriority) != "undefined" && object.modelPriority != null) this.modelPriority = object.modelPriority;
       if(typeof(object.providerPriority) != "undefined" && object.providerPriority != null) this.providerPriority = object.providerPriority;
+      if(typeof(object.featurePriority) != "undefined" && object.featurePriority != null) this.featurePriority = object.featurePriority;
       if(typeof(object.storageTypePriority) != "undefined" && object.storageTypePriority != null) this.storageTypePriority = object.storageTypePriority;
-      if(typeof(object.fileEncryptionPriority) != "undefined" && object.fileEncryptionPriority != null) this.fileEncryptionPriority = object.fileEncryptionPriority;
-      if(typeof(object.hasFileEncryption) != "undefined" && object.hasFileEncryption != null) this.hasFileEncryption = object.hasFileEncryption;
-      if(typeof(object.replicationPriority) != "undefined" && object.replicationPriority != null) this.replicationPriority = object.replicationPriority;
-      if(typeof(object.hasFileReplication) != "undefined" && object.hasFileReplication != null) this.hasFileReplication = object.hasFileReplication;
-      if(typeof(object.filePermissionsPriority) != "undefined" && object.filePermissionsPriority != null) this.filePermissionsPriority = object.filePermissionsPriority;
-      if(typeof(object.hasFilePermissions) != "undefined" && object.hasFilePermissions != null) this.hasFilePermissions = object.hasFilePermissions;
-      if(typeof(object.fileLockingPriority) != "undefined" && object.fileLockingPriority != null) this.fileLockingPriority = object.fileLockingPriority;
-      if(typeof(object.hasFileLocking) != "undefined" && object.hasFileLocking != null) this.hasFileLocking = object.hasFileLocking;
-      if(typeof(object.hasFileLocking) != "undefined" && object.hasFileLocking != null) this.hasFileLocking = object.hasFileLocking;
-      if(typeof(object.fileCompressionPriority) != "undefined" && object.fileCompressionPriority != null) this.fileCompressionPriority = object.fileCompressionPriority;
-      if(typeof(object.dBMSPriority) != "undefined" && object.dBMSPriority != null) this.dBMSPriority = object.dBMSPriority;
-      if(typeof(object.hasDBMS) != "undefined" && object.hasDBMS != null) this.hasDBMS = object.hasDBMS;
-      this.sessionState.isNew = false;
-      if(typeof(object.fileVersioningPriority) != "undefined" && object.fileVersioningPriority != null) this.fileVersioningPriority = object.fileVersioningPriority;
-      if(typeof(object.hasFileVersioning) != "undefined" && object.hasFileVersioning != null) this.hasFileVersioning = object.hasFileVersioning;
-      if(typeof(object.automatedSynchronisationPriority) != "undefined" && object.automatedSynchronisationPriority != null) this.automatedSynchronisationPriority = object.automatedSynchronisationPriority;
-      if(typeof(object.hasAutomatedSynchronisation) != "undefined" && object.hasAutomatedSynchronisation != null) this.hasAutomatedSynchronisation = object.hasAutomatedSynchronisation;
       for (var index in object.matchingResponse) {
         var o = object.matchingResponse[index];
         this.matchingResponse.push(new MatchingResponse(o));
@@ -111,6 +82,10 @@ export class Project {
         var o = object.providers[index];
         this.providers.push(new Provider(o));
       }
+      for (var index in object.features) {
+        var o = object.features[index];
+        this.features.push(new Feature(o));
+      }
       for (var index in object.storageTypes) {
         var o = object.storageTypes[index];
         this.storageTypes.push(new StorageType(o));
@@ -128,6 +103,7 @@ export class Project {
     certificates: Certificate[],
     dataLocations: DataLocation[],
     deploymentInfos: DeploymentInformation[],
+    features: Feature[],
     providers: Provider[],
     storageTypes: StorageType[],
     serviceModels: ServiceModel[]
@@ -138,10 +114,6 @@ export class Project {
         var cert = certificates.find(x => x.id == value);
         if(cert != null && typeof(cert) != "undefined" && !this.certificates.includes(cert)) this.certificates.push(cert);
       });
-    }
-    if(searchVector.hasDBMS.isRelevant()){
-      this.dBMSPriority = searchVector.hasDBMS.priority;
-      this.hasDBMS = searchVector.hasDBMS.value;
     }
     if(searchVector.datalocations.isRelevant()){
       this.dataLocationPriority = searchVector.datalocations.priority;
@@ -157,25 +129,12 @@ export class Project {
         if(di != null && typeof(di) != "undefined" && !this.deploymentInfos.includes(di)) this.deploymentInfos.push(di);
       });
     }
-    if(searchVector.hasFileCompression.isRelevant()){
-      this.fileCompressionPriority = searchVector.hasFileCompression.priority;
-      this.hasFileCompression = searchVector.hasFileCompression.value;
-    }
-    if(searchVector.hasFileEncryption.isRelevant()){
-      this.fileEncryptionPriority = searchVector.hasFileEncryption.priority;
-      this.hasFileEncryption = searchVector.hasFileEncryption.value;
-    }
-    if(searchVector.hasFileLocking.isRelevant()){
-      this.fileLockingPriority = searchVector.hasFileLocking.priority;
-      this.hasFileLocking = searchVector.hasFileLocking.value;
-    }
-    if(searchVector.hasFilePermissions.isRelevant()){
-      this.filePermissionsPriority = searchVector.hasFilePermissions.priority;
-      this.hasFilePermissions = searchVector.hasFilePermissions.value;
-    }
-    if(searchVector.hasFileVersioning.isRelevant()){
-      this.fileVersioningPriority = searchVector.hasFileVersioning.priority;
-      this.hasFileVersioning = searchVector.hasFileVersioning.value;
+    if(searchVector.features.isRelevant()){
+      this.featurePriority = searchVector.features.priority;
+      searchVector.features.value.forEach((value) => {
+        var f = features.find(x => x.id == value);
+        if(f != null && typeof(f) != "undefined" && !this.features.includes(f)) this.features.push(f);
+      });
     }
     if(searchVector.providers.isRelevant()){
       this.providerPriority = searchVector.providers.priority;
@@ -183,10 +142,6 @@ export class Project {
         var p = providers.find(x => x.id == value);
         if(p != null && typeof(p) != "undefined" && !this.providers.includes(p)) this.providers.push(p);
       });
-    }
-    if(searchVector.hasReplication.isRelevant()){
-      this.replicationPriority = searchVector.hasReplication.priority;
-      this.hasFileReplication = searchVector.hasReplication.value;
     }
     if(searchVector.storageType.isRelevant()){
       this.storageTypePriority = searchVector.storageType.priority;
@@ -207,20 +162,13 @@ export class Project {
    * the method returns whether the instance has searchable attributes
    */
   hasSearchValues(){
-    if(this.automatedSynchronisationPriority > 0) return true;
     if(this.categoryPriority > 0) return true;
     if(this.certificatePriority > 0) return true;
-    if(this.dBMSPriority > 0) return true;
     if(this.dataLocationPriority > 0) return true;
     if(this.deploymentInfoPriority > 0) return true;
-    if(this.fileCompressionPriority > 0) return true;
-    if(this.fileEncryptionPriority > 0) return true;
-    if(this.fileLockingPriority > 0) return true;
-    if(this.filePermissionsPriority > 0) return true;
-    if(this.fileVersioningPriority > 0) return true;
     if(this.modelPriority > 0) return true;
     if(this.providerPriority > 0) return true;
-    if(this.replicationPriority > 0) return true;
+    if(this.featurePriority > 0) return true;
     if(this.storageTypePriority > 0) return true;
     return false;
   }
@@ -241,10 +189,6 @@ export class Project {
    */
   sortedValues(){
     var output = [];
-    if(this.automatedSynchronisationPriority > 0) output.push({
-      value: this.automatedSynchronisationPriority,
-      name: "Automatische Synchronisation",
-    });
     if(this.categoryPriority > 0) output.push({
       value: this.categoryPriority,
       name: "Service Kategorie",
@@ -252,10 +196,6 @@ export class Project {
     if(this.certificatePriority > 0) output.push({
       value: this.certificatePriority,
       name: "Zertifizierung",
-    });
-    if(this.dBMSPriority > 0) output.push({
-      value: this.dBMSPriority,
-      name: "Datenbankmanagementsystem",
     });
     if(this.dataLocationPriority > 0) output.push({
       value: this.dataLocationPriority,
@@ -265,25 +205,9 @@ export class Project {
       value: this.deploymentInfoPriority,
       name: "Deployment",
     });
-    if(this.fileCompressionPriority > 0) output.push({
-      value: this.fileCompressionPriority,
-      name: "Dateikomprimierung",
-    });
-    if(this.fileEncryptionPriority > 0) output.push({
-      value: this.fileEncryptionPriority,
-      name: "Dateiverschlüsselung",
-    });
-    if(this.fileLockingPriority > 0) output.push({
-      value: this.fileLockingPriority,
-      name: "Filelocking",
-    });
-    if(this.filePermissionsPriority > 0) output.push({
-      value: this.filePermissionsPriority,
-      name: "Dateiberechtigungen",
-    });
-    if(this.fileVersioningPriority > 0) output.push({
-      value: this.fileVersioningPriority,
-      name: "Dateiversionierung",
+    if(this.featurePriority > 0) output.push({
+      value: this.featurePriority,
+      name: "Features",
     });
     if(this.modelPriority > 0) output.push({
       value: this.modelPriority,
@@ -292,10 +216,6 @@ export class Project {
     if(this.providerPriority > 0) output.push({
       value: this.providerPriority,
       name: "Anbieter",
-    });
-    if(this.replicationPriority > 0) output.push({
-      value: this.replicationPriority,
-      name: "Replikation",
     });
     if(this.storageTypePriority > 0) output.push({
       value: this.storageTypePriority,
@@ -325,14 +245,7 @@ export class Project {
       "modelPriority": this.modelPriority,
       "providerPriority": this.providerPriority,
       "storageTypePriority": this.storageTypePriority,
-      "fileEncryptionPriority": this.fileEncryptionPriority,
-      "replicationPriority": this.replicationPriority,
-      "filePermissionsPriority": this.fileEncryptionPriority,
-      "fileLockingPriority": this.fileLockingPriority,
-      "fileCompressionPriority": this.fileCompressionPriority,
-      "dbmsPriority": this.dBMSPriority,
-      "fileVersioningPriority": this.fileVersioningPriority,
-      "automatedSynchronisationPriority": this.automatedSynchronisationPriority,
+      "featurePriority": this.featurePriority,
       "certificates": this.certificates,
       "cloudServiceModels": this.serviceModels,
       "dataLocations": this.dataLocations,
@@ -344,20 +257,13 @@ export class Project {
 
   get total(): number {
     return (
-      this.automatedSynchronisationPriority +
       this.categoryPriority +
       this.certificatePriority +
-      this.dBMSPriority +
       this.dataLocationPriority +
       this.deploymentInfoPriority +
-      this.fileCompressionPriority +
-      this.fileEncryptionPriority +
-      this.fileLockingPriority +
-      this.filePermissionsPriority +
-      this.fileVersioningPriority +
+      this.featurePriority +
       this.modelPriority +
       this.providerPriority +
-      this.replicationPriority +
       this.storageTypePriority
     );
   }
@@ -371,14 +277,7 @@ export class Project {
     if(this.serviceModels.length > 0) output.push({ "category": "Service Modelle", "value": this.serviceModels });
     if(this.serviceTypes.length > 0) output.push({ "category": "Zulässige Cloud Services", "value": this.serviceTypes });
     if(this.storageTypes.length > 0) output.push({ "category": "Speichertechnologie", "value": this.storageTypes });
-    if(this.hasAutomatedSynchronisation) output.push({ "category": "Automatische Synchronisation", "value": ["Ja"] });
-    if(this.hasDBMS) output.push({ "category": "Datenbankmanagementsystem", "value": ["Ja"] });
-    if(this.hasFileCompression) output.push({ "category": "Dateikomprimierung", "value": ["Ja"] });
-    if(this.hasFileEncryption) output.push({ "category": "Dateiverschlüsselung", "value": ["Ja"] });
-    if(this.hasFileLocking) output.push({ "category": "Filelocking", "value": ["Ja"] });
-    if(this.hasFilePermissions) output.push({ "category": "Dateiberechtigungen", "value": ["Ja"] });
-    if(this.hasFileReplication) output.push({ "category": "Replikation", "value": ["Ja"] });
-    if(this.hasFileVersioning) output.push({ "category": "Dateiversionierung", "value": ["Ja"] });
+    if(this.featurePriority) output.push({ "category": "Features", "value": this.features });
     return output;
   }
 }

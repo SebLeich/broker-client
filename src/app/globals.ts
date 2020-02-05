@@ -79,9 +79,9 @@ export const viewStates = {
 /**
  * the backend's server location
  */
-export const serverLocation = "https://vibros.isih.wiwi.tu-dresden.de:444"; // LIVE VERSION
+//export const serverLocation = "https://vibros.isih.wiwi.tu-dresden.de:444"; // LIVE VERSION
 
-//export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING
+export const serverLocation = "http://localhost:58021"; // LOCAL DEBUGGING
 
 export const designColors = [
   { full: "rgb(186, 6, 48)", med: "rgba(186, 6, 48, .6)", light: "rgba(186, 6, 48, .3)" },

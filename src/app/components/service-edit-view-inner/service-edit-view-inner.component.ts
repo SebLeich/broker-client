@@ -1,11 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopUpData } from "src/app/components/pop-up/pop-up.component";
-import { Certificate, ServiceModel, ObjectStorageService, BlockStorageService, DirectAttachedService, KeyValueStorageService, StorageType, DataLocation, Provider, DataLocationType } from "../../classes/service";
+import {
+  Certificate, 
+  ServiceModel, 
+  ObjectStorageService, 
+  BlockStorageService, 
+  DirectAttachedService, 
+  KeyValueStorageService, 
+  StorageType, 
+  DataLocation, 
+  Provider, 
+  DataLocationType 
+} from "../../classes/service";
 import { BackEndService } from "../../services/backend-service";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange, MatSlideToggleChange, MatDialog, MatDialogConfig } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ImageSelectionComponent } from '../image-selection/image-selection.component';
 
 @Component({
   selector: 'app-service-edit-view-inner',
@@ -20,10 +30,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
   private _dataLocations: DataLocation[] = [];
   private _dataLocationTypes: DataLocationType[] = [];
 
-  public selectProviderPlaceholder: string = "Anbieter";
-  public selectServiceModelPlaceholder: string = "Service Modell";
-  public selectStorageTypePlaceholder: string = "Speicherart";
-  public selectDataLocationPlaceholder: string = "Lokalisierung";
   public showDataLocationAdder: boolean = false;
   public showDataLocationTypeAdder: boolean = false;
   public showProviderAdder: boolean = false;
@@ -85,11 +91,15 @@ export class ServiceEditViewInnerComponent implements OnInit {
       "certificateName": ['', Validators.required]
     });
     this.dataLocationFg = _formBuilder.group({
-      "dataLocationName": ['', Validators.required],
+      "dataLocationNameDE": ['', Validators.required],
+      "dataLocationNameEN": [''],
+      "dataLocationNameES": [''],
       "dataLocationType": ['', Validators.required]
     });
     this.dataLocationTypeFg = _formBuilder.group({
-      "typeName": ['', Validators.required]
+      "typeNameDE": ['', Validators.required],
+      "typeNameEN": [''],
+      "typeNameES": ['']
     });
     this.providerFg = _formBuilder.group({
       "providerName": ['', Validators.required],
@@ -189,7 +199,11 @@ export class ServiceEditViewInnerComponent implements OnInit {
       iconClass: null,
       showSpinner: true
     });
-    var t = new DataLocationType({ "typeName": this.dataLocationTypeFg.get("typeName").value });
+    var t = new DataLocationType({
+      "typeNameDE": this.dataLocationTypeFg.get("typeNameDE").value,
+      "typeNameEN": this.dataLocationTypeFg.get("typeNameEN").value,
+      "typeNameES": this.dataLocationTypeFg.get("typeNameES").value
+    });
     this.service.post(DataLocationType.location, t).subscribe((result) => {
       t = new DataLocationType(result);
       this._dataLocationTypes.push(t);
@@ -343,74 +357,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
     return this._serCert;
   }
   /**
-   * the method returns whether file encryption slider is visible
-   */
-  get displayFileEncryption(): boolean {
-    if (
-      this.currentService instanceof ObjectStorageService
-      || this.currentService instanceof BlockStorageService
-      || this.currentService instanceof DirectAttachedService
-    ) return true;
-    return false;
-  }
-  /**
-   * the method returns whether DBMS slider is visible
-   */
-  get displayDBMS(): boolean {
-    if (
-      this.currentService instanceof KeyValueStorageService
-    ) return true;
-    return false;
-  }
-  /**
-   * the method returns whether file locking slider is visible
-   */
-  get displayFileLocking(): boolean {
-    if (
-      this.currentService instanceof ObjectStorageService
-      || this.currentService instanceof DirectAttachedService
-    ) return true;
-    return false;
-  }
-  /**
-   * the method returns whether file permission slider is visible
-   */
-  get displayFilePermissions(): boolean {
-    if (
-      this.currentService instanceof ObjectStorageService
-      || this.currentService instanceof DirectAttachedService
-    ) return true;
-    return false;
-  }
-  /**
-   * the method returns whether file versioning slider is visible
-   */
-  get displayFileVersioning(): boolean {
-    if (this.currentService instanceof ObjectStorageService) return true;
-    return false;
-  }
-  /**
-   * the method returns whether file compression slider is visible
-   */
-  get displayFileCompression(): boolean {
-    if (
-      this.currentService instanceof DirectAttachedService
-    ) return true;
-    return false;
-  }
-  /**
-   * the method returns whether file replication slider is visible
-   */
-  get displayReplication(): boolean {
-    if (
-      this.currentService instanceof ObjectStorageService
-      || this.currentService instanceof BlockStorageService
-      || this.currentService instanceof DirectAttachedService
-      || this.currentService instanceof KeyValueStorageService
-    ) return true;
-    return false;
-  }
-  /**
    * the method returns whether storage type slider is visible
    */
   get displayStorageType(): boolean {
@@ -421,48 +367,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
         return true;
     }
     return false;
-  }
-  /**
-   * the function sets the file encryption value
-   */
-  set fileCompression(event: MatSlideToggleChange) {
-    this.currentService.hasFileCompression = event.checked;
-  }
-  /**
-   * the function sets the file encryption value
-   */
-  set fileEncryption(event: MatSlideToggleChange) {
-    this.currentService.hasFileEncryption = event.checked;
-  }
-  /**
-   * the function sets the file encryption value
-   */
-  set fileLocking(event: MatSlideToggleChange) {
-    this.currentService.hasFileLocking = event.checked;
-  }
-  /**
-   * the function sets the file encryption value
-   */
-  set filePermissions(event: MatSlideToggleChange) {
-    this.currentService.hasFilePermissions = event.checked;
-  }
-  /**
-   * the function sets the file encryption value
-   */
-  set fileVersioning(event: MatSlideToggleChange) {
-    this.currentService.hasFileVersioning = event.checked;
-  }
-  /**
-   * the function sets the file encryption value
-   */
-  set fileReplication(event: MatSlideToggleChange) {
-    this.currentService.hasReplication = event.checked;
-  }
-  /**
-   * the function sets the dbms value
-   */
-  set dbms(event: MatSlideToggleChange) {
-    this.currentService.hasDBMS = event.checked;
   }
   /**
    * the method returns all service models
@@ -562,16 +466,16 @@ export class ServiceEditViewInnerComponent implements OnInit {
     return this.certificateFg.get("certificateName");
   }
 
-  get newDataLocationName(){
-    return this.dataLocationFg.get("dataLocationName");
+  get newDataLocationNameDE(){
+    return this.dataLocationFg.get("dataLocationNameDE");
   }
 
   get newDataLocationType(){
     return this.dataLocationFg.get("dataLocationType");
   }
 
-  get newDataLocationTypeName(){
-    return this.dataLocationTypeFg.get("typeName");
+  get newDataLocationTypeNameDE(){
+    return this.dataLocationTypeFg.get("typeNameDE");
   }
 
   get newProviderName(){
@@ -584,26 +488,6 @@ export class ServiceEditViewInnerComponent implements OnInit {
 
   get newStorageTypeDescription(){
     return this.storageTypeFg.get("storageTypeDescription");
-  }
-
-  /**
-   * the method starts the register dialog
-   */
-  openImageSelection() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      logo: this.currentService.logo
-    };
-    const dialogRef = this._dialog.open(ImageSelectionComponent, dialogConfig);
-    dialogRef.componentInstance.logoEmitter.subscribe((result) => {
-      dialogRef.close();
-      this.currentService.logo = result;
-    });
-    dialogRef.componentInstance.closeEmitter.subscribe((result) => {
-      dialogRef.close();
-    });
   }
 
 }

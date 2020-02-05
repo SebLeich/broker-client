@@ -1,13 +1,16 @@
 import {
     ServiceType
 } from "./service";
+
 /**
  * the class contains an use-case for service matching
  */
 export class UseCase {
     id: number;
-    title: string;
-    desc: string;
+    titleDE: string;
+    titleEN: string;
+    titleES: string;
+    internalDescription: string;
     creation: string;
     serviceClasses: ServiceType[] = [];
     isNew: boolean = true;
@@ -20,11 +23,17 @@ export class UseCase {
             if(object.id != null && typeof(object.id) != "undefined"){
                 this.id = object.id;
             }
-            if(object.title != null && typeof(object.title) != "undefined"){
-                this.title = object.title;
+            if(object.titleDE != null && typeof(object.titleDE) != "undefined"){
+                this.titleDE = object.titleDE;
             }
-            if(object.description != null && typeof(object.description) != "undefined"){
-                this.desc = object.description;
+            if(object.titleEN != null && typeof(object.titleEN) != "undefined"){
+                this.titleEN = object.titleEN;
+            }
+            if(object.titleES != null && typeof(object.titleES) != "undefined"){
+                this.titleES = object.titleES;
+            }
+            if(object.internalDescription != null && typeof(object.internalDescription) != "undefined"){
+                this.internalDescription = object.internalDescription;
             }
             if(object.creation != null && typeof(object.creation) != "undefined"){
                 this.creation = object.creation;
@@ -51,8 +60,10 @@ export class UseCase {
         return {
             "id": this.id,
             "creation": this.creation,
-            "title": this.title,
-            "description": this.desc,
+            "titleDE": this.titleDE,
+            "titleEN": this.titleEN,
+            "titleES": this.titleES,
+            "internalDescription": this.internalDescription,
             "serviceClassMapping": this.serviceClasses
         };
     }
@@ -60,6 +71,6 @@ export class UseCase {
      * the method creates a string representation of the use case
      */
     toString(): string {
-        return this.title;
+        return this.titleDE;
     }
 }
