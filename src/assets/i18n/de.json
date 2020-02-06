@@ -70,6 +70,7 @@
     "global": {
         "settings": "Einstellungen",
         "create": "Anlegen",
+        "back": "Zurück",
         "login": "Einloggen",
         "register": "Registrieren",
         "language": "Sprache ändern",
@@ -82,11 +83,14 @@
         "datalocations": "Datenspeicherorte",
         "datalocationtypename": "Name der Datenspeicherortart",
         "deploymentinfos": "Veröffentlichungsinformationen",
+        "feature": "Feature",
         "features": "Features",
         "servicemodel": "Servicemodell",
         "servicemodels": "Servicemodelle",
+        "servicemodeldescription": "Services können auf unterschiedlichen Modellen beruhen. Dazu zählen SaaS, PaaS und IaaS.",
         "provider": "Anbieter",
         "providers": "Anbieter",
+        "providerdescription": "Der Hersteller entwickelt, wartet und erweitert den Service für Sie.",
         "storagetype": "Speicherart",
         "storagetypes": "Speicherarten",
         "loading": "Lädt Daten"
@@ -131,6 +135,18 @@
         "addprovider": "Neuen Anbieter anlegen",
         "providername": "Name des Anbieters",
         "providerurl": "URL zur Webseite des Anbieters",
-        "providernamerequired": "Es muss ein Name für den neuen Anbieter vergeben werden um diesen zu speichern"
+        "providernamerequired": "Es muss ein Name für den neuen Anbieter vergeben werden um diesen zu speichern",
+        "addfeature": "Neues Feature anlegen",
+        "featuredescriptionDE": "Featurebeschreibung (deutsch)",
+        "featuredescriptionEN": "Featurebeschreibung (englisch)",
+        "featuredescriptionES": "Featurebeschreibung (spanisch)",
+        "featuredescriptionrequired": "Das neue Feature braucht eine deutsche Bezeichnung um angelegt werden zu können"
+    },
+    "matchingresponsedetailview": {
+        "featuresheadline": "Weitere Features",
+        "nofeatureshint": "Dieser Service verfügt über keine weiteren Features",
+        "nodatalocationshint": "Zu diesem Service sind keine Datenspeicherorte hinterlegt",
+        "doughnutsectionheadline": "Übereinstimmung mit Suchanfrage",
+        "doughnutsectionbody": "Dieser Service entspricht zu {{percentage}}% Ihrer Suchanfrage. Bei Ihrer Suche haben Sie einen minimalen Prozentsatz von {{minPercentage}}% angegeben."
     }
 }

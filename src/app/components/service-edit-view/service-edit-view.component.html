@@ -10,11 +10,12 @@
     <div class="project-tile" style="min-height: calc(100% - 265px); padding-bottom: 45px;">
         <div class="edit-view-inner-wrapper">
             <app-service-edit-view-inner
-            #editView
-            [currentService]=currentService
-            [providers]=providers 
-            (messageEmitter)=showPopUpMessage($event)
-        ></app-service-edit-view-inner>
+                #editView
+                [currentService]=currentService
+                [providers]=providers 
+                [features]=features
+                (messageEmitter)=showPopUpMessage($event)
+            ></app-service-edit-view-inner>
         <div class="project-tile-footer">
             <span style="flex: 1;"></span>
             <div *ngIf="isPersisted()" class="footer-btn danger">

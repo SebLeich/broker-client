@@ -12,6 +12,7 @@ import {
 import { MatStepper } from '@angular/material/stepper';
 import { ObjectStorageService, OnlineDriveStorageService, BlockStorageService, DirectAttachedService, RelationalDatabaseService, KeyValueStorageService } from 'src/app/classes/service';
 import { ServiceEditViewInnerComponent } from '../service-edit-view-inner/service-edit-view-inner.component';
+import { Feature } from 'src/app/classes/feature';
 
 @Component({
   selector: 'app-service-create-view',
@@ -23,6 +24,10 @@ export class ServiceCreateViewComponent implements OnInit {
    * all available providers
    */
   @Input() providers: Provider[];
+  /**
+   * all available features
+   */
+  @Input() features: Feature[];
   /**
    * the emitter sends the state messages to the root component
    */

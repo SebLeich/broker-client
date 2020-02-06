@@ -90,6 +90,18 @@ export class RootComponent implements OnInit {
     return false;
   }
   /**
+   * the attribute returns whether the current user is allowed to edit services
+   */
+  get canEditServices() {
+    if (
+      this.roleRights.find(
+        x => x.rule.ruleCode == "edit-services" && x.isAllowed
+      )
+    )
+      return true;
+    return false;
+  }
+  /**
    * the attribute returns whether the current user is allowed to create services
    */
   get canDeleteServices() {

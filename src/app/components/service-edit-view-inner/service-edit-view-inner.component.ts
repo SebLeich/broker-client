@@ -16,6 +16,7 @@ import { BackEndService } from "../../services/backend-service";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange, MatSlideToggleChange, MatDialog, MatDialogConfig } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Feature } from 'src/app/classes/feature';
 
 @Component({
   selector: 'app-service-edit-view-inner',
@@ -29,9 +30,11 @@ export class ServiceEditViewInnerComponent implements OnInit {
   private _sTypes: StorageType[] = [];
   private _dataLocations: DataLocation[] = [];
   private _dataLocationTypes: DataLocationType[] = [];
+  private _features: Feature[] = [];
 
   public showDataLocationAdder: boolean = false;
   public showDataLocationTypeAdder: boolean = false;
+  public showFeatureAdder: boolean = false;
   public showProviderAdder: boolean = false;
   public showServiceModelAdder: boolean = false;
   public showCertAdder: boolean = false;
@@ -74,10 +77,22 @@ export class ServiceEditViewInnerComponent implements OnInit {
     this._providers = providers;
   }
   /**
+   * the input value sets all features
+   */
+  @Input() set features(features: Feature[]) {
+    this._features = features;
+  }
+  /**
    * the method returns all providers
    */
   get providers(): Provider[] {
     return this._providers;
+  }
+  /**
+   * the method returns all features
+   */
+  get features(): Feature[] {
+    return this._features;
   }
   /**
    * the constructor creates a new instance of a detail view
@@ -100,6 +115,11 @@ export class ServiceEditViewInnerComponent implements OnInit {
       "typeNameDE": ['', Validators.required],
       "typeNameEN": [''],
       "typeNameES": ['']
+    });
+    this.featureFg = _formBuilder.group({
+      "featuredescriptionDE": ['', Validators.required],
+      "featuredescriptionEN": [''],
+      "featuredescriptionES": ['']
     });
     this.providerFg = _formBuilder.group({
       "providerName": ['', Validators.required],
@@ -211,6 +231,43 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.dataLocationTypeFg.reset();
       this.messageEmitter.emit({
         message: "Lokalisationsart wurde angelegt",
+        param: { },
+        icon: "done",
+        iconClass: "success",
+        showSpinner: false
+      });
+    });
+  }
+  /**
+   * the method adds a new feature
+   */
+  addFeature() {
+    if(this.featureFg.invalid) this.messageEmitter.emit({
+      message: "Feature kann nicht angelegt werden",
+      param: { },
+      icon: "clear",
+      iconClass: "danger",
+      showSpinner: false
+    });
+    this.messageEmitter.emit({
+      message: "Feature wird angelegt",
+      param: { },
+      icon: null,
+      iconClass: null,
+      showSpinner: true
+    });
+    var f = new Feature({
+      "descriptionDE": this.featureFg.get("featuredescriptionDE").value,
+      "descriptionEN": this.featureFg.get("featuredescriptionEN").value,
+      "descriptionES": this.featureFg.get("featuredescriptionES").value
+    });
+    this.service.post(Feature.location, f).subscribe((result) => {
+      f = new Feature(result);
+      this._features.push(f);
+      this.showFeatureAdder = false;
+      this.featureFg.reset();
+      this.messageEmitter.emit({
+        message: "Feature wurde angelegt",
         param: { },
         icon: "done",
         iconClass: "success",
@@ -403,6 +460,20 @@ export class ServiceEditViewInnerComponent implements OnInit {
     this.currentService.dataLocations = a;
   }
   /**
+   * the method sets the current service's features array
+   */
+  setFeatures(input: MatSelectChange) {
+    var v = input.value;
+    var a: Feature[] = [];
+    for (var index in v) {
+      if (typeof (v[index]) == "undefined") continue;
+      var l = this.features.find(x => x.id == v[index]);
+      if (typeof (l) == "undefined") continue;
+      a.push(l);
+    }
+    this.currentService.features = a;
+  }
+  /**
    * the method persists current changes
    */
   saveChanges() {
@@ -458,6 +529,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
   public certificateFg: FormGroup;
   public dataLocationFg: FormGroup;
   public dataLocationTypeFg: FormGroup;
+  public featureFg: FormGroup;
   public providerFg: FormGroup;
   public serviceModelFg: FormGroup;
   public storageTypeFg: FormGroup;
@@ -484,6 +556,10 @@ export class ServiceEditViewInnerComponent implements OnInit {
 
   get newServiceModelName(){
     return this.serviceModelFg.get("cloudServiceModelName");
+  }
+
+  get newFeatureDescDE(){
+    return this.featureFg.get("featuredescriptionDE");
   }
 
   get newStorageTypeDescription(){

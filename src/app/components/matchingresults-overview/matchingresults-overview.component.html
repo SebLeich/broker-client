@@ -13,8 +13,13 @@
             <div class="tile-content">
                 <div style="display: flex;">
                     <div style="padding-right: 20px;">
-                        BILD
+                        <img *ngIf="response.service.logo != null; else noLogo" class="image" src="{{logoData(response.service)}}">
                     </div>
+                    <ng-template #noLogo>
+                        <mat-icon class="no-logo">
+                            contact_support
+                        </mat-icon>
+                    </ng-template>
                     <div style="flex: 1">
                         <span class="badge">{{typeName(response)}}</span>
                         <div class="headline">{{ response.toString() }}</div>

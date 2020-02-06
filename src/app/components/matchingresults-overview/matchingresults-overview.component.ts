@@ -36,6 +36,13 @@ export class MatchingresultsOverviewComponent implements OnInit {
     return this.currentProject.matchingResponse;
   }
   /**
+   * the method returns the data uri of the current service's logo
+   */
+  logoData(service): string {
+    if(service.logo == null) return null;
+    return "data:" + service.logo.mediaType + ";base64," + service.logo.imageData;
+  }
+  /**
    * the method returns all matching responses sorted according to their fulfillment
    */
   get sortedMatchingResponses(): MatchingResponse[] {

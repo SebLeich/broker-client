@@ -460,8 +460,80 @@
             </div>
         </form>
 
+        <!-- features -->
+        <mat-form-field class="width">
+            <mat-label>
+                {{ 'global.features' | translate }}
+            </mat-label>
+            <mat-select (selectionChange)="setFeatures($event)" [value]="currentService.featureIds" multiple>
+                <mat-option *ngFor="let f of features" [value]="f.id">
+                    {{ f.toString() }}
+                </mat-option>
+                <mat-option (click)="showFeatureAdder = true" class="mat-option-adder">
+                    <mat-icon class="icon">add</mat-icon>
+                    {{ 'seviceEditViewInner.addfeature' | translate }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="showFeatureAdder" [formGroup]="featureFg" class="adder-container">
+            <div class="adder-headline">
+                <span class="text">
+                    {{ 'seviceEditViewInner.addfeature' | translate }}
+                </span>
+                <mat-icon class="closer" (click)="showFeatureAdder=false">
+                    clear
+                </mat-icon>
+            </div>
+            <div class="adder-content">
+                <div class="adder-content-left-column">
+                    <mat-form-field class="add-on">
+                        <span matPrefix class="flag-icon flag-icon-de prefix"></span>
+                        <input 
+                            matInput 
+                            formControlName="featuredescriptionDE" 
+                            placeholder="{{ 'seviceEditViewInner.featuredescriptionDE' | translate }}"
+                        />
+                        <mat-icon matSuffix class="prefix-icon">assessment</mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="newFeatureDescDE.touched && newFeatureDescDE.invalid" class="alert alert-danger">
+                        <div *ngIf="newFeatureDescDE.errors.required">
+                            {{ 'seviceEditViewInner.featuredescriptionrequired' | translate }}
+                        </div>
+                    </div>
+                    <mat-form-field class="add-on">
+                        <span matPrefix class="flag-icon flag-icon-us prefix"></span>
+                        <input 
+                            matInput 
+                            formControlName="featuredescriptionEN" 
+                            placeholder="{{ 'seviceEditViewInner.featuredescriptionEN' | translate }}"
+                        />
+                        <mat-icon matSuffix class="prefix-icon">assessment</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="add-on">
+                        <span matPrefix class="flag-icon flag-icon-es prefix"></span>
+                        <input 
+                            matInput 
+                            formControlName="featuredescriptionES" 
+                            placeholder="{{ 'seviceEditViewInner.featuredescriptionES' | translate }}"
+                        />
+                        <mat-icon matSuffix class="prefix-icon">assessment</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="adder-content-right-column">
+                    <button 
+                        class="add-on-button" 
+                        mat-raised-button color="primary"
+                        (click)="addFeature()"
+                        [disabled]="newFeatureDescDE.invalid"
+                    >
+                        {{ 'global.create' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </form>
-    
+
 </mat-card>
 <ng-template #noService>
     FEHLER

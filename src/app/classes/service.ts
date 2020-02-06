@@ -1,5 +1,6 @@
 import { SessionState } from "../classes/metadata";
 import { Feature } from './feature';
+import { Image } from './image';
 /**
  * the generic service interface
  */
@@ -55,8 +56,8 @@ export abstract class Service {
     public sessionState: SessionState = new SessionState();
     public creation: string;
     public lastModified: string;
-    public logo: string = null;
-    public banner: string = null;
+    public logo: Image = null;
+    public banner: Image = null;
     /**
      * the constructor creates a new instance of a service
      */
@@ -79,6 +80,12 @@ export abstract class Service {
             this.sessionState.isNew = false;
             if (typeof (object.cloudServiceModel) != "undefined" && object.cloudServiceModel != null) {
                 this.cloudServiceModel = new ServiceModel(object.cloudServiceModel);
+            }
+            if (typeof (object.logo) != "undefined" && object.logo != null) {
+                this.logo = new Image(object.logo);
+            }
+            if (typeof (object.banner) != "undefined" && object.banner != null) {
+                this.banner = new Image(object.banner);
             }
             if (Array.isArray(object.pricing)) {
                 for (var index in object.pricing) {
@@ -142,7 +149,7 @@ export abstract class Service {
      * the method creates the backend's interface
      */
     toServerObject(): any {
-        return {
+        var o: any = {
             "id": this.id,
             "serviceName": this.serviceName,
             "serviceDescriptionDE": this.serviceDescriptionDE,
@@ -156,9 +163,11 @@ export abstract class Service {
             "providerId": this.providerId,
             "certificates": this.certificates,
             "dataLocations": this.dataLocations,
-            "features": this.features,
-            "logo": this.logo
+            "features": this.features
         };
+        if(this.logo != null) o.logoId = this.logo.id;
+        if(this.banner != null) o.bannerId = this.banner.id;
+        return o;
     }
     /**
      * the method returns the classes string representation

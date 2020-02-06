@@ -2,13 +2,8 @@
     <div class="component-background-limiter"></div>
 </div>
 <div class="content responsive-container" style="height: calc(100% - 80px);">
-    <section class="head-tile">
-        <span class="super-section-header">Neuen Service anlegen</span>
-        <div>Erstellen Sie einen neuen Cloud Service.</div>
-        <mat-icon class="icon">add</mat-icon>
-    </section>
     <div class="project-tile" style="min-height: calc(100% - 265px); padding-bottom: 45px;">
-        <mat-horizontal-stepper style="width: 100%;" [linear]=true #stepper>
+        <mat-horizontal-stepper class="horizontal-stepper" [linear]=true #stepper>
             <mat-step *ngFor="let step of steps" [stepControl]="step.fg" style="overflow: inherit;">
                 <ng-template matStepLabel>{{ step.headline }}</ng-template>
                 <div *ngIf="step.isServiceEditComponent; else noForeignComponent">
@@ -16,6 +11,7 @@
                         #editView
                         [currentService]=currentService
                         [providers]=providers 
+                        [features]=features
                         (messageEmitter)=showPopUpMessage($event)
                     ></app-service-edit-view-inner>
                 </div>

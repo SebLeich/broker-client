@@ -1,16 +1,117 @@
-<div class="component-background">
-    <div class="component-background-limiter"></div>
+<div class="banner-image" #banner [ngStyle]="{'background-image':'url('+bannerData+')'}">
+    <div class="banner-cover" (click)="triggerUploadBanner()"></div>
+    <div class="metadata" #metadata>
+        <div class="back-navigator" (click)="back()">
+            <mat-icon class="nav-icon">chevron_left</mat-icon>
+            <span class="nav-text">
+                {{ 'global.back' | translate }}
+            </span>
+        </div>
+        <div class="profile-image" (click)="triggerUploadLogo()">
+            <img class="image" src="{{logoData}}">
+        </div>
+        <div class="text">
+            <div class="headline">
+                {{ currentService.serviceName }}
+            </div>
+            <div class="subhead">
+                {{ currentService.serviceTitleDE }}
+            </div>
+            <div class="subtitle">
+                {{ currentService.serviceDescriptionDE }}
+            </div>
+        </div>
+        <div style="flex: 1 1 10%;"></div>
+    </div>
+    <div class="body" [ngStyle]="{'top.px': metaTop}">
+        <div style="display: flex; margin-left: 7%; width: 86%;">
+            <div class="left-column">
+                <div *ngIf="currentService.cloudServiceModel != null" class="left-container">
+                    <div class="left-headline">
+                        <div class="key">
+                            {{ 'global.servicemodel' | translate }}
+                        </div>
+                        <div class="value">
+                            {{ currentService.cloudServiceModel.toString() }}
+                        </div>
+                    </div>
+                    <div class="left-textbody">
+                        {{ 'global.servicemodeldescription' | translate }}
+                    </div>
+                </div>
+                <div *ngIf="currentService.provider != null" class="left-container">
+                    <div class="left-headline">
+                        <div class="key">
+                            {{ 'global.provider' | translate }}
+                        </div>
+                        <div class="value">
+                            {{ currentService.provider.toString() }}
+                        </div>
+                    </div>
+                    <div class="left-textbody">
+                        {{ 'global.providerdescription' | translate }}
+                    </div>
+                </div>
+                <div *ngIf="currentService.certificates.length > 0" class="left-container">
+                    <div class="left-headline">
+                        <div>
+                            <div class="multiple-key">
+                                {{ 'global.certificates' | translate }}
+                            </div>
+                        </div>
+                        <div *ngFor="let certificate of currentService.certificates" class="multiple-value">
+                            {{ certificate.toString() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="right-headline">
+                    {{ 'matchingresponsedetailview.featuresheadline' | translate }}
+                </div>
+                <div *ngIf="currentService.features.length > 0; else nofeatures">
+                    <div *ngFor="let feature of currentService.features" class="feature-entry">
+                        {{ feature.descriptionDE }}
+                    </div>
+                </div>
+                <ng-template #nofeatures>
+                    <div class="no-features">
+                        {{ 'matchingresponsedetailview.nofeatureshint' | translate }}
+                    </div>
+                </ng-template>
+                <div class="right-headline">
+                    {{ 'global.datalocation' | translate }}
+                </div>
+                <div *ngIf="currentService.dataLocations.length > 0; else nodatalocation">
+                    <div *ngFor="let datalocation of currentService.dataLocations" class="feature-entry">
+                        {{ datalocation.toString() }}
+                    </div>
+                </div>
+                <ng-template #nodatalocation>
+                    <div class="no-features">
+                        {{ 'matchingresponsedetailview.nodatalocationshint' | translate }}
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="doughnut-section">
+            <mat-icon class="doughnut-section-icon">
+                timeline
+            </mat-icon>
+            <div style="flex: 1; align-self: center;">
+                <div class="doughnut-section-headline">
+                    {{ 'matchingresponsedetailview.doughnutsectionheadline' | translate }}
+                </div>
+                <div class="doughnut-section-body">
+                    {{ 'matchingresponsedetailview.doughnutsectionbody' | translate:{percentage:currentPercentage,minPercentage:currentProject.minMatchingPercentage} }}
+                </div>
+            </div>
+            <div style="flex: 1; position: relative;">
+                <div id="dough-chart-parent" style="height: 100%;"></div>
+                <div id="chart-parent-counter" class="matching-counter">0</div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="content responsive-container" style="height: calc(100% - 80px);">
-    <section class="head-tile">
-        <span class="super-section-header">{{ currentMatchingResponse.toString() }}</span>
-        <div>Bei diesem Service handelt es sich um einen {{serviceType}}</div>
-        <button class="head-button" (click)="gotoMatchingResultsOverview()">Zurück zur Übersicht</button>
-        <mat-icon class="icon">search</mat-icon>
-    </section>
-    <app-service-detail-view 
-        [service]=currentService
-        [currentMatchingResponse]=currentMatchingResponse 
-        [currentProject]=currentProject
-    ></app-service-detail-view>
-</div>
+<input #uploadBanner accept="image/*" style="display: none;" type="file" (change)="chooseBanner($event.target.files)" />
+<input #uploadLogo accept="image/*" style="display: none;" type="file" (change)="chooseLogo($event.target.files)" />

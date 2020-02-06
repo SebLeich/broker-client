@@ -43,6 +43,7 @@
         <app-service-edit-view
             [currentService]=currentService
             [providers]=providers 
+            [features]=features
             (messageEmitter)=showPopUpMessage($event) 
             (serviceEmitter)=persistService($event)
         ></app-service-edit-view>
@@ -67,6 +68,7 @@
         <app-service-create-view 
             *ngIf="canCreateServices; else noRoleRight"
             [providers]=providers 
+            [features]=features
             (serviceEmitter)=persistService($event) 
             (messageEmitter)=showPopUpMessage($event)
         ></app-service-create-view>
@@ -108,6 +110,8 @@
 <app-matching-response-detail-view 
     *ngIf="state == 14" 
     [currentMatchingResponse]=currentMatchingResponse
+    [isLoggedIn]=isLoggedIn
+    [canEditServices]=canEditServices
     [projects]=projects 
     (projectEmitter)=gotoMatchingResponseOverView($event)
 ></app-matching-response-detail-view>

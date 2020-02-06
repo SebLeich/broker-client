@@ -50,3 +50,15 @@
 .tile-content .badge-danger .badge-icon {
     color: #ff002e;
 }
+.image {
+    max-height: 180px;
+    max-width: 180px;
+}
+.no-logo {
+    width: 180px;
+    font-size: 5rem;
+    text-align: center;
+    height: 100px;
+    color: #353535;
+    padding-top: 15px;
+}
