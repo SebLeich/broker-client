@@ -113,6 +113,9 @@
         "descriptionES": "Beschreibung (spanisch)",
         "availability": "Verfügbarkeit",
         "addservicemodel": "Neues Servicemodell anlegen",
+        "cannotcreateservicemodel": "Servicemodell kann nicht angelegt werden",
+        "creatingservicemodel": "Servicemodell wird angelegt",
+        "servicemodelcreated": "Servicemodell wurde angelegt",
         "servicemodelname": "Name des Servicemodells",
         "servicemodelnamerequired": "Das neue Servicemodell braucht einen Namen um gespeichert werden zu können",
         "adddatalocation": "Neuen Datenspeicherort anlegen",
@@ -133,6 +136,9 @@
         "storagetypedescription": "Bezeichnung der Speicherart",
         "storagetypedescriptionrequired": "Es wird eine Bezeichnung für die Speicherart benötigt um diese zu speichern",
         "addprovider": "Neuen Anbieter anlegen",
+        "cannotcreateprovider": "Anbieter kann nicht angelegt werden",
+        "creatingprovider": "Anbieter wird angelegt",
+        "providercreated": "Anbieter wurde angelegt",
         "providername": "Name des Anbieters",
         "providerurl": "URL zur Webseite des Anbieters",
         "providernamerequired": "Es muss ein Name für den neuen Anbieter vergeben werden um diesen zu speichern",
@@ -140,7 +146,10 @@
         "featuredescriptionDE": "Featurebeschreibung (deutsch)",
         "featuredescriptionEN": "Featurebeschreibung (englisch)",
         "featuredescriptionES": "Featurebeschreibung (spanisch)",
-        "featuredescriptionrequired": "Das neue Feature braucht eine deutsche Bezeichnung um angelegt werden zu können"
+        "featuredescriptionrequired": "Das neue Feature braucht eine deutsche Bezeichnung um angelegt werden zu können",
+        "cannotcreatefeature": "Feature kann nicht angelegt werden",
+        "creatingfeature": "Feature wird angelegt",
+        "featurecreated": "Feature wurde angelegt"
     },
     "matchingresponsedetailview": {
         "featuresheadline": "Weitere Features",

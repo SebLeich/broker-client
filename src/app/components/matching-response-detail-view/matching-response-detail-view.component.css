@@ -181,3 +181,16 @@
     color: #333333;
     padding-bottom: 20px;
 }
+.image-chooser {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    font-size: 1.4rem;
+    padding: 5px;
+    background-color: #11345b;
+    color: white;
+    border-radius: 20px;
+    height: auto;
+    width: auto;
+    cursor: pointer;
+}

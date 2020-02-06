@@ -1,5 +1,9 @@
 <div class="banner-image" #banner [ngStyle]="{'background-image':'url('+bannerData+')'}">
-    <div class="banner-cover" (click)="triggerUploadBanner()"></div>
+    <div class="banner-cover">
+        <mat-icon *ngIf="canUpload" class="image-chooser" (click)="triggerUploadBanner()">
+            edit
+        </mat-icon>
+    </div>
     <div class="metadata" #metadata>
         <div class="back-navigator" (click)="back()">
             <mat-icon class="nav-icon">chevron_left</mat-icon>
@@ -7,8 +11,11 @@
                 {{ 'global.back' | translate }}
             </span>
         </div>
-        <div class="profile-image" (click)="triggerUploadLogo()">
+        <div class="profile-image">
             <img class="image" src="{{logoData}}">
+            <mat-icon *ngIf="canUpload" class="image-chooser" (click)="triggerUploadLogo()">
+                edit
+            </mat-icon>
         </div>
         <div class="text">
             <div class="headline">

@@ -243,14 +243,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
    */
   addFeature() {
     if(this.featureFg.invalid) this.messageEmitter.emit({
-      message: "Feature kann nicht angelegt werden",
+      message: "cannotcreatefeature",
       param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
-      message: "Feature wird angelegt",
+      message: "creatingfeature",
       param: { },
       icon: null,
       iconClass: null,
@@ -267,7 +267,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.showFeatureAdder = false;
       this.featureFg.reset();
       this.messageEmitter.emit({
-        message: "Feature wurde angelegt",
+        message: "featurecreated",
         param: { },
         icon: "done",
         iconClass: "success",
@@ -280,14 +280,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
    */
   addServiceModel() {
     if(this.serviceModelFg.invalid) this.messageEmitter.emit({
-      message: "Service Modell kann nicht angelegt werden",
+      message: "cannotcreateservicemodel",
       param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
-      message: "Servicemodell wird angelegt",
+      message: "creatingservicemodel",
       param: { },
       icon: null,
       iconClass: null,
@@ -300,7 +300,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.showServiceModelAdder = false;
       this.serviceModelFg.reset();
       this.messageEmitter.emit({
-        message: "Servicemodell wurde angelegt",
+        message: "servicemodelcreated",
         param: { },
         icon: "done",
         iconClass: "success",
@@ -313,14 +313,14 @@ export class ServiceEditViewInnerComponent implements OnInit {
    */
   addProvider() {
     if(this.providerFg.invalid) this.messageEmitter.emit({
-      message: "Anbieter kann nicht angelegt werden",
+      message: "cannotcreateprovider",
       param: { },
       icon: "clear",
       iconClass: "danger",
       showSpinner: false
     });
     this.messageEmitter.emit({
-      message: "Anbieter wird angelegt",
+      message: "creatingprovider",
       param: { },
       icon: null,
       iconClass: null,
@@ -336,7 +336,7 @@ export class ServiceEditViewInnerComponent implements OnInit {
       this.showProviderAdder = false;
       this.providerFg.reset();
       this.messageEmitter.emit({
-        message: "Anbieter wurde angelegt",
+        message: "providercreated",
         param: { },
         icon: "done",
         iconClass: "success",
