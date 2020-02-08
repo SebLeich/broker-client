@@ -162,9 +162,22 @@ export class SearchvectorEditviewComponent implements OnInit {
     this._storageTypes = stty;
   }
   /**
+   * the internal use cases list
+   */
+  private _useCases: UseCase[];
+  /**
    * the input contains all use cases
    */
-  @Input() useCases: UseCase[];
+  @Input() set useCases(useCases: UseCase[]){
+    this._useCases = useCases;
+    this.validateSteps();
+  }
+  /**
+   * the method returns all use cases
+   */
+  get useCases(): UseCase[]{
+    return this._useCases;
+  }
   /**
    * the input value returns the internal data location list
    */
@@ -454,7 +467,6 @@ export class SearchvectorEditviewComponent implements OnInit {
    * the method validates the current steps
    */
   validateSteps(){
-    
     this.steps = [];
     var cSFg = this._formBuilder.group({
       1: [this.cloudServiceSelectionValue, Validators.requiredTrue],
