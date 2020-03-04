@@ -33,7 +33,7 @@
 
                     <ng-container matColumnDef="title">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
-                        <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.titleDE }} </td>
                     </ng-container>
             
                     <ng-container matColumnDef="creation">
@@ -50,12 +50,12 @@
             </mat-tab>
             <mat-tab label="Anlegen und Bearbeiten">
                 <mat-form-field class="width">
-                    <input matInput placeholder="Titel" [(ngModel)]="currentUseCase.title" style="font-size: 1.5rem;">
+                    <input matInput placeholder="Titel" [(ngModel)]="currentUseCase.titleDE" style="font-size: 1.5rem;">
                     <mat-icon matSuffix style="color: #114887;">edit</mat-icon>
                 </mat-form-field>
-                <div style="height: 500px; padding: 0px 20px;">
+                <div style="height: 500px; padding: 0px 40px 100px 40px;">
                     <quill-editor 
-                        [(ngModel)]="currentUseCase.desc"
+                        [(ngModel)]="currentUseCase.internalDescription"
                         placeholder="Text eingeben"
                         [modules]="quillConfig"
                     ></quill-editor>
