@@ -1,4 +1,8 @@
-# BrokerAngular
+# Cloud Broker
+
+The reposiotry provides the Angular/TS web client of the Cloud Broker.
+
+![Preview of the Cloud Broker](src/assets/preview.png)
 
 ## General angular tasks
 
